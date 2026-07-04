@@ -1,0 +1,38 @@
+schema_id: SFA-SCHEMA-SKILL-001
+schema_kind: schema_like_yaml_spec
+status: draft
+purpose: Define required metadata for governed sys-for-ai skill adapters.
+required_fields:
+  id:
+    type: string
+  name:
+    type: string
+  family:
+    type: string
+  source_repo:
+    type: string
+  source_path:
+    type: string
+  local_path:
+    type: string
+  adaptation_status:
+    type: enum
+    values:
+      - adapter_shell
+      - imported_unadapted
+      - adapted
+      - deprecated
+  required_files:
+    type: list[string]
+    default:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+recommended_fields:
+  validators:
+    type: list[string]
+  authority_boundaries:
+    type: list[string]
+  known_failure_modes:
+    type: list[string]

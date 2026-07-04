@@ -1,0 +1,34 @@
+phase: 1
+packet_id: SFA-P1-TASK-PACKET-001
+status: proposed
+created: 2026-07-04
+objective: Apply the Phase 1 initialization overlay and validate the Python/YAML/memory/skill scaffold.
+source_prds:
+  - PRDs/sys-for-ai_phase-0_product_system_design_prd.md
+  - PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md
+agentjobs:
+  - agentjob_id: AJ-P1-BOOTSTRAP-001
+    role: implementation_initialization_agent
+    objective: Copy overlay files into the repository, initialize the Python virtual environment, install dependencies, and run validation.
+    allowed_reads:
+      - PRDs/**
+      - implementation_plans/**
+      - sys-for-ai/**
+    allowed_writes:
+      - sys-for-ai/**
+      - implementation_plans/**
+    forbidden_actions:
+      - Delete repository root license, notice, or existing PRD files.
+      - Replace repository root .gitignore without review.
+      - Treat generated derivative docs as canonical sources.
+    validators:
+      - cd sys-for-ai && make doctor
+      - cd sys-for-ai && make validate
+    expected_outputs:
+      - Validation receipt.
+      - Updated registry entries if new canonical sources are promoted.
+      - Notes on any files skipped due to overwrite risk.
+stop_conditions:
+  - Existing files would be overwritten and no maintainer approval is present.
+  - Required dependency installation fails.
+  - Validator failure cannot be resolved locally.

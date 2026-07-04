@@ -1,0 +1,149 @@
+manifest_id: SFA-CORE-SKILL-MANIFEST-001
+status: draft
+source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+local_root: skills/core
+policy: All listed skills are core requirements for the project being developed; Phase 1 includes adapter shells and provenance records.
+skills:
+  - id: codex-usage-metrics
+    name: Codex Usage Metrics
+    family: runtime_session_accounting
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/codex-usage-metrics
+    local_path: core/codex-usage-metrics
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Capture Codex context, token, and rate-limit metrics into a refreshed local receipt without exporting conversation content."
+  - id: conversation-to-prd
+    name: Conversation to PRD
+    family: requirements_production
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/conversation-to-prd
+    local_path: core/conversation-to-prd
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Synthesize conversation context and repository evidence into a local product requirements document when enough context already exists."
+  - id: decision-grilling
+    name: Decision Grilling
+    family: decision_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/decision-grilling
+    local_path: core/decision-grilling
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Interview one decision at a time to stress-test a plan or design until decisions are explicit."
+  - id: decision-grilling-context-45
+    name: Decision Grilling Context 45
+    family: decision_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/decision-grilling-context-45
+    local_path: core/decision-grilling-context-45
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Long-session decision grilling that checkpoints resumable context when Codex context usage reaches the defined threshold."
+  - id: domain-grilling-with-docs
+    name: Domain Grilling With Docs
+    family: domain_documentation_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/domain-grilling-with-docs
+    local_path: core/domain-grilling-with-docs
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Stress-test a plan against project language and update glossary, ADR, or decision documentation as decisions settle."
+  - id: domain-grilling-with-docs-context-45
+    name: Domain Grilling With Docs Context 45
+    family: domain_documentation_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/domain-grilling-with-docs-context-45
+    local_path: core/domain-grilling-with-docs-context-45
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Long-session documentation-aware grilling with resumable checkpoint behavior for extended discovery."
+  - id: mermaid-diagrams
+    name: Mermaid Diagrams
+    family: technical_communication
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/mermaid-diagrams
+    local_path: core/mermaid-diagrams
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Create, review, render, and validate source-controlled Mermaid diagrams with explicit visual grammar."
+  - id: plantuml-diagrams
+    name: PlantUML Diagrams
+    family: technical_communication
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/plantuml-diagrams
+    local_path: core/plantuml-diagrams
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Generate, review, repair, render, and validate source-grounded PlantUML diagrams with portable include and verification guidance."
+  - id: prd-to-implementation-plan
+    name: PRD to Implementation Plan
+    family: implementation_planning
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/prd-to-implementation-plan
+    local_path: core/prd-to-implementation-plan
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Convert PRDs, specs, issues, or feature briefs into implementation plans and bounded task packets."
+  - id: skill-import-generalizer
+    name: Skill Import Generalizer
+    family: skill_library_maintenance
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: .codex/skills/skill-import-generalizer
+    local_path: core/skill-import-generalizer
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Convert project-specific skills into reusable templates and maintain import/adaptation boundaries."
+  - id: technical-writing-quality-gate
+    name: Technical Writing Quality Gate
+    family: technical_writing_verification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/technical-writing-quality-gate
+    local_path: core/technical-writing-quality-gate
+    adaptation_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Review claim-bearing technical prose for source grounding, concrete mechanisms, warning patterns, and pass/repair/block outcomes."

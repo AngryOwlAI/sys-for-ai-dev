@@ -4,7 +4,19 @@ This repository is the development workspace for `sys-for-ai`.
 
 The project being developed lives in [`sys-for-ai/`](sys-for-ai/).
 
-The current product-definition source is [`PRDs/sys-for-ai_phase-0_prd.md`](PRDs/sys-for-ai_phase-0_prd.md).
+The current product-definition sources are:
+
+- [`PRDs/sys-for-ai_phase-0_product_system_design_prd.md`](PRDs/sys-for-ai_phase-0_product_system_design_prd.md)
+- [`PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md`](PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md)
+
+The earlier Phase 0 draft remains available at
+[`PRDs/sys-for-ai_phase-0_prd.md`](PRDs/sys-for-ai_phase-0_prd.md) as a
+preserved baseline.
+
+Phase 1 implementation planning lives in
+[`implementation_plans/`](implementation_plans/). The executable reference
+scaffold, validators, registries, skill adapters, and documentation policies
+live under [`sys-for-ai/`](sys-for-ai/).
 
 ## License
 

@@ -1,0 +1,9 @@
+# Placeholder target-system Compose file.
+# Use only when a generated target agentic system needs multiple services.
+
+services:
+  target-system:
+    build: .
+    volumes:
+      - .:/app
+    command: python -m target_system
