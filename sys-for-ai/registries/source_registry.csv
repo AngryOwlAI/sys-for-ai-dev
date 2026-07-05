@@ -1,3 +1,3 @@
 source_id,path,source_type,authority_status,owner,last_reviewed,notes
-SRC-PRD-P0,PRDs/sys-for-ai_phase-0_product_system_design_prd.md,prd,canonical_draft,product_system_design,2026-07-04,Phase 0 product and system-design baseline.
+SRC-PRD-P0,PRDs/sys-for-ai_phase-0_product_system_design_prd.md,prd,canonical,product_system_design,2026-07-05,Canonical Phase 0 product and system-design baseline.
 SRC-PRD-P1,PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md,prd,canonical_draft,implementation_initialization,2026-07-04,Phase 1 initialization baseline.

@@ -1,6 +1,8 @@
 # sys-for-ai Phase 0 Initialization PRD
 
-**Document status:** Draft baseline  
+> **Superseded reference:** This file is retained for historical traceability only. The authoritative Phase 0 PRD is `PRDs/sys-for-ai_phase-0_product_system_design_prd.md`, promoted on 2026-07-05. When this file differs from the canonical PRD, the canonical PRD controls.
+
+**Document status:** Superseded historical reference
 **Product name:** `sys-for-ai`  
 **Phase:** Phase 0: Product definition and system-design baseline  
 **Next planned artifact:** Phase 1: Implementation Initialization, to be generated later in its own file  
@@ -1120,4 +1122,3 @@ Expected Phase 1 starting concerns include:
 - Test and verification harness initialization.
 - Documentation and change-control setup.
 - Initial task plan for Codex-like implementation agents.
-

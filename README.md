@@ -11,7 +11,7 @@ The current product-definition sources are:
 
 The earlier Phase 0 draft remains available at
 [`PRDs/sys-for-ai_phase-0_prd.md`](PRDs/sys-for-ai_phase-0_prd.md) as a
-preserved baseline.
+superseded historical reference.
 
 Phase 1 implementation planning lives in
 [`implementation_plans/`](implementation_plans/). The executable reference
