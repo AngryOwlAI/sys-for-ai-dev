@@ -43,8 +43,10 @@ skills:
       - AGENTS.md
       - examples/portable-example.md
       - scripts/collect_usage_metrics.py
+      - scripts/archive_temp_prd.py
     scripts:
       - scripts/collect_usage_metrics.py
+      - scripts/archive_temp_prd.py
     description: "Capture Codex context, token, and rate-limit metrics into a refreshed local receipt without exporting conversation content."
   - id: system-definition-interview
     name: System Definition Interview

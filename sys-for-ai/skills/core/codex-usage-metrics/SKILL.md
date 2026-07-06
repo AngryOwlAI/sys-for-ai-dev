@@ -27,11 +27,13 @@ Use it when a long-session adapter needs to know whether current Codex context s
 - Optional session id via `--session-id`.
 - Optional Codex home directory via `--codex-home`.
 - Optional receipt output path via `--output`.
+- Optional context-45 skill directory via `--skill-dir` for the archive helper.
 
 ## Outputs
 
 - A deterministic text receipt such as `usage-metrics.txt`.
 - Context window, latest request context usage, estimated context left, rate-limit summary, and token totals when present in local Codex session events.
+- A confirmed prior context-45 checkpoint archive such as `archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
 - Validation evidence from `--help` or the local `validate-metrics` command.
 
 ## Procedure
@@ -48,7 +50,17 @@ Use it when a long-session adapter needs to know whether current Codex context s
 4. Use the latest local session only when no more specific session selector is authorized.
 5. Read only the metrics receipt needed by the calling adapter.
 6. If the script fails, returns no context section, or cannot identify context left, the calling context-45 adapter must fail closed by writing `temp_prd.md` and stopping.
-7. Run validation before treating the metrics path as operational.
+7. For context-45 stale checkpoint checks, use the local archive helper:
+
+   ```bash
+   .venv/bin/python skills/core/codex-usage-metrics/scripts/archive_temp_prd.py \
+     --check --skill-dir skills/core/system-definition-interview-context-45
+   ```
+
+   Run the same helper with `--confirm-archive` only after explicit user
+   confirmation. The archive path format is
+   `archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
+8. Run validation before treating the metrics or archive-helper paths as operational.
 
 ## Local authority boundaries
 
@@ -67,6 +79,7 @@ Run:
 cd sys-for-ai
 make validate-metrics
 .venv/bin/python skills/core/codex-usage-metrics/scripts/collect_usage_metrics.py --help
+.venv/bin/python skills/core/codex-usage-metrics/scripts/archive_temp_prd.py --help
 ```
 
 ## Known failure modes
@@ -74,6 +87,7 @@ make validate-metrics
 - Using the skill without an authorized AgentJob.
 - Treating Codex app session metrics as OpenAI API billing or ChatGPT usage data.
 - Continuing a context-45 workflow when metrics cannot be collected.
+- Archiving or overwriting a context-45 `temp_prd.md` without explicit user confirmation.
 - Including transcript content or sensitive local paths in a shared receipt.
 - Marking the adapter as fully adapted before local review.
 

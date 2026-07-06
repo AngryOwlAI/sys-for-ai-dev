@@ -55,6 +55,7 @@ Do not use this adapter for short clarifications that do not need continuation p
 - `control_records/system_definition/requirements-discovery-record.md`, unless chat-only output is authorized.
 - `skills/core/system-definition-interview-context-45/usage-metrics.txt` when metrics can be collected.
 - `skills/core/system-definition-interview-context-45/temp_prd.md` only when context threshold is reached, metrics are unavailable or unknown, or the user explicitly requests a handoff.
+- `skills/core/system-definition-interview-context-45/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md` when the user confirms an existing checkpoint is from a prior context-45 run and should be archived before a fresh session.
 - Resume instruction:
 
 ```text
@@ -64,29 +65,44 @@ Do not use this adapter for short clarifications that do not need continuation p
 ## Procedure
 
 1. Confirm the AgentJob authorizes this skill.
-2. If invoked with `temp_prd`, read `skills/core/system-definition-interview-context-45/temp_prd.md` first.
-3. If `temp_prd.md` is missing, state that no continuation file was found and proceed from the current prompt only if authorized.
-4. Initialize or refresh working context: objective, situation classification, System Intent Profile, stakeholders, boundary, as-is state, to-be state, operational scenarios, candidate requirements, quality attributes, architecture drivers, interfaces, V&V seeds, evidence, assumptions, risks, open questions, last exchange, and recommended next branch.
-5. Follow the local `system-definition-interview` procedure.
-6. Ask one focused question at a time unless a compact factual batch is safe.
-7. After each user answer, record the answer before checking metrics. Do not write that routine update to `temp_prd.md` while context is still safe.
-8. Run the local context metrics checkpoint:
+2. When invoked with `temp_prd`, skip the archive preflight and read `skills/core/system-definition-interview-context-45/temp_prd.md` first.
+3. If `temp_prd.md` is missing during resume, state that no continuation file was found and proceed from the current prompt only if authorized.
+4. On normal invocation without `temp_prd`, run the archive preflight:
+
+```bash
+python3 skills/core/codex-usage-metrics/scripts/archive_temp_prd.py \
+  --check --skill-dir skills/core/system-definition-interview-context-45
+```
+
+If an existing `temp_prd.md` is found, ask whether it is from a previous `system-definition-interview-context-45` run and should be archived before starting a fresh session. If the user confirms, run:
+
+```bash
+python3 skills/core/codex-usage-metrics/scripts/archive_temp_prd.py \
+  --confirm-archive --skill-dir skills/core/system-definition-interview-context-45
+```
+
+The archive path format is `skills/core/system-definition-interview-context-45/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`. If the user does not confirm or does not answer, stop; do not overwrite or archive the existing checkpoint.
+5. Initialize or refresh working context: objective, situation classification, System Intent Profile, stakeholders, boundary, as-is state, to-be state, operational scenarios, candidate requirements, quality attributes, architecture drivers, interfaces, V&V seeds, evidence, assumptions, risks, open questions, last exchange, and recommended next branch.
+6. Follow the local `system-definition-interview` procedure.
+7. Ask one focused question at a time unless a compact factual batch is safe.
+8. After each user answer, record the answer before checking metrics. Do not write that routine update to `temp_prd.md` while context is still safe.
+9. Run the local context metrics checkpoint:
 
 ```bash
 python3 skills/core/codex-usage-metrics/scripts/collect_usage_metrics.py \
   --output skills/core/system-definition-interview-context-45/usage-metrics.txt
 ```
 
-9. Read `usage-metrics.txt` and inspect the context section.
-10. Continue only when context left is known and greater than 55 percent, unless the user explicitly requested a handoff.
-11. If context left is 55 percent or lower, context used is 45 percent or higher, metrics are unavailable, context left is unknown, or the user explicitly requests a handoff, write `temp_prd.md` and stop.
-12. Tell the user or downstream agent:
+10. Read `usage-metrics.txt` and inspect the context section.
+11. Continue only when context left is known and greater than 55 percent, unless the user explicitly requested a handoff.
+12. If context left is 55 percent or lower, context used is 45 percent or higher, metrics are unavailable, context left is unknown, or the user explicitly requests a handoff, write `temp_prd.md` and stop.
+13. Tell the user or downstream agent:
 
 ```text
 The discussion has been saved to temp_prd.md. Start a new discussion with /system-definition-interview-context-45 temp_prd so the system-definition interview can continue with the saved context.
 ```
 
-13. Route downstream only after the discovery state is coherent enough.
+14. Route downstream only after the discovery state is coherent enough.
 
 ## Fail-closed behavior
 
@@ -160,6 +176,7 @@ If discovery-record validator exists:
 - Checking metrics before the user answer is recorded.
 - Creating, overwriting, or refreshing `temp_prd.md` after each safe-context question.
 - Overwriting `temp_prd.md` without integrating prior continuation context.
+- Archiving or overwriting an existing `temp_prd.md` without explicit user confirmation during a fresh invocation.
 - Treating `temp_prd.md` as a final PRD.
 - Creating final formal systems documents before intent and boundary are stable.
 - Treating candidate requirements as approved.

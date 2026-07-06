@@ -113,6 +113,11 @@ validation:
       mode: required
       dry_runnable: true
       notes: Confirms the bundled standard-library script entry point is runnable.
+    - command: python3 .agents/skills/codex-usage-metrics/scripts/archive_temp_prd.py --help
+      validator_class: dependency_validation
+      mode: required
+      dry_runnable: true
+      notes: Confirms the context-45 temp PRD archive helper entry point is runnable.
   validator_classes:
     - schema_validation
     - path_validation

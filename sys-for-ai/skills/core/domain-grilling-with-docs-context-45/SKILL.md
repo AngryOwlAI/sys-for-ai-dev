@@ -48,27 +48,43 @@ Use this skill when a `sys-for-ai` AgentJob requires the `domain_documentation_c
 - Handoff or completion evidence when the AgentJob requires it.
 - `skills/core/domain-grilling-with-docs-context-45/usage-metrics.txt` when metrics can be collected.
 - `skills/core/domain-grilling-with-docs-context-45/temp_prd.md` only when context used is at least 45 percent, context left is at most 55 percent, metrics are unavailable or unknown, or the user explicitly requests a handoff.
+- `skills/core/domain-grilling-with-docs-context-45/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md` when the user confirms an existing checkpoint is from a prior context-45 run and should be archived before a fresh session.
 - Resume instruction: `/domain-grilling-with-docs-context-45 temp_prd`.
 
 ## Procedure
 
 1. Confirm the AgentJob authorizes this skill.
-2. If invoked with `temp_prd`, read `skills/core/domain-grilling-with-docs-context-45/temp_prd.md` first.
-3. Read canonical sources before generated derivatives.
-4. Apply the domain-grilling-with-docs procedure: identify the highest-leverage unresolved terminology, documentation, or ADR-worthy decision; inspect repository evidence when it can answer the question; ask one focused question; and include a recommended answer when useful.
-5. After each user answer, record the answer in working context. Do not write that routine update to `temp_prd.md` while context is still safe.
-6. Update authorized glossary/context artifacts or ADR candidates only when the content is settled enough for that artifact.
-7. Run the local context metrics checkpoint:
+2. When invoked with `temp_prd`, skip the archive preflight and read `skills/core/domain-grilling-with-docs-context-45/temp_prd.md` first.
+3. On normal invocation without `temp_prd`, run the archive preflight:
+
+```bash
+python3 skills/core/codex-usage-metrics/scripts/archive_temp_prd.py \
+  --check --skill-dir skills/core/domain-grilling-with-docs-context-45
+```
+
+If an existing `temp_prd.md` is found, ask whether it is from a previous `domain-grilling-with-docs-context-45` run and should be archived before starting a fresh session. If the user confirms, run:
+
+```bash
+python3 skills/core/codex-usage-metrics/scripts/archive_temp_prd.py \
+  --confirm-archive --skill-dir skills/core/domain-grilling-with-docs-context-45
+```
+
+The archive path format is `skills/core/domain-grilling-with-docs-context-45/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`. If the user does not confirm or does not answer, stop; do not overwrite or archive the existing checkpoint.
+4. Read canonical sources before generated derivatives.
+5. Apply the domain-grilling-with-docs procedure: identify the highest-leverage unresolved terminology, documentation, or ADR-worthy decision; inspect repository evidence when it can answer the question; ask one focused question; and include a recommended answer when useful.
+6. After each user answer, record the answer in working context. Do not write that routine update to `temp_prd.md` while context is still safe.
+7. Update authorized glossary/context artifacts or ADR candidates only when the content is settled enough for that artifact.
+8. Run the local context metrics checkpoint:
 
 ```bash
 python3 skills/core/codex-usage-metrics/scripts/collect_usage_metrics.py \
   --output skills/core/domain-grilling-with-docs-context-45/usage-metrics.txt
 ```
 
-8. Continue only when context left is known and greater than 55 percent.
-9. If context left is 55 percent or lower, context used is 45 percent or higher, metrics are unavailable, context left is unknown, or the user explicitly requests a handoff, write `temp_prd.md` and stop with the resume instruction.
-10. Preserve source provenance and document assumptions.
-11. Run or name validators before completion.
+9. Continue only when context left is known and greater than 55 percent.
+10. If context left is 55 percent or lower, context used is 45 percent or higher, metrics are unavailable, context left is unknown, or the user explicitly requests a handoff, write `temp_prd.md` and stop with the resume instruction.
+11. Preserve source provenance and document assumptions.
+12. Run or name validators before completion.
 
 ## `temp_prd.md` required sections
 
@@ -121,3 +137,4 @@ cd sys-for-ai && make validate-skills
 - Marking the adapter as fully adapted before local review.
 - Creating, overwriting, or refreshing `temp_prd.md` after each safe-context question.
 - Continuing the loop when metrics are unavailable or context left is unknown.
+- Archiving or overwriting an existing `temp_prd.md` without explicit user confirmation during a fresh invocation.

@@ -50,11 +50,13 @@ workflow needs a saved point-in-time usage receipt before continuing.
 - `README.md`: human-facing summary.
 - `AGENTS.md`: maintenance and adaptation rules.
 - `scripts/collect_usage_metrics.py`: metrics collector.
+- `scripts/archive_temp_prd.py`: context-45 checkpoint archive helper.
 
 ## Basic Usage
 
 ```sh
 python3 scripts/collect_usage_metrics.py --session-file <SESSION_FILE>
+python3 scripts/archive_temp_prd.py --check --skill-dir <CONTEXT45_SKILL_DIR>
 ```
 
 If no session file is supplied, the script searches `~/.codex/sessions` and uses
@@ -65,6 +67,14 @@ the newest rollout JSONL file it can find.
 The collector deletes the previous output file before writing the new receipt.
 When the output filename stays `usage-metrics.txt`, this keeps one current
 metrics file in the skill folder.
+
+## Context-45 Archive Helper
+
+`archive_temp_prd.py` is a support helper for context-45 skills. `--check`
+reports whether a skill folder has `temp_prd.md` without moving it.
+`--confirm-archive` moves a confirmed prior checkpoint to
+`archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`. The helper rejects
+symlinks, non-files, and archive target collisions.
 
 ## Adaptation Summary
 

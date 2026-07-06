@@ -61,12 +61,16 @@ private session text.
 - Optional `<CODEX_HOME>`: Codex state directory. Defaults to `~/.codex`.
 - Optional `<OUTPUT_FILE>`: metrics receipt path. Defaults to
   `<TARGET_SKILL_PATH>/usage-metrics.txt`.
+- Optional `<CONTEXT45_SKILL_DIR>`: context-45 skill folder checked by the
+  archive helper before a fresh session.
 
 ## Outputs
 
 - A refreshed text file at `<OUTPUT_FILE>`.
 - The default output is `usage-metrics.txt` inside this skill folder.
 - The previous output file is deleted before the new file is created.
+- For context-45 callers, a confirmed prior checkpoint archive at
+  `<CONTEXT45_SKILL_DIR>/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
 
 ## Procedure
 
@@ -105,12 +109,19 @@ Before writing the metrics file, the script removes the previous file at the
 same path if one exists. This keeps the skill folder to one current receipt
 rather than a pile of stale snapshots.
 
+The archive helper checks or archives a context-45 skill folder's `temp_prd.md`
+without reading conversation transcript content. `--check` is non-mutating.
+`--confirm-archive` moves a regular file to
+`archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`. It rejects symlinks,
+non-files, and archive target collisions.
+
 ## Validation
 
 - Run:
 
   ```sh
   python3 scripts/collect_usage_metrics.py --help
+  python3 scripts/archive_temp_prd.py --help
   ```
 
 - Run against a known rollout file and confirm:
@@ -155,5 +166,7 @@ When adapting this skill to a specific project:
 - Add project-specific validation commands.
 - Preserve the rule that stale metrics output is removed before a new receipt is
   created.
+- Preserve the rule that context-45 `temp_prd.md` archives require explicit
+  caller confirmation and never overwrite an existing archive target.
 - Do not expand the script into a session-content exporter.
 - Document any project-specific assumptions introduced during adaptation.

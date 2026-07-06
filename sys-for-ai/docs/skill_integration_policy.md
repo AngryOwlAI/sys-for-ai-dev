@@ -20,6 +20,21 @@ Use the earliest skill that can resolve the present uncertainty. Do not skip to 
 
 Use `*-context-45` variants when the interview or clarification work may cross context limits.
 
+Before starting a fresh context-45 workflow, run the `temp_prd.md` archive
+preflight. If the invocation includes `temp_prd`, skip this preflight and resume
+from the existing checkpoint. If a normal invocation finds an existing
+`temp_prd.md`, ask whether it is from a prior context-45 run and should be
+archived. Archive only after explicit confirmation, using the helper script and
+the path format
+`archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`. If the user does not
+confirm or does not answer, stop before overwriting or archiving.
+
+Example preflight command:
+
+```text
+python3 skills/core/codex-usage-metrics/scripts/archive_temp_prd.py --check --skill-dir skills/core/system-definition-interview-context-45
+```
+
 After every user answer in a context-45 workflow:
 
 1. record the answer,

@@ -75,42 +75,65 @@ chat summary, and refresh only `usage-metrics.txt`.
 - `temp_prd.md` in this skill folder when context used is `>= 45%`, context
   left is `<= 55%`, metrics cannot be collected, context left is unknown, or
   the user explicitly requests a handoff.
+- `archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md` when the user
+  confirms an existing checkpoint is from a prior context-45 run and should be
+  archived before a fresh session.
 - A resume instruction using `/domain-grilling-with-docs-context-45 temp_prd`.
 
 ## Procedure
 
-1. If invoked with `temp_prd`, read `<TARGET_SKILL_PATH>/temp_prd.md` first.
-   If it is missing, state that no continuation file was found and proceed from
-   the current user prompt.
-2. Initialize or refresh the working context: objective, discussion summary,
+1. When invoked with `temp_prd`, skip the archive preflight and read
+   `<TARGET_SKILL_PATH>/temp_prd.md` first. If it is missing, state that no
+   continuation file was found and proceed from the current user prompt.
+2. On normal invocation without `temp_prd`, run the archive preflight:
+
+   ```sh
+   python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/archive_temp_prd.py \
+     --check --skill-dir <TARGET_SKILL_PATH>
+   ```
+
+   If an existing `temp_prd.md` is found, ask whether it is from a previous
+   `domain-grilling-with-docs-context-45` run and should be archived before
+   starting a fresh session. If the user confirms, run:
+
+   ```sh
+   python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/archive_temp_prd.py \
+     --confirm-archive --skill-dir <TARGET_SKILL_PATH>
+   ```
+
+   The archive path format is
+   `<TARGET_SKILL_PATH>/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
+   If the user does not confirm or does not answer, stop; do not overwrite or
+   archive the existing checkpoint.
+3. Initialize or refresh the working context: objective, discussion summary,
    gathered requirements, confirmed decisions, constraints, risks, unresolved
    questions, terminology decisions, glossary/context updates, ADR candidates,
    documentation evidence, the last exchange, and the next recommended branch.
-3. Discover whether the repository uses one context file or a context map with multiple bounded contexts.
-4. Use `templates/context-format.md` as the default glossary format unless the
+4. Discover whether the repository uses one context file or a context map with multiple bounded contexts.
+5. Use `templates/context-format.md` as the default glossary format unless the
    target project has already defined a local format.
-5. Use `templates/adr-format.md` as the default ADR format unless the target
+6. Use `templates/adr-format.md` as the default ADR format unless the target
    project has already defined a local format.
-6. Create glossary or ADR files lazily only when there is settled content to record.
-7. When the user uses a conflicting term, surface the conflict immediately.
-8. Use concrete scenarios and code inspection to test boundaries between concepts.
-9. Ask exactly one focused question and include a recommended answer.
-10. Wait for the user before moving to the next branch.
-11. After the user answers, record the answer in the working context. Do not
+7. Create glossary or ADR files lazily only when there is settled content to record.
+8. When the user uses a conflicting term, surface the conflict immediately.
+9. Use concrete scenarios and code inspection to test boundaries between concepts.
+10. Ask exactly one focused question and include a recommended answer.
+11. Wait for the user before moving to the next branch.
+12. After the user answers, record the answer in the working context. Do not
     write that routine update to `temp_prd.md` while context is still safe.
-12. Update <CONTEXT_FILE> inline when a term is resolved, keeping it free of implementation details.
-13. Offer an ADR only when the decision is hard to reverse, surprising without context, and based on a real tradeoff.
-14. Run the context metrics checkpoint:
+13. Update <CONTEXT_FILE> inline when a term is resolved, keeping it free of implementation details.
+14. Offer an ADR only when the decision is hard to reverse, surprising without context, and based on a real tradeoff.
+15. Run the context metrics checkpoint:
 
    ```sh
    python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/collect_usage_metrics.py \
      --output <TARGET_SKILL_PATH>/usage-metrics.txt
    ```
 
-15. Read `<TARGET_SKILL_PATH>/usage-metrics.txt` and inspect the `Context`
+16. Read `<TARGET_SKILL_PATH>/usage-metrics.txt` and inspect the `Context`
     section. Continue only when the context-left value is known and greater than
     `55%`, unless the user explicitly requested a handoff.
-16. If context left is `<= 55%`, context used is therefore `>= 45%`, or the user
+17. If context left is `<= 55%`, context used is therefore `>= 45%`, or the user
     explicitly requested a handoff, write `<TARGET_SKILL_PATH>/temp_prd.md`,
     overwriting any previous file only after integrating still-relevant prior
     content, then tell the user:
@@ -121,11 +144,11 @@ chat summary, and refresh only `usage-metrics.txt`.
     continue with the saved context.
     ```
 
-17. If metrics cannot be collected, the metrics receipt is missing, or the
+18. If metrics cannot be collected, the metrics receipt is missing, or the
     context-left value is unknown, fail closed: write the best available
     `temp_prd.md`, explain that metrics were unavailable, and give the same
     resume instruction.
-18. When enough information has been gathered, stop the grilling loop and
+19. When enough information has been gathered, stop the grilling loop and
     recommend using `/conversation-to-prd` to create the final PRD. Do not create
     the final PRD automatically unless the user asks.
 
@@ -190,6 +213,9 @@ content cannot be safely merged.
 - Code contradictions are reported with evidence.
 - Questions remain one at a time.
 - The metrics checkpoint runs after each user answer.
+- On normal invocation without `temp_prd`, the archive preflight runs before
+  any fresh-session work.
+- Resume invocation with `temp_prd` skips the archive preflight.
 - `temp_prd.md` is written only at the threshold, on unknown/unavailable
   metrics, or on explicit user handoff request.
 - `temp_prd.md` contains the last question and the user's answer.
@@ -206,6 +232,8 @@ content cannot be safely merged.
   question.
 - Continuing the loop when context metrics are unavailable.
 - Overwriting `temp_prd.md` without integrating the prior resumable context.
+- Archiving or overwriting an existing `temp_prd.md` without explicit user
+  confirmation during a fresh invocation.
 
 ## Provenance
 

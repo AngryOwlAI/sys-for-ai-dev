@@ -14,3 +14,11 @@ __pycache__/
 .local/
 
 temp_handoff/
+
+# Generated context-45 checkpoints and metrics receipts
+.agents/skills/*-context-45/temp_prd.md
+.agents/skills/*-context-45/usage-metrics.txt
+.agents/skills/*-context-45/archived_temp_prd/
+sys-for-ai/skills/core/*-context-45/temp_prd.md
+sys-for-ai/skills/core/*-context-45/usage-metrics.txt
+sys-for-ai/skills/core/*-context-45/archived_temp_prd/

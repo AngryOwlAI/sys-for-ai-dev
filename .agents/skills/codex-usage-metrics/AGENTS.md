@@ -32,9 +32,11 @@ content.
 - Preserve the scope boundary: this skill is for Codex app rollout/session
   metrics, not API billing, ChatGPT usage reporting, or generic telemetry.
 - Keep the collector stdlib-only.
+- Keep the temp PRD archive helper stdlib-only.
 - Keep `usage-metrics.txt` as a deterministic current receipt, not a history
   directory.
 - Delete the previous metrics file before writing a new one.
+- Keep context-45 archives confirmation-gated and collision-safe.
 - Do not add code that dumps chat messages, reasoning content, secrets,
   credentials, or full rollout records.
 - Do not hard-code one user's absolute paths into the reusable instructions.
@@ -51,6 +53,7 @@ Before finalizing changes, verify that:
 
 - `SKILL.md`, `README.md`, and `AGENTS.md` exist.
 - `scripts/collect_usage_metrics.py --help` runs successfully.
+- `scripts/archive_temp_prd.py --help` runs successfully.
 - A known rollout file produces a refreshed metrics text file.
 - The output includes usage metrics and excludes conversation content.
 

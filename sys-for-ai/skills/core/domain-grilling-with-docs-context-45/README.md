@@ -20,6 +20,19 @@ on explicit user request.
 Do not create, overwrite, or refresh `temp_prd.md` after each question when
 context is still safe.
 
+## Archive preflight
+
+On normal invocation without `temp_prd`, run
+`skills/core/codex-usage-metrics/scripts/archive_temp_prd.py --check` against
+this skill folder before starting fresh work. If an existing `temp_prd.md` is
+found, ask whether it is from a prior `domain-grilling-with-docs-context-45` run
+and should be archived. Only after explicit confirmation, run the same helper
+with `--confirm-archive`.
+
+Resume invocation with `temp_prd` skips this archive preflight and reads the
+existing checkpoint. Confirmed archives use
+`archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
+
 ## Metrics policy
 
 Use `skills/core/codex-usage-metrics/scripts/collect_usage_metrics.py` and write
@@ -32,6 +45,6 @@ left is unknown or at most 55 percent, write
 
 1. Compare this adapter shell with the current upstream template.
 2. Replace generic placeholders with local `sys-for-ai` paths, validators, and authority boundaries.
-3. Keep the threshold-only `temp_prd.md` timing rule synchronized with `SKILL.md`.
+3. Keep the threshold-only `temp_prd.md` timing and archive-preflight rules synchronized with `SKILL.md`.
 4. Update `skills/core_skill_manifest.yaml` and `registries/skill_registry.csv`.
 5. Mark status as `adapted` only after review.

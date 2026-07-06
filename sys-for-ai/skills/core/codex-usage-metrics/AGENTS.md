@@ -9,3 +9,4 @@
 - Do not represent these receipts as OpenAI API billing, ChatGPT usage reporting, or generic telemetry.
 - Do not export chat messages, secrets, tool arguments, reasoning content, or full session logs.
 - Preserve context-45 fail-closed behavior when metrics are unavailable or incomplete.
+- Preserve context-45 archive preflight behavior and require explicit confirmation before moving `temp_prd.md`.

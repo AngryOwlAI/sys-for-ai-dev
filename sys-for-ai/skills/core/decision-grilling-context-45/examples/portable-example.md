@@ -8,12 +8,14 @@ A `sys-for-ai` implementation agent receives an AgentJob requiring `decision_cla
 
 1. Read the AgentJob objective and allowed files.
 2. Read canonical sources before generated notes.
-3. Ask one focused decision question and record the answer in working context.
-4. Refresh `usage-metrics.txt` after the answer.
-5. Continue when context left is known and greater than 55 percent.
-6. Write `temp_prd.md` only when context used is at least 45 percent, context left is at most 55 percent, metrics are unavailable or unknown, or the user explicitly requests a handoff.
-7. Produce bounded output with provenance notes.
-8. Run the named validator or record why it could not be run.
+3. On normal invocation without `temp_prd`, run `archive_temp_prd.py --check`; if a prior checkpoint exists, ask before archiving it.
+4. When invoked with `temp_prd`, skip the archive preflight and resume from the checkpoint.
+5. Ask one focused decision question and record the answer in working context.
+6. Refresh `usage-metrics.txt` after the answer.
+7. Continue when context left is known and greater than 55 percent.
+8. Write `temp_prd.md` only when context used is at least 45 percent, context left is at most 55 percent, metrics are unavailable or unknown, or the user explicitly requests a handoff.
+9. Produce bounded output with provenance notes.
+10. Run the named validator or record why it could not be run.
 
 ## Example output shape
 
@@ -28,4 +30,5 @@ Validation:
 - <command or reasoning>
 Checkpoint:
 - Do not create, overwrite, or refresh temp_prd.md after each question when context is still safe.
+- Archive confirmed prior checkpoints as archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md.
 ```

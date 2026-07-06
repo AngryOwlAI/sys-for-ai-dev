@@ -51,6 +51,10 @@ class SkillSurfaceTests(unittest.TestCase):
     def test_context_45_temp_prd_is_threshold_only(self) -> None:
         rule = "Do not create, overwrite, or refresh `temp_prd.md` after each question when context is still safe."
         failure = "metrics are unavailable"
+        archive_preflight = "On normal invocation without `temp_prd`, run the archive preflight"
+        resume_bypass = "When invoked with `temp_prd`, skip the archive preflight"
+        archive_path = "archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md"
+        archive_helper = "archive_temp_prd.py"
 
         for skill in [
             "decision-grilling-context-45",
@@ -66,11 +70,17 @@ class SkillSurfaceTests(unittest.TestCase):
                 self.assertIn(rule, normalized, relative)
                 self.assertRegex(text, r"context left is (at most 55 percent|55 percent or lower|`<= 55%`)", relative)
                 self.assertIn(failure, text, relative)
+                self.assertIn(archive_preflight, text, relative)
+                self.assertIn(resume_bypass, text, relative)
+                self.assertIn(archive_path, text, relative)
+                self.assertIn(archive_helper, text, relative)
 
         policy = _read("sys-for-ai/docs/skill_integration_policy.md")
         normalized_policy = " ".join(policy.split())
         self.assertIn(rule, normalized_policy)
         self.assertIn("not the normal per-question state file", policy)
+        self.assertIn(archive_path, policy)
+        self.assertIn(archive_helper, policy)
 
 
 def _read(relative: str) -> str:

@@ -28,6 +28,7 @@ skills:
     python_requirements: null
     scripts:
       - .agents/skills/codex-usage-metrics/scripts/collect_usage_metrics.py
+      - .agents/skills/codex-usage-metrics/scripts/archive_temp_prd.py
     compatibility_shims:
       - .codex/skills/codex-usage-metrics/SKILL.md
     migration_phase: adapted_runtime_active

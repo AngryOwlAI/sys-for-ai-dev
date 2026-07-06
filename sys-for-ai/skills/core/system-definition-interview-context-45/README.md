@@ -20,6 +20,19 @@ on explicit user request.
 Do not create, overwrite, or refresh `temp_prd.md` after each question when
 context is still safe.
 
+## Archive preflight
+
+On normal invocation without `temp_prd`, run
+`skills/core/codex-usage-metrics/scripts/archive_temp_prd.py --check` against
+this skill folder before starting fresh work. If an existing `temp_prd.md` is
+found, ask whether it is from a prior `system-definition-interview-context-45`
+run and should be archived. Only after explicit confirmation, run the same
+helper with `--confirm-archive`.
+
+Resume invocation with `temp_prd` skips this archive preflight and reads the
+existing checkpoint. Confirmed archives use
+`archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
+
 ## Local authority
 
 This adapter is governed by `sys-for-ai` AgentJobs, canonical PRDs, source registries, decision records, and validation commands.

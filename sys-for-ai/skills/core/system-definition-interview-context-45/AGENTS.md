@@ -10,3 +10,5 @@
 - Do not continue long interviews when metrics are unavailable or threshold is reached.
 - Do not treat `temp_prd.md` as canonical authority.
 - Do not create, overwrite, or refresh `temp_prd.md` after each question when context is still safe.
+- Preserve the normal-invocation archive preflight and the `temp_prd` resume bypass.
+- Do not archive or overwrite an existing `temp_prd.md` without explicit user confirmation.

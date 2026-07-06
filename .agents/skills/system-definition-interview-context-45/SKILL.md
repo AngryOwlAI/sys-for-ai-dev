@@ -76,38 +76,61 @@ discovery record is coherent enough.
 - `temp_prd.md` in this skill folder when context used is `>= 45%`, context
   left is `<= 55%`, metrics cannot be collected, context left is unknown, or
   the user explicitly requests a handoff.
+- `archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md` when the user
+  confirms an existing checkpoint is from a prior context-45 run and should be
+  archived before a fresh session.
 - A resume instruction using `/system-definition-interview-context-45 temp_prd`.
 
 ## Procedure
 
-1. If invoked with `temp_prd`, read `<TARGET_SKILL_PATH>/temp_prd.md` first.
-   If it is missing, state that no continuation file was found and proceed from
-   the current user prompt.
-2. Initialize or refresh the working context: objective, situation
+1. When invoked with `temp_prd`, skip the archive preflight and read
+   `<TARGET_SKILL_PATH>/temp_prd.md` first. If it is missing, state that no
+   continuation file was found and proceed from the current user prompt.
+2. On normal invocation without `temp_prd`, run the archive preflight:
+
+   ```sh
+   python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/archive_temp_prd.py \
+     --check --skill-dir <TARGET_SKILL_PATH>
+   ```
+
+   If an existing `temp_prd.md` is found, ask whether it is from a previous
+   `system-definition-interview-context-45` run and should be archived before
+   starting a fresh session. If the user confirms, run:
+
+   ```sh
+   python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/archive_temp_prd.py \
+     --confirm-archive --skill-dir <TARGET_SKILL_PATH>
+   ```
+
+   The archive path format is
+   `<TARGET_SKILL_PATH>/archived_temp_prd/temp_prd_date_yyyy-mm-dd-hh-mm-ss.md`.
+   If the user does not confirm or does not answer, stop; do not overwrite or
+   archive the existing checkpoint.
+3. Initialize or refresh the working context: objective, situation
    classification, System Intent Profile, stakeholders, boundary, as-is state,
    to-be state, scenarios, candidate requirements, quality attributes, drivers,
    interfaces, V&V seeds, evidence, assumptions, risks, open questions, last
    exchange, and recommended next branch.
-3. Follow the `system-definition-interview` elicitation procedure. Inspect
+4. Follow the `system-definition-interview` elicitation procedure. Inspect
    available repository or document evidence before asking questions that local
    evidence can answer.
-4. Ask one focused question at a time when the answer changes scope, boundary,
+5. Ask one focused question at a time when the answer changes scope, boundary,
    requirement meaning, or stakeholder priority. Use compact batches only for
    independent factual data.
-5. After the user answers, record the answer in the working context and update
+6. After the user answers, record the answer in the working context and update
    the discovery record or chat summary. Do not write that routine update to
    `temp_prd.md` while context is still safe.
-6. Run the context metrics checkpoint:
+7. Run the context metrics checkpoint:
 
    ```sh
    python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/collect_usage_metrics.py \
      --output <TARGET_SKILL_PATH>/usage-metrics.txt
    ```
 
-7. Read `<TARGET_SKILL_PATH>/usage-metrics.txt` and inspect the `Context`
+8. Read `<TARGET_SKILL_PATH>/usage-metrics.txt` and inspect the `Context`
    section. Continue only when context left is known and greater than `55%`,
    unless the user explicitly requested a handoff.
-8. If context left is `<= 55%`, context used is therefore `>= 45%`, or the user
+9. If context left is `<= 55%`, context used is therefore `>= 45%`, or the user
    explicitly requested a handoff, write `<TARGET_SKILL_PATH>/temp_prd.md`,
    overwriting any previous file only after integrating still-relevant prior
    content, then tell the user:
@@ -118,10 +141,10 @@ discovery record is coherent enough.
    interview can continue with the saved context.
    ```
 
-9. If metrics cannot be collected, the metrics receipt is missing, or context
+10. If metrics cannot be collected, the metrics receipt is missing, or context
    left is unknown, fail closed: write the best available `temp_prd.md`, explain
    that metrics were unavailable, and give the same resume instruction.
-10. When discovery is coherent enough, stop the interview loop and route
+11. When discovery is coherent enough, stop the interview loop and route
     unresolved material:
     - Use `decision-grilling-context-45` for unresolved design or scope
       decisions.
@@ -198,6 +221,9 @@ the prior content cannot be safely merged.
 
 - The interview establishes system intent before document generation.
 - The metrics checkpoint runs after each user answer.
+- On normal invocation without `temp_prd`, the archive preflight runs before
+  any fresh-session work.
+- Resume invocation with `temp_prd` skips the archive preflight.
 - `temp_prd.md` is written only at the threshold, on unknown/unavailable
   metrics, or on explicit user handoff request.
 - `temp_prd.md` contains the last question and the user's answer.
@@ -214,6 +240,8 @@ the prior content cannot be safely merged.
 - Creating, overwriting, or refreshing `temp_prd.md` after each safe-context
   question.
 - Overwriting `temp_prd.md` without integrating prior resumable context.
+- Archiving or overwriting an existing `temp_prd.md` without explicit user
+  confirmation during a fresh invocation.
 - Turning elicitation into a large questionnaire instead of a focused interview.
 - Generating formal systems documents before intent and boundary are stable.
 - Treating candidate requirements as approved requirements.
