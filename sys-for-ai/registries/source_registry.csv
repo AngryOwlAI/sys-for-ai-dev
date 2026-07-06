@@ -78,3 +78,4 @@ SRC-MEMORY-HASHING,sys-for-ai/sys_for_ai/memory/hashing.py,memory_hashing,contro
 SRC-MEMORY-GRAPH,sys-for-ai/sys_for_ai/memory/graph.py,memory_graph,controlled,source_first_memory,2026-07-06,Object relationship loading helper for memory graph work.
 SRC-MEMORY-PREFLIGHT-SCAFFOLD,sys-for-ai/sys_for_ai/memory/preflight.py,memory_preflight_scaffold,controlled,source_first_memory,2026-07-06,Phase 3 scaffold for Phase 4 memory preflight behavior.
 SRC-MEMORY-RECEIPTS-SCAFFOLD,sys-for-ai/sys_for_ai/memory/receipts.py,memory_receipts_scaffold,controlled,source_first_memory,2026-07-06,Phase 3 scaffold for Phase 4 memory receipt behavior.
+SRC-MEMORY-PREFLIGHT-EXAMPLE,sys-for-ai/control_records/memory_preflights/memory_preflight_receipt.example.yaml,memory_preflight_receipt,controlled,source_first_memory,2026-07-06,Example memory preflight receipt with source and registry inspection evidence.

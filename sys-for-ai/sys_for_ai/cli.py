@@ -14,7 +14,7 @@ from .discovery import validate_discovery_record
 from .derivative_generation import validate_generated_derivatives
 from .memory import bootstrap_registries
 from .memory import hash_path as memory_hash_path
-from .memory import lookup_memory, memory_status, search_memory, update_hashes, validate_hashes
+from .memory import lookup_memory, memory_status, run_memory_preflight, search_memory, update_hashes, validate_hashes
 from .validators import (
     ValidationResult,
     print_result,
@@ -152,6 +152,13 @@ def build_parser() -> argparse.ArgumentParser:
     memory_search_parser.add_argument("query")
     memory_search_parser.add_argument("--limit", type=int, default=10)
     memory_search_parser.add_argument("--json", action="store_true")
+
+    memory_preflight_parser = memory_sub.add_parser("preflight", help="Run memory preflight and optionally write a receipt")
+    memory_preflight_parser.add_argument("--agentjob")
+    memory_preflight_parser.add_argument("--handoff")
+    memory_preflight_parser.add_argument("--query", action="append")
+    memory_preflight_parser.add_argument("--write-receipt", action="store_true")
+    memory_preflight_parser.add_argument("--json", action="store_true")
 
     memory_hash_parser = memory_sub.add_parser("hash-path", help="Hash a path with sha256")
     memory_hash_parser.add_argument("path")
@@ -377,6 +384,14 @@ def _handle_memory_command(args: argparse.Namespace) -> int:
         return _emit_memory_payload(payload, args.json)
     if args.memory_command == "search":
         payload = search_memory(args.query, limit=args.limit)
+        return _emit_memory_payload(payload, args.json)
+    if args.memory_command == "preflight":
+        payload = run_memory_preflight(
+            agentjob_id=args.agentjob,
+            handoff_id=args.handoff,
+            queries=args.query,
+            write_receipt=args.write_receipt,
+        )
         return _emit_memory_payload(payload, args.json)
     if args.memory_command == "hash-path":
         payload = memory_hash_path(args.path)

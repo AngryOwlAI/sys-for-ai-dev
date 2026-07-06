@@ -99,7 +99,7 @@ generate-validation-contracts-catalog:
 validate-generated-derivatives:
 	$(PYTHON) -m sys_for_ai.cli validate-generated-derivatives docs/generated registries/derivative_registry.csv
 
-validate: doctor validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-program-state validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives
+validate: doctor validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-program-state validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry validate-memory-preflight validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives
 
 clean-local:
 	rm -rf .pytest_cache __pycache__ sys_for_ai/__pycache__ .local/receipts

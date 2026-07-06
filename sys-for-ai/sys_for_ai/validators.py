@@ -804,7 +804,41 @@ def validate_completion_receipts(root: str | Path = "control_records/completions
 def validate_memory_preflight_receipts(root: str | Path = "control_records/memory_preflights") -> ValidationResult:
     """Validate memory preflight receipt YAML files under *root*."""
 
-    return _validate_yaml_records_in_root(root, "memory_preflight_receipt.schema.json", "memory_preflight_receipt_id")
+    result = _validate_yaml_records_in_root(root, "memory_preflight_receipt.schema.json", "memory_preflight_receipt_id")
+    if not result.ok:
+        return result
+
+    messages = list(result.messages)
+    paths = _yaml_paths(root)
+    agentjob_ids = _known_agentjob_ids()
+    source_rows = rows_by_id(read_registry_rows("registries/source_registry.csv"), "source_id")
+    for path in paths:
+        data = load_yaml(path)
+        agentjob_id = data.get("agentjob_id")
+        if agentjob_id not in agentjob_ids:
+            messages.append(f"{path}: unknown agentjob_id {agentjob_id!r}")
+        if data.get("usable_for_routing") is True:
+            if not data.get("queries"):
+                messages.append(f"{path}: usable_for_routing=true requires queries")
+            if not data.get("canonical_sources_inspected") and not data.get("registry_rows_inspected"):
+                messages.append(f"{path}: usable_for_routing=true requires source or registry inspection evidence")
+        for item in data.get("canonical_sources_inspected", []):
+            if not isinstance(item, dict):
+                messages.append(f"{path}: canonical_sources_inspected items must be mappings")
+                continue
+            row_id = str(item.get("row_id", ""))
+            if row_id and row_id not in source_rows:
+                messages.append(f"{path}: canonical source row_id {row_id!r} not found in source_registry.csv")
+        for item in data.get("registry_rows_inspected", []):
+            if not isinstance(item, dict):
+                messages.append(f"{path}: registry_rows_inspected items must be mappings")
+                continue
+            registry = str(item.get("registry", ""))
+            row_id = str(item.get("row_id", ""))
+            if registry and row_id and not _registry_row_exists(registry, row_id):
+                messages.append(f"{path}: registry row {registry}:{row_id} not found")
+
+    return ValidationResult(not [msg for msg in messages if "validation passed" not in msg and "no operational" not in msg], messages)
 
 
 def validate_agentjob_registry(path: str | Path = "registries/agentjob_registry.csv") -> ValidationResult:
@@ -845,7 +879,7 @@ def _validate_yaml_records_in_root(root: str | Path, schema_name: str, id_field:
     if not target_root.exists():
         return ValidationResult(False, [f"{target_root}: missing record directory"])
 
-    paths = sorted(target_root.glob("*.yaml"))
+    paths = [target_root] if target_root.is_file() else sorted(target_root.glob("*.yaml"))
     for path in paths:
         data = load_yaml(path)
         messages.extend(_require_mapping(data, path))
@@ -861,6 +895,34 @@ def _validate_yaml_records_in_root(root: str | Path, schema_name: str, id_field:
     if not paths:
         return ValidationResult(True, [f"{target_root}: no operational YAML records to validate yet"])
     return ValidationResult(not messages, messages or [f"{target_root}: operational YAML validation passed"])
+
+
+def _yaml_paths(root: str | Path) -> list[Path]:
+    target = Path(root)
+    if target.is_file():
+        return [target]
+    if not target.exists():
+        return []
+    return sorted(target.glob("*.yaml"))
+
+
+def _known_agentjob_ids() -> set[str]:
+    ids: set[str] = set()
+    if Path("registries/agentjob_registry.csv").exists():
+        ids.update(row.get("agentjob_id", "") for row in read_registry_rows("registries/agentjob_registry.csv"))
+    if Path("registries/control_record_registry.csv").exists():
+        rows = read_registry_rows("registries/control_record_registry.csv")
+        ids.update(row.get("related_agentjob_id", "") for row in rows)
+    return {item for item in ids if item}
+
+
+def _registry_row_exists(registry: str, row_id: str) -> bool:
+    path = Path("registries") / registry
+    if not path.exists():
+        return False
+    header, rows = read_registry(path)
+    id_field = header[0] if header else ""
+    return row_id in rows_by_id(rows, id_field)
 
 
 def validate_validation_contract_registry(path: str | Path) -> ValidationResult:
