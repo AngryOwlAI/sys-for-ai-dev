@@ -67,6 +67,19 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIn("SFA-ACCEPT-020", report)
         self.assertIn("Conclusion: Accepted", report)
 
+    def test_makefile_exposes_sync_check_target(self) -> None:
+        makefile = (PRODUCT_ROOT / "Makefile").read_text(encoding="utf-8")
+
+        self.assertIn("SYNC_REMOTE ?= origin", makefile)
+        self.assertIn("SYNC_BRANCH ?= main", makefile)
+        self.assertIn("SYNC_CHECK_HASHES ?= 0", makefile)
+        self.assertIn("sync-check:", makefile)
+        self.assertIn("git fetch", makefile)
+        self.assertIn("HEAD does not match", makefile)
+        self.assertIn("memory status --json", makefile)
+        self.assertIn("continue-status --json", makefile)
+        self.assertIn("memory validate-hashes --json", makefile)
+
 
 def _rows(path: Path, key: str) -> dict[str, dict[str, str]]:
     with path.open("r", newline="", encoding="utf-8") as handle:

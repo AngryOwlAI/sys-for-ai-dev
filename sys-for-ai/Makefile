@@ -2,8 +2,11 @@ PY ?= python3
 VENV ?= .venv
 PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
+SYNC_REMOTE ?= origin
+SYNC_BRANCH ?= main
+SYNC_CHECK_HASHES ?= 0
 
-.PHONY: venv install doctor continue-status continue-preflight continue-select continue-packet continue-finalize validate validate-agentjob validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-program-state validate-director-decisions validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry validate-handoffs validate-completion-receipts validate-state-snapshots validate-memory-preflight validate-agentjob-boundaries validate-check-diff validate-one-active-agentjob validate-control-loop validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives clean-local
+.PHONY: venv install doctor sync-check continue-status continue-preflight continue-select continue-packet continue-finalize validate validate-agentjob validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-program-state validate-director-decisions validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry validate-handoffs validate-completion-receipts validate-state-snapshots validate-memory-preflight validate-agentjob-boundaries validate-check-diff validate-one-active-agentjob validate-control-loop validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives clean-local
 
 venv:
 	$(PY) -m venv $(VENV)
@@ -14,6 +17,28 @@ install: venv
 
 doctor:
 	$(PYTHON) -m sys_for_ai.cli doctor
+
+sync-check:
+	@set -eu; \
+	target_ref="$(SYNC_REMOTE)/$(SYNC_BRANCH)"; \
+	echo "Fetching $(SYNC_REMOTE)"; \
+	git fetch "$(SYNC_REMOTE)"; \
+	head_sha="$$(git rev-parse HEAD)"; \
+	upstream_sha="$$(git rev-parse --verify "$$target_ref")"; \
+	echo "HEAD: $$head_sha"; \
+	echo "$$target_ref: $$upstream_sha"; \
+	if [ "$$head_sha" != "$$upstream_sha" ]; then \
+		echo "Sync check failed: HEAD does not match $$target_ref"; \
+		exit 1; \
+	fi; \
+	echo "Git sync check passed: HEAD matches $$target_ref"
+	$(PYTHON) -m sys_for_ai.cli memory status --json
+	$(PYTHON) -m sys_for_ai.cli continue-status --json
+	@if [ "$(SYNC_CHECK_HASHES)" = "1" ]; then \
+		$(PYTHON) -m sys_for_ai.cli memory validate-hashes --json; \
+	else \
+		echo "Hash validation skipped. Run: make sync-check SYNC_CHECK_HASHES=1"; \
+	fi
 
 continue-status:
 	$(PYTHON) -m sys_for_ai.cli continue-status --json
