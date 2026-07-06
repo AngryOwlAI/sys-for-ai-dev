@@ -18,6 +18,30 @@ Phase 1 implementation planning lives in
 scaffold, validators, registries, skill adapters, and documentation policies
 live under [`sys-for-ai/`](sys-for-ai/).
 
+Development-system runtime skills live under [`.agents/skills/`](.agents/skills/).
+Thin Codex compatibility shims live under [`.codex/skills/`](.codex/skills/)
+and point back to the `.agents` runtime surface. The `sys-for-ai/skills/core/`
+directory remains a product-scaffold reference surface, not the active
+development-system runtime.
+
+Validate the root skill layer with:
+
+```bash
+make validate-dev-skills
+```
+
+Validate the product scaffold with:
+
+```bash
+make validate-product-scaffold
+```
+
+Run both checks with:
+
+```bash
+make validate
+```
+
 ## License
 
 This repository is licensed under the Apache License, Version 2.0. Unless a

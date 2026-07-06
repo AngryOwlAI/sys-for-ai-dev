@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sys-for-ai/schemas/domain_pack.schema.json",
+  "title": "Domain Pack",
+  "description": "Schema for a domain lens that constrains system-agnostic skills without making the base skill domain-locked.",
+  "type": "object",
+  "required": [
+    "domain_id",
+    "version",
+    "status",
+    "summary",
+    "vocabulary",
+    "constraints",
+    "artifacts",
+    "verification",
+    "risks",
+    "continuation_policy"
+  ],
+  "properties": {
+    "domain_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "deprecated"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vocabulary": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "constraints": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "artifacts": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "$ref": "#/$defs/verificationRule"
+          }
+        ]
+      }
+    },
+    "risks": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "memory_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "purpose"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority": {
+            "type": "string",
+            "enum": [
+              "controlled_source",
+              "supporting_context",
+              "generated_derivative",
+              "external_reference"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "domain_required_skills": {
+      "$ref": "#/$defs/skillIdArray"
+    },
+    "recommended_skills": {
+      "$ref": "#/$defs/skillIdArray"
+    },
+    "continuation_policy": {
+      "type": "object",
+      "properties": {
+        "max_agentjobs_per_continue": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "human_gate_for_claim_promotion": {
+          "type": "boolean"
+        },
+        "source_authority_policy": {
+          "type": "string"
+        },
+        "requires_completion_receipt": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "skillIdArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "validatorClass": {
+      "type": "string",
+      "enum": [
+        "schema_validation",
+        "path_validation",
+        "dependency_validation",
+        "trace_validation",
+        "process_validation",
+        "domain_validation",
+        "claim_validation"
+      ]
+    },
+    "verificationRule": {
+      "type": "object",
+      "required": [
+        "name",
+        "validator_class"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "validator_class": {
+          "$ref": "#/$defs/validatorClass"
+        },
+        "meaning": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

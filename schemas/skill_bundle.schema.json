@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sys-for-ai/schemas/skill_bundle.schema.json",
+  "title": "Skill Bundle",
+  "description": "Schema for an installable or verifiable skill bundle profile.",
+  "type": "object",
+  "required": [
+    "bundle_id",
+    "version",
+    "status",
+    "description",
+    "includes",
+    "install",
+    "lock"
+  ],
+  "properties": {
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "deprecated"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "includes": {
+      "type": "object",
+      "required": [
+        "skills",
+        "domain_packs"
+      ],
+      "properties": {
+        "skills": {
+          "$ref": "#/$defs/skillIdArray"
+        },
+        "domain_packs": {
+          "$ref": "#/$defs/domainIdArray"
+        },
+        "optional_skills": {
+          "$ref": "#/$defs/skillIdArray"
+        },
+        "validation_skills": {
+          "$ref": "#/$defs/skillIdArray"
+        },
+        "bundles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "install": {
+      "type": "object",
+      "required": [
+        "python",
+        "external_tools"
+      ],
+      "properties": {
+        "python": {
+          "type": "boolean"
+        },
+        "external_tools": {
+          "type": "object",
+          "properties": {
+            "require_notice": {
+              "type": "boolean"
+            },
+            "install_policy": {
+              "type": "string",
+              "enum": [
+                "detect_only",
+                "manual_install",
+                "managed_install",
+                "not_applicable"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "allow_python_package_install": {
+          "type": "boolean"
+        },
+        "dry_run_default": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "lock": {
+      "type": "object",
+      "required": [
+        "output"
+      ],
+      "properties": {
+        "output": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "include_generated_timestamp": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "expected_validator_classes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "schema_validation",
+              "path_validation",
+              "dependency_validation",
+              "trace_validation",
+              "process_validation",
+              "domain_validation",
+              "claim_validation"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "pattern": "^/"
+      }
+    },
+    "skillIdArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "domainIdArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "uniqueItems": true
+    }
+  }
+}

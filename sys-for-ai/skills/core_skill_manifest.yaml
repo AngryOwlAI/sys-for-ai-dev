@@ -2,7 +2,7 @@ manifest_id: SFA-CORE-SKILL-MANIFEST-001
 status: draft
 source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
 local_root: skills/core
-policy: All listed skills are core requirements for the project being developed; Phase 1 includes adapter shells and provenance records.
+policy: All listed skills are core product-scaffold requirements for the project being developed; Phase 1 includes adapter shells and provenance records. The active sys-for-ai-dev runtime surface is the root .agents/skills layer, with .codex/skills as compatibility shims.
 skills:
   - id: codex-usage-metrics
     name: Codex Usage Metrics

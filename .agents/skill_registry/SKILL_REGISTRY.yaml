@@ -1,0 +1,253 @@
+version: 1
+status: active
+registry_scope: sys-for-ai-dev development runtime
+canonical_skill_root: .agents/skills
+runtime_skill_root: .agents/skills
+compatibility_shim_root: .codex/skills
+schema_references:
+  skill_manifest: schemas/skill_manifest.schema.json
+  skill_bundle: schemas/skill_bundle.schema.json
+  domain_pack: schemas/domain_pack.schema.json
+notes:
+  - Active runtime skills for the sys-for-ai-dev development workspace live under .agents/skills.
+  - Codex shims under .codex/skills are compatibility pointers only.
+  - sys-for-ai/skills/core remains a product scaffold and reference adapter surface.
+external_skills: []
+skills:
+  - skill_id: codex-usage-metrics
+    canonical_path: .agents/skills/codex-usage-metrics
+    status: active
+    manifest_path: .agents/skills/codex-usage-metrics/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - verification_engineer
+    required_skills: []
+    optional_skills: []
+    python_requirements: null
+    scripts:
+      - .agents/skills/codex-usage-metrics/scripts/collect_usage_metrics.py
+    compatibility_shims:
+      - .codex/skills/codex-usage-metrics/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: conversation-to-prd
+    canonical_path: .agents/skills/conversation-to-prd
+    status: active
+    manifest_path: .agents/skills/conversation-to-prd/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - decision-grilling
+      - system-definition-interview
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/conversation-to-prd/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: decision-grilling
+    canonical_path: .agents/skills/decision-grilling
+    status: active
+    manifest_path: .agents/skills/decision-grilling/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+    required_skills: []
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/decision-grilling/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: decision-grilling-context-45
+    canonical_path: .agents/skills/decision-grilling-context-45
+    status: active
+    manifest_path: .agents/skills/decision-grilling-context-45/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - control_loop_planner
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/decision-grilling-context-45/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: domain-grilling-with-docs
+    canonical_path: .agents/skills/domain-grilling-with-docs
+    status: active
+    manifest_path: .agents/skills/domain-grilling-with-docs/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - decision-grilling
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/domain-grilling-with-docs/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: domain-grilling-with-docs-context-45
+    canonical_path: .agents/skills/domain-grilling-with-docs-context-45
+    status: active
+    manifest_path: .agents/skills/domain-grilling-with-docs-context-45/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+      - control_loop_planner
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - domain-grilling-with-docs
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/domain-grilling-with-docs-context-45/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: mermaid-diagrams
+    canonical_path: .agents/skills/mermaid-diagrams
+    status: active
+    manifest_path: .agents/skills/mermaid-diagrams/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/mermaid-diagrams/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: plantuml-diagrams
+    canonical_path: .agents/skills/plantuml-diagrams
+    status: active
+    manifest_path: .agents/skills/plantuml-diagrams/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/plantuml-diagrams/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: prd-to-implementation-plan
+    canonical_path: .agents/skills/prd-to-implementation-plan
+    status: active
+    manifest_path: .agents/skills/prd-to-implementation-plan/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - conversation-to-prd
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/prd-to-implementation-plan/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: system-definition-interview
+    canonical_path: .agents/skills/system-definition-interview
+    status: active
+    manifest_path: .agents/skills/system-definition-interview/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+      - decision-grilling-context-45
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/system-definition-interview/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: system-definition-interview-context-45
+    canonical_path: .agents/skills/system-definition-interview-context-45
+    status: active
+    manifest_path: .agents/skills/system-definition-interview-context-45/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+      - control_loop_planner
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+      - decision-grilling-context-45
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/system-definition-interview-context-45/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: technical-writing-quality-gate
+    canonical_path: .agents/skills/technical-writing-quality-gate
+    status: active
+    manifest_path: .agents/skills/technical-writing-quality-gate/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - verification_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills: []
+    python_requirements: null
+    scripts:
+      - .agents/skills/technical-writing-quality-gate/scripts/technical_writing_warning_gate.py
+    compatibility_shims:
+      - .codex/skills/technical-writing-quality-gate/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: skill-import-generalizer
+    canonical_path: .agents/skills/skill-import-generalizer
+    status: active
+    manifest_path: .agents/skills/skill-import-generalizer/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/skill-import-generalizer/SKILL.md
+    migration_phase: adapted_runtime_active

@@ -1,0 +1,33 @@
+bundle_id: core-systems-engineering
+version: 0.1.0
+status: active
+description: Active sys-for-ai-dev runtime skills for system definition, decisions, PRDs, and implementation planning.
+includes:
+  skills:
+    - system-definition-interview
+    - system-definition-interview-context-45
+    - decision-grilling
+    - decision-grilling-context-45
+    - domain-grilling-with-docs
+    - domain-grilling-with-docs-context-45
+    - conversation-to-prd
+    - prd-to-implementation-plan
+  domain_packs: []
+  optional_skills: []
+  validation_skills: []
+install:
+  python: false
+  external_tools:
+    require_notice: true
+    install_policy: not_applicable
+  allow_python_package_install: false
+  dry_run_default: true
+lock:
+  output: .agents/skill_registry/SKILL_LOCK.yaml
+  include_generated_timestamp: false
+validation:
+  commands:
+    - python3 scripts/skills/validate_skill_manifest.py --bundle .agents/skill_registry/SKILL_BUNDLES/core-systems-engineering.yaml
+  expected_validator_classes:
+    - schema_validation
+    - dependency_validation
