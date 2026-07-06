@@ -1,0 +1,30 @@
+[target_project]
+id = "example-target-agentic-system"
+name = "Example Target Agentic System"
+domain = "software_engineering"
+lifecycle_stage = "design"
+
+[agentic_harness]
+uses_llm = true
+uses_tools = true
+uses_persistent_memory = true
+uses_control_loop = true
+
+[memory]
+authority_policy = "source-first"
+required_profiles = [
+  "fmt_markdown_source",
+  "fmt_csv_registry",
+  "fmt_yaml_control",
+  "fmt_toml_config",
+  "fmt_jsonschema_contract",
+]
+
+[control]
+requires_agentjob = true
+requires_completion_receipts = true
+requires_handoffs = true
+
+[validation]
+strict_registry_checks = true
+strict_contract_checks = true

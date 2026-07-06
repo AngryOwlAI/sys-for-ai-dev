@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sys-for-ai/schemas/contracts/agentjob.schema.json",
+  "title": "sys-for-ai AgentJob",
+  "type": "object",
+  "required": [
+    "agentjob_id",
+    "objective",
+    "role",
+    "allowed_reads",
+    "allowed_writes",
+    "forbidden_actions",
+    "expected_outputs",
+    "validators",
+    "stop_conditions"
+  ],
+  "properties": {
+    "agentjob_id": { "type": "string", "minLength": 1 },
+    "objective": { "type": "string", "minLength": 1 },
+    "role": { "type": "string", "minLength": 1 },
+    "allowed_reads": { "type": "array", "items": { "type": "string" } },
+    "allowed_writes": { "type": "array", "items": { "type": "string" } },
+    "forbidden_actions": { "type": "array", "items": { "type": "string" } },
+    "expected_outputs": { "type": "array", "items": { "type": "string" } },
+    "validators": { "type": "array", "items": { "type": "string" } },
+    "stop_conditions": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

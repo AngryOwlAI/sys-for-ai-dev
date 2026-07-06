@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sys-for-ai/schemas/contracts/state_snapshot.schema.json",
+  "title": "sys-for-ai bounded state snapshot",
+  "type": "object",
+  "required": [
+    "state_snapshot_id",
+    "snapshot_scope",
+    "created_by_role",
+    "current_agentjob_id",
+    "phase",
+    "known_registries",
+    "validation_status",
+    "next_allowed_actions",
+    "blocked_actions"
+  ],
+  "properties": {
+    "state_snapshot_id": { "type": "string", "minLength": 1 },
+    "snapshot_scope": { "type": "string", "minLength": 1 },
+    "created_by_role": { "type": "string", "minLength": 1 },
+    "current_agentjob_id": { "type": "string", "minLength": 1 },
+    "phase": { "type": "string", "minLength": 1 },
+    "known_registries": { "type": "array", "items": { "type": "string" } },
+    "validation_status": { "type": "object" },
+    "next_allowed_actions": { "type": "array", "items": { "type": "string" } },
+    "blocked_actions": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,31 @@
+handoff_id: HANDOFF-P1-FORMAT-EXAMPLE-001
+framework_name: sys-for-ai
+lifecycle_stage: implementation_initialization
+producing_role: implementation_initialization_agent
+artifact_status: example
+summary: Example handoff showing source-first format-profile evidence.
+source_artifacts:
+  - source_id: SRC-PRD-P0
+    path: PRDs/sys-for-ai_phase-0_product_system_design_prd.md
+  - source_id: SRC-PRD-P1
+    path: PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md
+format_profile_evidence:
+  governed_artifacts_read:
+    - path: registries/format_profile_registry.csv
+      format_profile_id: fmt_csv_registry
+      authority_status: controlled
+      registry_row_id: fmt_csv_registry
+      validation_status: pending
+  governed_artifacts_written: []
+source_authority_evidence:
+  canonical_sources_inspected:
+    - path: PRDs/sys-for-ai_phase-0_product_system_design_prd.md
+      source_id: SRC-PRD-P0
+      relevant_sections:
+        - source-first memory
+        - derivative-surface governance
+  registry_rows_inspected: []
+derivative_surface_evidence:
+  generated_surfaces_updated: []
+open_issues: []
+next_recommended_role: requirements_verifier

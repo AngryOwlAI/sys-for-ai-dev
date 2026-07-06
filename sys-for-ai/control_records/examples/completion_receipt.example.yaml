@@ -1,0 +1,25 @@
+completion_receipt_id: RECEIPT-P1-FORMAT-EXAMPLE-001
+agentjob_id: AJ-P1-FORMAT-PROFILES-001
+role: implementation_initialization_agent
+result: example
+summary: Example completion receipt for format-profile initialization.
+changed_artifacts: []
+validation_evidence:
+  commands_run:
+    - command: make validate-format-profiles
+      result: pass
+      output_path: .local/receipts/format-profiles.txt
+  validators:
+    - validator_id: validate-format-profiles
+      target_path: registries/format_profile_registry.csv
+      result: pass
+      notes: Example only.
+format_profile_changes:
+  added: []
+  modified: []
+  generated_derivatives: []
+authority_changes:
+  promoted: []
+  not_promoted: []
+unresolved_issues: []
+next_recommendation: Validate registry graph consistency.

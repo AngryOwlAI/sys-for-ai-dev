@@ -7,7 +7,7 @@
 **Canonical source:** This file is the authoritative Phase 0 PRD.
 **Supersedes:** `PRDs/sys-for-ai_phase-0_prd.md` as an authoritative Phase 0 source.
 **Downstream dependency:** `PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md` consumes this file.
-**Last updated:** 2026-07-05
+**Last updated:** 2026-07-06
 
 ---
 
@@ -18,6 +18,8 @@
 The product is meta-agentic. Its output is not merely a prompt, document, workflow, or one-off codebase. Its output is a governed target agentic system, or a package ready to implement such a system, with defined roles, artifacts, requirements, architecture, verification hooks, operating assumptions, source-first memory rules, improvement loops, and maintenance obligations.
 
 For Phase 0, an agentic AI software system is treated as a software harness around one or more LLMs, tools, state stores, files, skills, policies, and user-facing interfaces. The harness must include requirements for a bounded control loop, an AgentJob-style execution contract, a source-first memory and knowledge system, source/version-control governance, and derivative documentation surfaces such as generated wikis or reader artifacts.
+
+This revision also establishes core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. These profiles define authority classes, registry requirements, validator expectations, derivative-surface policy, promotion rules, drift behavior, and security constraints for structured source, control, configuration, registry, and validation-contract artifacts.
 
 This Phase 0 PRD defines what `sys-for-ai` must be. It does not initialize the implementation repository. Implementation initialization belongs to Phase 1.
 
@@ -45,6 +47,7 @@ Phase 0 owns:
 - AgentJob semantics.
 - `/continue` semantics.
 - Source-first memory and knowledge requirements.
+- Core file-format memory profile requirements for canonical sources, registries, control records, configuration sources, validation contracts, and generated derivative surfaces.
 - Skill-system requirements.
 - Source/version-control governance.
 - Documentation and derivative-surface rules.
@@ -64,6 +67,11 @@ Phase 1 owns:
 - Initial schemas and examples.
 - Initial validators.
 - Initial memory bootstrap files.
+- Initial core file-format profile registries.
+- Initial TOML configuration examples and parser support.
+- Initial JSON Schema validation-contract files and validator support.
+- Initial generated Configuration and Control Wiki stubs.
+- Initial generated Validation Contracts Catalog stubs.
 - Core skill import and adaptation.
 - Makefile or CLI commands.
 - Docker or devcontainer decision record.
@@ -84,6 +92,16 @@ Phase 1 does not re-litigate Phase 0 product identity, lifecycle, role ownership
 | AgentJob | A bounded execution contract for one controlled unit of agent work. |
 | `/continue` | A controlled continuation procedure that resumes from tracked state and advances at most one authorized AgentJob per invocation. Domain-specific aliases are allowed only as project-specific names. |
 | Source-first memory | A memory and knowledge model where canonical sources, registries, and control records outrank generated summaries, semantic caches, wikis, local vaults, and other derivatives. |
+| Core File-Format Memory Profile | A governed classification for a source or derivative file format that defines intended system role, authority class, canonical roots, registry requirements, validator requirements, derivative surfaces, promotion workflow, drift/orphan behavior, and security constraints. |
+| Configuration Source | A machine-readable file that defines standing project, package, tool, runtime, or framework behavior. Configuration sources are canonical only when registered and validated. |
+| Control Record | A machine-readable artifact that constrains or reports bounded agent action, including AgentJobs, handoffs, completion receipts, task packets, role-routing records, state snapshots, skill/control manifests, and initialization manifests. |
+| Validation Contract | A machine-readable schema or equivalent constraint document that defines admissible structure and type constraints for another artifact class. Validation contracts are governance artifacts, not ordinary generated documentation. |
+| Configuration and Control Wiki | A generated derivative reader surface for registered YAML control/state artifacts and TOML configuration artifacts. It summarizes and links to canonical source files, registry rows, validators, consumers, and authority status. |
+| Validation Contracts Catalog | A generated derivative catalog for validation contracts, including JSON Schema contracts. It summarizes contract IDs, dialects, target formats, target artifact classes, target globs, supersession, validation commands, and usage relationships. |
+| Format Profile Registry | A CSV registry that records core and project-specific file-format memory profiles. |
+| Configuration Source Registry | A CSV registry that records registered configuration sources, including TOML files and any later configuration formats. |
+| Control Record Registry | A CSV registry that records registered control/state artifacts, including YAML AgentJobs, handoffs, receipts, task packets, state snapshots, skill manifests, and routing manifests. |
+| Validation Contract Registry | A CSV registry that records registered validation contracts, including JSON Schema files. |
 | SVC system | Source/version-control governance for controlled artifacts, state, histories, supersession records, and generated derivative boundaries. |
 | Skill | A governed capability package with metadata, invocation conditions, required inputs, outputs, procedure, validators, known failure modes, and adaptation rules. |
 | Derivative surface | A generated or synchronized reader surface, such as wiki notes, Obsidian notes, HTML explainers, PDFs, TeX renderings, diagrams, indexes, notebooks, or semantic caches. |
@@ -111,6 +129,10 @@ Common failure modes:
 | Unbounded continuation | Agents keep working from stale context, informal chat memory, or vague next steps instead of controlled state and bounded work. |
 | Memory authority inversion | Generated summaries, wiki pages, semantic caches, local vaults, or PDFs are treated as authority instead of navigation back to canonical sources. |
 | Derivative drift | Markdown-like wikis, PDF derivatives, TeX views, HTML explainers, notebooks, or local indexes become stale or inconsistent with registered sources. |
+| Configuration authority drift | Project, tool, runtime, or framework configuration changes without registry trace, validator evidence, or source-authority review. |
+| Control-record ambiguity | Agent control/state records exist as loose YAML files without registry IDs, validation contracts, allowed writers, or supersession rules. |
+| Schema theater | Schema-like files document structure but are not executable contracts, so invalid control/config artifacts can pass as if validated. |
+| Format-profile confusion | Markdown, CSV, YAML, TOML, JSON, generated wiki notes, and local vault notes are mixed without clear authority class or promotion rules. |
 
 The framework should let the root AI agent answer:
 
@@ -170,13 +192,13 @@ The framework should let the root AI agent answer:
 
 ### 6.5 Python reference implementation
 
-`SFA-CORE-PY-001`: `sys-for-ai` shall include a Python-based reference implementation for framework scripts, validators, memory tooling, skill adapters, YAML control records, and documentation-generation helpers.
+`SFA-CORE-PY-001`: `sys-for-ai` shall include a Python-based reference implementation for framework scripts, validators, memory tooling, skill adapters, structured control/configuration records, validation contracts, and documentation-generation helpers.
 
 `SFA-CORE-PY-002`: The Python reference implementation shall declare a supported Python version range and dependency policy.
 
 `SFA-CORE-PY-003`: Python scripts shall be usable both through activated virtual environments and direct interpreter paths such as `.venv/bin/python`.
 
-### 6.6 YAML and PyYAML
+### 6.6 Core structured file-format memory profiles
 
 `SFA-CORE-YAML-001`: `sys-for-ai` shall use YAML for human-readable, machine-parseable control records where appropriate.
 
@@ -185,6 +207,94 @@ The framework should let the root AI agent answer:
 `SFA-CORE-YAML-003`: The Python reference implementation shall include `PyYAML` as a required dependency.
 
 `SFA-CORE-YAML-004`: YAML loading shall use safe parsing by default. Unsafe object construction is prohibited unless a trusted-loader exception is explicitly documented and reviewed.
+
+`SFA-CORE-FORMAT-001`: `sys-for-ai` shall define governed core file-format memory profiles.
+
+`SFA-CORE-FORMAT-002`: Each core file-format memory profile shall define intended role, authority class, canonical source roots, derivative roots, registry requirements, validator requirements, promotion workflow, stale/orphan/drift behavior, and security constraints.
+
+`SFA-CORE-FORMAT-003`: The initial core file-format profiles shall include Markdown, CSV, YAML, TOML, and JSON Schema.
+
+`SFA-CORE-FORMAT-004`: Core format profiles shall preserve source-first authority and shall not allow generated derivatives, semantic caches, local vault files, or wiki pages to become canonical without explicit promotion.
+
+`SFA-CORE-FORMAT-005`: Memory retrieval that returns a governed file artifact shall expose the artifact's format profile, authority class, registry row, validator status, derivative freshness, and source path where available.
+
+`SFA-CORE-FORMAT-006`: Project-specific file-format profiles may be added later through a controlled registry and PRD/decision-record workflow, but shall not weaken the authority hierarchy defined by Phase 0.
+
+`SFA-CORE-MD-001`: `sys-for-ai` shall treat Markdown as a core format for human-authored PRDs, policies, guides, requirements artifacts, templates, and source documentation.
+
+`SFA-CORE-MD-002`: Registered Markdown source artifacts shall declare authority status through source registries or equivalent controlled artifact inventories.
+
+`SFA-CORE-MD-003`: Generated Markdown notes, wiki pages, Obsidian notes, indexes, summaries, and mirrors shall be derivative unless explicitly promoted through source-authority workflow.
+
+`SFA-CORE-CSV-001`: `sys-for-ai` shall treat CSV as a core format for registries, ledgers, relationship maps, provenance rows, and agent-queryable memory tables.
+
+`SFA-CORE-CSV-002`: CSV registry files shall have stable headers, stable row IDs where applicable, and deterministic validation.
+
+`SFA-CORE-CSV-003`: CSV registries shall support cross-registry graph checks for missing source files, missing derivatives, missing validation contracts, orphan derivatives, stale hashes, and invalid authority classes.
+
+`SFA-CORE-CSV-004`: CSV registries shall be treated as controlled source or registry artifacts, not generated reader surfaces, unless a specific registry is explicitly marked generated and derivative.
+
+`SFA-CORE-CSV-005`: `sys-for-ai` shall support both core registries and project-specific registries while requiring each registry to declare purpose, owner, authority status, expected header, validation method, and promotion rule.
+
+`SFA-CORE-YAML-005`: YAML shall be the preferred core format for human-readable and machine-parseable agent control/state artifacts.
+
+`SFA-CORE-YAML-006`: YAML control/state artifacts shall include AgentJobs, handoffs, completion receipts, task packets, skill manifests, role-routing manifests, initialization manifests, and bounded state snapshots when such artifacts are required.
+
+`SFA-CORE-YAML-007`: Registered YAML control/state artifacts shall have registry rows identifying record type, owner, authority status, allowed writers, validation contract, supersession relation, and source path.
+
+`SFA-CORE-YAML-008`: YAML control/state artifacts that affect routing, permissions, AgentJob boundaries, continuation state, role execution, or completion evidence shall be validated before use.
+
+`SFA-CORE-YAML-009`: YAML parsing shall use safe loading only. Unsafe object construction shall be prohibited unless a trusted-loader exception is explicitly documented, reviewed, and isolated from untrusted inputs.
+
+`SFA-CORE-YAML-010`: YAML control/state artifacts shall be indexed through the generated Configuration and Control Wiki when they are registered as canonical or controlled artifacts.
+
+`SFA-CORE-TOML-001`: `sys-for-ai` shall treat TOML as the preferred core format for static or semi-static project, package, tool, runtime, target-system template, and framework configuration.
+
+`SFA-CORE-TOML-002`: TOML configuration sources shall be used for configuration that benefits from human readability, comments, deterministic parsing, and mapping to dictionary-like structures.
+
+`SFA-CORE-TOML-003`: Registered TOML configuration sources shall have registry rows identifying configuration domain, owner, authority status, parser, validation contract, consumers, environment scope, secrets policy, supersession relation, and source path.
+
+`SFA-CORE-TOML-004`: TOML configuration sources shall be parsed through the Python standard library `tomllib` when the supported Python version is 3.11 or later, or through a lightweight compatible parser when Python 3.10 support is retained.
+
+`SFA-CORE-TOML-005`: Phase 1 TOML support shall parse and validate TOML sources but shall not require style-preserving TOML editing or TOML writing.
+
+`SFA-CORE-TOML-006`: TOML configuration examples and templates shall not contain secrets. Secret-bearing configuration support is out of Phase 1 scope unless a later security PRD defines classification, redaction, storage, and review controls.
+
+`SFA-CORE-TOML-007`: Registered TOML configuration sources shall be indexed through the generated Configuration and Control Wiki.
+
+`SFA-CORE-JSONSCHEMA-001`: `sys-for-ai` shall treat JSON Schema as the preferred core format for validation contracts governing structured artifacts.
+
+`SFA-CORE-JSONSCHEMA-002`: JSON Schema validation contracts shall be allowed to govern JSON files, parsed YAML objects, TOML-normalized objects, CSV row objects, registry rows, control records, skill manifests, discovery records, and configuration profiles.
+
+`SFA-CORE-JSONSCHEMA-003`: JSON Schema contracts shall declare dialect/version, contract ID, target format, target artifact type, target file glob, owner, authority status, supersession relation, and validator command.
+
+`SFA-CORE-JSONSCHEMA-004`: JSON Schema validation success shall mean structural admissibility, not semantic truth, domain correctness, or user acceptance.
+
+`SFA-CORE-JSONSCHEMA-005`: JSON Schema contracts shall be cataloged through the generated Validation Contracts Catalog.
+
+`SFA-CORE-JSONSCHEMA-006`: `sys-for-ai` shall not create a standalone JSON wiki by default for JSON Schema files. A JSON wiki may be introduced later only if JSON files become first-class source or memory artifacts beyond validation contracts.
+
+`SFA-CORE-JSONSCHEMA-007`: JSON Schema contracts shall support supersession and migration evidence when schema changes affect existing registered artifacts.
+
+`SFA-CORE-CCWIKI-001`: `sys-for-ai` shall define a generated Configuration and Control Wiki for registered YAML control/state artifacts and TOML configuration sources.
+
+`SFA-CORE-CCWIKI-002`: The Configuration and Control Wiki shall be derivative and non-canonical by default.
+
+`SFA-CORE-CCWIKI-003`: Each generated Configuration and Control Wiki page shall identify source files, registry rows, format profile IDs, validation contract IDs, source hashes where available, generator version, generation timestamp, authority status, stale/orphan status, and allowed promotion path.
+
+`SFA-CORE-CCWIKI-004`: The Configuration and Control Wiki shall warn or fail validation when a page lacks a canonical source path, lacks a registry row, claims canonical authority, or is stale relative to its source.
+
+`SFA-CORE-CCWIKI-005`: The Configuration and Control Wiki may be mirrored into Obsidian or another reader surface only as a derivative view.
+
+`SFA-CORE-VCCAT-001`: `sys-for-ai` shall define a generated Validation Contracts Catalog for JSON Schema contracts and any future validation-contract formats.
+
+`SFA-CORE-VCCAT-002`: The Validation Contracts Catalog shall be derivative and non-canonical by default.
+
+`SFA-CORE-VCCAT-003`: Each generated catalog entry shall identify contract ID, source path, dialect/version, target format, target artifact type, target file glob, validator command, owner, authority status, supersession relation, source hash where available, generator version, generation timestamp, stale/orphan status, and known limitations.
+
+`SFA-CORE-VCCAT-004`: The Validation Contracts Catalog shall not be treated as a JSON wiki unless a later PRD or decision record introduces general JSON source/memory artifacts.
+
+`SFA-CORE-VCCAT-005`: The Validation Contracts Catalog shall link validation contracts to every registry row, control record, configuration source, or template that declares the contract.
 
 ### 6.7 Skill system
 
@@ -210,6 +320,14 @@ The framework should let the root AI agent answer:
 
 `SFA-CORE-MEM-005`: Memory retrieval shall navigate back to authoritative sources instead of silently promoting summaries or semantic hits to authority.
 
+`SFA-CORE-MEM-006`: The source-first memory system shall track core file-format profiles for Markdown, CSV, YAML, TOML, and JSON Schema.
+
+`SFA-CORE-MEM-007`: The source-first memory system shall include or support registries for format profiles, configuration sources, control records, and validation contracts.
+
+`SFA-CORE-MEM-008`: Memory retrieval shall not return a structured artifact as actionable authority unless the retrieval result includes source path, authority status, registry evidence, and validation status where such evidence exists.
+
+`SFA-CORE-MEM-009`: Memory preflight shall verify YAML control records, TOML configuration sources, JSON Schema contracts, and CSV registry rows against canonical source files or registry rows before they affect requirements, routing, claims, AgentJob boundaries, handoffs, permissions, or continuation state.
+
 ### 6.9 Obsidian and local reader surfaces
 
 `SFA-CORE-OBS-001`: `sys-for-ai` shall support an optional Obsidian-compatible local vault as a reader and retrieval surface for generated Markdown notes.
@@ -226,11 +344,25 @@ The framework should let the root AI agent answer:
 
 `SFA-CORE-DOC-003`: The system shall block or warn on stale, orphaned, unsourced, or authority-inverted generated documentation.
 
+`SFA-CORE-DOC-004`: The generated Configuration and Control Wiki shall be the default derivative reader surface for registered YAML control/state artifacts and TOML configuration sources.
+
+`SFA-CORE-DOC-005`: The generated Validation Contracts Catalog shall be the default derivative reader surface for JSON Schema validation contracts.
+
+`SFA-CORE-DOC-006`: Generated Configuration and Control Wiki pages and Validation Contracts Catalog pages shall never be hand-edited as canonical sources.
+
+`SFA-CORE-DOC-007`: Generated derivative pages shall include authority banners stating that canonical authority remains with registered sources, registries, and validation contracts.
+
 ### 6.11 Source/version control
 
 `SFA-CORE-SVC-001`: `sys-for-ai` shall define source/version-control expectations for controlled artifacts, generated artifacts, registries, handoffs, receipts, decisions, and history.
 
 `SFA-CORE-SVC-002`: Generated artifacts shall be marked as generated or derivative and shall include regeneration or provenance information where practical.
+
+`SFA-CORE-SVC-003`: `sys-for-ai` shall define source/version-control expectations for format profiles, configuration sources, control records, validation contracts, and their generated derivative surfaces.
+
+`SFA-CORE-SVC-004`: Configuration sources, control records, and validation contracts shall support supersession, source hashing where practical, registry trace, validation evidence, and rollback/migration evidence when changed.
+
+`SFA-CORE-SVC-005`: Generated Configuration and Control Wiki pages and Validation Contracts Catalog pages shall include regeneration metadata and shall be invalid when stale, orphaned, unsourced, or authority-inverted.
 
 ### 6.12 Improvement system
 
@@ -278,6 +410,21 @@ The following detailed requirements are binding refinements of the core requirem
 | SFA-P0-FR-028 | `sys-for-ai` shall require process validators and evidence hooks for control-loop, memory, wiki, derivative, and SVC operations without treating validator success as domain truth. | Must | Inspection | CLRA, CKMSRA, and SVCDA distinguish process conformance from domain validation or acceptance. |
 | SFA-P0-FR-029 | `sys-for-ai` shall separate target-domain claims, workflow claims, tooling claims, documentation claims, and user-facing explanation claims where the distinction affects authority or acceptance. | Must | Inspection | SRP includes claim or authority classes for target systems where claims can have different evidence standards. |
 | SFA-P0-FR-030 | `sys-for-ai` shall carry CLRA, CKMSRA, and SVCDA content into the final SRP when the target system is expected to run, continue, improve, or maintain state over time. | Must | Review | SRP includes these annexes or an explicit rationale for omission. |
+| SFA-P0-FR-031 | `sys-for-ai` shall define core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. | Must | Inspection | Phase 0 includes profile definitions and role/authority assignments for all five formats. |
+| SFA-P0-FR-032 | `sys-for-ai` shall classify each governed file format by authority class, mutability, registry requirement, validator requirement, derivative policy, promotion workflow, drift behavior, and security policy. | Must | Inspection | CKMSRA or SVCDA includes a classification matrix covering each axis. |
+| SFA-P0-FR-033 | YAML shall be assigned to agent control/state artifacts. | Must | Inspection | AgentJobs, handoffs, receipts, task packets, skill manifests, routing manifests, initialization manifests, and state snapshots are named as YAML-eligible artifacts. |
+| SFA-P0-FR-034 | TOML shall be assigned to project, package, tool, runtime, framework, and target-system configuration sources. | Must | Inspection | Phase 0 defines TOML configuration source semantics and authority constraints. |
+| SFA-P0-FR-035 | JSON Schema shall be assigned to validation contracts. | Must | Inspection | Phase 0 defines JSON Schema contract semantics, target artifact mapping, dialect/version expectations, and validator evidence. |
+| SFA-P0-FR-036 | CSV shall be assigned to registries, ledgers, relationship maps, and provenance rows. | Must | Inspection | Phase 0 explicitly names CSV as a core registry/ledger format. |
+| SFA-P0-FR-037 | `sys-for-ai` shall define a generated Configuration and Control Wiki for YAML and TOML artifacts. | Must | Inspection | Phase 0 states the wiki is derivative, non-canonical, registry-traced, hash-aware where practical, and stale-checkable. |
+| SFA-P0-FR-038 | `sys-for-ai` shall define a generated Validation Contracts Catalog for JSON Schema artifacts. | Must | Inspection | Phase 0 states the catalog is derivative, non-canonical, contract-traced, and target-artifact-aware. |
+| SFA-P0-FR-039 | `sys-for-ai` shall not define a standalone JSON wiki by default for JSON Schema files. | Must | Inspection | Phase 0 includes an explicit decision that JSON Schema uses a Validation Contracts Catalog, and a JSON wiki requires future general JSON source/memory artifacts. |
+| SFA-P0-FR-040 | CKMSRA shall require memory retrieval to expose file-format profile, registry row, authority status, validation status, and derivative freshness for governed artifacts where available. | Must | Scenario review | Retrieval examples include structured source evidence and prohibit silent promotion of derivative summaries. |
+| SFA-P0-FR-041 | SVCDA shall define versioning, supersession, hash/provenance, migration, and rollback expectations for configuration sources, control records, and validation contracts. | Must | Inspection | SVCDA includes dedicated entries for configuration, control, and validation-contract artifacts. |
+| SFA-P0-FR-042 | `sys-for-ai` shall treat schema validation as process/structure evidence, not domain truth or user acceptance. | Must | Inspection | CLRA/CKMSRA/SVCDA and validator sections state this distinction. |
+| SFA-P0-FR-043 | YAML and TOML examples shall not contain secrets by default. | Must | Security review | Security requirements classify secrets as out of Phase 1 scope unless later PRD controls exist. |
+| SFA-P0-FR-044 | Generated Configuration and Control Wiki pages and Validation Contracts Catalog pages shall include authority banners and source trace. | Must | Inspection | Derivative-page templates include authority notice, source path, registry ID, generator metadata, and stale/orphan status. |
+| SFA-P0-FR-045 | Project-specific format profiles may be added later only through controlled registry, validation, and authority-boundary workflows. | Should | Review | CKMSRA defines project-specific extension workflow and does not allow weakening core authority rules. |
 
 | ID | Requirement | Priority | Verification method | Acceptance criteria |
 |---|---|---:|---|---|
@@ -294,6 +441,10 @@ The following detailed requirements are binding refinements of the core requirem
 | SFA-P0-NFR-011 | The framework shall make stale context detectable and recoverable. | Must | Inspection | Memory preflight, source verification, and derivative regeneration requirements are defined. |
 | SFA-P0-NFR-012 | The framework shall avoid coupling Phase 0 to a specific memory database, wiki engine, SVC provider, orchestration engine, or LLM vendor. | Must | Inspection | CLRA, CKMSRA, and SVCDA define requirements while deferring concrete tooling to Phase 1. |
 | SFA-P0-NFR-013 | The framework shall be auditable after long interruptions or multiple agent handoffs. | Must | Scenario review | Artifact registry, trace ledger, handoff contract, AgentJob contract, and completion receipts preserve source and decision history. |
+| SFA-P0-NFR-014 | The framework shall make structured artifact authority inspectable by agents and humans. | Must | Simulation | A root agent can determine whether a YAML, TOML, CSV, Markdown, or JSON Schema artifact is canonical, controlled, derivative, stale, or invalid. |
+| SFA-P0-NFR-015 | The framework shall minimize parser and schema dependencies while preserving deterministic validation. | Should | Architecture review | Phase 1 dependency policy separates lightweight parser/validator dependencies from heavy runtime services. |
+| SFA-P0-NFR-016 | The framework shall prevent configuration/control/security drift caused by unregistered structured files. | Must | Validation review | Validators detect unregistered governed YAML/TOML/JSON Schema files in controlled roots. |
+| SFA-P0-NFR-017 | The framework shall keep generated reader surfaces subordinate to registered sources, registries, and validation contracts. | Must | Inspection | Generated wiki/catalog policy states non-canonical status and promotion workflow. |
 
 ---
 
@@ -342,6 +493,38 @@ flowchart TD
 ```
 
 The key Phase 0 requirement is authority separation. Canonical sources, registries, control records, and approved requirements define truth for the target system. Generated wikis, PDFs, TeX renderings, HTML explainers, semantic extracts, indexes, notebooks, and local vaults are context surfaces unless explicitly baselined as sources.
+
+The core file-format profile model extends that authority separation to structured files and generated reader surfaces:
+
+```mermaid
+flowchart TD
+    PRD[Baselined PRDs and source docs] --> SRC[source_registry.csv]
+    PRD --> FP[format_profile_registry.csv]
+    FP --> YAML[YAML control/state records]
+    FP --> TOML[TOML configuration sources]
+    FP --> CSV[CSV registries and ledgers]
+    FP --> JS[JSON Schema validation contracts]
+    FP --> MD[Markdown source docs]
+    YAML --> CRR[control_record_registry.csv]
+    TOML --> CSR[config_source_registry.csv]
+    JS --> VCR[validation_contract_registry.csv]
+    CSV --> REG[registry validators]
+    MD --> SRC
+    VCR --> VAL[contract validation engine]
+    CRR --> VAL
+    CSR --> VAL
+    REG --> VAL
+    SRC --> VAL
+    YAML --> CCW[generated Configuration and Control Wiki]
+    TOML --> CCW
+    JS --> VCC[generated Validation Contracts Catalog]
+    SRC --> IDX[generated source and registry indexes]
+    CCW --> DER[derivative_registry.csv]
+    VCC --> DER
+    IDX --> DER
+    DER -. non-canonical .-> OBS[optional Obsidian mirror]
+    DER -. non-canonical .-> CACHE[semantic cache or local retrieval index]
+```
 
 ---
 
@@ -547,9 +730,14 @@ CKMSRA defines the memory and knowledge system that a target agentic system need
 | Purpose and scope | Knowledge, context, and retrieval problems the target system must solve. |
 | Authority hierarchy | Canonical sources, controlled Markdown-like docs, registries, approved requirements, control records, generated derivatives, and local caches. |
 | Source object model | Object IDs, source paths, owners, hashes, version, domain, artifact class, sensitivity, and downstream consumers. |
+| Core file-format memory profiles | Markdown, CSV, YAML, TOML, and JSON Schema profiles; authority class; mutability; registry requirement; validator requirement; derivative policy; promotion workflow; drift behavior; and security policy. |
 | Registry and ledger model | Source registries, derivative registries, relationship graphs, task/job/decision registries, trace ledgers, and issue ledgers. |
+| Configuration and control records | Registered YAML control/state records and TOML configuration sources, including owner, allowed writers, validation contracts, consumers, supersession, secrets policy, and source paths. |
+| Validation contracts | JSON Schema or equivalent contracts that define structural admissibility for governed artifacts, including target artifact class, target glob, dialect/version, validator command, and limitations. |
 | Retrieval surfaces | Search, lookup, semantic extracts, local indexes, local vaults, summaries, and navigation rules. |
 | Generated wiki policy | Markdown-like wiki, domain wikis, file-type wikis, index pages, backlinking, regeneration, and stale derivative warnings. |
+| Configuration and Control Wiki | Generated derivative reader surface for registered YAML control/state records and TOML configuration sources. |
+| Validation Contracts Catalog | Generated derivative catalog for registered validation contracts; not a standalone JSON wiki by default. |
 | File-type derivative policy | PDF, TeX, HTML, notebook, image, data, or domain-specific derivative requirements, including whether each is source, generated evidence, or human-readable only. |
 | Memory preflight and source verification | When context must be refreshed, what queries must run, how results are checked against canonical sources, and how evidence is recorded. |
 | Context-window policy | What may be loaded into agent context, compression rules, source citation rules, and max-risk context classes. |
@@ -565,9 +753,12 @@ SVCDA defines how target systems preserve controlled history without letting gen
 |---|---|
 | Purpose and scope | Controlled artifacts, source files, generated derivatives, state files, and release bundles governed by the SVC system. |
 | Source and derivative classes | Canonical source, controlled Markdown-like source, control record, generated derivative, local cache, published reader surface, and external source. |
+| Format profile versioning | How core and project-specific format profiles are registered, changed, superseded, and validated. |
 | Versioning model | IDs, versions, baselines, hash strategy, source registry rows, derivative registry rows, and release bundles. |
 | Supersession model | How activated decisions, AgentJobs, completions, handoffs, requirements, and baselined artifacts are corrected without silent mutation. |
+| Configuration/control/contract governance | Source hashing where practical, registry trace, validation evidence, rollback and migration evidence, and authority limits for TOML, YAML, and JSON Schema artifacts. |
 | Markdown-like authoring model | Required structure for project docs, control sections, explanatory sections, specs, templates, cross-links, and authority markers. |
+| Generated catalog model | Configuration and Control Wiki pages and Validation Contracts Catalog pages, including authority banners, source trace, generator metadata, and stale/orphan handling. |
 | File-type wiki model | When to require Markdown, TeX, PDF, HTML, notebook, data, or other wikis, and how each traces to source. |
 | Regeneration model | Which derivative artifacts are script-generated, when regeneration is required, and what counts as stale or orphaned. |
 | Checkpoint model | What must be validated before a checkpoint or commit, which paths may change, and how unrelated changes are blocked or reported. |
@@ -657,12 +848,86 @@ handoff:
     generated_derivatives_changed:
     regeneration_required: true | false
     supersession_required: true | false
+  format_profile_evidence:
+    governed_artifacts_read:
+      - path:
+        format_profile_id:
+        authority_status:
+        registry_row_id:
+        validation_status:
+    governed_artifacts_written:
+      - path:
+        format_profile_id:
+        authority_status:
+        registry_row_id:
+        validation_contract_id:
+        validation_status:
+  source_authority_evidence:
+    canonical_sources_inspected:
+      - path:
+        source_id:
+        relevant_sections:
+    registry_rows_inspected:
+      - registry:
+        row_id:
+        purpose:
+  derivative_surface_evidence:
+    generated_surfaces_updated:
+      - path:
+        derivative_id:
+        source_ids:
+        stale_or_orphan_status:
+  security_evidence:
+    secrets_check:
+      status: passed | warning | failed | not_applicable
+      notes:
   recommended_next_role:
   phase_boundary_notes:
   stop_conditions:
 ```
 
-### 13.3 Spawn-ready role prompt skeleton
+### 13.3 Completion receipt format-profile evidence
+
+Completion receipts for work that changes governed Markdown, CSV, YAML, TOML, JSON Schema, generated wiki, or generated catalog artifacts should include this structure:
+
+```yaml
+validation_evidence:
+  commands_run:
+    - command:
+      result: pass | fail | warning
+      output_path:
+  validators:
+    - validator_id:
+      target_path:
+      result:
+      notes:
+format_profile_changes:
+  added:
+    - path:
+      profile_id:
+      registry_row_id:
+  modified:
+    - path:
+      profile_id:
+      registry_row_id:
+  generated_derivatives:
+    - path:
+      derivative_id:
+      source_ids:
+      generator:
+      stale_status:
+authority_changes:
+  promoted:
+    - path:
+      from_status:
+      to_status:
+      approval_or_decision_id:
+  not_promoted:
+    - path:
+      reason:
+```
+
+### 13.4 Spawn-ready role prompt skeleton
 
 ```text
 You are the <ROLE NAME> for sys-for-ai.
@@ -794,6 +1059,14 @@ Phase 0 is complete when:
 | SFA-P0-AC-016 | Target-system runtime containers are distinguished from the development project environment. | Phase boundary and Phase 1 dependency relation. |
 | SFA-P0-AC-017 | All retained systems-engineering skill templates from `ai-skills-for-sys` are listed as core skill requirements. | `SFA-CORE-SKILL-003` and Phase 1 skill-import requirements. |
 | SFA-P0-AC-018 | The Phase 1 PRD can be used by an implementation agent to initialize the repository without re-deriving Phase 0 intent. | Phase 1 PRD dependency and SRP handoff requirements. |
+| SFA-P0-AC-019 | The PRD names Markdown, CSV, YAML, TOML, and JSON Schema as core file-format memory profiles. | Core structured file-format memory profile requirements. |
+| SFA-P0-AC-020 | The PRD assigns YAML to agent control/state artifacts, TOML to configuration sources, JSON Schema to validation contracts, and CSV to registries and ledgers. | Format profile requirements and detailed functional requirements. |
+| SFA-P0-AC-021 | The PRD defines the Configuration and Control Wiki as a generated derivative surface for YAML and TOML. | Documentation governance and CKMSRA. |
+| SFA-P0-AC-022 | The PRD defines the Validation Contracts Catalog as a generated derivative surface for JSON Schema and rejects a standalone JSON wiki by default. | JSON Schema and Validation Contracts Catalog requirements. |
+| SFA-P0-AC-023 | The PRD requires generated wiki/catalog pages to trace to source files, registry rows, validation contracts, and generator metadata. | Documentation governance, SVCDA, and handoff evidence fields. |
+| SFA-P0-AC-024 | The PRD requires memory retrieval and handoff evidence to expose format profile, registry row, authority status, validation status, and derivative freshness where applicable. | CKMSRA and universal handoff contract. |
+| SFA-P0-AC-025 | The PRD states that JSON Schema validation proves structural admissibility only, not semantic truth or domain acceptance. | JSON Schema requirements, NFRs, and universal rules. |
+| SFA-P0-AC-026 | The PRD states that Phase 1 must initialize minimal registries, validators, examples, and derivative stubs for the format-profile spine. | Phase boundary and Phase 1 handoff note. |
 
 ---
 
@@ -814,6 +1087,12 @@ Phase 0 is complete when:
 | SFA-P0-RISK-011 | SVC, markdown-like, PDF, TeX, HTML, notebook, or other derivative requirements may be under-specified. | Phase 1 may build incomplete knowledge/documentation infrastructure. | Require Phase 0 roles to classify needed source and derivative surfaces in SRP. |
 | SFA-P0-RISK-012 | Skill imports may become opaque copies without local authority boundaries. | The framework may inherit stale or mismatched skill behavior. | Require provenance, local adaptation status, validation rules, failure modes, and explicit synchronization tasks. |
 | SFA-P0-RISK-013 | Improvement signals may mutate core authority without governance. | The framework may drift after initial implementation. | Require bounded, routed, validated, and recorded improvement actions. |
+| SFA-P0-RISK-FORMAT-001 | Format profile sprawl creates too many registries too early. | Agents get a bigger map than the territory requires. | Phase 1 implements only minimal registries and stubs; project-specific profiles require later decision records. |
+| SFA-P0-RISK-FORMAT-002 | JSON Schema is mistaken for semantic truth. | Invalid domain conclusions may pass because shape validation passed. | PRD states validation contracts prove structural admissibility only. |
+| SFA-P0-RISK-FORMAT-003 | TOML/YAML files contain secrets that leak into generated wikis. | Security and privacy exposure. | Phase 1 forbids secrets in examples and validates secret-like keys. Future secret support requires a security PRD. |
+| SFA-P0-RISK-FORMAT-004 | Generated wiki/catalog pages become ghost authorities. | Memory authority inversion. | Authority banners, derivative registry rows, stale checks, and promotion workflow. |
+| SFA-P0-RISK-FORMAT-005 | Python version policy conflicts with TOML parser choice. | Phase 1 setup confusion. | Keep Python `>=3.10` and add conditional `tomli`, or bump to Python `>=3.11` by explicit decision. |
+| SFA-P0-RISK-FORMAT-006 | Validators become decorative and incomplete. | Schema theater. | Add executable JSON Schema validation and cross-registry graph checks as acceptance criteria. |
 
 ---
 
@@ -831,6 +1110,11 @@ Phase 0 is complete when:
 | SFA-P0-ISSUE-008 | Which file-type wikis and derivatives are required first: Markdown, TeX, PDF, HTML, notebooks, datasets, diagrams, or others? | Documentation and domain owners | No for Phase 0 | Let Phase 0 roles classify needs per target system and defer tooling to Phase 1. |
 | SFA-P0-ISSUE-009 | Should `SVC` be standardized as source/version control across all `sys-for-ai` artifacts? | System Director | No for Phase 0 | Treat as source/version control in Phase 0 and confirm terminology in Phase 1. |
 | SFA-P0-ISSUE-010 | What validation checks distinguish process conformance from domain acceptance for each target domain? | Verification owner and Domain Specialist | No for Phase 0 | Define validator taxonomy in Phase 1 or domain-pack specifications. |
+| SFA-P0-ISSUE-FORMAT-001 | Should Python minimum remain `>=3.10` or move to `>=3.11`? | Phase 1 owner | No for Phase 0 | Keep `>=3.10` with conditional `tomli` unless maintainers choose to bump. |
+| SFA-P0-ISSUE-FORMAT-002 | Should JSON Schema contracts become mandatory for all YAML/TOML artifacts in Phase 1? | Phase 1 owner | No for Phase 0 | Use staged enforcement: mandatory for examples and new core registries; warn for legacy schema-like YAML until converted. |
+| SFA-P0-ISSUE-FORMAT-003 | Should generated wiki/catalog files be committed or generated locally? | Documentation owner | No for Phase 0 | Phase 1 may commit stubs and indexes; later CI can regenerate. All generated files must be registered as derivatives. |
+| SFA-P0-ISSUE-FORMAT-004 | Should Obsidian mirror Configuration and Control Wiki pages? | Documentation owner | No for Phase 0 | Optional and derivative only. Not required for Phase 1. |
+| SFA-P0-ISSUE-FORMAT-005 | Should TOML writing/editing be supported? | Phase 1 owner | No for Phase 0 | No for Phase 1. Parse and validate only. |
 
 ---
 
@@ -848,6 +1132,12 @@ Expected Phase 1 starting concerns include:
 - `/continue` command or skill implementation, including tracked state and handoff loading.
 - AgentJob, Director decision, execution-role, completion, validator, and handoff schemas.
 - Source-first memory and knowledge implementation, including registries, source hashes, query/preflight tooling, and stale-context handling.
+- Core file-format profile implementation, including format-profile, configuration-source, control-record, and validation-contract registries.
+- TOML configuration examples and parser support consistent with the selected Python version policy.
+- JSON Schema validation contracts and executable validation support.
+- Generated Configuration and Control Wiki stubs for YAML/TOML artifacts.
+- Generated Validation Contracts Catalog stubs for JSON Schema artifacts.
+- Explicit no-standalone-JSON-wiki behavior unless general JSON source/memory artifacts are introduced later.
 - Markdown-like source system, generated wiki/index system, and required file-type derivative surfaces such as PDF, TeX, HTML, notebooks, datasets, diagrams, or domain-specific formats.
 - SVC implementation details, supersession mechanics, checkpoint or commit rules, release bundles, and generated-derivative validation.
 - Tooling and dependency choices.
@@ -863,3 +1153,4 @@ Expected Phase 1 starting concerns include:
 |---|---|---|
 | 2026-07-04 | Created compact draft replacement baseline. | Separated durable core requirements from implementation-initialization requirements. |
 | 2026-07-05 | Promoted this file to canonical Phase 0 baseline and merged July 3 detail. | Eliminates competing Phase 0 authorities while preserving role pipeline, artifact structures, CLRA/CKMSRA/SVCDA detail, risks, and acceptance criteria. |
+| 2026-07-06 | Added core file-format memory profile requirements for Markdown, CSV, YAML, TOML, and JSON Schema. Added Configuration and Control Wiki and Validation Contracts Catalog requirements. Clarified that JSON Schema uses a validation catalog rather than a standalone JSON wiki by default. | Extends source-first memory architecture with governed configuration, control, registry, and validation-contract profiles. |

@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
+from collections import Counter
+from fnmatch import fnmatchcase
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
+from .registry_io import read_registry, read_registry_rows, resolve_registered_path, rows_by_id
+from .security_checks import find_secret_like_values
 from .yaml_io import load_yaml
 
 
@@ -20,6 +25,28 @@ class ValidationResult:
         self.ok = self.ok and other.ok
         self.messages.extend(other.messages)
 
+
+@dataclass(frozen=True)
+class RequirementDeclaration:
+    requirement_id: str
+    path: Path
+    line_number: int
+
+
+REQUIREMENT_ID_PATTERN = r"SFA-[A-Z0-9]+(?:-[A-Z0-9]+)*"
+BACKTICK_REQUIREMENT_RE = re.compile(rf"^\s*`(?P<id>{REQUIREMENT_ID_PATTERN})`\s*:")
+TABLE_REQUIREMENT_RE = re.compile(rf"^\|\s*(?P<id>{REQUIREMENT_ID_PATTERN})\s*\|")
+PHASE0_REQUIREMENT_PREFIXES = ("SFA-CORE-", "SFA-P0-FR-", "SFA-P0-NFR-")
+PHASE1_REQUIREMENT_PREFIX = "SFA-P1-INIT-"
+TRACE_COVERAGE_STATUSES = {"covered", "partial", "deferred", "not_applicable"}
+TRACE_CLASSES = {"implemented", "scaffolded", "deferred", "out_of_phase"}
+TRACE_CLASSES_BY_COVERAGE = {
+    "covered": {"implemented"},
+    "partial": {"scaffolded", "deferred", "out_of_phase"},
+    "deferred": {"deferred"},
+    "not_applicable": {"out_of_phase"},
+}
+SEMANTIC_REVIEW_VERDICTS = {"sufficient", "needs_evidence", "incorrect_mapping"}
 
 AGENTJOB_REQUIRED_FIELDS = {
     "agentjob_id",
@@ -94,6 +121,95 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "last_reviewed",
         "notes",
     ],
+    "format_profile_registry.csv": [
+        "format_id",
+        "extension",
+        "format_family",
+        "primary_role",
+        "canonical_roots",
+        "derivative_surfaces",
+        "registry_required",
+        "validator_required",
+        "default_authority_class",
+        "promotion_rule",
+        "secrets_allowed",
+        "notes",
+    ],
+    "config_source_registry.csv": [
+        "config_id",
+        "path",
+        "format",
+        "config_domain",
+        "authority_status",
+        "owner",
+        "parser",
+        "validation_contract_id",
+        "consumers",
+        "secrets_allowed",
+        "environment_scope",
+        "supersedes",
+        "source_hash",
+        "last_validated_at",
+        "notes",
+    ],
+    "control_record_registry.csv": [
+        "control_record_id",
+        "path",
+        "record_type",
+        "authority_status",
+        "owner",
+        "validation_contract_id",
+        "allowed_writers",
+        "allowed_readers",
+        "related_agentjob_id",
+        "supersedes",
+        "source_hash",
+        "last_validated_at",
+        "notes",
+    ],
+    "validation_contract_registry.csv": [
+        "contract_id",
+        "path",
+        "dialect",
+        "target_format",
+        "target_artifact_type",
+        "target_glob",
+        "authority_status",
+        "owner",
+        "validator_command",
+        "supersedes",
+        "source_hash",
+        "last_validated_at",
+        "notes",
+    ],
+    "requirement_trace_registry.csv": [
+        "trace_id",
+        "phase0_selector",
+        "phase0_source",
+        "coverage_status",
+        "trace_class",
+        "semantic_justification",
+        "semantic_review_verdict",
+        "phase1_selectors",
+        "evidence_paths",
+        "notes",
+    ],
+}
+
+EXPECTED_FORMAT_PROFILE_IDS = {
+    "fmt_markdown_source",
+    "fmt_csv_registry",
+    "fmt_yaml_control",
+    "fmt_toml_config",
+    "fmt_jsonschema_contract",
+}
+
+ROW_CONTRACTS = {
+    "format_profile_registry.csv": "schemas/contracts/format_profile_registry_row.schema.json",
+    "config_source_registry.csv": "schemas/contracts/config_source_registry_row.schema.json",
+    "control_record_registry.csv": "schemas/contracts/control_record_registry_row.schema.json",
+    "validation_contract_registry.csv": "schemas/contracts/validation_contract_registry_row.schema.json",
+    "requirement_trace_registry.csv": "schemas/contracts/requirement_trace_registry_row.schema.json",
 }
 
 
@@ -194,13 +310,502 @@ def validate_registry_headers(registry_dir: str | Path) -> ValidationResult:
         if not path.exists():
             messages.append(f"{path}: missing registry file")
             continue
-        first_line = path.read_text(encoding="utf-8").splitlines()[0] if path.read_text(encoding="utf-8").splitlines() else ""
+        lines = path.read_text(encoding="utf-8").splitlines()
+        first_line = lines[0] if lines else ""
         actual = [part.strip() for part in first_line.split(",")]
         if actual != expected_header:
             messages.append(
                 f"{path}: header mismatch. Expected {expected_header!r}, found {actual!r}"
             )
     return ValidationResult(not messages, messages or [f"{root}: registry header validation passed"])
+
+
+def _extract_requirement_declarations(path: str | Path) -> tuple[list[RequirementDeclaration], list[str]]:
+    target = resolve_registered_path(str(path))
+    if not target.exists():
+        return [], [f"{path}: PRD file not found at {target}"]
+
+    declarations: list[RequirementDeclaration] = []
+    for line_number, line in enumerate(target.read_text(encoding="utf-8").splitlines(), start=1):
+        match = BACKTICK_REQUIREMENT_RE.match(line) or TABLE_REQUIREMENT_RE.match(line)
+        if match is None:
+            continue
+        declarations.append(
+            RequirementDeclaration(
+                requirement_id=match.group("id"),
+                path=target,
+                line_number=line_number,
+            )
+        )
+    return declarations, []
+
+
+def _split_selectors(value: str) -> list[str]:
+    return [part.strip() for part in value.split(";") if part.strip()]
+
+
+def _matches_selector(selector: str, candidates: Iterable[str]) -> list[str]:
+    return sorted(candidate for candidate in candidates if fnmatchcase(candidate, selector))
+
+
+def _find_duplicate_requirement_ids(declarations: Iterable[RequirementDeclaration]) -> list[str]:
+    seen: dict[str, RequirementDeclaration] = {}
+    messages: list[str] = []
+    for declaration in declarations:
+        previous = seen.get(declaration.requirement_id)
+        if previous is not None:
+            messages.append(
+                "duplicate requirement ID "
+                f"{declaration.requirement_id}: "
+                f"{previous.path}:{previous.line_number} and "
+                f"{declaration.path}:{declaration.line_number}"
+            )
+            continue
+        seen[declaration.requirement_id] = declaration
+    return messages
+
+
+def validate_requirement_trace(
+    trace_registry: str | Path = "registries/requirement_trace_registry.csv",
+    phase0_prd: str | Path = "PRDs/sys-for-ai_phase-0_product_system_design_prd.md",
+    phase1_prd: str | Path = "PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md",
+) -> ValidationResult:
+    """Validate PRD ID uniqueness and Phase 0 to Phase 1 trace coverage."""
+
+    target = Path(trace_registry)
+    messages: list[str] = []
+
+    row_result = _validate_rows_against_contract(
+        target,
+        ROW_CONTRACTS["requirement_trace_registry.csv"],
+        "trace_id",
+    )
+    if not row_result.ok:
+        messages.extend(row_result.messages)
+
+    phase0_declarations, phase0_errors = _extract_requirement_declarations(phase0_prd)
+    phase1_declarations, phase1_errors = _extract_requirement_declarations(phase1_prd)
+    messages.extend(phase0_errors)
+    messages.extend(phase1_errors)
+    messages.extend(_find_duplicate_requirement_ids([*phase0_declarations, *phase1_declarations]))
+
+    phase0_ids = sorted(
+        {
+            declaration.requirement_id
+            for declaration in phase0_declarations
+            if declaration.requirement_id.startswith(PHASE0_REQUIREMENT_PREFIXES)
+        }
+    )
+    phase1_ids = sorted(
+        {
+            declaration.requirement_id
+            for declaration in phase1_declarations
+            if declaration.requirement_id.startswith(PHASE1_REQUIREMENT_PREFIX)
+        }
+    )
+    if not phase0_ids:
+        messages.append(f"{phase0_prd}: no Phase 0 requirement IDs found")
+    if not phase1_ids:
+        messages.append(f"{phase1_prd}: no Phase 1 requirement IDs found")
+
+    coverage: dict[str, list[str]] = {requirement_id: [] for requirement_id in phase0_ids}
+    trace_class_counts: Counter[str] = Counter()
+    semantic_review_counts: Counter[str] = Counter()
+    rows = read_registry_rows(target)
+    for row in rows:
+        trace_id = row.get("trace_id", "")
+        status = row.get("coverage_status", "")
+        if status not in TRACE_COVERAGE_STATUSES:
+            messages.append(f"{target}: {trace_id}: invalid coverage_status {status!r}")
+        trace_class = row.get("trace_class", "")
+        if trace_class not in TRACE_CLASSES:
+            messages.append(f"{target}: {trace_id}: invalid trace_class {trace_class!r}")
+        else:
+            trace_class_counts[trace_class] += 1
+            allowed_classes = TRACE_CLASSES_BY_COVERAGE.get(status, set())
+            if allowed_classes and trace_class not in allowed_classes:
+                messages.append(
+                    f"{target}: {trace_id}: trace_class {trace_class!r} does not match "
+                    f"coverage_status {status!r}"
+                )
+        semantic_justification = row.get("semantic_justification", "").strip()
+        if status == "partial" and not semantic_justification:
+            messages.append(f"{target}: {trace_id}: partial row requires semantic_justification")
+        if trace_class in {"scaffolded", "deferred", "out_of_phase"} and not semantic_justification:
+            messages.append(
+                f"{target}: {trace_id}: trace_class {trace_class!r} requires semantic_justification"
+            )
+        semantic_review_verdict = row.get("semantic_review_verdict", "").strip()
+        if semantic_review_verdict:
+            if semantic_review_verdict not in SEMANTIC_REVIEW_VERDICTS:
+                messages.append(
+                    f"{target}: {trace_id}: invalid semantic_review_verdict "
+                    f"{semantic_review_verdict!r}"
+                )
+            else:
+                semantic_review_counts[semantic_review_verdict] += 1
+        if trace_class in {"scaffolded", "deferred", "out_of_phase"} and not semantic_review_verdict:
+            messages.append(
+                f"{target}: {trace_id}: trace_class {trace_class!r} requires "
+                "semantic_review_verdict"
+            )
+
+        phase0_selectors = _split_selectors(row.get("phase0_selector", ""))
+        if not phase0_selectors:
+            messages.append(f"{target}: {trace_id}: missing phase0_selector")
+        elif len(phase0_selectors) != 1:
+            messages.append(
+                f"{target}: {trace_id}: phase0_selector must contain exactly one Phase 0 requirement ID"
+            )
+        for selector in phase0_selectors:
+            matches = _matches_selector(selector, phase0_ids)
+            if not matches:
+                messages.append(f"{target}: {trace_id}: phase0 selector {selector!r} matches no Phase 0 requirement IDs")
+                continue
+            if len(matches) != 1 or selector != matches[0]:
+                messages.append(
+                    f"{target}: {trace_id}: phase0 selector {selector!r} must be one literal Phase 0 requirement ID"
+                )
+                continue
+            for requirement_id in matches:
+                coverage.setdefault(requirement_id, []).append(trace_id)
+
+        phase1_selectors = _split_selectors(row.get("phase1_selectors", ""))
+        if status in {"covered", "partial"} and not phase1_selectors:
+            messages.append(f"{target}: {trace_id}: {status} row requires at least one phase1 selector")
+        if status in {"deferred", "not_applicable"} and not row.get("notes", "").strip():
+            messages.append(f"{target}: {trace_id}: {status} row requires notes")
+        for selector in phase1_selectors:
+            matches = _matches_selector(selector, phase1_ids)
+            if not matches:
+                messages.append(f"{target}: {trace_id}: phase1 selector {selector!r} matches no Phase 1 requirement IDs")
+
+        evidence_paths = _split_selectors(row.get("evidence_paths", ""))
+        if not evidence_paths:
+            messages.append(f"{target}: {trace_id}: missing evidence_paths")
+        for evidence_path in evidence_paths:
+            resolved = resolve_registered_path(evidence_path)
+            if not resolved.exists():
+                messages.append(f"{target}: {trace_id}: missing evidence path {evidence_path}")
+
+    missing = [requirement_id for requirement_id, trace_ids in coverage.items() if not trace_ids]
+    if missing:
+        messages.append(f"{target}: missing Phase 0 trace coverage for: {', '.join(missing)}")
+
+    duplicated = {
+        requirement_id: trace_ids
+        for requirement_id, trace_ids in coverage.items()
+        if len(trace_ids) > 1
+    }
+    for requirement_id, trace_ids in sorted(duplicated.items()):
+        messages.append(
+            f"{target}: Phase 0 requirement {requirement_id} is covered by multiple trace rows: "
+            f"{', '.join(trace_ids)}"
+        )
+
+    if messages:
+        return ValidationResult(False, messages)
+    return ValidationResult(
+        True,
+        [
+            f"{target}: requirement trace validation passed "
+            f"({len(phase0_ids)} Phase 0 requirements traced by explicit rows; "
+            f"{len(phase1_ids)} Phase 1 requirements indexed; "
+            f"trace classes: {_format_trace_class_counts(trace_class_counts)}; "
+            f"semantic review: {_format_semantic_review_counts(semantic_review_counts)})"
+        ],
+    )
+
+
+def _format_trace_class_counts(counts: Counter[str]) -> str:
+    return ", ".join(
+        f"{trace_class}={counts[trace_class]}"
+        for trace_class in ("implemented", "scaffolded", "deferred", "out_of_phase")
+        if counts[trace_class]
+    )
+
+
+def _format_semantic_review_counts(counts: Counter[str]) -> str:
+    summary = [
+        f"{verdict}={counts[verdict]}"
+        for verdict in ("sufficient", "needs_evidence", "incorrect_mapping")
+        if counts[verdict]
+    ]
+    return ", ".join(summary) if summary else "none"
+
+
+def _load_contract_schema(path: str | Path) -> tuple[dict[str, Any] | None, list[str]]:
+    try:
+        from .jsonschema_io import check_schema, load_json
+    except ModuleNotFoundError as exc:
+        return None, [f"jsonschema dependency unavailable: {exc}"]
+
+    target = resolve_registered_path(str(path))
+    try:
+        schema = load_json(target)
+    except RuntimeError as exc:
+        return None, [str(exc)]
+    errors = check_schema(schema)
+    if errors:
+        return None, [f"{target}: invalid JSON Schema: {error}" for error in errors]
+    return schema, []
+
+
+def _validate_instance_with_schema(instance: Any, schema_path: str | Path, label: str) -> list[str]:
+    try:
+        from .jsonschema_io import validate_instance
+    except ModuleNotFoundError as exc:
+        return [f"jsonschema dependency unavailable: {exc}"]
+
+    schema, errors = _load_contract_schema(schema_path)
+    if schema is None:
+        return errors
+    return [f"{label}: {error}" for error in validate_instance(instance, schema)]
+
+
+def _validate_rows_against_contract(
+    path: str | Path,
+    schema_path: str | Path,
+    id_field: str,
+) -> ValidationResult:
+    target = Path(path)
+    messages: list[str] = []
+    header, rows = read_registry(target)
+    expected = REGISTRY_HEADERS.get(target.name)
+    if expected and header != expected:
+        messages.append(f"{target}: header mismatch. Expected {expected!r}, found {header!r}")
+
+    seen: set[str] = set()
+    for index, row in enumerate(rows, start=2):
+        row_id = row.get(id_field, "")
+        if not row_id:
+            messages.append(f"{target}:{index}: missing {id_field}")
+        elif row_id in seen:
+            messages.append(f"{target}:{index}: duplicate {id_field} {row_id!r}")
+        else:
+            seen.add(row_id)
+        messages.extend(_validate_instance_with_schema(row, schema_path, f"{target}:{index}"))
+
+    return ValidationResult(not messages, messages or [f"{target}: row validation passed"])
+
+
+def _contract_index(
+    registry_path: str | Path = "registries/validation_contract_registry.csv",
+) -> dict[str, dict[str, str]]:
+    rows = read_registry_rows(registry_path)
+    return rows_by_id(rows, "contract_id")
+
+
+def _contract_path(contract_id: str, contracts: dict[str, dict[str, str]]) -> str | None:
+    row = contracts.get(contract_id)
+    if row is None:
+        return None
+    return row.get("path") or None
+
+
+def validate_format_profiles(path: str | Path) -> ValidationResult:
+    result = _validate_rows_against_contract(
+        path,
+        ROW_CONTRACTS["format_profile_registry.csv"],
+        "format_id",
+    )
+    if result.ok:
+        rows = read_registry_rows(path)
+        seen = {row.get("format_id", "") for row in rows}
+        missing = sorted(EXPECTED_FORMAT_PROFILE_IDS - seen)
+        if missing:
+            result.ok = False
+            result.messages.append(f"{path}: missing expected format profile IDs: {', '.join(missing)}")
+    return result
+
+
+def validate_config_sources(path: str | Path) -> ValidationResult:
+    result = _validate_rows_against_contract(
+        path,
+        ROW_CONTRACTS["config_source_registry.csv"],
+        "config_id",
+    )
+    contracts = _contract_index()
+    rows = read_registry_rows(path)
+    for row in rows:
+        contract_id = row.get("validation_contract_id", "")
+        if contract_id and contract_id not in contracts:
+            result.ok = False
+            result.messages.append(f"{path}: {row.get('config_id')}: unknown contract {contract_id!r}")
+        resolved = resolve_registered_path(row.get("path", ""))
+        if not resolved.exists():
+            result.ok = False
+            result.messages.append(f"{path}: {row.get('config_id')}: missing config source {resolved}")
+    return result
+
+
+def validate_control_records(path: str | Path) -> ValidationResult:
+    result = _validate_rows_against_contract(
+        path,
+        ROW_CONTRACTS["control_record_registry.csv"],
+        "control_record_id",
+    )
+    contracts = _contract_index()
+    for row in read_registry_rows(path):
+        record_path = resolve_registered_path(row.get("path", ""))
+        if not record_path.exists():
+            result.ok = False
+            result.messages.append(f"{path}: {row.get('control_record_id')}: missing control record {record_path}")
+            continue
+        data = load_yaml(record_path)
+        secret_findings = find_secret_like_values(data)
+        if secret_findings:
+            result.ok = False
+            result.messages.extend(f"{record_path}: {finding}" for finding in secret_findings)
+        contract_id = row.get("validation_contract_id", "")
+        if not contract_id:
+            continue
+        schema_path = _contract_path(contract_id, contracts)
+        if schema_path is None:
+            result.ok = False
+            result.messages.append(f"{path}: {row.get('control_record_id')}: unknown contract {contract_id!r}")
+            continue
+        errors = _validate_instance_with_schema(data, schema_path, str(record_path))
+        if errors:
+            result.ok = False
+            result.messages.extend(errors)
+    return result
+
+
+def validate_validation_contract_registry(path: str | Path) -> ValidationResult:
+    result = _validate_rows_against_contract(
+        path,
+        ROW_CONTRACTS["validation_contract_registry.csv"],
+        "contract_id",
+    )
+    for row in read_registry_rows(path):
+        contract_path = resolve_registered_path(row.get("path", ""))
+        if not contract_path.exists():
+            result.ok = False
+            result.messages.append(f"{path}: {row.get('contract_id')}: missing contract {contract_path}")
+            continue
+        _, errors = _load_contract_schema(contract_path)
+        if errors:
+            result.ok = False
+            result.messages.extend(errors)
+    return result
+
+
+def validate_toml_config(
+    registry_path: str | Path = "registries/config_source_registry.csv",
+) -> ValidationResult:
+    try:
+        from .toml_io import load_toml
+    except ModuleNotFoundError as exc:
+        return ValidationResult(False, [f"TOML parser dependency unavailable: {exc}"])
+
+    messages: list[str] = []
+    contracts = _contract_index()
+    for row in read_registry_rows(registry_path):
+        if row.get("format") != "toml":
+            continue
+        config_path = resolve_registered_path(row.get("path", ""))
+        if not config_path.exists():
+            messages.append(f"{registry_path}: {row.get('config_id')}: missing TOML file {config_path}")
+            continue
+        try:
+            data = load_toml(config_path)
+        except RuntimeError as exc:
+            messages.append(str(exc))
+            continue
+        secret_findings = find_secret_like_values(data)
+        if secret_findings:
+            messages.extend(f"{config_path}: {finding}" for finding in secret_findings)
+        contract_id = row.get("validation_contract_id", "")
+        schema_path = _contract_path(contract_id, contracts)
+        if schema_path is None:
+            messages.append(f"{registry_path}: {row.get('config_id')}: unknown contract {contract_id!r}")
+            continue
+        messages.extend(_validate_instance_with_schema(data, schema_path, str(config_path)))
+    return ValidationResult(not messages, messages or [f"{registry_path}: TOML config validation passed"])
+
+
+def validate_jsonschema_contracts(root: str | Path) -> ValidationResult:
+    target = Path(root)
+    messages: list[str] = []
+    if not target.exists():
+        return ValidationResult(False, [f"{target}: missing JSON Schema contracts directory"])
+    for path in sorted(target.glob("*.schema.json")):
+        _, errors = _load_contract_schema(path)
+        if errors:
+            messages.extend(errors)
+    return ValidationResult(not messages, messages or [f"{target}: JSON Schema contract validation passed"])
+
+
+def validate_registry_graph(registry_dir: str | Path) -> ValidationResult:
+    root = Path(registry_dir)
+    messages: list[str] = []
+    header_result = validate_registry_headers(root)
+    if not header_result.ok:
+        messages.extend(header_result.messages)
+
+    contract_rows = read_registry_rows(root / "validation_contract_registry.csv")
+    contract_ids = {row.get("contract_id", "") for row in contract_rows}
+
+    for row in read_registry_rows(root / "source_registry.csv"):
+        path = row.get("path", "")
+        if path and not resolve_registered_path(path).exists():
+            messages.append(f"{root / 'source_registry.csv'}: {row.get('source_id')}: missing source {path}")
+
+    for row in read_registry_rows(root / "derivative_registry.csv"):
+        derivative_id = row.get("derivative_id", "")
+        path = row.get("path", "")
+        status = row.get("status", "")
+        if status in {"canonical", "canonical_draft"}:
+            messages.append(f"{root / 'derivative_registry.csv'}: {derivative_id}: generated derivative cannot be {status}")
+        if not row.get("source_ids", "").strip():
+            messages.append(f"{root / 'derivative_registry.csv'}: {derivative_id}: missing source_ids")
+        if path and not resolve_registered_path(path).exists():
+            messages.append(f"{root / 'derivative_registry.csv'}: {derivative_id}: missing derivative {path}")
+
+    config_paths: set[Path] = set()
+    for row in read_registry_rows(root / "config_source_registry.csv"):
+        path = resolve_registered_path(row.get("path", ""))
+        config_paths.add(path.resolve())
+        if not path.exists():
+            messages.append(f"{root / 'config_source_registry.csv'}: {row.get('config_id')}: missing config {row.get('path')}")
+        contract_id = row.get("validation_contract_id", "")
+        if contract_id and contract_id not in contract_ids:
+            messages.append(f"{root / 'config_source_registry.csv'}: {row.get('config_id')}: missing contract {contract_id}")
+
+    control_paths: set[Path] = set()
+    for row in read_registry_rows(root / "control_record_registry.csv"):
+        path = resolve_registered_path(row.get("path", ""))
+        control_paths.add(path.resolve())
+        if not path.exists():
+            messages.append(f"{root / 'control_record_registry.csv'}: {row.get('control_record_id')}: missing control record {row.get('path')}")
+        contract_id = row.get("validation_contract_id", "")
+        if contract_id and contract_id not in contract_ids:
+            messages.append(f"{root / 'control_record_registry.csv'}: {row.get('control_record_id')}: missing contract {contract_id}")
+
+    contract_paths: set[Path] = set()
+    for row in contract_rows:
+        path = resolve_registered_path(row.get("path", ""))
+        contract_paths.add(path.resolve())
+        if not path.exists():
+            messages.append(f"{root / 'validation_contract_registry.csv'}: {row.get('contract_id')}: missing contract file {row.get('path')}")
+
+    for path in sorted(Path(".").glob("configs/**/*.toml")):
+        if path.resolve() not in config_paths:
+            messages.append(f"{path}: TOML configuration source missing config registry row")
+    pyproject = Path("pyproject.toml").resolve()
+    if pyproject.exists() and pyproject not in config_paths:
+        messages.append("pyproject.toml: TOML configuration source missing config registry row")
+
+    for path in sorted(Path("control_records").glob("**/*.yaml")):
+        if path.resolve() not in control_paths:
+            messages.append(f"{path}: YAML control record missing control registry row")
+
+    for path in sorted(Path("schemas/contracts").glob("*.schema.json")):
+        if path.resolve() not in contract_paths:
+            messages.append(f"{path}: JSON Schema contract missing validation contract registry row")
+
+    return ValidationResult(not messages, messages or [f"{root}: registry graph validation passed"])
 
 
 def validate_metrics_script(path: str | Path) -> ValidationResult:

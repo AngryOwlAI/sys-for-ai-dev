@@ -3,7 +3,7 @@ VENV ?= .venv
 PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
 
-.PHONY: venv install doctor validate validate-agentjob validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory clean-local
+.PHONY: venv install doctor validate validate-agentjob validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives clean-local
 
 venv:
 	$(PY) -m venv $(VENV)
@@ -36,7 +36,40 @@ validate-discovery-template:
 bootstrap-memory:
 	$(PYTHON) -m sys_for_ai.cli bootstrap-memory registries
 
-validate: doctor validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory
+validate-format-profiles:
+	$(PYTHON) -m sys_for_ai.cli validate-format-profiles registries/format_profile_registry.csv
+
+validate-config-sources:
+	$(PYTHON) -m sys_for_ai.cli validate-config-sources registries/config_source_registry.csv
+
+validate-control-records:
+	$(PYTHON) -m sys_for_ai.cli validate-control-records registries/control_record_registry.csv
+
+validate-validation-contract-registry:
+	$(PYTHON) -m sys_for_ai.cli validate-validation-contract-registry registries/validation_contract_registry.csv
+
+validate-toml-config:
+	$(PYTHON) -m sys_for_ai.cli validate-toml-config registries/config_source_registry.csv
+
+validate-jsonschema-contracts:
+	$(PYTHON) -m sys_for_ai.cli validate-jsonschema-contracts schemas/contracts
+
+validate-registry-graph:
+	$(PYTHON) -m sys_for_ai.cli validate-registry-graph registries
+
+validate-requirement-trace:
+	$(PYTHON) -m sys_for_ai.cli validate-requirement-trace registries/requirement_trace_registry.csv
+
+generate-config-control-wiki:
+	$(PYTHON) -m sys_for_ai.cli generate-config-control-wiki --check
+
+generate-validation-contracts-catalog:
+	$(PYTHON) -m sys_for_ai.cli generate-validation-contracts-catalog --check
+
+validate-generated-derivatives:
+	$(PYTHON) -m sys_for_ai.cli validate-generated-derivatives docs/generated registries/derivative_registry.csv
+
+validate: doctor validate-agentjobs validate-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives
 
 clean-local:
 	rm -rf .pytest_cache __pycache__ sys_for_ai/__pycache__ .local/receipts

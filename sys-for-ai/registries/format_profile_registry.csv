@@ -1,0 +1,6 @@
+format_id,extension,format_family,primary_role,canonical_roots,derivative_surfaces,registry_required,validator_required,default_authority_class,promotion_rule,secrets_allowed,notes
+fmt_markdown_source,.md,Markdown,human_authored_source,PRDs/;docs/;templates/,markdown_index;optional_obsidian_mirror,true,false,source_document,source_promotion_agentjob,false,Authority depends on registry row
+fmt_csv_registry,.csv,CSV,registry_ledger,registries/,registry_index,true,true,registry_row,registry_change_agentjob,false,Row-oriented authority for registries and ledgers
+fmt_yaml_control,.yaml,YAML,agent_control_state,control_records/;skills/;schemas/specs/,configuration_control_wiki;optional_obsidian_mirror,true,true,control_record,source_import_agentjob,false,Safe parsing only
+fmt_toml_config,.toml,TOML,project_configuration,pyproject.toml;configs/;templates/config/,configuration_control_wiki,true,true,configuration_source,config_change_agentjob,false,No secrets in Phase 1 examples
+fmt_jsonschema_contract,.schema.json,JSON Schema,validation_contract,schemas/contracts/,validation_contracts_catalog,true,true,validation_contract,contract_change_agentjob,false,Pin dialect and target artifact type

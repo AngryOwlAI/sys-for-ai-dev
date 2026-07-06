@@ -4,13 +4,15 @@
 **Product name:** `sys-for-ai`  
 **Phase:** Phase 1: Implementation initialization  
 **Depends on:** `PRDs/sys-for-ai_phase-0_product_system_design_prd.md`  
-**Last updated:** 2026-07-04
+**Last updated:** 2026-07-06
 
 ---
 
 ## 1. Executive summary
 
 Phase 1 initializes the `sys-for-ai` implementation repository so development can begin safely, reproducibly, and with source-first governance. Phase 1 does not finish the framework. It creates the first executable spine: Python environment, dependency policy, YAML control records, validators, skill adapters, memory registries, documentation policies, and a Docker decision record.
+
+This revision also initializes the core file-format memory profile spine required by Phase 0: Markdown, CSV, YAML, TOML, and JSON Schema. Phase 1 adds minimal registries, examples, validators, dependency policy, and generated derivative stubs for YAML/TOML configuration-control artifacts and JSON Schema validation contracts. Phase 1 does not build a full wiki engine, does not introduce a vector database, does not make Obsidian canonical, and does not create a standalone JSON wiki by default.
 
 The default Phase 1 environment is a local Python virtual environment. Docker is deferred unless the environment decision record identifies concrete OS-level dependencies, multi-service orchestration needs, CI parity needs, or target-runtime template needs.
 
@@ -27,6 +29,13 @@ The default Phase 1 environment is a local Python virtual environment. Docker is
 7. Add all core skill adapter shells from `ai-skills-for-sys`.
 8. Add implementation plans and task packets for the next agent pass.
 9. Decide whether Docker is needed now, later, or only for generated target systems.
+10. Initialize core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema.
+11. Add initial format-profile, configuration-source, control-record, and validation-contract registries.
+12. Add TOML configuration examples and parser support.
+13. Add JSON Schema validation-contract examples and executable contract validation.
+14. Add generated or stub-generated Configuration and Control Wiki pages for registered YAML and TOML artifacts.
+15. Add generated or stub-generated Validation Contracts Catalog pages for JSON Schema contracts.
+16. Extend Makefile and CLI validation commands to cover format profiles, TOML configuration, JSON Schema contracts, and derivative trace checks.
 
 ---
 
@@ -39,6 +48,15 @@ The default Phase 1 environment is a local Python virtual environment. Docker is
 - Do not treat Obsidian as canonical memory.
 - Do not import external skill files without local adaptation and provenance records.
 - Do not implement target-domain agent systems yet.
+- Do not build a production memory database.
+- Do not build a full interactive wiki engine.
+- Do not create a standalone JSON wiki unless a later PRD introduces general JSON source or memory artifacts.
+- Do not treat generated Configuration and Control Wiki pages as canonical.
+- Do not treat generated Validation Contracts Catalog pages as canonical.
+- Do not support TOML writing or style-preserving TOML editing in Phase 1.
+- Do not support secret-bearing YAML or TOML configuration files in Phase 1.
+- Do not treat JSON Schema validation as semantic or domain acceptance.
+- Do not convert all existing schema-like YAML specs in one step if doing so would destabilize the scaffold.
 
 ---
 
@@ -53,6 +71,8 @@ The default Phase 1 environment is a local Python virtual environment. Docker is
 `SFA-P1-INIT-REPO-003`: Add folders for `schemas`, `control_records`, `registries`, `skills`, `docs`, and `templates`.
 
 `SFA-P1-INIT-REPO-004`: Preserve top-level PRDs and implementation plans outside the implementation package.
+
+`SFA-P1-INIT-REPO-005`: Add `configs/`, `schemas/contracts/`, `docs/generated/configuration_control/`, and `docs/generated/validation_contracts/` for the initial format-profile scaffold.
 
 ### 4.2 Python environment
 
@@ -84,6 +104,12 @@ make doctor
 
 `SFA-P1-INIT-DEP-003`: Add no heavy runtime dependencies until an implementation plan justifies them.
 
+`SFA-P1-INIT-DEP-004`: Add JSON Schema validation support through a lightweight Python dependency.
+
+`SFA-P1-INIT-DEP-005`: Add TOML parser support consistent with the supported Python version range. If Python `>=3.10` remains supported, Phase 1 shall add a conditional `tomli` dependency for Python versions below 3.11. If the project raises its minimum Python version to `>=3.11`, Phase 1 may use standard-library `tomllib` without `tomli`.
+
+`SFA-P1-INIT-DEP-006`: Phase 1 shall not add TOML writing, style-preserving TOML editing, vector databases, production memory services, or heavy runtime dependencies for this feature.
+
 ### 4.4 YAML records and validators
 
 `SFA-P1-INIT-YAML-001`: Create a smoke-test AgentJob YAML file.
@@ -93,6 +119,10 @@ make doctor
 `SFA-P1-INIT-YAML-003`: Add validators that use `yaml.safe_load`.
 
 `SFA-P1-INIT-YAML-004`: The validation command shall fail on missing required AgentJob fields or malformed skill manifest entries.
+
+`SFA-P1-INIT-YAML-005`: Add handoff, completion receipt, and state snapshot YAML examples that carry source-first format-profile evidence.
+
+`SFA-P1-INIT-YAML-006`: YAML control/state examples shall parse with safe YAML loading and validate against JSON Schema contracts where contracts exist.
 
 ### 4.5 Skill import and adaptation
 
@@ -116,7 +146,33 @@ make doctor
 
 `SFA-P1-INIT-MEM-004`: Obsidian support shall be documented as optional and derivative.
 
-### 4.7 Docker decision
+`SFA-P1-INIT-MEM-005`: Add `format_profile_registry.csv` for Markdown, CSV, YAML, TOML, and JSON Schema profile rows.
+
+`SFA-P1-INIT-MEM-006`: Add `config_source_registry.csv` for registered TOML configuration sources and later configuration formats.
+
+`SFA-P1-INIT-MEM-007`: Add `control_record_registry.csv` for registered YAML control/state artifacts.
+
+`SFA-P1-INIT-MEM-008`: Add `validation_contract_registry.csv` for JSON Schema contracts and later validation-contract formats.
+
+`SFA-P1-INIT-MEM-009`: Update source and derivative registries so canonical source files and generated derivative stubs remain distinguishable.
+
+### 4.7 Core format-profile scaffold
+
+`SFA-P1-INIT-FORMAT-001`: Initialize the core file-format profile scaffold without promoting generated derivatives to canonical authority.
+
+`SFA-P1-INIT-FORMAT-002`: Add TOML examples under `configs/examples/` for framework configuration and target-project configuration.
+
+`SFA-P1-INIT-FORMAT-003`: Add JSON Schema contracts under `schemas/contracts/` for initial AgentJob, handoff, completion receipt, state snapshot, TOML configuration, and registry-row structures.
+
+`SFA-P1-INIT-FORMAT-004`: Add policy documents for format profiles, Configuration and Control Wiki behavior, and Validation Contracts Catalog behavior.
+
+`SFA-P1-INIT-FORMAT-005`: Add generated or stub-generated Configuration and Control Wiki pages under `docs/generated/configuration_control/`.
+
+`SFA-P1-INIT-FORMAT-006`: Add generated or stub-generated Validation Contracts Catalog pages under `docs/generated/validation_contracts/`.
+
+`SFA-P1-INIT-FORMAT-007`: Generated wiki/catalog pages shall contain non-canonical authority notices, source trace placeholders or populated source trace, registry evidence, generator metadata, and stale/orphan status.
+
+### 4.8 Docker decision
 
 `SFA-P1-INIT-DOCKER-001`: Add an environment decision record that chooses `.venv` as the Phase 1 baseline.
 
@@ -124,13 +180,23 @@ make doctor
 
 `SFA-P1-INIT-DOCKER-003`: Keep development environment containers separate from target-system runtime container templates.
 
-### 4.8 Validation
+### 4.9 Validation
 
 `SFA-P1-INIT-VAL-001`: Add `make doctor` to check Python, PyYAML, package import, and expected folders.
 
 `SFA-P1-INIT-VAL-002`: Add `make validate-agentjob`, `make validate-skills`, `make bootstrap-memory`, and `make validate`.
 
 `SFA-P1-INIT-VAL-003`: Validation shall be deterministic and runnable offline after dependencies are installed.
+
+`SFA-P1-INIT-VAL-004`: Add validation commands for format profiles, configuration sources, control records, validation contracts, TOML configuration, JSON Schema contracts, registry graph consistency, generated Configuration and Control Wiki stubs, and generated Validation Contracts Catalog stubs.
+
+`SFA-P1-INIT-VAL-005`: Validation shall fail or warn when governed YAML, TOML, JSON Schema, or CSV artifacts are missing registry rows, reference missing validation contracts, point to missing source files, or appear as generated derivatives with canonical authority.
+
+`SFA-P1-INIT-VAL-006`: Validation shall fail or warn when YAML or TOML examples contain secret-like keys or values according to Phase 1 security policy.
+
+`SFA-P1-INIT-VAL-007`: Validation shall preserve the distinction between structural admissibility and semantic/domain correctness.
+
+`SFA-P1-INIT-VAL-008`: Add a PRD requirement trace validator that checks requirement ID uniqueness and verifies that Phase 0 requirement IDs have explicit Phase 1 coverage, partial coverage, deferral, or not-applicable trace rows with semantic trace classes, justification for partial, deferred, or out-of-phase mappings, and a semantic review verdict for each non-implemented trace row.
 
 ---
 
@@ -145,6 +211,23 @@ Phase 1 initialization is acceptable when:
 5. Memory registries exist with expected headers.
 6. The Docker decision record exists and distinguishes development environment from target runtime.
 7. Phase 0 product requirements and Phase 1 initialization requirements are no longer mixed in one PRD.
+8. `format_profile_registry.csv` exists with expected headers and rows for Markdown, CSV, YAML, TOML, and JSON Schema.
+9. `config_source_registry.csv` exists with expected headers and at least one TOML example row.
+10. `control_record_registry.csv` exists with expected headers and rows for AgentJob, handoff, completion receipt, and state snapshot examples.
+11. `validation_contract_registry.csv` exists with expected headers and rows for initial JSON Schema contracts.
+12. `pyproject.toml` and `requirements.txt` include PyYAML, JSON Schema validation support, and TOML parsing support consistent with the selected Python version policy.
+13. TOML examples parse successfully and validate against their declared JSON Schema contracts.
+14. YAML control examples parse with safe YAML loading and validate against their declared JSON Schema contracts where contracts exist.
+15. JSON Schema files load and pass schema checks for the selected dialect.
+16. CSV registry headers pass validation.
+17. Registry graph validation detects missing source paths, missing contract IDs, invalid authority classes, orphan derivatives, and generated derivatives marked as canonical.
+18. Generated Configuration and Control Wiki stubs exist, contain non-canonical authority banners, and link to YAML/TOML source and registry evidence.
+19. Generated Validation Contracts Catalog stubs exist, contain non-canonical authority banners, and link to JSON Schema source and registry evidence.
+20. No standalone JSON wiki is created.
+21. Secret-like keys in YAML/TOML examples are absent or cause validation warnings/failures according to Phase 1 policy.
+22. `make validate` passes after dependencies are installed.
+23. The Phase 1 recommended AgentJob includes the new validators and generated derivative checks.
+24. The PRD requirement trace validator passes against the canonical Phase 0 PRD, Phase 1 PRD, and requirement trace registry, including semantic trace class, partial-justification, and non-implemented semantic review verdict checks.
 
 ---
 
@@ -174,4 +257,60 @@ validators:
 stop_conditions:
   - Required dependency installation fails.
   - Existing repository file would be overwritten without maintainer approval.
+```
+
+```yaml
+agentjob_id: AJ-P1-FORMAT-PROFILES-001
+objective: Integrate core file-format memory profile requirements into the Phase 1 scaffold, including TOML configuration support, JSON Schema validation contracts, new registries, and generated derivative stubs.
+role: implementation_initialization_agent
+allowed_reads:
+  - PRDs/sys-for-ai_phase-0_product_system_design_prd.md
+  - PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md
+  - sys-for-ai/**
+  - implementation_plans/**
+allowed_writes:
+  - PRDs/sys-for-ai_phase-0_product_system_design_prd.md
+  - PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md
+  - implementation_plans/**
+  - sys-for-ai/configs/**
+  - sys-for-ai/control_records/**
+  - sys-for-ai/schemas/**
+  - sys-for-ai/registries/**
+  - sys-for-ai/docs/**
+  - sys-for-ai/sys_for_ai/**
+  - sys-for-ai/tests/**
+  - sys-for-ai/requirements.txt
+  - sys-for-ai/pyproject.toml
+  - sys-for-ai/Makefile
+forbidden_actions:
+  - Delete repository root license or notice files.
+  - Treat generated derivatives as canonical sources.
+  - Create a standalone JSON wiki for JSON Schema.
+  - Add vector database or production memory service dependencies.
+  - Add secret-bearing TOML or YAML examples.
+  - Use unsafe YAML loaders.
+expected_outputs:
+  - Updated Phase 0 PRD with core file-format profile requirements.
+  - Updated Phase 1 PRD with implementation initialization requirements.
+  - New registries for format profiles, config sources, control records, and validation contracts.
+  - TOML example files and parser support.
+  - JSON Schema contract files and validator support.
+  - Generated Configuration and Control Wiki stubs.
+  - Generated Validation Contracts Catalog stubs.
+  - Passing validation command receipt.
+validators:
+  - cd sys-for-ai && make doctor
+  - cd sys-for-ai && make validate
+  - cd sys-for-ai && make validate-format-profiles
+  - cd sys-for-ai && make validate-toml-config
+  - cd sys-for-ai && make validate-jsonschema-contracts
+  - cd sys-for-ai && make validate-registry-graph
+  - cd sys-for-ai && make validate-requirement-trace
+  - cd sys-for-ai && make validate-generated-derivatives
+stop_conditions:
+  - Required dependency installation fails.
+  - Existing repository file would be overwritten without review.
+  - Generated derivative would be marked canonical.
+  - JSON wiki creation becomes necessary because requirements changed.
+  - Secret-like value is discovered in a config/control example.
 ```
