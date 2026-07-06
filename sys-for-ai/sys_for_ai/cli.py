@@ -21,6 +21,7 @@ from .validators import (
     validate_format_profiles,
     validate_jsonschema_contracts,
     validate_metrics_script,
+    validate_program_state,
     validate_registry_graph,
     validate_registry_headers,
     validate_requirement_trace,
@@ -134,6 +135,9 @@ def build_parser() -> argparse.ArgumentParser:
     validate_controls = sub.add_parser("validate-control-records", help="Validate control-record registry rows and examples")
     validate_controls.add_argument("path", default="registries/control_record_registry.csv", nargs="?")
 
+    validate_state = sub.add_parser("validate-program-state", help="Validate tracked /continue program state")
+    validate_state.add_argument("path", default="control_records/program_state.yaml", nargs="?")
+
     validate_contract_registry = sub.add_parser(
         "validate-validation-contract-registry",
         help="Validate validation-contract registry rows and schema files",
@@ -201,6 +205,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "validate-control-records":
         return print_result(validate_control_records(args.path))
 
+    if args.command == "validate-program-state":
+        return print_result(validate_program_state(args.path))
+
     if args.command == "validate-validation-contract-registry":
         return print_result(validate_validation_contract_registry(args.path))
 
@@ -235,6 +242,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_format_profiles(args.format_profiles))
         result.extend(validate_config_sources(args.config_sources))
         result.extend(validate_control_records(args.control_records))
+        result.extend(validate_program_state())
         result.extend(validate_validation_contract_registry(args.validation_contracts))
         result.extend(validate_toml_config(args.config_sources))
         result.extend(validate_jsonschema_contracts(args.contracts_root))

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sys-for-ai/schemas/contracts/program_state.schema.json",
+  "title": "sys-for-ai program state",
+  "type": "object",
+  "required": [
+    "program_state_id",
+    "schema_version",
+    "system_context",
+    "current_phase",
+    "lifecycle_stage",
+    "state_status",
+    "allowed_next_actions",
+    "blocked_actions",
+    "validation_status"
+  ],
+  "properties": {
+    "program_state_id": { "type": "string", "minLength": 1 },
+    "schema_version": { "type": "string", "minLength": 1 },
+    "system_context": {
+      "type": "object",
+      "required": [
+        "framework_system",
+        "development_system",
+        "target_system",
+        "self_hosting_mode",
+        "reflection_depth"
+      ],
+      "properties": {
+        "framework_system": { "const": "sys-for-ai" },
+        "development_system": { "const": "sys-for-ai-dev" },
+        "target_system": { "type": "string", "minLength": 1 },
+        "self_hosting_mode": { "type": "boolean" },
+        "reflection_depth": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "current_phase": { "type": "string", "minLength": 1 },
+    "lifecycle_stage": { "type": "string", "minLength": 1 },
+    "active_task_id": { "type": ["string", "null"] },
+    "active_director_decision_id": { "type": ["string", "null"] },
+    "active_agentjob_id": { "type": ["string", "null"] },
+    "latest_completion_receipt_id": { "type": ["string", "null"] },
+    "latest_handoff_id": { "type": ["string", "null"] },
+    "latest_memory_preflight_receipt_id": { "type": ["string", "null"] },
+    "state_status": {
+      "enum": ["active", "blocked", "complete", "human_gated"]
+    },
+    "blocked_reason": { "type": ["string", "null"] },
+    "human_gate_required": { "type": "boolean" },
+    "allowed_next_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_status": {
+      "type": "object",
+      "required": ["last_validated_at", "validators"],
+      "properties": {
+        "last_validated_at": { "type": "string", "minLength": 1 },
+        "validators": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

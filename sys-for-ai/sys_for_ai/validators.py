@@ -672,6 +672,39 @@ def validate_control_records(path: str | Path) -> ValidationResult:
     return result
 
 
+def validate_program_state(path: str | Path = "control_records/program_state.yaml") -> ValidationResult:
+    """Validate tracked /continue program state."""
+
+    target = Path(path)
+    messages: list[str] = []
+    data = load_yaml(target)
+    messages.extend(_require_mapping(data, target))
+    if messages:
+        return ValidationResult(False, messages)
+
+    messages.extend(_validate_instance_with_schema(data, "schemas/contracts/program_state.schema.json", str(target)))
+
+    state_status = data.get("state_status")
+    blocked_reason = data.get("blocked_reason")
+    if state_status == "blocked" and not blocked_reason:
+        messages.append(f"{target}: blocked state requires blocked_reason")
+    if state_status == "human_gated" and data.get("human_gate_required") is not True:
+        messages.append(f"{target}: human_gated state requires human_gate_required=true")
+
+    blocked_actions = set(data.get("blocked_actions", []))
+    required_blocks = {
+        "execute_multiple_agentjobs",
+        "use_chat_memory_as_authority",
+        "treat_generated_derivative_as_canonical",
+        "mutate_activated_control_record_without_supersession",
+    }
+    missing_blocks = sorted(required_blocks - blocked_actions)
+    if missing_blocks:
+        messages.append(f"{target}: missing blocked_actions: {', '.join(missing_blocks)}")
+
+    return ValidationResult(not messages, messages or [f"{target}: program state validation passed"])
+
+
 def validate_validation_contract_registry(path: str | Path) -> ValidationResult:
     result = _validate_rows_against_contract(
         path,
