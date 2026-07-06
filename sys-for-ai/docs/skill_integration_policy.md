@@ -42,3 +42,11 @@ Discovery records and temporary handoff files are controlled evidence only when 
 ## Integration rule
 
 Upstream skills from `ai-skills-for-sys` must be adapted locally before they are marked `adapted`. Adapter shells must preserve provenance, local authority boundaries, required files, validation commands, known failure modes, and adaptation work remaining.
+
+## Continuation and memory surfaces
+
+The active development-runtime surfaces for continuation and source-first memory live under `.agents/skills/continue/` and `.agents/skills/source-first-memory/`.
+
+The matching `.codex/skills/*/SKILL.md` files are compatibility shims only. They point to the `.agents` runtime surfaces and should not carry independent behavior.
+
+The matching `sys-for-ai/skills/core/*` folders are product-scaffold templates for future target systems. They must remain generic, portable, and not locked to one execution harness.

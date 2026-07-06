@@ -54,6 +54,7 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_selfhost_continue_kernel_state_snapshot | control_records/state_snapshots/state_snapshot.example.v0_2.yaml | state_snapshot | controlled | control_loop | contract_state_snapshot | pending |
 | ctrl_boundary_validators_agentjob | control_records/agentjobs/AJ-P1-BOUNDARY-VALIDATORS-001.yaml | agentjob_v0_2 | controlled | control_loop | contract_agentjob_v0_2 | pending |
 | ctrl_derivative_generators_agentjob | control_records/agentjobs/AJ-P1-DERIVATIVE-GENERATORS-001.yaml | agentjob_v0_2 | controlled | control_loop | contract_agentjob_v0_2 | pending |
+| ctrl_continue_skills_agentjob | control_records/agentjobs/AJ-P1-CONTINUE-SKILLS-001.yaml | agentjob_v0_2 | controlled | skill_governance | contract_agentjob_v0_2 | pending |
 
 ## Validation Contract Trace
 

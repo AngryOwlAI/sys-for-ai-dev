@@ -103,3 +103,11 @@ SRC-DERIVATIVES-CONFIG-CONTROL,sys-for-ai/sys_for_ai/derivatives/config_control_
 SRC-DERIVATIVES-VALIDATION-CONTRACTS,sys-for-ai/sys_for_ai/derivatives/validation_contracts_catalog.py,derivative_generator,controlled,control_loop,2026-07-06,Validation Contracts Catalog deterministic generator.
 SRC-AJ-DERIVATIVE-GENERATORS-001,sys-for-ai/control_records/agentjobs/AJ-P1-DERIVATIVE-GENERATORS-001.yaml,agentjob,controlled,control_loop,2026-07-06,Pending AgentJob for Phase 8 generated derivative generators.
 SRC-TEST-GENERATED-DERIVATIVES,sys-for-ai/tests/test_generated_derivatives.py,test,controlled,control_loop,2026-07-06,Unit tests for deterministic generated derivative check and write behavior.
+SRC-SKILL-CONTINUE-RUNTIME,.agents/skills/continue/SKILL.md,runtime_skill,controlled,skill_governance,2026-07-06,Active runtime continue skill for sys-for-ai-dev.
+SRC-SKILL-SOURCE-FIRST-MEMORY-RUNTIME,.agents/skills/source-first-memory/SKILL.md,runtime_skill,controlled,skill_governance,2026-07-06,Active runtime source-first memory skill for sys-for-ai-dev.
+SRC-SKILL-CONTINUE-SHIM,.codex/skills/continue/SKILL.md,compatibility_shim,controlled,skill_governance,2026-07-06,Compatibility shim pointing to the .agents continue skill.
+SRC-SKILL-SOURCE-FIRST-MEMORY-SHIM,.codex/skills/source-first-memory/SKILL.md,compatibility_shim,controlled,skill_governance,2026-07-06,Compatibility shim pointing to the .agents source-first-memory skill.
+SRC-SKILL-CONTINUE-PRODUCT,sys-for-ai/skills/core/continue/SKILL.md,skill_adapter,controlled,skill_governance,2026-07-06,Generic product scaffold continue skill template.
+SRC-SKILL-SOURCE-FIRST-MEMORY-PRODUCT,sys-for-ai/skills/core/source-first-memory/SKILL.md,skill_adapter,controlled,skill_governance,2026-07-06,Generic product scaffold source-first-memory skill template.
+SRC-AJ-CONTINUE-SKILLS-001,sys-for-ai/control_records/agentjobs/AJ-P1-CONTINUE-SKILLS-001.yaml,agentjob,controlled,skill_governance,2026-07-06,Pending AgentJob for Phase 9 continue and source-first memory skill surfaces.
+SRC-TEST-SKILL-SURFACES,sys-for-ai/tests/test_skill_surfaces.py,test,controlled,skill_governance,2026-07-06,Unit tests for runtime shim and product scaffold skill surfaces.

@@ -1,0 +1,22 @@
+skill_id: continue
+version: 0.1.0
+status: active
+canonical_path: .agents/skills/continue
+summary: Resume sys-for-ai-dev from tracked state and advance at most one authorized AgentJob.
+scope:
+  system_agnostic: false
+  target_system_types:
+    - sys-for-ai-dev development workspace
+  intentional_specialization: Project-fit runtime continuation skill for sys-for-ai-dev.
+activation:
+  triggers:
+    - Continue work from tracked state.
+    - Resume the implementation plan from the latest handoff.
+  when_not_to_use:
+    - Do not use for unbounded multi-AgentJob execution.
+    - Do not use generated derivatives or chat memory as authority.
+outputs:
+  primary:
+    - One completed bounded task or a blocked stop packet.
+  handoff:
+    - Next temp_handoff file with validation evidence and next logical step.

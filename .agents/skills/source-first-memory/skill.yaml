@@ -1,0 +1,22 @@
+skill_id: source-first-memory
+version: 0.1.0
+status: active
+canonical_path: .agents/skills/source-first-memory
+summary: Use sys-for-ai source-first memory as navigation to registered authority.
+scope:
+  system_agnostic: false
+  target_system_types:
+    - sys-for-ai-dev development workspace
+  intentional_specialization: Project-fit runtime memory-navigation skill for sys-for-ai-dev.
+activation:
+  triggers:
+    - Search source-first memory.
+    - Record memory preflight evidence.
+    - Verify memory-derived routing or claims against sources.
+  when_not_to_use:
+    - Do not use memory hits as authority without source inspection.
+outputs:
+  primary:
+    - Source and registry evidence for routing or claims.
+  handoff:
+    - Memory preflight evidence and stale-risk notes when relevant.

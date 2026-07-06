@@ -62,8 +62,10 @@ AGENTJOB_REQUIRED_FIELDS = {
 
 SKILL_MANIFEST_REQUIRED_SKILLS = {
     "codex-usage-metrics",
+    "continue",
     "system-definition-interview",
     "system-definition-interview-context-45",
+    "source-first-memory",
     "conversation-to-prd",
     "decision-grilling",
     "decision-grilling-context-45",

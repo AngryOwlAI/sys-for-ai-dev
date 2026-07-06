@@ -4,6 +4,32 @@ source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
 local_root: skills/core
 policy: All listed skills are core product-scaffold requirements for the project being developed; Phase 1 includes adapter shells and provenance records. The active sys-for-ai-dev runtime surface is the root .agents/skills layer, with .codex/skills as compatibility shims.
 skills:
+  - id: continue
+    name: Continue
+    family: continuation_control
+    source_repo: local
+    source_path: .agents/skills/continue
+    local_path: core/continue
+    adaptation_status: scaffold_template
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Generic target-system continuation template for tracked state, latest handoff inspection, memory preflight, one bounded AgentJob, validation, and next handoff."
+  - id: source-first-memory
+    name: Source First Memory
+    family: source_first_memory
+    source_repo: local
+    source_path: .agents/skills/source-first-memory
+    local_path: core/source-first-memory
+    adaptation_status: scaffold_template
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Generic target-system memory navigation template that requires source or registry inspection before memory affects claims or routing."
   - id: codex-usage-metrics
     name: Codex Usage Metrics
     family: runtime_session_accounting
