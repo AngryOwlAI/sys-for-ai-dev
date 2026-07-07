@@ -11,7 +11,11 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 from .discovery import validate_discovery_record
-from .derivative_generation import validate_generated_derivatives
+from .derivative_generation import (
+    check_governance_generated_docs,
+    validate_generated_derivatives,
+    write_governance_generated_docs,
+)
 from .derivatives import (
     check_config_control_wiki,
     check_validation_contracts_catalog,
@@ -334,6 +338,11 @@ def build_parser() -> argparse.ArgumentParser:
     generate_vc_mode.add_argument("--check", action="store_true", help="Check generated pages without writing")
     generate_vc_mode.add_argument("--write", action="store_true", help="Write generated pages")
 
+    generate_governance = sub.add_parser("generate-governance-docs", help="Generate governance summary pages")
+    generate_governance_mode = generate_governance.add_mutually_exclusive_group()
+    generate_governance_mode.add_argument("--check", action="store_true", help="Check generated pages without writing")
+    generate_governance_mode.add_argument("--write", action="store_true", help="Write generated pages")
+
     validate_generated = sub.add_parser("validate-generated-derivatives", help="Validate generated derivative stubs")
     validate_generated.add_argument("docs_root", default="docs/generated", nargs="?")
     validate_generated.add_argument("derivative_registry", default="registries/derivative_registry.csv", nargs="?")
@@ -476,6 +485,9 @@ def main(argv: list[str] | None = None) -> int:
             write_validation_contracts_catalog() if args.write else check_validation_contracts_catalog()
         )
 
+    if args.command == "generate-governance-docs":
+        return print_result(write_governance_generated_docs() if args.write else check_governance_generated_docs())
+
     if args.command == "validate-generated-derivatives":
         return print_result(validate_generated_derivatives(args.docs_root, args.derivative_registry))
 
@@ -509,7 +521,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_toml_config(args.config_sources))
         result.extend(validate_jsonschema_contracts(args.contracts_root))
         result.extend(validate_registry_graph(args.registries))
-        boundary_payload = validate_check_diff("AJ-SFADEV-08-CORE-SKILLS-BATCH-2-001")
+        boundary_payload = validate_check_diff("AJ-SFADEV-09-GENERATED-DOCS-001")
         result.extend(
             ValidationResult(
                 bool(boundary_payload.get("ok")),
@@ -519,6 +531,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_one_active_agentjob())
         result.extend(validate_control_loop())
         result.extend(validate_requirement_trace(args.requirement_trace))
+        result.extend(check_governance_generated_docs())
         result.extend(validate_generated_derivatives(args.generated_docs, "registries/derivative_registry.csv"))
         return print_result(result)
 

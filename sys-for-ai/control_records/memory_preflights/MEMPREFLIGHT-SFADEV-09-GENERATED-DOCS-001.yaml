@@ -1,0 +1,91 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-09-GENERATED-DOCS-001
+schema_version: 0.1.0
+agentjob_id: AJ-SFADEV-09-GENERATED-DOCS-001
+created_at: "2026-07-07T05:19:36Z"
+status: PASS_WITH_WARNINGS
+commands_run:
+  - command: cd sys-for-ai && make continue-preflight
+    result: pass_with_warnings
+  - command: cd sys-for-ai && make continue-select
+    result: blocked_director_decision_required
+  - command: rg memory quick pass for generated docs and derivative governance routing
+    result: pass_memory_hits_checked_against_source
+queries:
+  - query: source-first memory continue handoff AgentJob
+    returned_object_ids:
+      - SRC-REG-CONTROL-RECORDS
+      - SRC-CLI-PHASE1
+      - SRC-CONTROL-LOOP-JOB-SELECTION
+      - SRC-REG-ROLES
+      - SRC-REG-VALIDATION-CONTRACTS
+  - query: generated docs and derivative governance
+    returned_object_ids:
+      - SRC-ALL-RECS-IMPLEMENTATION-PLAN
+      - SRC-DERIVATIVE-GENERATION
+      - SRC-REG-DERIVATIVES
+      - SRC-REG-SYSTEM-LAYERS
+      - SRC-REG-ARTIFACT-CONTRACTS
+      - SRC-REG-ROLES
+      - SRC-PRODUCT-SKILL-REGISTRY
+canonical_sources_inspected:
+  - path: implementation_plans/self_hosting_boundary_decision_record.md
+    registry: source_registry.csv
+    row_id: SRC-SELFHOST-BOUNDARY-DECISION
+    inspected_sections:
+      - Decision
+      - Rules
+  - path: sys-for-ai/control_records/program_state.yaml
+    registry: source_registry.csv
+    row_id: SRC-PROGRAM-STATE
+    inspected_sections:
+      - latest_handoff_id
+      - allowed_next_actions
+  - path: sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-08-CORE-SKILLS-BATCH-2-001.yaml
+    registry: source_registry.csv
+    row_id: SRC-HANDOFF-CORE-SKILLS-BATCH-2-001
+    inspected_sections:
+      - next_agentjob_id
+      - phase_boundary_notes
+  - path: temp_handoff/handoff-0019.md
+    registry: source_registry.csv
+    row_id: SRC-TEMP-HANDOFF-0019
+    inspected_sections:
+      - Next logical step
+  - path: implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md
+    registry: source_registry.csv
+    row_id: SRC-ALL-RECS-IMPLEMENTATION-PLAN
+    inspected_sections:
+      - AJ-09 Generated Docs and Derivative Governance
+      - AJ-10 End-to-End Acceptance
+  - path: sys-for-ai/registries/derivative_registry.csv
+    registry: source_registry.csv
+    row_id: SRC-REG-DERIVATIVES
+    inspected_sections:
+      - generated derivative rows
+  - path: sys-for-ai/sys_for_ai/derivative_generation.py
+    registry: source_registry.csv
+    row_id: SRC-DERIVATIVE-GENERATION
+    inspected_sections:
+      - expected derivative validation
+      - governance generated docs
+registry_rows_inspected:
+  - registry: source_registry.csv
+    row_id: SRC-ALL-RECS-IMPLEMENTATION-PLAN
+    purpose: Confirm AJ-09 authority and AJ-10 next-step boundary.
+  - registry: source_registry.csv
+    row_id: SRC-DERIVATIVE-GENERATION
+    purpose: Confirm generated derivative validation helper authority.
+  - registry: derivative_registry.csv
+    row_id: der_registry_catalog_index
+    purpose: Confirm generated registry catalog source trace.
+  - registry: derivative_registry.csv
+    row_id: der_core_skills_index
+    purpose: Confirm generated core skill summary source trace.
+stale_context_risks:
+  - risk_id: MEMPREFLIGHT-SFADEV-09-RISK-001
+    status: observed
+    notes: Continue selection required a Director decision because no active AgentJob was set.
+  - risk_id: MEMPREFLIGHT-SFADEV-09-RISK-002
+    status: mitigated
+    notes: The plan references sys_for_ai/derivatives.py, but the actual implementation surface is derivative_generation.py plus the derivatives package.
+usable_for_routing: true

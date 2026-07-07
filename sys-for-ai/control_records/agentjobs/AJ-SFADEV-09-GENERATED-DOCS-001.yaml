@@ -1,0 +1,129 @@
+agentjob_id: AJ-SFADEV-09-GENERATED-DOCS-001
+schema_version: 0.2.0
+status: completed
+objective: >
+  Generate or stub generated derivative docs for new registries, roles,
+  artifact contracts, layers, and core skills without promoting generated
+  pages to source authority.
+lifecycle_stage: implementation_initialization
+role_binding:
+  role_id: documentation_librarian
+  binding_type: registered_role
+  authority_scope: all-recommendations generated docs and derivative governance
+  expires_with_agentjob: true
+required_inputs:
+  - implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md
+  - implementation_plans/self_hosting_boundary_decision_record.md
+  - sys-for-ai/control_records/program_state.yaml
+  - sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-08-CORE-SKILLS-BATCH-2-001.yaml
+  - temp_handoff/handoff-0019.md
+  - sys-for-ai/registries/derivative_registry.csv
+  - sys-for-ai/registries/source_registry.csv
+  - sys-for-ai/sys_for_ai/derivative_generation.py
+allowed_reads:
+  - implementation_plans/**
+  - PRDs/**
+  - temp_handoff/**
+  - sys-for-ai/registries/**
+  - sys-for-ai/docs/generated/**
+  - sys-for-ai/sys_for_ai/derivative_generation.py
+  - sys-for-ai/sys_for_ai/derivatives/**
+  - sys-for-ai/sys_for_ai/registry_io.py
+  - sys-for-ai/sys_for_ai/cli.py
+  - sys-for-ai/control_records/**
+  - sys-for-ai/tests/**
+allowed_writes:
+  - sys-for-ai/docs/generated/registry_catalog/**
+  - sys-for-ai/docs/generated/system_layers/**
+  - sys-for-ai/docs/generated/artifact_contracts/**
+  - sys-for-ai/docs/generated/core_skills/**
+  - sys-for-ai/docs/generated/roles/role-governance-summary.md
+  - sys-for-ai/docs/generated/configuration_control/**
+  - sys-for-ai/registries/derivative_registry.csv
+  - sys-for-ai/registries/source_registry.csv
+  - sys-for-ai/registries/control_record_registry.csv
+  - sys-for-ai/registries/agentjob_registry.csv
+  - sys-for-ai/registries/director_decision_registry.csv
+  - sys-for-ai/registries/completion_receipt_registry.csv
+  - sys-for-ai/registries/handoff_registry.csv
+  - sys-for-ai/registries/memory_preflight_receipt_registry.csv
+  - sys-for-ai/sys_for_ai/derivative_generation.py
+  - sys-for-ai/sys_for_ai/cli.py
+  - sys-for-ai/Makefile
+  - sys-for-ai/control_records/director_decisions/DDR-SFADEV-09-GENERATED-DOCS-001.yaml
+  - sys-for-ai/control_records/agentjobs/AJ-SFADEV-09-GENERATED-DOCS-001.yaml
+  - sys-for-ai/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-09-GENERATED-DOCS-001.yaml
+  - sys-for-ai/control_records/completions/RECEIPT-SFADEV-09-GENERATED-DOCS-001.yaml
+  - sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-09-GENERATED-DOCS-001.yaml
+  - sys-for-ai/control_records/program_state.yaml
+  - sys-for-ai/tests/test_agentjob_boundaries.py
+  - sys-for-ai/tests/test_program_state.py
+  - sys-for-ai/tests/test_self_hosting_acceptance.py
+  - temp_handoff/handoff-0020.md
+generated_paths:
+  - sys-for-ai/docs/generated/registry_catalog/**
+  - sys-for-ai/docs/generated/system_layers/**
+  - sys-for-ai/docs/generated/artifact_contracts/**
+  - sys-for-ai/docs/generated/core_skills/**
+  - sys-for-ai/docs/generated/roles/role-governance-summary.md
+  - sys-for-ai/docs/generated/configuration_control/**
+forbidden_paths:
+  - LICENSE
+  - NOTICE
+  - .git/**
+  - .venv/**
+  - sys-for-ai/.venv/**
+  - PRDs/**
+  - sys-for-ai/docs/generated/** as canonical source
+stop_conditions:
+  - A generated page lacks derivative metadata.
+  - A generated page lacks derivative registry trace.
+  - A generated derivative row is marked canonical.
+  - A required write is outside the AJ-09 allowlist.
+  - More than one all-recommendations AgentJob is required.
+forbidden_actions:
+  - Mark generated docs canonical.
+  - Treat generated derivatives as source authority.
+  - Execute more than one all-recommendations AgentJob in one continuation invocation.
+memory_preflight:
+  required: true
+  minimum_queries:
+    - generated docs and derivative governance
+    - generated derivative docs for registries roles artifact contracts layers and core skills
+  required_evidence:
+    - self-hosting boundary decision record inspection
+    - latest controlled handoff inspection
+    - all-recommendations plan AJ-09 inspection
+    - derivative registry inspection
+expected_outputs:
+  - Generated governance summary docs for registries, system layers, artifact contracts, core skills, and role governance.
+  - Derivative registry rows for the new generated pages.
+  - Source registry rows needed for registry-catalog trace completeness.
+  - Existing configuration-control generated pages resynchronized after registry updates.
+  - Validator and CLI coverage for deterministic generated governance docs.
+  - Completion receipt and handoff evidence.
+validators:
+  - cd sys-for-ai && make validate-generated-derivatives
+  - cd sys-for-ai && make generate-governance-docs
+  - cd sys-for-ai && make validate-check-diff
+  - cd sys-for-ai && make validate
+completion_evidence_required:
+  - changed_artifacts
+  - command_results
+  - validation_status
+  - residual_risk
+handoff_policy:
+  create_handoff_when:
+    - generated docs and derivative governance complete
+    - next AgentJob is recommended
+authority_boundary:
+  may_modify_generated_derivatives: true
+  may_modify_derivative_registry: true
+  may_modify_derivative_generation_code: true
+  may_modify_source_registry_for_trace_rows: true
+  may_modify_canonical_prds: false
+  may_promote_generated_derivatives: false
+created_at: "2026-07-07T05:19:36Z"
+activated_at: "2026-07-07T05:19:36Z"
+completed_at: "2026-07-07T05:19:36Z"
+director_decision_id: DDR-SFADEV-09-GENERATED-DOCS-001
