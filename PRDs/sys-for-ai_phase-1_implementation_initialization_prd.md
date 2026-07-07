@@ -4,7 +4,7 @@
 **Product name:** `sys-for-ai`  
 **Phase:** Phase 1: Implementation initialization  
 **Depends on:** `PRDs/sys-for-ai_phase-0_product_system_design_prd.md`  
-**Last updated:** 2026-07-06
+**Last updated:** 2026-07-07
 
 ---
 
@@ -13,6 +13,8 @@
 Phase 1 initializes the `sys-for-ai` implementation repository so development can begin safely, reproducibly, and with source-first governance. Phase 1 does not finish the framework. It creates the first executable spine: Python environment, dependency policy, YAML control records, validators, skill adapters, memory registries, documentation policies, and a Docker decision record.
 
 This revision also initializes the core file-format memory profile spine required by Phase 0: Markdown, CSV, YAML, TOML, and JSON Schema. Phase 1 adds minimal registries, examples, validators, dependency policy, and generated derivative stubs for YAML/TOML configuration-control artifacts and JSON Schema validation contracts. Phase 1 does not build a full wiki engine, does not introduce a vector database, does not make Obsidian canonical, and does not create a standalone JSON wiki by default.
+
+This revision also initializes the discovery-gate, system-layer, self-hosting, role-governance, and skill-lifecycle obligations added to Phase 0. Phase 1 records the first executable registries, templates, validators, and control records needed to keep those concerns auditable without treating discovery candidates as approved requirements.
 
 The default Phase 1 environment is a local Python virtual environment. Docker is deferred unless the environment decision record identifies concrete OS-level dependencies, multi-service orchestration needs, CI parity needs, or target-runtime template needs.
 
@@ -36,6 +38,10 @@ The default Phase 1 environment is a local Python virtual environment. Docker is
 14. Add generated or stub-generated Configuration and Control Wiki pages for registered YAML and TOML artifacts.
 15. Add generated or stub-generated Validation Contracts Catalog pages for JSON Schema contracts.
 16. Extend Makefile and CLI validation commands to cover format profiles, TOML configuration, JSON Schema contracts, and derivative trace checks.
+17. Initialize a Requirements Discovery Record gate before formal USRD generation for new or substantially changed system definitions.
+18. Initialize system-layer and self-hosting controls for development-system, framework-product, target-template, target-instance, and derivative-surface work.
+19. Initialize controlled role governance, role-to-skill crosswalks, temporary-role policy, and role execution-binding validation.
+20. Initialize core skill lifecycle statuses and governed core skill expansion workflow.
 
 ---
 
@@ -57,6 +63,9 @@ The default Phase 1 environment is a local Python virtual environment. Docker is
 - Do not support secret-bearing YAML or TOML configuration files in Phase 1.
 - Do not treat JSON Schema validation as semantic or domain acceptance.
 - Do not convert all existing schema-like YAML specs in one step if doing so would destabilize the scaffold.
+- Do not treat Requirements Discovery Record candidate requirements as approved or baselined requirements.
+- Do not promote product-scaffold skills into active development runtime without a runtime registry decision.
+- Do not implement all proposed core organizational skills in this PRD-only integration step.
 
 ---
 
@@ -200,6 +209,52 @@ make doctor
 
 `SFA-P1-INIT-VAL-009`: Add a dedicated `make validate-roles` target for controlled role catalogs, role-to-skill crosswalks, execution-binding constraints, generated role Markdown freshness, and role-related proposed skill references. The aggregate `make validate` target shall include `make validate-roles` so role-catalog drift is checked by default.
 
+### 4.10 Discovery Gate Initialization
+
+`SFA-P1-INIT-DISC-001`: Add the Requirements Discovery Record to the artifact catalog, source registry, derivative registry policy, and trace model.
+
+`SFA-P1-INIT-DISC-002`: Add or extend a discovery-record registry that records RDR path, subject system ID, subject layer, producer AgentJob, authority status, candidate requirement count, open question count, downstream USRD link, validation status, source hash, and last validation timestamp.
+
+`SFA-P1-INIT-DISC-003`: Add a sample AgentJob for running `system-definition-interview-context-45` on a new target system or framework-product change.
+
+`SFA-P1-INIT-DISC-004`: Add a sample completion receipt showing RDR creation, validation evidence, open issues, and recommended next route.
+
+`SFA-P1-INIT-DISC-005`: Extend aggregate validation so discovery-record templates and registered discovery records are validated by default.
+
+### 4.11 System-Layer and Self-Hosting Initialization
+
+`SFA-P1-INIT-LAYER-001`: Add a controlled system-layer registry for `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, and `derivative_surface`.
+
+`SFA-P1-INIT-LAYER-002`: Add a self-hosting mode policy document that distinguishes `sys-for-ai-dev` active runtime authority from `sys-for-ai` product scaffold authority.
+
+`SFA-P1-INIT-LAYER-003`: Add a self-hosting TOML configuration source and register it in `config_source_registry.csv`.
+
+`SFA-P1-INIT-LAYER-004`: Add `validate-system-layers` to verify allowed layer IDs, canonical roots, derivative roots, authority mutation rules, and self-hosting constraints.
+
+### 4.12 Role Governance Initialization
+
+`SFA-P1-INIT-ROLE-001`: Phase 1 shall implement a controlled role registry.
+
+`SFA-P1-INIT-ROLE-002`: Phase 1 shall implement a role-to-skill crosswalk registry.
+
+`SFA-P1-INIT-ROLE-003`: Phase 1 shall implement role execution-binding validation.
+
+`SFA-P1-INIT-ROLE-004`: Phase 1 shall support one-Job temporary roles with expiry, authority scope, required skills, allowed artifacts, validators, and supersession policy.
+
+`SFA-P1-INIT-ROLE-005`: Phase 1 aggregate validation shall include role-governance checks by default.
+
+### 4.13 Core Skill Expansion Initialization
+
+`SFA-P1-INIT-CORESKILL-001`: Phase 1 shall extend skill registry data with lifecycle status, authority surface, provenance, role bindings, validation commands, and activation constraints.
+
+`SFA-P1-INIT-CORESKILL-002`: Phase 1 shall add or update a skill-lifecycle validator that checks controlled statuses and rejects active-runtime use of non-active skill packages.
+
+`SFA-P1-INIT-CORESKILL-003`: Phase 1 shall add governed proposal surfaces for core organizational skills and shall distinguish them from project-specific domain packs.
+
+`SFA-P1-INIT-CORESKILL-004`: Phase 1 shall provide minimal scaffold or runtime packages for approved core organizational skills only through controlled AgentJobs.
+
+`SFA-P1-INIT-CORESKILL-005`: Phase 1 aggregate validation shall include skill-lifecycle checks by default after the registry/schema expansion slice creates the required data model.
+
 ---
 
 ## 5. Acceptance criteria
@@ -231,6 +286,10 @@ Phase 1 initialization is acceptable when:
 23. The Phase 1 recommended AgentJob includes the new validators and generated derivative checks.
 24. The PRD requirement trace validator passes against the canonical Phase 0 PRD, Phase 1 PRD, and requirement trace registry, including semantic trace class, partial-justification, and non-implemented semantic review verdict checks.
 25. `make validate-roles` exists, passes for the controlled role-catalog surface, and is included in `make validate`.
+26. Requirements Discovery Record templates, registry rows, and validation commands exist before RDR artifacts can feed USRD baseline.
+27. System-layer and self-hosting controls distinguish `sys-for-ai-dev` development runtime authority from `sys-for-ai` product scaffold authority.
+28. Role registries, role-to-skill crosswalks, and temporary-role execution-binding checks are registered and validated.
+29. Core skill lifecycle status and runtime-authority validation prevent scaffold or proposal skills from becoming active authority by implication.
 
 ---
 

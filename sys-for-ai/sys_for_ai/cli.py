@@ -457,7 +457,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_toml_config(args.config_sources))
         result.extend(validate_jsonschema_contracts(args.contracts_root))
         result.extend(validate_registry_graph(args.registries))
-        boundary_payload = validate_check_diff("AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001")
+        boundary_payload = validate_check_diff("AJ-SFADEV-01-PRD-INTEGRATION-001")
         result.extend(
             ValidationResult(
                 bool(boundary_payload.get("ok")),

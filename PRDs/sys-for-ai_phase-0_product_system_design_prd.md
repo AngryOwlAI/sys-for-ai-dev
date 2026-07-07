@@ -7,7 +7,7 @@
 **Canonical source:** This file is the authoritative Phase 0 PRD.
 **Supersedes:** `PRDs/sys-for-ai_phase-0_prd.md` as an authoritative Phase 0 source.
 **Downstream dependency:** `PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md` consumes this file.
-**Last updated:** 2026-07-06
+**Last updated:** 2026-07-07
 
 ---
 
@@ -20,6 +20,8 @@ The product is meta-agentic. Its output is not merely a prompt, document, workfl
 For Phase 0, an agentic AI software system is treated as a software harness around one or more LLMs, tools, state stores, files, skills, policies, and user-facing interfaces. The harness must include requirements for a bounded control loop, an AgentJob-style execution contract, a source-first memory and knowledge system, source/version-control governance, and derivative documentation surfaces such as generated wikis or reader artifacts.
 
 This revision also establishes core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. These profiles define authority classes, registry requirements, validator expectations, derivative-surface policy, promotion rules, drift behavior, and security constraints for structured source, control, configuration, registry, and validation-contract artifacts.
+
+This revision adds system-layer classification, a Requirements Discovery Record gate, self-hosting authority rules, expanded role governance, and skill-lifecycle controls. These additions keep `sys-for-ai-dev` development-system work distinct from `sys-for-ai` framework-product requirements and from future target-system instances.
 
 This Phase 0 PRD defines what `sys-for-ai` must be. It does not initialize the implementation repository. Implementation initialization belongs to Phase 1.
 
@@ -48,7 +50,10 @@ Phase 0 owns:
 - `/continue` semantics.
 - Source-first memory and knowledge requirements.
 - Core file-format memory profile requirements for canonical sources, registries, control records, configuration sources, validation contracts, and generated derivative surfaces.
+- System-layer classification and self-hosting authority boundaries.
+- System Definition Discovery Gate and Requirements Discovery Record requirements before formal USRD generation.
 - Skill-system requirements.
+- Skill-lifecycle status and runtime-authority rules.
 - Source/version-control governance.
 - Documentation and derivative-surface rules.
 - Improvement-loop requirements.
@@ -72,6 +77,7 @@ Phase 1 owns:
 - Initial JSON Schema validation-contract files and validator support.
 - Initial generated Configuration and Control Wiki stubs.
 - Initial generated Validation Contracts Catalog stubs.
+- Initial discovery-gate, system-layer, role-governance, and skill-lifecycle registries or validators where required by this PRD.
 - Core skill import and adaptation.
 - Makefile or CLI commands.
 - Docker or devcontainer decision record.
@@ -88,6 +94,12 @@ Phase 1 does not re-litigate Phase 0 product identity, lifecycle, role ownership
 | Framework system | `sys-for-ai`, the meta-framework being specified here. |
 | Root AI agent | The AI agent using `sys-for-ai` to design, implement, run, improve, or maintain a target agentic system. |
 | Target agentic system | A governed AI-agent system created or managed using `sys-for-ai`. |
+| Requirements Discovery Record (RDR) | A pre-USRD discovery artifact that captures initial intent, mission, stakeholders, boundaries, scenarios, candidate requirements, evidence, risks, assumptions, constraints, open questions, and downstream routing before formal requirements generation. |
+| System layer | A controlled classification for the subject of work: `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, or `derivative_surface`. |
+| Development system | The workspace and runtime surface used to develop or improve `sys-for-ai`, such as `sys-for-ai-dev`. |
+| Framework product | The `sys-for-ai` product and its governed requirements, scaffold, registries, validators, templates, and reference implementation. |
+| Target system template | A reusable scaffold or package emitted by `sys-for-ai` for future target agentic systems. |
+| Target system instance | A concrete agentic system created, operated, improved, or maintained for a particular user, organization, or use case. |
 | Agentic AI software harness | A software system wrapping one or more LLMs, tools, state stores, files, skills, policies, and user-facing interfaces for a defined job. |
 | AgentJob | A bounded execution contract for one controlled unit of agent work. |
 | `/continue` | A controlled continuation procedure that resumes from tracked state and advances at most one authorized AgentJob per invocation. Domain-specific aliases are allowed only as project-specific names. |
@@ -177,6 +189,50 @@ The framework should let the root AI agent answer:
 `SFA-CORE-ART-001`: `sys-for-ai` shall define artifact contracts for user/system requirements, architecture, technical readiness, traceability, source authority, run manifests, issue registers, and implementation task packets.
 
 `SFA-CORE-TRACE-001`: Artifacts shall preserve traceability from user intent through requirements, architecture, implementation tasks, validation evidence, and maintenance decisions.
+
+`SFA-CORE-ROLE-002`: The System Developer / User Wants Elicitor role shall use `system-definition-interview-context-45` as its default discovery skill for new or substantially changed system definitions.
+
+`SFA-CORE-ROLE-003`: The controlled role catalog shall include a role-to-skill crosswalk that maps every core and support role to required, optional, and forbidden skills.
+
+`SFA-CORE-ROLE-004`: Any temporary role created for one AgentJob shall declare expiry, authority scope, required skills, allowed artifacts, validation obligations, and supersession behavior.
+
+`SFA-CORE-ROLE-005`: Runtime role execution shall validate role binding before an AgentJob may be selected or executed.
+
+### 6.3.1 System layer and self-hosting boundary
+
+`SFA-CORE-LAYER-001`: Every controlled artifact, AgentJob, handoff, role invocation, skill invocation, validation receipt, and generated derivative shall declare its subject layer: `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, or `derivative_surface`.
+
+`SFA-CORE-LAYER-002`: Work on `sys-for-ai-dev` shall be treated as self-hosting development-system work. It may use `sys-for-ai` patterns, but it shall not treat product-scaffold artifacts as active runtime authority unless they are explicitly promoted.
+
+`SFA-CORE-LAYER-003`: Work on `sys-for-ai` shall distinguish framework-product requirements from future target-system requirements.
+
+`SFA-CORE-LAYER-004`: Work on a future generated target system shall not mutate core `sys-for-ai` framework authority unless routed through a framework-improvement AgentJob and Director decision.
+
+`SFA-CORE-LAYER-005`: Generated derivatives shall never authorize changes to canonical sources, registries, control records, validation contracts, role catalogs, or skill manifests without a promotion workflow.
+
+`SFA-CORE-SELFHOST-001`: `sys-for-ai-dev` shall define a self-hosting mode for cases where the development workspace uses `sys-for-ai` concepts to improve `sys-for-ai`.
+
+`SFA-CORE-SELFHOST-002`: Self-hosting mode shall require explicit system-layer classification before any artifact, registry, validator, skill, or role rule is changed.
+
+`SFA-CORE-SELFHOST-003`: Self-hosting improvements shall be routed through AgentJobs, Director decisions where needed, validation receipts, handoffs, and source-first memory preflight.
+
+`SFA-CORE-SELFHOST-004`: Self-hosting mode shall prohibit generated derivative surfaces from authorizing changes to PRDs, role catalogs, skill manifests, control records, validators, validation contracts, or registries.
+
+### 6.3.2 System definition discovery gate
+
+`SFA-CORE-DISCOVERY-001`: Every new or substantially changed target-system definition shall begin with a System Definition Discovery pass using `system-definition-interview-context-45`, unless a Director Decision Record explicitly waives or substitutes the discovery gate.
+
+`SFA-CORE-DISCOVERY-002`: The System Definition Discovery pass shall produce a Requirements Discovery Record before USRD generation.
+
+`SFA-CORE-DISCOVERY-003`: A USRD shall not be baselined unless it traces to a Requirements Discovery Record or to a Director Decision Record explaining why discovery was waived.
+
+`SFA-CORE-DISCOVERY-004`: Candidate requirements from discovery shall remain candidate requirements until promoted through the requirements authority workflow.
+
+`SFA-CORE-DISCOVERY-005`: The discovery gate shall capture system layer, mission need, problem statement, desired outcome, value case, system-of-interest, stakeholders, boundaries, as-is state when applicable, to-be state, operational scenarios, candidate requirements, quality attributes, architecture drivers, interface candidates, V&V seeds, evidence, assumptions, risks, constraints, open questions, and downstream routing recommendation.
+
+`SFA-CORE-DISCOVERY-006`: The discovery gate shall inspect available repository or document evidence before asking questions that existing source evidence can answer.
+
+`SFA-CORE-DISCOVERY-007`: The discovery gate shall ask focused questions and shall not automatically create a PRD until questioning is complete and the user or Director explicitly approves PRD synthesis.
 
 ### 6.4 AgentJob and continuation model
 
@@ -307,6 +363,14 @@ The framework should let the root AI agent answer:
 `SFA-CORE-SKILL-004`: The framework shall include the `.codex/skills/skill-import-generalizer` workflow as a core skill-management requirement.
 
 `SFA-CORE-SKILL-005`: Imported skill templates shall be adapted inside `sys-for-ai` rather than treated as opaque external files. Adaptation shall preserve source provenance and define local authority boundaries.
+
+`SFA-CORE-SKILL-006`: Every core skill shall declare lifecycle status using controlled vocabulary: `proposed`, `imported_unadapted`, `adapter_shell`, `adapted_runtime_active`, `product_scaffold_reference`, `deprecated`, `superseded`, or `blocked`.
+
+`SFA-CORE-SKILL-007`: A skill shall not be used as active runtime authority unless its runtime registry entry is `adapted_runtime_active` or an equivalent active status approved by the skill governance policy.
+
+`SFA-CORE-SKILL-008`: Product-scaffold skills shall not be treated as active development-runtime skills unless also listed in the active runtime skill registry.
+
+`SFA-CORE-SKILL-009`: Core organizational skills may be added to the framework through controlled skill proposal, manifest, role-binding, validation, and provenance workflows. Project-specific domain skills shall be added through domain packs rather than core skill expansion.
 
 ### 6.8 Source-first memory and knowledge system
 
@@ -456,7 +520,8 @@ flowchart TD
     R --> SFA[sys-for-ai framework]
     SFA --> D[System Director]
     D --> P0[Phase 0: Product and system-design baseline]
-    P0 --> USRD[User System Requirements Document]
+    P0 --> RDR[Requirements Discovery Record]
+    RDR --> USRD[User System Requirements Document]
     P0 --> SRD[System Requirements Document]
     P0 --> ARD[Architecture Requirements Document]
     P0 --> TRP[Technical Requirements Package]
@@ -532,10 +597,15 @@ flowchart TD
 
 Phase 0 defines the System Design phase pipeline so each role contributes to the definition of a target agentic system.
 
+The discovery path is: user intent -> System Director layer classification -> System Definition Discovery Gate -> RDR -> USRD -> SRD -> ARD -> TRP -> RSRD -> RARD -> SRP.
+
 ```mermaid
 flowchart TD
-    U[User or sponsor intent for target agentic system] --> D1[System Developer / User Wants Elicitor]
-    D1 --> USRD[USRD: User System Requirements Document]
+    U[User or sponsor intent for target agentic system] --> DIR[System Director]
+    DIR --> L1[System layer classification]
+    L1 --> D1[System Developer / User Wants Elicitor]
+    D1 --> RDR[RDR: Requirements Discovery Record]
+    RDR --> USRD[USRD: User System Requirements Document]
     USRD --> M1[System Manager / Requirements Manager]
     M1 --> SRD[SRD: System Requirements Document]
     SRD --> A1[System Architect / Architecture Requirements Architect]
@@ -552,7 +622,6 @@ flowchart TD
     RSRD --> E2[System Engineer / Final System Requirements Packager]
     RARD --> E2
     E2 --> SRP[SRP: System Requirements Package]
-    DIR[System Director] -. orchestrates .-> D1
     DIR -. orchestrates .-> M1
     DIR -. orchestrates .-> A1
     DIR -. orchestrates .-> E1
@@ -563,9 +632,10 @@ flowchart TD
 
 | Step | Director spawns | Inputs | Main output | Gate |
 |---:|---|---|---|---|
-| 0 | System Director | Initial project context | Run manifest | Design phase initialized. |
-| 1 | System Developer / User Wants Elicitor | User request | USRD | User wants sufficiently captured. |
+| 0 | System Director | Initial project context | Run manifest and system-layer classification | Design phase initialized and subject layer known or routed for decision. |
+| 1 | System Developer / User Wants Elicitor | User request, system-layer classification, existing source evidence | RDR | Discovery gate complete or Director waiver recorded. |
 | 1a | Existing System Analyst, optional | Existing system docs, repos, infrastructure, user info | ESAR | Current-state constraints known. |
+| 1b | System Developer / User Wants Elicitor | RDR or Director discovery waiver | USRD | User wants sufficiently captured and trace to discovery evidence. |
 | 2 | System Manager / Requirements Manager | USRD, optional ESAR | SRD | System requirements trace to user wants. |
 | 2a | Requirements Verifier | USRD, SRD | SRD review report | SRD is coherent or issues are routed. |
 | 3 | System Architect | SRD, optional ESAR | ARD | Architecture responds to SRD. |
@@ -591,7 +661,7 @@ The role model shall be represented as controlled role data first and reader-fac
 | Role | Primary mission | Primary outputs |
 |---|---|---|
 | System Director | Orchestrate phases, role spawning, artifact governance, traceability, gates, and handoffs. | `system-design-run-manifest.md`, `artifact-registry.md`, `traceability-ledger.md`, `open-issues-register.md`, `design-phase-readiness-report.md`. |
-| System Developer / User Wants Elicitor | Elicit target-system intent, stakeholders, desired capabilities, constraints, quality expectations, acceptance expectations, and unknowns. | USRD. |
+| System Developer / User Wants Elicitor | Elicit target-system intent, stakeholders, desired capabilities, constraints, quality expectations, acceptance expectations, and unknowns through the discovery gate. | RDR and USRD. |
 | Existing System Analyst | Discover current-state systems when the target system already exists, replaces something, integrates with something, or modernizes something. | ESAR. |
 | System Manager / Requirements Manager | Normalize user wants into atomic, classified, testable system requirements. | SRD. |
 | System Architect / Architecture Requirements Architect | Derive architecture drivers, ASRs, views, mechanisms, ADRs, and evaluation evidence from SRD. | ARD. |
@@ -626,6 +696,8 @@ Every role shall obey these rules unless the System Director explicitly override
 | Prefer measurable acceptance | Every requirement should have a verification method and acceptance criterion before baseline. |
 | Keep artifact boundaries clean | USRD captures user wants. SRD captures system obligations. ARD captures architectural response. TRP and SRP capture implementable technical requirements. |
 | Clarify framework versus target | Every artifact must make clear whether it describes `sys-for-ai` or the target agentic system. |
+| Classify system layer first | Work that changes controlled artifacts, AgentJobs, roles, skills, validators, registries, or generated derivatives must declare whether it concerns the development system, framework product, target-system template, target-system instance, or derivative surface. |
+| Discover before baselining requirements | New or substantially changed system definitions must pass through RDR discovery, or carry a Director decision that waives or substitutes discovery, before USRD baseline. |
 | Treat autonomy as a risk dimension | Agent autonomy, tool permissions, memory, data access, and external actions must be explicit where relevant. |
 | Preserve phase boundaries | Phase 0 produces implementation readiness, not implementation initialization. |
 | Source beats retrieval | Generated memory, wiki notes, local vaults, semantic extracts, summaries, PDFs, HTML, notebooks, and other derivatives are navigation aids unless explicitly baselined as source artifacts. |
@@ -659,6 +731,7 @@ For a serious reusable target agentic system, include the support roles triggere
 | `artifact-registry.md` | Single index of current artifact versions, owners, status, source links, and downstream dependencies. | System Director or Documentation Librarian | All roles |
 | `traceability-ledger.md` | Cross-artifact trace from user intent to implementation-ready requirements. | System Director | Verifiers, Phase 1 |
 | `open-issues-register.md` | All unresolved assumptions, conflicts, risks, TBD items, and TBR items. | System Director | All roles |
+| RDR / `requirements-discovery-record.md` | Captures initial system intent, mission, stakeholders, boundaries, scenarios, candidate requirements, evidence, risks, assumptions, constraints, open questions, and downstream routing before formal requirements generation. | System Developer / User Wants Elicitor using `system-definition-interview-context-45` | USRD author, Requirements Manager, System Director |
 | USRD | Captures user goals, desired capabilities, domain context, constraints, priorities, and acceptance expectations. | User Wants Elicitor | Requirements Manager, Reconciliation Analyst |
 | ESAR | Current-state assessment for existing target agentic systems or related systems. | Existing System Analyst | Requirements Manager, Architect, Engineer |
 | SRD | Controlled system requirements for the target agentic system. | Requirements Manager | Architect, Engineer, Verifier |
@@ -678,7 +751,7 @@ For a serious reusable target agentic system, include the support roles triggere
 
 ### 12.1 USRD
 
-USRD shall include purpose, system vision, stakeholders, user goals and outcomes, desired capabilities, nonfunctional wants, domain context, data and interfaces, acceptance expectations, priorities, assumptions and open questions, and source trace.
+USRD shall include purpose, system vision, stakeholders, user goals and outcomes, desired capabilities, nonfunctional wants, domain context, data and interfaces, acceptance expectations, priorities, assumptions and open questions, and source trace. A baselined USRD shall trace to an RDR or to a Director decision that explains why discovery was waived or substituted.
 
 ### 12.2 SRD
 
@@ -775,6 +848,7 @@ SVCDA defines how target systems preserve controlled history without letting gen
 
 | Artifact | ID prefix examples |
 |---|---|
+| RDR | `RDR-CAND-001`, `RDR-EVID-001`, `RDR-OPEN-001`, `REQ-CAND-001`, `NFR-CAND-001` |
 | USRD | `USRD-GOAL-001`, `USRD-WANT-001`, `USRD-NFR-001`, `USRD-TBD-001` |
 | SRD | `SRD-FR-001`, `SRD-NFR-001`, `SRD-IF-001`, `SRD-DAT-001`, `SRD-OPS-001` |
 | ARD | `ARD-ASR-001`, `ARD-QAS-001`, `ARD-VIEW-001`, `ADR-001`, `ARD-RISK-001` |
@@ -1134,6 +1208,10 @@ Expected Phase 1 starting concerns include:
 - `/continue` command or skill implementation, including tracked state and handoff loading.
 - AgentJob, Director decision, execution-role, completion, validator, and handoff schemas.
 - Source-first memory and knowledge implementation, including registries, source hashes, query/preflight tooling, and stale-context handling.
+- System-layer registry and self-hosting policy initialization for development-system and framework-product work.
+- Discovery-gate initialization, including RDR templates, discovery-record registration, validation, and RDR-to-USRD trace policy.
+- Role-governance initialization, including controlled role registries, role-to-skill crosswalks, temporary-role policies, and role execution-binding checks.
+- Skill-lifecycle initialization, including lifecycle statuses, runtime-authority checks, and governed core skill expansion workflow.
 - Core file-format profile implementation, including format-profile, configuration-source, control-record, and validation-contract registries.
 - TOML configuration examples and parser support consistent with the selected Python version policy.
 - JSON Schema validation contracts and executable validation support.
@@ -1156,3 +1234,4 @@ Expected Phase 1 starting concerns include:
 | 2026-07-04 | Created compact draft replacement baseline. | Separated durable core requirements from implementation-initialization requirements. |
 | 2026-07-05 | Promoted this file to canonical Phase 0 baseline and merged July 3 detail. | Eliminates competing Phase 0 authorities while preserving role pipeline, artifact structures, CLRA/CKMSRA/SVCDA detail, risks, and acceptance criteria. |
 | 2026-07-06 | Added core file-format memory profile requirements for Markdown, CSV, YAML, TOML, and JSON Schema. Added Configuration and Control Wiki and Validation Contracts Catalog requirements. Clarified that JSON Schema uses a validation catalog rather than a standalone JSON wiki by default. | Extends source-first memory architecture with governed configuration, control, registry, and validation-contract profiles. |
+| 2026-07-07 | Added system-layer classification, discovery-gate, RDR, self-hosting, role-governance, and skill-lifecycle requirements. | Establishes requirement authority before registry/schema expansion and runtime-skill implementation. |
