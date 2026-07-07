@@ -244,3 +244,101 @@ skills:
       - AGENTS.md
       - examples/portable-example.md
     description: "Review claim-bearing technical prose for source grounding, concrete mechanisms, warning patterns, and pass/repair/block outcomes."
+  - id: role-catalog-governance
+    name: Role Catalog Governance
+    family: role_governance
+    source_repo: local
+    source_path: .agents/skills/role-catalog-governance
+    local_path: core/role-catalog-governance
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern role registries, role-to-skill crosswalks, and role execution bindings."
+  - id: system-layer-classifier
+    name: System Layer Classifier
+    family: system_layer_governance
+    source_repo: local
+    source_path: .agents/skills/system-layer-classifier
+    local_path: core/system-layer-classifier
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Classify development, framework, template, target, and derivative layers before work."
+  - id: artifact-contract-governance
+    name: Artifact Contract Governance
+    family: artifact_governance
+    source_repo: local
+    source_path: .agents/skills/artifact-contract-governance
+    local_path: core/artifact-contract-governance
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern artifact contracts, required sections, producer roles, consumer roles, and validation obligations."
+  - id: traceability-matrix-engine
+    name: Traceability Matrix Engine
+    family: traceability_governance
+    source_repo: local
+    source_path: .agents/skills/traceability-matrix-engine
+    local_path: core/traceability-matrix-engine
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Maintain traceability from intent and requirements through implementation, validation, and handoff evidence."
+  - id: director-decision-governor
+    name: Director Decision Governor
+    family: decision_governance
+    source_repo: local
+    source_path: .agents/skills/director-decision-governor
+    local_path: core/director-decision-governor
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern Director Decision Records for routing, authority expansion, AgentJob creation, and supersession."
+  - id: source-authority-auditor
+    name: Source Authority Auditor
+    family: source_authority
+    source_repo: local
+    source_path: .agents/skills/source-authority-auditor
+    local_path: core/source-authority-auditor
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Audit canonical sources, generated derivatives, stale documents, and authority inversions."
+  - id: context-window-and-handoff-manager
+    name: Context Window And Handoff Manager
+    family: context_handoff
+    source_repo: local
+    source_path: .agents/skills/context-window-and-handoff-manager
+    local_path: core/context-window-and-handoff-manager
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Manage context checkpoints, resumable handoffs, and continuation evidence."

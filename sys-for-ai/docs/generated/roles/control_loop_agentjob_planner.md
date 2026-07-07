@@ -25,6 +25,7 @@
 |---|---|---|---|---|
 | agentjob-task-packet-author | required | when task packets are authored | development_system;framework_product;target_system_template;target_system_instance | implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md |
 | codex-usage-metrics | required | when continuation metrics are recorded | development_system;framework_product | implementation_plans/self_hosting_boundary_decision_record.md |
+| context-window-and-handoff-manager | required | when resumable handoffs or context checkpoints are needed | development_system;framework_product;target_system_template;target_system_instance | implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md |
 | continue | required | when continuation is designed | development_system;framework_product;target_system_template;target_system_instance | implementation_plans/self_hosting_boundary_decision_record.md |
 
 ## Execution Bindings

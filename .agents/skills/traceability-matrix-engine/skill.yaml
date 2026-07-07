@@ -1,0 +1,74 @@
+skill_id: traceability-matrix-engine
+version: 0.1.0
+status: active
+lifecycle_status: adapted_runtime_active
+canonical_path: .agents/skills/traceability-matrix-engine
+summary: Maintain traceability from intent and requirements through implementation, validation, and handoff evidence.
+scope:
+  system_agnostic: true
+  target_system_types:
+    - agentic development systems
+    - generated target systems
+  intentional_specialization: Core traceability matrix governance skill.
+  exemptions: []
+domain_emphasis:
+  - traceability_governance
+  - requirement_coverage
+  - evidence_audit
+required_role_posture:
+  - system_analyst
+  - system_engineer
+  - software_engineer
+  - requirements_manager
+  - requirements_verifier
+activation:
+  triggers:
+    - Add or repair requirement trace rows.
+    - Audit coverage from requirements to implementation evidence.
+    - Explain partial, deferred, or out-of-phase coverage.
+  when_not_to_use:
+    - Do not use to claim coverage without direct evidence.
+  preconditions:
+    - The source requirement or decision is known.
+inputs:
+  required:
+    - Requirement, decision, or intent identifier.
+    - Evidence paths or explicit missing-evidence statement.
+  optional:
+    - Existing trace matrix rows.
+    - Validation output.
+outputs:
+  primary:
+    - Trace row updates or trace audit.
+  evidence:
+    - Requirement trace validator output.
+    - Evidence path list.
+dependencies:
+  required_skills: []
+  optional_skills:
+    - source-first-memory
+    - technical-writing-quality-gate
+  validation_skills: []
+  python:
+    standard_library_only: true
+    notes: No skill-specific Python dependency.
+  external_tools:
+    - make
+authority:
+  may_read:
+    - Requirements, PRDs, implementation plans, registries, control records, validation outputs, and handoffs.
+  may_write:
+    - Trace registries only when the active AgentJob authorizes those paths.
+  may_not:
+    - Present missing or indirect evidence as proven completion.
+validation:
+  commands:
+    - cd sys-for-ai && make validate-requirement-trace
+  validator_classes:
+    - trace_validation
+    - schema_validation
+handoff:
+  requires_completion_receipt: true
+  evidence:
+    - Trace rows changed or no-change rationale.
+    - Requirement trace validator result.

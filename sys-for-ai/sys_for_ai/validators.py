@@ -79,11 +79,16 @@ AGENTJOB_REQUIRED_FIELDS = {
 }
 
 SKILL_MANIFEST_REQUIRED_SKILLS = {
+    "artifact-contract-governance",
     "codex-usage-metrics",
+    "context-window-and-handoff-manager",
     "continue",
+    "director-decision-governor",
     "system-definition-interview",
     "system-definition-interview-context-45",
     "source-first-memory",
+    "source-authority-auditor",
+    "role-catalog-governance",
     "conversation-to-prd",
     "decision-grilling",
     "decision-grilling-context-45",
@@ -93,7 +98,9 @@ SKILL_MANIFEST_REQUIRED_SKILLS = {
     "plantuml-diagrams",
     "prd-to-implementation-plan",
     "skill-import-generalizer",
+    "system-layer-classifier",
     "technical-writing-quality-gate",
+    "traceability-matrix-engine",
 }
 
 SKILL_ADAPTER_REQUIRED_FILES = {
