@@ -14,14 +14,23 @@ WORKSPACE_ROOT = PRODUCT_ROOT.parent
 
 
 class SelfHostingAcceptanceTests(unittest.TestCase):
-    def test_program_state_points_to_acceptance_records(self) -> None:
+    def test_program_state_preserves_acceptance_history_after_follow_on_work(self) -> None:
         state = load_yaml(PRODUCT_ROOT / "control_records/program_state.yaml")
 
         self.assertEqual("complete", state["state_status"])
         self.assertIsNone(state["active_agentjob_id"])
         self.assertIsNone(state["active_director_decision_id"])
-        self.assertEqual("RECEIPT-P1-SELFHOST-ACCEPTANCE-001", state["latest_completion_receipt_id"])
-        self.assertEqual("HANDOFF-P1-SELFHOST-ACCEPTANCE-001", state["latest_handoff_id"])
+        self.assertEqual(
+            "RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001",
+            state["latest_completion_receipt_id"],
+        )
+        self.assertEqual(
+            "HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001",
+            state["latest_handoff_id"],
+        )
+
+        handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")
+        self.assertIn("HANDOFF-P1-SELFHOST-ACCEPTANCE-001", handoff_rows)
 
     def test_acceptance_receipt_and_handoff_are_registered(self) -> None:
         receipt = load_yaml(PRODUCT_ROOT / "control_records/completions/RECEIPT-P1-SELFHOST-ACCEPTANCE-001.yaml")

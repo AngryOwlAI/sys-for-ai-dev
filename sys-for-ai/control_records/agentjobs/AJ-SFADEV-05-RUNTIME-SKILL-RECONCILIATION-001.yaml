@@ -1,0 +1,113 @@
+agentjob_id: AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+schema_version: 0.2.0
+status: completed
+objective: >
+  Reconcile the active sys-for-ai-dev runtime manifests and registry entries for
+  continue and source-first-memory so root development-skill validation passes
+  while preserving the product-scaffold boundary.
+lifecycle_stage: implementation_initialization
+role_binding:
+  role_id: documentation_librarian
+  binding_type: one_job_provisional_role
+  authority_scope: sys-for-ai-dev runtime skill reconciliation
+  expires_with_agentjob: true
+required_inputs:
+  - implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md
+  - implementation_plans/self_hosting_boundary_decision_record.md
+  - sys-for-ai/control_records/program_state.yaml
+  - sys-for-ai/control_records/handoffs/HANDOFF-P1-SELFHOST-ACCEPTANCE-001.yaml
+  - .agents/skill_registry/SKILL_REGISTRY.yaml
+  - .agents/skills/continue/skill.yaml
+  - .agents/skills/source-first-memory/skill.yaml
+allowed_reads:
+  - PRDs/**
+  - implementation_plans/**
+  - temp_handoff/**
+  - .agents/**
+  - .codex/**
+  - sys-for-ai/**
+allowed_writes:
+  - implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md
+  - .agents/skill_registry/SKILL_REGISTRY.yaml
+  - .agents/skill_registry/SKILL_BUNDLES/full-development-runtime.yaml
+  - .agents/skills/continue/skill.yaml
+  - .agents/skills/source-first-memory/skill.yaml
+  - sys-for-ai/Makefile
+  - sys-for-ai/control_records/agentjobs/AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+  - sys-for-ai/control_records/completions/RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+  - sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+  - sys-for-ai/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+  - sys-for-ai/control_records/program_state.yaml
+  - sys-for-ai/docs/generated/**
+  - sys-for-ai/registries/**
+  - sys-for-ai/sys_for_ai/cli.py
+  - sys-for-ai/tests/test_agentjob_boundaries.py
+  - sys-for-ai/tests/test_program_state.py
+  - sys-for-ai/tests/test_self_hosting_acceptance.py
+  - temp_handoff/handoff-0012.md
+generated_paths:
+  - sys-for-ai/docs/generated/**
+forbidden_paths:
+  - LICENSE
+  - NOTICE
+  - .git/**
+  - .venv/**
+  - sys-for-ai/.venv/**
+  - sys-for-ai/docs/generated/** as canonical source
+forbidden_actions:
+  - Modify repository LICENSE or NOTICE.
+  - Execute more than one AgentJob in one /continue invocation.
+  - Treat product-scaffold skills as active runtime authority.
+  - Treat generated derivatives or chat memory as source authority.
+  - Promote adapter shells beyond the active runtime registry without a separate decision.
+memory_preflight:
+  required: true
+  minimum_queries:
+    - runtime skill reconciliation
+    - continue source-first-memory active runtime registry
+  required_evidence:
+    - self-hosting boundary decision record inspection
+    - latest controlled handoff inspection
+    - all-recommendations implementation plan AJ-05 inspection
+    - root development-skill validator output
+expected_outputs:
+  - Completed continue runtime skill manifest.
+  - Completed source-first-memory runtime skill manifest.
+  - Active runtime registry entries for both skills.
+  - Full development runtime bundle includes both skills.
+  - Product scaffold skill validation remains intact.
+  - Diff-boundary validation retargets to this AgentJob for the current implementation slice.
+  - Completion receipt and handoff evidence.
+validators:
+  - make validate-dev-skills
+  - cd sys-for-ai && make validate-skills
+  - cd sys-for-ai && make validate-check-diff
+  - make validate
+completion_evidence_required:
+  - changed_artifacts
+  - command_results
+  - validation_status
+  - residual_risk
+handoff_policy:
+  create_handoff_when:
+    - runtime skill reconciliation completes
+    - next AgentJob is recommended
+authority_boundary:
+  may_modify_product_scaffold: false
+  may_modify_canonical_prds: false
+  may_promote_generated_derivatives: false
+  may_change_runtime_skill_authority: true
+  runtime_skill_surface: .agents/skills
+  runtime_registry_surface: .agents/skill_registry
+  compatibility_skill_surface: .codex/skills
+  product_scaffold_skill_surface: sys-for-ai/skills/core
+stop_conditions:
+  - Required plan or latest handoff source cannot be inspected.
+  - Runtime and scaffold authority cannot be separated.
+  - Root development-skill validation remains broken after manifest reconciliation.
+  - Product scaffold skill validation breaks.
+  - Required write is outside allowlist.
+  - More than one AgentJob is required.
+created_at: "2026-07-07T03:11:28Z"
+activated_at: "2026-07-07T03:11:28Z"
+completed_at: "2026-07-07T03:11:28Z"

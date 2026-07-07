@@ -7,7 +7,23 @@ scope:
   system_agnostic: false
   target_system_types:
     - sys-for-ai-dev development workspace
+    - sys-for-ai product scaffold
   intentional_specialization: Project-fit runtime memory-navigation skill for sys-for-ai-dev.
+  exemptions: []
+domain_emphasis:
+  - source_first_memory
+  - authority_inspection
+  - traceability
+  - continuation_preflight
+required_role_posture:
+  - system_analyst
+  - system_engineer
+  - software_engineer
+  - documentation_librarian
+optional_role_posture:
+  - requirements_verifier
+  - verification_engineer
+  - control_loop_planner
 activation:
   triggers:
     - Search source-first memory.
@@ -15,8 +31,102 @@ activation:
     - Verify memory-derived routing or claims against sources.
   when_not_to_use:
     - Do not use memory hits as authority without source inspection.
+    - Do not use generated derivatives, local vaults, semantic extracts, or caches as canonical authority.
+  preconditions:
+    - Memory output can be checked against a canonical source path or controlled registry row.
+    - Stale-context risk can be recorded when memory affects routing, requirements, AgentJob boundaries, handoffs, permissions, or claims.
+inputs:
+  required:
+    - Current question, route, claim, or continuation objective.
+    - Memory query or object ID to inspect.
+  optional:
+    - Program state, latest handoff, AgentJob, Director decision, PRD, registry row, or source path named by memory.
+    - Prior receipt or handoff that records a memory preflight.
 outputs:
   primary:
     - Source and registry evidence for routing or claims.
+    - Memory preflight evidence when memory affects continuation routing.
+  evidence:
+    - Memory status, lookup/search terms, returned object IDs, inspected source paths, inspected registry rows, and stale-risk notes.
   handoff:
     - Memory preflight evidence and stale-risk notes when relevant.
+dependencies:
+  required_skills: []
+  optional_skills: []
+  validation_skills: []
+  python:
+    standard_library_only: true
+    notes: Runtime manifest validation uses repository-local standard-library tooling.
+  external_tools:
+    - python3
+    - make
+    - git
+authority:
+  may_read:
+    - Root README, PRDs, implementation plans, registries, validators, schemas, templates, control records, and git-tracked files.
+    - sys-for-ai source-first memory modules, registry catalog, lookup/search outputs, and memory preflight receipts.
+    - Active runtime skills under .agents/skills and compatibility shims under .codex/skills.
+  may_write:
+    - Memory preflight evidence or handoff notes when authorized by the active task.
+    - .agents/skills/source-first-memory when maintaining this runtime skill.
+    - .codex/skills/source-first-memory/SKILL.md when maintaining the compatibility shim.
+  may_not:
+    - Treat memory hits as truth or permission without source inspection.
+    - Promote generated derivatives, local caches, summaries, or semantic extracts to source authority.
+    - Invent source hashes, registry rows, validation results, or claim evidence.
+  canonical_sources:
+    - Registered source files and controlled registry rows named by memory lookup.
+    - Root PRDs and implementation plans when they define requirements or routes.
+    - Program state, AgentJobs, Director decisions, completions, handoffs, and memory preflight receipts.
+    - Explicit user decisions in the active task.
+  generated_derivatives:
+    - Generated docs, catalogs, temporary handoffs, memory search surfaces, summaries, and local caches.
+  human_gates:
+    - Owner or Director approval before memory-derived recommendations become accepted scope.
+validation:
+  commands:
+    - command: python3 scripts/skills/validate_skill_manifest.py --manifest .agents/skills/source-first-memory/skill.yaml
+      validator_class: schema_validation
+      mode: required
+      dry_runnable: true
+      notes: Checks the active runtime manifest for this skill.
+    - command: test -f .agents/skills/source-first-memory/SKILL.md && test -f .agents/skills/source-first-memory/README.md && test -f .agents/skills/source-first-memory/AGENTS.md
+      validator_class: path_validation
+      mode: required
+      dry_runnable: true
+      notes: Confirms the active runtime package keeps required docs.
+    - command: test -f .codex/skills/source-first-memory/SKILL.md
+      validator_class: path_validation
+      mode: required
+      dry_runnable: true
+      notes: Confirms the Codex compatibility shim exists.
+  validator_classes:
+    - schema_validation
+    - path_validation
+    - dependency_validation
+    - trace_validation
+    - process_validation
+  contextual_validation_rationale: Memory is valid only as navigation until checked against source authority and current repository evidence.
+  evidence_required:
+    - Memory command or query used.
+    - Source paths or registry rows inspected after useful hits.
+    - Stale-context risks recorded when relevant.
+    - Validation commands run or skipped with reasons.
+handoff:
+  requires_completion_receipt: true
+  evidence:
+    - Memory query, object IDs, source paths, and registry rows inspected.
+    - Claims or routing decisions affected by memory.
+    - Stale-risk notes, validation commands, and residual uncertainty.
+    - Logical next step and any human approval gate.
+  next_role: system_engineer or verification_engineer for source-grounded review.
+  open_issue_policy: Record any memory-derived claim that could not be verified against source authority before using it.
+failure_modes:
+  - mode: Memory treated as authority.
+    recovery: Reclassify memory as navigation and inspect the named canonical source or registry row.
+  - mode: Stale-context risk.
+    recovery: Verify against current repository state before routing or claiming completion.
+  - mode: Generated derivative inversion.
+    recovery: Trace derivative content back to registered source authority or leave it noncanonical.
+compatibility_shims:
+  - .codex/skills/source-first-memory/SKILL.md

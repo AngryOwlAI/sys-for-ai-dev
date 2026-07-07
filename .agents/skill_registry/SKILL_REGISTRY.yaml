@@ -14,6 +14,40 @@ notes:
   - sys-for-ai/skills/core remains a product scaffold and reference adapter surface.
 external_skills: []
 skills:
+  - skill_id: continue
+    canonical_path: .agents/skills/continue
+    status: active
+    manifest_path: .agents/skills/continue/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - control_loop_planner
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/continue/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: source-first-memory
+    canonical_path: .agents/skills/source-first-memory
+    status: active
+    manifest_path: .agents/skills/source-first-memory/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+      - control_loop_planner
+    required_skills: []
+    optional_skills: []
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/source-first-memory/SKILL.md
+    migration_phase: adapted_runtime_active
   - skill_id: codex-usage-metrics
     canonical_path: .agents/skills/codex-usage-metrics
     status: active
