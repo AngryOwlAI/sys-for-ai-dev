@@ -2,6 +2,7 @@
 
 # Phase 1 local Python environment
 .venv/
+*.egg-info/
 
 # Python caches
 __pycache__/
@@ -19,6 +20,6 @@ temp_handoff/
 .agents/skills/*-context-45/temp_prd.md
 .agents/skills/*-context-45/usage-metrics.txt
 .agents/skills/*-context-45/archived_temp_prd/
-sys-for-ai/skills/core/*-context-45/temp_prd.md
-sys-for-ai/skills/core/*-context-45/usage-metrics.txt
-sys-for-ai/skills/core/*-context-45/archived_temp_prd/
+Sys4AI/skills/core/*-context-45/temp_prd.md
+Sys4AI/skills/core/*-context-45/usage-metrics.txt
+Sys4AI/skills/core/*-context-45/archived_temp_prd/

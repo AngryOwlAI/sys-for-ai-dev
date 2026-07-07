@@ -63,7 +63,7 @@ authority:
     - Treat generated derivative artifacts as canonical source authority.
 validation:
   commands:
-    - cd sys-for-ai && make validate-artifact-contracts
+    - cd Sys4AI && make validate-artifact-contracts
   validator_classes:
     - schema_validation
     - process_validation

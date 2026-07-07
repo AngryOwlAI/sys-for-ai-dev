@@ -1,0 +1,12 @@
+manifest_id: SFA-SKILL-IMPORT-MANIFEST-001
+status: draft
+source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+local_manifest: Sys4AI/skills/core_skill_manifest.yaml
+purpose: Track Phase 1 import and adaptation of all core skill templates.
+import_policy:
+  - Preserve provenance.
+  - Replace placeholders with Sys4AI local paths and validators.
+  - Do not promote copied upstream text to local authority until reviewed.
+  - Keep external source path in every adapter record.
+validation:
+  - cd Sys4AI && make validate-skills

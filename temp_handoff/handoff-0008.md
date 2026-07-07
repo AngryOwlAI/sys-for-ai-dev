@@ -1,7 +1,7 @@
 # Handoff 0008: Phase 7 Boundary and Diff Validators
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 7 - Boundary and diff validators
 
 ## Latest prior handoff check
@@ -21,7 +21,7 @@ Before Phase 7 began, the latest handoff was `temp_handoff/handoff-0007.md`. It 
   - `forbidden_paths`
   - generated derivative registry paths
   - generated derivative source-authority inversion checks
-- Added support for running boundary validation from either repository root or `sys-for-ai/` root.
+- Added support for running boundary validation from either repository root or `Sys4AI/` root.
 - Added CLI commands:
   - `validate-agentjob-boundaries --agentjob <id> --git`
   - `validate-check-diff --agentjob <id>`
@@ -30,7 +30,7 @@ Before Phase 7 began, the latest handoff was `temp_handoff/handoff-0007.md`. It 
   - `validate-check-diff`
 - Added `validate-check-diff` to the default `make validate` chain.
 - Formalized the Phase 7 AgentJob:
-  - `sys-for-ai/control_records/agentjobs/AJ-P1-BOUNDARY-VALIDATORS-001.yaml`
+  - `Sys4AI/control_records/agentjobs/AJ-P1-BOUNDARY-VALIDATORS-001.yaml`
 - Registered the Phase 7 AgentJob and new boundary validator sources in:
   - `registries/agentjob_registry.csv`
   - `registries/control_record_registry.csv`
@@ -42,10 +42,10 @@ Before Phase 7 began, the latest handoff was `temp_handoff/handoff-0007.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && make validate-agentjob-boundaries validate-check-diff`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
-- `PYTHONPATH=sys-for-ai sys-for-ai/.venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-P1-BOUNDARY-VALIDATORS-001 --json`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && make validate-agentjob-boundaries validate-check-diff`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
+- `PYTHONPATH=Sys4AI Sys4AI/.venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-P1-BOUNDARY-VALIDATORS-001 --json`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 Observed behavior:

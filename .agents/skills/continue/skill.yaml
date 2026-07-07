@@ -3,13 +3,13 @@ version: 0.1.0
 status: active
 lifecycle_status: adapted_runtime_active
 canonical_path: .agents/skills/continue
-summary: Resume sys-for-ai-dev from tracked state and advance at most one authorized AgentJob.
+summary: Resume Sys4AI-dev from tracked state and advance at most one authorized AgentJob.
 scope:
   system_agnostic: false
   target_system_types:
-    - sys-for-ai-dev development workspace
-    - sys-for-ai product scaffold
-  intentional_specialization: Project-fit runtime continuation skill for sys-for-ai-dev.
+    - Sys4AI-dev development workspace
+    - Sys4AI product scaffold
+  intentional_specialization: Project-fit runtime continuation skill for Sys4AI-dev.
   exemptions: []
 domain_emphasis:
   - continuation_control
@@ -33,13 +33,13 @@ activation:
     - Do not use for unbounded multi-AgentJob execution.
     - Do not use generated derivatives or chat memory as authority.
   preconditions:
-    - Work is occurring in the sys-for-ai-dev development workspace.
+    - Work is occurring in the Sys4AI-dev development workspace.
     - The self-hosting boundary decision record can be inspected before task work.
     - Program state, latest handoff, and useful memory hits can be verified against source files or registry rows.
 inputs:
   required:
     - Current user continuation request or active task objective.
-    - sys-for-ai/control_records/program_state.yaml.
+    - Sys4AI/control_records/program_state.yaml.
     - Latest tracked handoff when one exists.
   optional:
     - Root implementation plan named by the user.
@@ -68,7 +68,7 @@ dependencies:
 authority:
   may_read:
     - Root README, PRDs, implementation plans, registries, validators, schemas, templates, and git-tracked files.
-    - sys-for-ai control records, program state, AgentJobs, Director decisions, completions, handoffs, and memory preflight receipts.
+    - Sys4AI control records, program state, AgentJobs, Director decisions, completions, handoffs, and memory preflight receipts.
     - Active runtime skills under .agents/skills and compatibility shims under .codex/skills.
   may_write:
     - Files explicitly authorized by the selected AgentJob.
@@ -79,10 +79,10 @@ authority:
     - Execute more than one AgentJob in one invocation.
     - Use chat memory, generated derivatives, local caches, or summaries as authority.
     - Mutate activated control records without supersession.
-    - Treat sys-for-ai/skills/core as active development-runtime authority unless explicitly promoted.
+    - Treat Sys4AI/skills/core as active development-runtime authority unless explicitly promoted.
   canonical_sources:
     - Root PRDs and implementation plans.
-    - sys-for-ai/control_records/program_state.yaml.
+    - Sys4AI/control_records/program_state.yaml.
     - Registered AgentJobs, Director decisions, completions, handoffs, registries, validators, and schemas.
     - Explicit user decisions in the active task.
   generated_derivatives:

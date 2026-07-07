@@ -61,7 +61,7 @@ authority:
     - Treat assumed external behavior as a verified interface contract.
 validation:
   commands:
-    - cd sys-for-ai && make validate
+    - cd Sys4AI && make validate
   validator_classes:
     - dependency_validation
     - path_validation

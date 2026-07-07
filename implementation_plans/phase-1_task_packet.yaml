@@ -4,8 +4,8 @@ status: proposed
 created: 2026-07-04
 objective: Apply the Phase 1 initialization overlay and validate the Python/YAML/memory/skill scaffold.
 source_prds:
-  - PRDs/sys-for-ai_phase-0_product_system_design_prd.md
-  - PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md
+  - PRDs/Sys4AI_phase-0_product_system_design_prd.md
+  - PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
 agentjobs:
   - agentjob_id: AJ-P1-BOOTSTRAP-001
     role: implementation_initialization_agent
@@ -13,17 +13,17 @@ agentjobs:
     allowed_reads:
       - PRDs/**
       - implementation_plans/**
-      - sys-for-ai/**
+      - Sys4AI/**
     allowed_writes:
-      - sys-for-ai/**
+      - Sys4AI/**
       - implementation_plans/**
     forbidden_actions:
       - Delete repository root license, notice, or existing PRD files.
       - Replace repository root .gitignore without review.
       - Treat generated derivative docs as canonical sources.
     validators:
-      - cd sys-for-ai && make doctor
-      - cd sys-for-ai && make validate
+      - cd Sys4AI && make doctor
+      - cd Sys4AI && make validate
     expected_outputs:
       - Validation receipt.
       - Updated registry entries if new canonical sources are promoted.

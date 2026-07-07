@@ -62,7 +62,7 @@ authority:
     - Widen a packet beyond its selected objective.
 validation:
   commands:
-    - cd sys-for-ai && make validate-agentjobs
+    - cd Sys4AI && make validate-agentjobs
   validator_classes:
     - schema_validation
     - process_validation

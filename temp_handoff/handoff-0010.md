@@ -1,7 +1,7 @@
 # Handoff 0010: Phase 9 Skill Surfaces and Documentation
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 9 - Skill surfaces and documentation
 
 ## Latest prior handoff check
@@ -25,39 +25,39 @@ Before Phase 9 began, the latest handoff was `temp_handoff/handoff-0009.md`. It 
   - `.codex/skills/continue/SKILL.md`
   - `.codex/skills/source-first-memory/SKILL.md`
 - Added portable product scaffold skill folders:
-  - `sys-for-ai/skills/core/continue/`
-  - `sys-for-ai/skills/core/source-first-memory/`
-- Updated `sys-for-ai/skills/core_skill_manifest.yaml` to include `continue` and `source-first-memory`.
-- Updated `sys-for-ai/sys_for_ai/validators.py` so skill manifest validation expects both new scaffold skills.
-- Updated `sys-for-ai/registries/skill_registry.csv` with rows for `continue` and `source-first-memory`.
-- Updated `sys-for-ai/docs/skill_integration_policy.md` to state the boundary among:
+  - `Sys4AI/skills/core/continue/`
+  - `Sys4AI/skills/core/source-first-memory/`
+- Updated `Sys4AI/skills/core_skill_manifest.yaml` to include `continue` and `source-first-memory`.
+- Updated `Sys4AI/sys_for_ai/validators.py` so skill manifest validation expects both new scaffold skills.
+- Updated `Sys4AI/registries/skill_registry.csv` with rows for `continue` and `source-first-memory`.
+- Updated `Sys4AI/docs/skill_integration_policy.md` to state the boundary among:
   - active development runtime skills under `.agents/skills/`,
   - compatibility shims under `.codex/skills/`,
-  - generic product scaffold skills under `sys-for-ai/skills/core/`.
+  - generic product scaffold skills under `Sys4AI/skills/core/`.
 - Added the governing Phase 9 AgentJob:
-  - `sys-for-ai/control_records/agentjobs/AJ-P1-CONTINUE-SKILLS-001.yaml`
+  - `Sys4AI/control_records/agentjobs/AJ-P1-CONTINUE-SKILLS-001.yaml`
 - Registered the Phase 9 AgentJob in:
-  - `sys-for-ai/registries/agentjob_registry.csv`
-  - `sys-for-ai/registries/control_record_registry.csv`
-  - `sys-for-ai/registries/source_registry.csv`
+  - `Sys4AI/registries/agentjob_registry.csv`
+  - `Sys4AI/registries/control_record_registry.csv`
+  - `Sys4AI/registries/source_registry.csv`
 - Added source registry rows for the new runtime skills, shims, product scaffold skills, Phase 9 AgentJob, and skill surface tests.
-- Updated boundary-validation targets in `sys-for-ai/Makefile`, `sys-for-ai/sys_for_ai/cli.py`, and `sys-for-ai/tests/test_agentjob_boundaries.py` to authorize the current Phase 9 diff through `AJ-P1-CONTINUE-SKILLS-001`.
-- Added `sys-for-ai/tests/test_skill_surfaces.py` to verify:
+- Updated boundary-validation targets in `Sys4AI/Makefile`, `Sys4AI/sys_for_ai/cli.py`, and `Sys4AI/tests/test_agentjob_boundaries.py` to authorize the current Phase 9 diff through `AJ-P1-CONTINUE-SKILLS-001`.
+- Added `Sys4AI/tests/test_skill_surfaces.py` to verify:
   - active runtime skill content exists,
   - `.codex` shims point to `.agents` runtime skills,
   - product scaffold skill files remain generic and do not mention Codex.
 - Regenerated affected Configuration and Control Wiki derivatives after registry changes:
-  - `sys-for-ai/docs/generated/configuration_control/index.md`
-  - `sys-for-ai/docs/generated/configuration_control/yaml-control-records.md`
+  - `Sys4AI/docs/generated/configuration_control/index.md`
+  - `Sys4AI/docs/generated/configuration_control/yaml-control-records.md`
 
 ## Validation evidence
 
 The following commands passed:
 
-- `cd sys-for-ai && make validate-skills`
-- `cd sys-for-ai && make validate-agentjob-boundaries validate-check-diff`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && make validate-skills`
+- `cd Sys4AI && make validate-agentjob-boundaries validate-check-diff`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 Observed behavior:

@@ -1,8 +1,0 @@
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/sys-for-ai/schemas/contracts/registry_header.schema.json",
-  "title": "CSV registry header",
-  "type": "array",
-  "items": { "type": "string", "minLength": 1 },
-  "minItems": 1
-}

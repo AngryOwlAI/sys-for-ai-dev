@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/sys-for-ai/schemas/domain_pack.schema.json",
+  "$id": "https://example.invalid/Sys4AI/schemas/domain_pack.schema.json",
   "title": "Domain Pack",
   "description": "Schema for a domain lens that constrains system-agnostic skills without making the base skill domain-locked.",
   "type": "object",

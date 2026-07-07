@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/sys-for-ai/schemas/skill_bundle.schema.json",
+  "$id": "https://example.invalid/Sys4AI/schemas/skill_bundle.schema.json",
   "title": "Skill Bundle",
   "description": "Schema for an installable or verifiable skill bundle profile.",
   "type": "object",

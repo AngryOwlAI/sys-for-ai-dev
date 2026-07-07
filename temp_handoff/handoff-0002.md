@@ -1,7 +1,7 @@
 # Handoff 0002: Phase 1 Self-Hosting Boundary
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 1 - Self-hosting boundary
 
 ## Latest prior handoff check
@@ -11,9 +11,9 @@ Before Phase 1 began, the latest handoff was `temp_handoff/handoff-0001.md`. It 
 ## Work completed
 
 - Added `implementation_plans/self_hosting_boundary_decision_record.md`.
-- Added self-hosting, source-first memory, and continue-loop policy files under `sys-for-ai/docs/`.
-- Added `sys-for-ai/control_records/program_state.yaml`.
-- Added `sys-for-ai/schemas/contracts/program_state.schema.json`.
+- Added self-hosting, source-first memory, and continue-loop policy files under `Sys4AI/docs/`.
+- Added `Sys4AI/control_records/program_state.yaml`.
+- Added `Sys4AI/schemas/contracts/program_state.schema.json`.
 - Registered the decision record and policy documents in `source_registry.csv`.
 - Registered `program_state.yaml` in `control_record_registry.csv`.
 - Registered `program_state.schema.json` in `validation_contract_registry.csv`.
@@ -25,8 +25,8 @@ Before Phase 1 began, the latest handoff was `temp_handoff/handoff-0001.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && make validate-program-state`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && make validate-program-state`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 ## Remaining uncertainty

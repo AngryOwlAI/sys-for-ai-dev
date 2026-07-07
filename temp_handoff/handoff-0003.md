@@ -1,7 +1,7 @@
 # Handoff 0003: Phase 2 Operational Schemas and Registries
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 2 - Operational schemas and registries
 
 ## Latest prior handoff check
@@ -29,9 +29,9 @@ Before Phase 2 began, the latest handoff was `temp_handoff/handoff-0002.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && make validate-jsonschema-contracts`
-- `cd sys-for-ai && make validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && make validate-jsonschema-contracts`
+- `cd Sys4AI && make validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 ## Remaining uncertainty

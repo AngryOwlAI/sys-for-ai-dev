@@ -1,7 +1,7 @@
 # Handoff 0009: Phase 8 Generated Derivative Generators
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 8 - Generated derivative generators
 
 ## Latest prior handoff check
@@ -33,12 +33,12 @@ Before Phase 8 began, the latest handoff was `temp_handoff/handoff-0008.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && .venv/bin/python -m sys_for_ai.cli generate-config-control-wiki --write`
-- `cd sys-for-ai && .venv/bin/python -m sys_for_ai.cli generate-validation-contracts-catalog --write`
-- `cd sys-for-ai && make generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives`
-- `cd sys-for-ai && make validate-agentjob-boundaries validate-check-diff`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && .venv/bin/python -m sys_for_ai.cli generate-config-control-wiki --write`
+- `cd Sys4AI && .venv/bin/python -m sys_for_ai.cli generate-validation-contracts-catalog --write`
+- `cd Sys4AI && make generate-config-control-wiki generate-validation-contracts-catalog validate-generated-derivatives`
+- `cd Sys4AI && make validate-agentjob-boundaries validate-check-diff`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 Observed behavior:

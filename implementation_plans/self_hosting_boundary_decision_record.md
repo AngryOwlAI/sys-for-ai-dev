@@ -4,17 +4,17 @@ Decision ID: SFA-EDR-SELFHOST-001
 Status: Proposed
 Date: 2026-07-06
 Decision owner: Implementation initialization agent
-Scope: `sys-for-ai-dev` using `sys-for-ai` concepts while `sys-for-ai` is under development
+Scope: `Sys4AI-dev` using `Sys4AI` concepts while `Sys4AI` is under development
 
 ## Decision
 
-`sys-for-ai-dev` may dogfood `sys-for-ai` memory and control-loop concepts as a self-hosting development system, but self-hosting records must distinguish product requirements, product reference implementation, development runtime skills, generated derivatives, and local retrieval surfaces.
+`Sys4AI-dev` may dogfood `Sys4AI` memory and control-loop concepts as a self-hosting development system, but self-hosting records must distinguish product requirements, product reference implementation, development runtime skills, generated derivatives, and local retrieval surfaces.
 
 ## System context
 
-- Framework system: `sys-for-ai`
-- Development system: `sys-for-ai-dev`
-- Target system for this implementation: `sys-for-ai`
+- Framework system: `Sys4AI`
+- Development system: `Sys4AI-dev`
+- Target system for this implementation: `Sys4AI`
 - Self-hosting mode: `true`
 - Reflection depth: `1`
 
@@ -22,7 +22,7 @@ Scope: `sys-for-ai-dev` using `sys-for-ai` concepts while `sys-for-ai` is under 
 
 1. PRDs remain the authority for product requirements.
 2. Active development runtime skills live under `.agents/skills/`.
-3. Product scaffold skills under `sys-for-ai/skills/core/` are reference surfaces until promoted.
+3. Product scaffold skills under `Sys4AI/skills/core/` are reference surfaces until promoted.
 4. `/continue` advances at most one registered AgentJob per invocation.
 5. Memory hits are navigation until verified against source files or registry rows.
 6. Generated derivatives are noncanonical unless explicitly promoted by a source-authority AgentJob.

@@ -1,6 +1,6 @@
 ---
 name: continue
-description: Resume sys-for-ai-dev from tracked state and advance at most one authorized AgentJob.
+description: Resume Sys4AI-dev from tracked state and advance at most one authorized AgentJob.
 ---
 
 # /continue
@@ -16,7 +16,7 @@ Tracked project state decides the route. Chat context, generated derivatives, lo
 1. Read the self-hosting boundary decision record.
 2. Run memory preflight.
 3. Inspect canonical sources or registry rows named by useful memory hits.
-4. Resolve `sys-for-ai/control_records/program_state.yaml`.
+4. Resolve `Sys4AI/control_records/program_state.yaml`.
 5. Inspect the latest handoff if one exists.
 6. Select or reuse at most one AgentJob.
 7. Stop if a Director decision is required.

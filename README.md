@@ -1,26 +1,26 @@
-# sys-for-ai-dev
+# Sys4AI-dev
 
-This repository is the development workspace for `sys-for-ai`.
+This repository is the development workspace for `Sys4AI`.
 
-The project being developed lives in [`sys-for-ai/`](sys-for-ai/).
+The project being developed lives in [`Sys4AI/`](Sys4AI/).
 
 The current product-definition sources are:
 
-- [`PRDs/sys-for-ai_phase-0_product_system_design_prd.md`](PRDs/sys-for-ai_phase-0_product_system_design_prd.md)
-- [`PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md`](PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md)
+- [`PRDs/Sys4AI_phase-0_product_system_design_prd.md`](PRDs/Sys4AI_phase-0_product_system_design_prd.md)
+- [`PRDs/Sys4AI_phase-1_implementation_initialization_prd.md`](PRDs/Sys4AI_phase-1_implementation_initialization_prd.md)
 
 The earlier Phase 0 draft remains available at
-[`PRDs/sys-for-ai_phase-0_prd.md`](PRDs/sys-for-ai_phase-0_prd.md) as a
+[`PRDs/Sys4AI_phase-0_prd.md`](PRDs/Sys4AI_phase-0_prd.md) as a
 superseded historical reference.
 
 Phase 1 implementation planning lives in
 [`implementation_plans/`](implementation_plans/). The executable reference
 scaffold, validators, registries, skill adapters, and documentation policies
-live under [`sys-for-ai/`](sys-for-ai/).
+live under [`Sys4AI/`](Sys4AI/).
 
 Development-system runtime skills live under [`.agents/skills/`](.agents/skills/).
 Thin Codex compatibility shims live under [`.codex/skills/`](.codex/skills/)
-and point back to the `.agents` runtime surface. The `sys-for-ai/skills/core/`
+and point back to the `.agents` runtime surface. The `Sys4AI/skills/core/`
 directory remains a product-scaffold reference surface, not the active
 development-system runtime.
 

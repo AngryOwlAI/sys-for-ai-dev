@@ -1,7 +1,7 @@
 # Handoff 0005: Phase 4 Memory Preflight Receipts
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 4 - Memory preflight receipts
 
 ## Latest prior handoff check
@@ -22,10 +22,10 @@ Before Phase 4 began, the latest handoff was `temp_handoff/handoff-0004.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && .venv/bin/python -m sys_for_ai.cli memory preflight --agentjob AJ-P1-SKILL-SYNC-001 --query "source-first memory" --json`
-- `cd sys-for-ai && make validate-memory-preflight`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && .venv/bin/python -m sys_for_ai.cli memory preflight --agentjob AJ-P1-SKILL-SYNC-001 --query "source-first memory" --json`
+- `cd Sys4AI && make validate-memory-preflight`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 Validation initially found an unquoted YAML timestamp in the example receipt. The timestamp is now quoted so schema validation receives a string.

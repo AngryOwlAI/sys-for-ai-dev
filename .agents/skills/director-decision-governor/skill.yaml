@@ -64,7 +64,7 @@ authority:
     - Mutate completed decisions without supersession.
 validation:
   commands:
-    - cd sys-for-ai && make validate-director-decisions
+    - cd Sys4AI && make validate-director-decisions
   validator_classes:
     - schema_validation
     - process_validation

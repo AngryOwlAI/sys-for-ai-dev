@@ -1,12 +1,12 @@
 # Handoff 0015: Discovery Gate Implementation
 
 Date: 2026-07-07
-Plan: `implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md`
 Completed slice: WS-03 / AJ-03 - Discovery Gate Implementation
 
 ## Latest prior handoff check
 
-The latest controlled handoff before this work was `sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-02-REGISTRY-SCHEMA-EXPANSION-001.yaml`. It closed the registry and schema expansion slice and recommended `AJ-SFADEV-03-DISCOVERY-GATE-001` as the next bounded AgentJob.
+The latest controlled handoff before this work was `Sys4AI/control_records/handoffs/HANDOFF-SFADEV-02-REGISTRY-SCHEMA-EXPANSION-001.yaml`. It closed the registry and schema expansion slice and recommended `AJ-SFADEV-03-DISCOVERY-GATE-001` as the next bounded AgentJob.
 
 ## Work completed
 
@@ -18,21 +18,21 @@ The latest controlled handoff before this work was `sys-for-ai/control_records/h
 - Added `validate-dev-skills` and included it in aggregate validation.
 - Added `AJ-P1-DISCOVERY-GATE-SMOKE-001.yaml` as a pending smoke AgentJob for future RDR generation.
 - Added the bounded AJ-03 control packet:
-  - `sys-for-ai/control_records/director_decisions/DDR-SFADEV-03-DISCOVERY-GATE-001.yaml`
-  - `sys-for-ai/control_records/agentjobs/AJ-SFADEV-03-DISCOVERY-GATE-001.yaml`
-  - `sys-for-ai/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-03-DISCOVERY-GATE-001.yaml`
-  - `sys-for-ai/control_records/completions/RECEIPT-SFADEV-03-DISCOVERY-GATE-001.yaml`
-  - `sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-03-DISCOVERY-GATE-001.yaml`
+  - `Sys4AI/control_records/director_decisions/DDR-SFADEV-03-DISCOVERY-GATE-001.yaml`
+  - `Sys4AI/control_records/agentjobs/AJ-SFADEV-03-DISCOVERY-GATE-001.yaml`
+  - `Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-03-DISCOVERY-GATE-001.yaml`
+  - `Sys4AI/control_records/completions/RECEIPT-SFADEV-03-DISCOVERY-GATE-001.yaml`
+  - `Sys4AI/control_records/handoffs/HANDOFF-SFADEV-03-DISCOVERY-GATE-001.yaml`
 - Updated program state to point at the new completion, handoff, and memory preflight.
 - Retargeted current diff-boundary validation to `AJ-SFADEV-03-DISCOVERY-GATE-001`.
 
 ## Validation evidence
 
 - `make validate-dev-skills`
-- `cd sys-for-ai && make validate-discovery-template`
-- `cd sys-for-ai && make validate-discovery-records`
-- `cd sys-for-ai && make validate-agentjobs`
-- `cd sys-for-ai && make validate-check-diff`
+- `cd Sys4AI && make validate-discovery-template`
+- `cd Sys4AI && make validate-discovery-records`
+- `cd Sys4AI && make validate-agentjobs`
+- `cd Sys4AI && make validate-check-diff`
 
 ## Remaining uncertainty
 

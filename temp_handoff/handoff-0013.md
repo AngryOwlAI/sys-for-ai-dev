@@ -1,12 +1,12 @@
 # Handoff 0013: PRD Integration
 
 Date: 2026-07-07
-Plan: `implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md`
 Completed slice: WS-01 / AJ-01 - PRD Integration
 
 ## Latest prior handoff check
 
-The latest controlled handoff before this work was `sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`. It closed the runtime-skill reconciliation slice and recommended selecting the next all-recommendations AgentJob through tracked state.
+The latest controlled handoff before this work was `Sys4AI/control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`. It closed the runtime-skill reconciliation slice and recommended selecting the next all-recommendations AgentJob through tracked state.
 
 ## Work completed
 
@@ -24,11 +24,11 @@ The latest controlled handoff before this work was `sys-for-ai/control_records/h
   - core skill expansion initialization
 - Added explicit requirement trace rows for every new Phase 0 requirement ID.
 - Added the bounded PRD integration control packet:
-  - `sys-for-ai/control_records/director_decisions/DDR-SFADEV-01-PRD-INTEGRATION-001.yaml`
-  - `sys-for-ai/control_records/agentjobs/AJ-SFADEV-01-PRD-INTEGRATION-001.yaml`
-  - `sys-for-ai/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-01-PRD-INTEGRATION-001.yaml`
-  - `sys-for-ai/control_records/completions/RECEIPT-SFADEV-01-PRD-INTEGRATION-001.yaml`
-  - `sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-01-PRD-INTEGRATION-001.yaml`
+  - `Sys4AI/control_records/director_decisions/DDR-SFADEV-01-PRD-INTEGRATION-001.yaml`
+  - `Sys4AI/control_records/agentjobs/AJ-SFADEV-01-PRD-INTEGRATION-001.yaml`
+  - `Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-01-PRD-INTEGRATION-001.yaml`
+  - `Sys4AI/control_records/completions/RECEIPT-SFADEV-01-PRD-INTEGRATION-001.yaml`
+  - `Sys4AI/control_records/handoffs/HANDOFF-SFADEV-01-PRD-INTEGRATION-001.yaml`
 - Updated program state to point at the new completion, handoff, and memory preflight.
 - Retargeted current diff-boundary validation to `AJ-SFADEV-01-PRD-INTEGRATION-001`.
 - Registered the new control and source artifacts.
@@ -36,10 +36,10 @@ The latest controlled handoff before this work was `sys-for-ai/control_records/h
 
 ## Validation evidence
 
-- `cd sys-for-ai && make validate-requirement-trace`
-- `cd sys-for-ai && make validate-check-diff`
+- `cd Sys4AI && make validate-requirement-trace`
+- `cd Sys4AI && make validate-check-diff`
 - `make validate`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
 - `git diff --check`
 
 ## Remaining uncertainty

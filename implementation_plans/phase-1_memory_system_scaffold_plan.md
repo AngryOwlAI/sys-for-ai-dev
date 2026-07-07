@@ -8,7 +8,7 @@
 
 ## Objective
 
-Create the first source-first memory scaffold for `sys-for-ai`, modeled as lightweight registries and validation commands before adding a database, vector index, wiki engine, or Obsidian sync.
+Create the first source-first memory scaffold for `Sys4AI`, modeled as lightweight registries and validation commands before adding a database, vector index, wiki engine, or Obsidian sync.
 
 ---
 
@@ -29,7 +29,7 @@ Create the first source-first memory scaffold for `sys-for-ai`, modeled as light
 ## Bootstrap command
 
 ```bash
-cd sys-for-ai
+cd Sys4AI
 make bootstrap-memory
 ```
 
@@ -40,7 +40,7 @@ The command creates missing registry files with required headers. It does not pr
 ## Validation command
 
 ```bash
-cd sys-for-ai
+cd Sys4AI
 make validate
 ```
 

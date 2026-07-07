@@ -1,12 +1,12 @@
 # Handoff 0012: Runtime Skill Reconciliation
 
 Date: 2026-07-07
-Plan: `implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md`
 Completed slice: WS-05 / AJ-05 - Runtime Skill Reconciliation
 
 ## Latest prior handoff check
 
-The latest controlled handoff before this work was `sys-for-ai/control_records/handoffs/HANDOFF-P1-SELFHOST-ACCEPTANCE-001.yaml`. It closed the self-hosting memory and `/continue` implementation plan and required future work to start from a new explicit plan or Director decision.
+The latest controlled handoff before this work was `Sys4AI/control_records/handoffs/HANDOFF-P1-SELFHOST-ACCEPTANCE-001.yaml`. It closed the self-hosting memory and `/continue` implementation plan and required future work to start from a new explicit plan or Director decision.
 
 ## Work completed
 
@@ -18,10 +18,10 @@ The latest controlled handoff before this work was `sys-for-ai/control_records/h
   - `.agents/skill_registry/SKILL_REGISTRY.yaml`
   - `.agents/skill_registry/SKILL_BUNDLES/full-development-runtime.yaml`
 - Added the bounded runtime reconciliation control packet:
-  - `sys-for-ai/control_records/agentjobs/AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
-  - `sys-for-ai/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
-  - `sys-for-ai/control_records/completions/RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
-  - `sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
+  - `Sys4AI/control_records/agentjobs/AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
+  - `Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
+  - `Sys4AI/control_records/completions/RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
+  - `Sys4AI/control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml`
 - Updated program state to point at the new completion, handoff, and memory preflight.
 - Retargeted current diff-boundary validation to `AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001`.
 - Registered the new control and source artifacts.
@@ -36,7 +36,7 @@ Passed before closeout packet generation:
 - `python3 scripts/skills/validate_skill_manifest.py --registry .agents/skill_registry/SKILL_REGISTRY.yaml`
 - `python3 scripts/skills/validate_skill_manifest.py --bundle .agents/skill_registry/SKILL_BUNDLES/full-development-runtime.yaml`
 - `make validate-dev-skills`
-- `cd sys-for-ai && make validate-skills`
+- `cd Sys4AI && make validate-skills`
 - `git diff --check`
 
 Aggregate `make validate` initially failed only because `validate-check-diff` was still pointed at the completed acceptance AgentJob. The closeout packet retargets diff validation to the new bounded AgentJob.

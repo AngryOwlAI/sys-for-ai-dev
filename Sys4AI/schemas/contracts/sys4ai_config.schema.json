@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/sys4ai_config.schema.json",
+  "title": "Sys4AI framework or package configuration",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["framework", "memory", "validation", "security"],
+      "properties": {
+        "framework": {
+          "type": "object",
+          "required": ["id", "name", "authority_policy"],
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "authority_policy": { "const": "source-first" }
+          },
+          "additionalProperties": true
+        },
+        "memory": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "contracts_root": { "type": "string" },
+            "strict": { "type": "boolean" },
+            "schema_dialect": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "security": {
+          "type": "object",
+          "properties": {
+            "secrets_allowed": { "type": "boolean" },
+            "redact_generated_derivatives": { "type": "boolean" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": ["build-system", "project"],
+      "properties": {
+        "build-system": { "type": "object" },
+        "project": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 ## Scenario
 
-A `sys-for-ai-dev` implementation agent receives a task to import a skill from
+A `Sys4AI-dev` implementation agent receives a task to import a skill from
 another local repository into the root development-system runtime layer.
 
 ## Minimal use
@@ -10,7 +10,7 @@ another local repository into the root development-system runtime layer.
 1. Read the task objective and allowed files.
 2. Read root PRDs, implementation plans, source registries, validators, and
    git-tracked project files before generated notes.
-3. Treat `sys-for-ai/` as the product scaffold, not the full development
+3. Treat `Sys4AI/` as the product scaffold, not the full development
    workspace.
 4. Adapt the source skill into `.agents/skills/<skill-id>/`.
 5. Add a thin `.codex/skills/<skill-id>/SKILL.md` compatibility shim.

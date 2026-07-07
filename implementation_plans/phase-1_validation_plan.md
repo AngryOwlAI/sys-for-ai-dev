@@ -2,7 +2,7 @@
 
 **Status:** Draft  
 **Date:** 2026-07-04  
-**Scope:** Initial local validation for `sys-for-ai`
+**Scope:** Initial local validation for `Sys4AI`
 
 ---
 

@@ -61,7 +61,7 @@ authority:
     - Embed project-specific domain constraints into core skill instructions.
 validation:
   commands:
-    - cd sys-for-ai && make validate
+    - cd Sys4AI && make validate
   validator_classes:
     - domain_validation
     - process_validation

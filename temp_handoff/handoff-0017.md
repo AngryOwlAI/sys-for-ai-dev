@@ -1,12 +1,12 @@
 # Handoff 0017: Skill Lifecycle Governance
 
 Date: 2026-07-07
-Plan: `implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md`
 Completed slice: WS-06 / AJ-06 - Skill Lifecycle Governance
 
 ## Latest prior handoff check
 
-The latest controlled handoff before this work was `sys-for-ai/control_records/handoffs/HANDOFF-SFADEV-04-ROLE-GOVERNANCE-001.yaml`. It closed role governance and recommended `AJ-SFADEV-06-SKILL-LIFECYCLE-001` because AJ-05 was already complete.
+The latest controlled handoff before this work was `Sys4AI/control_records/handoffs/HANDOFF-SFADEV-04-ROLE-GOVERNANCE-001.yaml`. It closed role governance and recommended `AJ-SFADEV-06-SKILL-LIFECYCLE-001` because AJ-05 was already complete.
 
 ## Work completed
 
@@ -14,19 +14,19 @@ The latest controlled handoff before this work was `sys-for-ai/control_records/h
 - Added `lifecycle_status` to the product scaffold manifest and product skill registry without promoting scaffold skills to runtime authority.
 - Extended the root skill manifest validator to require controlled lifecycle vocabulary and runtime authority boundaries.
 - Extended product validators to compare runtime registry, product registry, and product scaffold lifecycle states.
-- Added lifecycle status to `sys-for-ai/schemas/skill.schema.yaml`.
+- Added lifecycle status to `Sys4AI/schemas/skill.schema.yaml`.
 - Registered closeout source and control records for AJ-06.
 - Updated program state to the AJ-06 receipt and handoff.
 
 ## Validation evidence
 
 - `python3 scripts/skills/validate_skill_manifest.py --root .`
-- `cd sys-for-ai && make validate-dev-skills`
-- `cd sys-for-ai && make validate-skill-lifecycle`
-- `cd sys-for-ai && make validate-agentjob-boundaries`
-- `cd sys-for-ai && make validate-check-diff`
-- `cd sys-for-ai && make validate`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && make validate-dev-skills`
+- `cd Sys4AI && make validate-skill-lifecycle`
+- `cd Sys4AI && make validate-agentjob-boundaries`
+- `cd Sys4AI && make validate-check-diff`
+- `cd Sys4AI && make validate`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
 - `git diff --check`
 
 ## Remaining uncertainty

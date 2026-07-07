@@ -1,0 +1,98 @@
+agentjob_id: AJ-SYS4AI-DEV-NAME-MIGRATION-001
+schema_version: 0.2.0
+status: completed
+objective: >
+  Migrate the public project identity from legacy hyphenated names to Sys4AI
+  and Sys4AI-dev while preserving the sys_for_ai Python import module and
+  completed SFADEV control identifiers as historical evidence.
+lifecycle_stage: implementation_initialization
+role_binding:
+  role_id: svc_documentation_surface_architect
+  binding_type: registered_role
+  authority_scope: Sys4AI-dev name migration baseline
+  expires_with_agentjob: true
+required_inputs:
+  - README.md
+  - PRDs/Sys4AI_phase-0_product_system_design_prd.md
+  - PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-10-END-TO-END-ACCEPTANCE-001.yaml
+allowed_reads:
+  - "**"
+allowed_writes:
+  - README.md
+  - Makefile
+  - NOTICE
+  - .gitignore
+  - .agents/**
+  - .codex/**
+  - PRDs/**
+  - implementation_plans/**
+  - Sys4AI/**
+  - scripts/**
+  - schemas/**
+  - temp_handoff/**
+generated_paths:
+  - Sys4AI/docs/generated/**
+forbidden_paths:
+  - LICENSE
+  - .git/**
+  - .venv/**
+  - Sys4AI/.venv/**
+  - Sys4AI/docs/generated/** as canonical source
+stop_conditions:
+  - Rename audit finds unreviewed legacy hyphenated project names.
+  - The sys_for_ai Python import module is renamed.
+  - A completed SFADEV control identifier is rewritten instead of superseded.
+  - The outer checkout or remote is renamed inside this tracked migration.
+forbidden_actions:
+  - Rename sys_for_ai import packages or Python module paths.
+  - Delete completed SFADEV control records.
+  - Promote generated derivatives to canonical authority.
+  - Rename the local checkout folder or GitHub remote during tracked validation.
+memory_preflight:
+  required: true
+  minimum_queries:
+    - Sys4AI rename migration
+    - Sys4AI-dev development workspace boundary
+  required_evidence:
+    - root README boundary inspection
+    - system layer registry inspection
+    - source registry inspection
+    - prior terminal handoff inspection
+expected_outputs:
+  - Product scaffold path moved to Sys4AI.
+  - Public project names updated to Sys4AI and Sys4AI-dev.
+  - Stable sys_for_ai implementation module retained.
+  - Rename audit validator and Make target added.
+  - Generated derivatives resynchronized.
+  - Completion receipt and handoff evidence.
+validators:
+  - make validate-rename
+  - make validate-dev-skills
+  - make validate-product-scaffold
+  - make validate
+  - cd Sys4AI && make validate
+  - cd Sys4AI && .venv/bin/python -m unittest discover -s tests
+  - cd Sys4AI && .venv/bin/Sys4AI doctor
+  - git diff --check
+completion_evidence_required:
+  - rename_audit_pass
+  - command_results
+  - validation_status
+  - controlled_boundary_notes
+handoff_policy:
+  create_handoff_when:
+    - name migration completes
+authority_boundary:
+  may_update_public_project_identity: true
+  may_update_current_paths_and_references: true
+  may_update_registries_and_schemas: true
+  may_resynchronize_generated_derivatives: true
+  may_preserve_historical_control_ids: true
+  may_modify_python_import_module: false
+  may_rename_outer_checkout_or_remote: false
+created_at: "2026-07-07T12:00:00Z"
+activated_at: "2026-07-07T12:00:00Z"
+completed_at: "2026-07-07T12:00:00Z"
+director_decision_id: DDR-SYS4AI-DEV-NAME-MIGRATION-001

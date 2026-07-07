@@ -7,11 +7,11 @@ The operator asks to continue the self-hosting implementation plan.
 ## Procedure
 
 1. Read the latest `temp_handoff/handoff-*.md`.
-2. Inspect `sys-for-ai/control_records/program_state.yaml`.
+2. Inspect `Sys4AI/control_records/program_state.yaml`.
 3. Run:
 
    ```bash
-   cd sys-for-ai
+   cd Sys4AI
    .venv/bin/python -m sys_for_ai.cli continue-status --json
    .venv/bin/python -m sys_for_ai.cli continue-preflight --json
    .venv/bin/python -m sys_for_ai.cli continue-select --json

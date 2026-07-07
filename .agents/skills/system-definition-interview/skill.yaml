@@ -3,13 +3,13 @@ version: 0.1.0
 status: active
 lifecycle_status: adapted_runtime_active
 canonical_path: .agents/skills/system-definition-interview
-summary: Stakeholder elicitation for sys-for-ai-dev system intent, boundaries, actors, scenarios, candidate requirements, and verification seeds.
+summary: Stakeholder elicitation for Sys4AI-dev system intent, boundaries, actors, scenarios, candidate requirements, and verification seeds.
 scope:
   system_agnostic: false
   target_system_types:
-    - sys-for-ai-dev development workspace
-    - sys-for-ai product scaffold
-  intentional_specialization: Project-fit runtime adaptation for sys-for-ai-dev. Root development-system authorities outrank generated outputs and product-only scaffold adapters.
+    - Sys4AI-dev development workspace
+    - Sys4AI product scaffold
+  intentional_specialization: Project-fit runtime adaptation for Sys4AI-dev. Root development-system authorities outrank generated outputs and product-only scaffold adapters.
   exemptions: []
 domain_emphasis:
   - system_definition
@@ -32,20 +32,20 @@ activation:
     - Build a requirements discovery record before PRD synthesis.
     - Clarify system boundary, scenarios, interfaces, risks, and validation seeds.
   when_not_to_use:
-    - Do not use as product-only scaffold authority inside sys-for-ai.
+    - Do not use as product-only scaffold authority inside Sys4AI.
     - Do not treat generated outputs as accepted project authority without owner or source approval.
     - Do not bypass root PRDs, implementation plans, registries, validators, or git-tracked files when they answer the question.
   preconditions:
-    - Work is occurring in the sys-for-ai-dev development workspace.
+    - Work is occurring in the Sys4AI-dev development workspace.
     - Relevant root authority files or product scaffold files can be inspected when claims depend on them.
     - Any generated output can be traced to source authority, explicit user decision, or labeled assumption.
 inputs:
   required:
     - Current user request or active task objective.
-    - Relevant sys-for-ai-dev root authority files when the task depends on current project state.
+    - Relevant Sys4AI-dev root authority files when the task depends on current project state.
   optional:
     - Root PRDs and implementation plans.
-    - sys-for-ai scaffold files, validators, registries, schemas, templates, and control records.
+    - Sys4AI scaffold files, validators, registries, schemas, templates, and control records.
     - Prior handoff, generated draft, diagram, warning report, or temporary checkpoint.
 outputs:
   primary:
@@ -75,7 +75,7 @@ dependencies:
 authority:
   may_read:
     - Root README, PRDs, implementation plans, source registries, validators, schemas, templates, control records, and git-tracked files.
-    - sys-for-ai product scaffold files when product behavior, adapters, validators, or reference policy are in scope.
+    - Sys4AI product scaffold files when product behavior, adapters, validators, or reference policy are in scope.
     - Existing adapted skill files under .agents/skills and compatibility shims under .codex/skills.
   may_write:
     - .agents/skills/system-definition-interview when adapting or maintaining this runtime skill.
@@ -83,7 +83,7 @@ authority:
     - Generated derivative artifacts only in project-approved locations for the active task.
   may_not:
     - Overwrite source authority with generated outputs.
-    - Treat sys-for-ai/skills/core as the active runtime authority for sys-for-ai-dev.
+    - Treat Sys4AI/skills/core as the active runtime authority for Sys4AI-dev.
     - Delete or replace product scaffold adapters unless an explicit project authority requests it.
     - Import .DS_Store, __pycache__, pyc files, usage-metrics receipts, temp_prd checkpoints, secrets, or local operational state as source.
   canonical_sources:
@@ -120,7 +120,7 @@ validation:
     - trace_validation
     - process_validation
     - claim_validation
-  contextual_validation_rationale: Runtime correctness depends on current sys-for-ai-dev source authority, requested artifact type, and project-local validators.
+  contextual_validation_rationale: Runtime correctness depends on current Sys4AI-dev source authority, requested artifact type, and project-local validators.
   evidence_required:
     - Relevant project authority inspected or unavailable evidence recorded.
     - Generated outputs labeled as derivatives until accepted.
@@ -139,7 +139,7 @@ failure_modes:
   - mode: Authority inversion.
     recovery: Re-anchor to root PRDs, implementation plans, validators, registries, and git-tracked source before proceeding.
   - mode: Product scaffold confusion.
-    recovery: State that sys-for-ai is the subsystem scaffold and .agents/skills is the active development runtime layer.
+    recovery: State that Sys4AI is the subsystem scaffold and .agents/skills is the active development runtime layer.
   - mode: Generated-output promotion.
     recovery: Relabel as derivative or obtain explicit approval before treating the artifact as project authority.
 compatibility_shims:

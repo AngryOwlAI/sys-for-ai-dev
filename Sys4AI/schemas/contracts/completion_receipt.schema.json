@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/completion_receipt.schema.json",
+  "title": "Sys4AI completion receipt",
+  "type": "object",
+  "required": [
+    "completion_receipt_id",
+    "agentjob_id",
+    "role",
+    "result",
+    "summary",
+    "changed_artifacts",
+    "validation_evidence",
+    "format_profile_changes",
+    "authority_changes",
+    "unresolved_issues",
+    "next_recommendation"
+  ],
+  "properties": {
+    "completion_receipt_id": { "type": "string", "minLength": 1 },
+    "agentjob_id": { "type": "string", "minLength": 1 },
+    "role": { "type": "string", "minLength": 1 },
+    "result": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "changed_artifacts": { "type": "array" },
+    "validation_evidence": { "type": "object" },
+    "format_profile_changes": { "type": "object" },
+    "authority_changes": { "type": "object" },
+    "unresolved_issues": { "type": "array" },
+    "next_recommendation": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

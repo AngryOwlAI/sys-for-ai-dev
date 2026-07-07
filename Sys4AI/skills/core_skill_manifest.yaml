@@ -1,0 +1,498 @@
+manifest_id: SFA-CORE-SKILL-MANIFEST-001
+status: draft
+source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+local_root: skills/core
+policy: All listed skills are core product-scaffold requirements for the project being developed; Phase 1 includes adapter shells and provenance records. The active Sys4AI-dev runtime surface is the root .agents/skills layer, with .codex/skills as compatibility shims.
+skills:
+  - id: continue
+    name: Continue
+    family: continuation_control
+    source_repo: local
+    source_path: .agents/skills/continue
+    local_path: core/continue
+    adaptation_status: scaffold_template
+    lifecycle_status: product_scaffold_reference
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Generic target-system continuation template for tracked state, latest handoff inspection, memory preflight, one bounded AgentJob, validation, and next handoff."
+  - id: source-first-memory
+    name: Source First Memory
+    family: source_first_memory
+    source_repo: local
+    source_path: .agents/skills/source-first-memory
+    local_path: core/source-first-memory
+    adaptation_status: scaffold_template
+    lifecycle_status: product_scaffold_reference
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Generic target-system memory navigation template that requires source or registry inspection before memory affects claims or routing."
+  - id: codex-usage-metrics
+    name: Codex Usage Metrics
+    family: runtime_session_accounting
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/codex-usage-metrics
+    local_path: core/codex-usage-metrics
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+      - scripts/collect_usage_metrics.py
+      - scripts/archive_temp_prd.py
+    scripts:
+      - scripts/collect_usage_metrics.py
+      - scripts/archive_temp_prd.py
+    description: "Capture Codex context, token, and rate-limit metrics into a refreshed local receipt without exporting conversation content."
+  - id: system-definition-interview
+    name: System Definition Interview
+    family: system_definition_elicitation
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/system-definition-interview
+    local_path: core/system-definition-interview
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Interview stakeholders to establish or reconstruct system intent, boundaries, stakeholders, scenarios, candidate requirements, architecture drivers, interfaces, evidence, and V&V seeds before PRD or formal systems-document generation."
+  - id: system-definition-interview-context-45
+    name: System Definition Interview Context 45
+    family: system_definition_elicitation
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/system-definition-interview-context-45
+    local_path: core/system-definition-interview-context-45
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Long-session stakeholder elicitation workflow for system intent discovery with a 45 percent context-used checkpoint, threshold-only temp_prd.md handoff, and explicit end-of-questioning /conversation-to-prd prompt."
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    local_runtime_paths:
+      skills_root: skills/core
+      target_skill_path: skills/core/system-definition-interview-context-45
+      default_discovery_output_dir: control_records/system_definition
+  - id: conversation-to-prd
+    name: Conversation to PRD
+    family: requirements_production
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/conversation-to-prd
+    local_path: core/conversation-to-prd
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Synthesize conversation context and repository evidence into a local product requirements document when enough context already exists."
+  - id: decision-grilling
+    name: Decision Grilling
+    family: decision_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/decision-grilling
+    local_path: core/decision-grilling
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Interview one decision at a time to stress-test a plan or design until decisions are explicit."
+  - id: decision-grilling-context-45
+    name: Decision Grilling Context 45
+    family: decision_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/decision-grilling-context-45
+    local_path: core/decision-grilling-context-45
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Long-session decision grilling that checks metrics after each user answer, writes temp_prd.md only at the 45 percent threshold, unavailable/unknown metrics, or explicit user handoff, and asks for explicit /conversation-to-prd confirmation when questioning is complete."
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    local_runtime_paths:
+      skills_root: skills/core
+      target_skill_path: skills/core/decision-grilling-context-45
+  - id: domain-grilling-with-docs
+    name: Domain Grilling With Docs
+    family: domain_documentation_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/domain-grilling-with-docs
+    local_path: core/domain-grilling-with-docs
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Stress-test a plan against project language and update glossary, ADR, or decision documentation as decisions settle."
+  - id: domain-grilling-with-docs-context-45
+    name: Domain Grilling With Docs Context 45
+    family: domain_documentation_clarification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/domain-grilling-with-docs-context-45
+    local_path: core/domain-grilling-with-docs-context-45
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Long-session documentation-aware grilling that checks metrics after each user answer, writes temp_prd.md only at the 45 percent threshold, unavailable/unknown metrics, or explicit user handoff, and asks for explicit /conversation-to-prd confirmation when questioning is complete."
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    local_runtime_paths:
+      skills_root: skills/core
+      target_skill_path: skills/core/domain-grilling-with-docs-context-45
+  - id: mermaid-diagrams
+    name: Mermaid Diagrams
+    family: technical_communication
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/mermaid-diagrams
+    local_path: core/mermaid-diagrams
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Create, review, render, and validate source-controlled Mermaid diagrams with explicit visual grammar."
+  - id: plantuml-diagrams
+    name: PlantUML Diagrams
+    family: technical_communication
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/plantuml-diagrams
+    local_path: core/plantuml-diagrams
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Generate, review, repair, render, and validate source-grounded PlantUML diagrams with portable include and verification guidance."
+  - id: prd-to-implementation-plan
+    name: PRD to Implementation Plan
+    family: implementation_planning
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/prd-to-implementation-plan
+    local_path: core/prd-to-implementation-plan
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Convert PRDs, specs, issues, or feature briefs into implementation plans and bounded task packets."
+  - id: skill-import-generalizer
+    name: Skill Import Generalizer
+    family: skill_library_maintenance
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: .codex/skills/skill-import-generalizer
+    local_path: core/skill-import-generalizer
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Convert project-specific skills into reusable templates and maintain import/adaptation boundaries."
+  - id: technical-writing-quality-gate
+    name: Technical Writing Quality Gate
+    family: technical_writing_verification
+    source_repo: https://github.com/AngryOwlAI/ai-skills-for-sys
+    source_path: skills/technical-writing-quality-gate
+    local_path: core/technical-writing-quality-gate
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Review claim-bearing technical prose for source grounding, concrete mechanisms, warning patterns, and pass/repair/block outcomes."
+  - id: role-catalog-governance
+    name: Role Catalog Governance
+    family: role_governance
+    source_repo: local
+    source_path: .agents/skills/role-catalog-governance
+    local_path: core/role-catalog-governance
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern role registries, role-to-skill crosswalks, and role execution bindings."
+  - id: system-layer-classifier
+    name: System Layer Classifier
+    family: system_layer_governance
+    source_repo: local
+    source_path: .agents/skills/system-layer-classifier
+    local_path: core/system-layer-classifier
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Classify development, framework, template, target, and derivative layers before work."
+  - id: artifact-contract-governance
+    name: Artifact Contract Governance
+    family: artifact_governance
+    source_repo: local
+    source_path: .agents/skills/artifact-contract-governance
+    local_path: core/artifact-contract-governance
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern artifact contracts, required sections, producer roles, consumer roles, and validation obligations."
+  - id: traceability-matrix-engine
+    name: Traceability Matrix Engine
+    family: traceability_governance
+    source_repo: local
+    source_path: .agents/skills/traceability-matrix-engine
+    local_path: core/traceability-matrix-engine
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Maintain traceability from intent and requirements through implementation, validation, and handoff evidence."
+  - id: director-decision-governor
+    name: Director Decision Governor
+    family: decision_governance
+    source_repo: local
+    source_path: .agents/skills/director-decision-governor
+    local_path: core/director-decision-governor
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern Director Decision Records for routing, authority expansion, AgentJob creation, and supersession."
+  - id: source-authority-auditor
+    name: Source Authority Auditor
+    family: source_authority
+    source_repo: local
+    source_path: .agents/skills/source-authority-auditor
+    local_path: core/source-authority-auditor
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Audit canonical sources, generated derivatives, stale documents, and authority inversions."
+  - id: context-window-and-handoff-manager
+    name: Context Window And Handoff Manager
+    family: context_handoff
+    source_repo: local
+    source_path: .agents/skills/context-window-and-handoff-manager
+    local_path: core/context-window-and-handoff-manager
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Manage context checkpoints, resumable handoffs, and continuation evidence."
+  - id: verification-validation-planner
+    name: Verification Validation Planner
+    family: verification_planning
+    source_repo: local
+    source_path: .agents/skills/verification-validation-planner
+    local_path: core/verification-validation-planner
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Convert requirements into V and V plans, matrices, and evidence obligations."
+  - id: assurance-case-builder
+    name: Assurance Case Builder
+    family: assurance_case
+    source_repo: local
+    source_path: .agents/skills/assurance-case-builder
+    local_path: core/assurance-case-builder
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Build claims, evidence, and argument structures for high impact systems."
+  - id: threat-model-and-permission-scope
+    name: Threat Model And Permission Scope
+    family: safety_security_privacy
+    source_repo: local
+    source_path: .agents/skills/threat-model-and-permission-scope
+    local_path: core/threat-model-and-permission-scope
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Identify permissions, autonomy, tool, data risks, and controls."
+  - id: evaluation-harness-designer
+    name: Evaluation Harness Designer
+    family: evaluation_design
+    source_repo: local
+    source_path: .agents/skills/evaluation-harness-designer
+    local_path: core/evaluation-harness-designer
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Design evaluation scenarios, rubrics, regression checks, and failure probes."
+  - id: baseline-change-manager
+    name: Baseline Change Manager
+    family: change_control
+    source_repo: local
+    source_path: .agents/skills/baseline-change-manager
+    local_path: core/baseline-change-manager
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Manage baselines, supersession, migrations, rollback, and change evidence."
+  - id: agentjob-task-packet-author
+    name: Agentjob Task Packet Author
+    family: agentjob_authoring
+    source_repo: local
+    source_path: .agents/skills/agentjob-task-packet-author
+    local_path: core/agentjob-task-packet-author
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Convert implementation plans into bounded AgentJobs and task packets."
+  - id: operations-and-maintenance-planner
+    name: Operations And Maintenance Planner
+    family: operations_maintenance
+    source_repo: local
+    source_path: .agents/skills/operations-and-maintenance-planner
+    local_path: core/operations-and-maintenance-planner
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Define monitoring, incidents, updates, evaluation cadence, and maintenance."
+  - id: project-ontology-and-glossary
+    name: Project Ontology And Glossary
+    family: ontology_glossary
+    source_repo: local
+    source_path: .agents/skills/project-ontology-and-glossary
+    local_path: core/project-ontology-and-glossary
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Maintain controlled vocabulary, ontology, and term decisions."
+  - id: domain-pack-router
+    name: Domain Pack Router
+    family: domain_routing
+    source_repo: local
+    source_path: .agents/skills/domain-pack-router
+    local_path: core/domain-pack-router
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Detect when project-specific domain packs are needed and route accordingly."
+  - id: interface-and-integration-discovery
+    name: Interface And Integration Discovery
+    family: interface_discovery
+    source_repo: local
+    source_path: .agents/skills/interface-and-integration-discovery
+    local_path: core/interface-and-integration-discovery
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Identify external systems, interfaces, data flows, owners, and integration risks."
+  - id: requirements-discovery-governor
+    name: Requirements Discovery Governor
+    family: discovery_governance
+    source_repo: local
+    source_path: .agents/skills/requirements-discovery-governor
+    local_path: core/requirements-discovery-governor
+    adaptation_status: adapter_shell
+    lifecycle_status: adapter_shell
+    required_files:
+      - SKILL.md
+      - README.md
+      - AGENTS.md
+      - examples/portable-example.md
+    description: "Govern RDR creation and discovery-to-USRD transition."

@@ -4,7 +4,7 @@
 **Status:** Proposed  
 **Date:** 2026-07-04  
 **Decision owner:** Implementation initialization agent  
-**Scope:** Development environment for the `sys-for-ai` reference implementation
+**Scope:** Development environment for the `Sys4AI` reference implementation
 
 ---
 
@@ -27,7 +27,7 @@ A local `.venv` gives contributors a fast and transparent baseline while the fra
 ## Required Phase 1 environment
 
 ```bash
-cd sys-for-ai
+cd Sys4AI
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements.txt
@@ -51,14 +51,14 @@ Add a development Dockerfile or devcontainer only when at least one trigger beco
 
 ## Development environment vs target runtime
 
-The development environment builds `sys-for-ai` itself.
+The development environment builds `Sys4AI` itself.
 
-The target runtime is a generated or recommended environment for systems built by `sys-for-ai`.
+The target runtime is a generated or recommended environment for systems built by `Sys4AI`.
 
 These shall remain separate artifacts:
 
 ```text
-sys-for-ai/
+Sys4AI/
   .venv/                         # local dev only, ignored
   templates/
     target_runtime/

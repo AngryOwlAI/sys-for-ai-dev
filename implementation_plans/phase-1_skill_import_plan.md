@@ -8,7 +8,7 @@
 
 ## Objective
 
-Make all current `ai-skills-for-sys` templates core governed skills for `sys-for-ai`, while preserving provenance and adapting them to local authority rules.
+Make all current `ai-skills-for-sys` templates core governed skills for `Sys4AI`, while preserving provenance and adapting them to local authority rules.
 
 ---
 
@@ -35,7 +35,7 @@ Make all current `ai-skills-for-sys` templates core governed skills for `sys-for
 1. Do not treat upstream templates as invisible magic.
 2. Copy or adapt upstream content only through an explicit skill-import AgentJob.
 3. Preserve upstream repository path and retrieval date.
-4. Replace placeholders with local `sys-for-ai` paths, commands, and authority boundaries.
+4. Replace placeholders with local `Sys4AI` paths, commands, and authority boundaries.
 5. Add local validators where available.
 6. Record imported/adapted status in `skills/core_skill_manifest.yaml` and `registries/skill_registry.csv`.
 7. Keep skills as governed capabilities, not random prompt snippets.
@@ -49,18 +49,18 @@ agentjob_id: AJ-P1-SKILL-IMPORT-001
 objective: Compare adapter shells with upstream skill templates and promote exact adapted content where appropriate.
 role: skill_governance_agent
 allowed_reads:
-  - sys-for-ai/skills/core_skill_manifest.yaml
-  - sys-for-ai/skills/core/**
+  - Sys4AI/skills/core_skill_manifest.yaml
+  - Sys4AI/skills/core/**
   - https://github.com/AngryOwlAI/ai-skills-for-sys
 allowed_writes:
-  - sys-for-ai/skills/core/**
-  - sys-for-ai/registries/skill_registry.csv
+  - Sys4AI/skills/core/**
+  - Sys4AI/registries/skill_registry.csv
 forbidden_actions:
   - Remove provenance records.
   - Copy project-specific assumptions without adaptation.
   - Mark an upstream template as authoritative without local review.
 validators:
-  - cd sys-for-ai && make validate-skills
+  - cd Sys4AI && make validate-skills
 expected_outputs:
   - Updated adapted skills.
   - Updated skill registry.

@@ -60,7 +60,7 @@ authority:
     - Promote product scaffold or generated derivatives to runtime authority.
 validation:
   commands:
-    - cd sys-for-ai && make validate-system-layers
+    - cd Sys4AI && make validate-system-layers
   validator_classes:
     - schema_validation
     - process_validation

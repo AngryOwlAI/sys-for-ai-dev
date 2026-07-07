@@ -62,7 +62,7 @@ authority:
     - Present a checkpoint as a completion receipt without validation evidence.
 validation:
   commands:
-    - cd sys-for-ai && make validate-handoffs
+    - cd Sys4AI && make validate-handoffs
   validator_classes:
     - process_validation
     - trace_validation

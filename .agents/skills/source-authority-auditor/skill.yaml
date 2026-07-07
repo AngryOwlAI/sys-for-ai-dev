@@ -62,7 +62,7 @@ authority:
     - Treat memory, generated derivatives, or summaries as authority without source inspection.
 validation:
   commands:
-    - cd sys-for-ai && make validate-registry-graph
+    - cd Sys4AI && make validate-registry-graph
   validator_classes:
     - trace_validation
     - process_validation

@@ -1,6 +1,6 @@
 version: 1
 status: active
-registry_scope: sys-for-ai-dev development runtime
+registry_scope: Sys4AI-dev development runtime
 canonical_skill_root: .agents/skills
 runtime_skill_root: .agents/skills
 compatibility_shim_root: .codex/skills
@@ -9,9 +9,9 @@ schema_references:
   skill_bundle: schemas/skill_bundle.schema.json
   domain_pack: schemas/domain_pack.schema.json
 notes:
-  - Active runtime skills for the sys-for-ai-dev development workspace live under .agents/skills.
+  - Active runtime skills for the Sys4AI-dev development workspace live under .agents/skills.
   - Codex shims under .codex/skills are compatibility pointers only.
-  - sys-for-ai/skills/core remains a product scaffold and reference adapter surface.
+  - Sys4AI/skills/core remains a product scaffold and reference adapter surface.
 external_skills: []
 skills:
   - skill_id: continue

@@ -3,13 +3,13 @@ version: 0.1.0
 status: active
 lifecycle_status: adapted_runtime_active
 canonical_path: .agents/skills/source-first-memory
-summary: Use sys-for-ai source-first memory as navigation to registered authority.
+summary: Use Sys4AI source-first memory as navigation to registered authority.
 scope:
   system_agnostic: false
   target_system_types:
-    - sys-for-ai-dev development workspace
-    - sys-for-ai product scaffold
-  intentional_specialization: Project-fit runtime memory-navigation skill for sys-for-ai-dev.
+    - Sys4AI-dev development workspace
+    - Sys4AI product scaffold
+  intentional_specialization: Project-fit runtime memory-navigation skill for Sys4AI-dev.
   exemptions: []
 domain_emphasis:
   - source_first_memory
@@ -65,7 +65,7 @@ dependencies:
 authority:
   may_read:
     - Root README, PRDs, implementation plans, registries, validators, schemas, templates, control records, and git-tracked files.
-    - sys-for-ai source-first memory modules, registry catalog, lookup/search outputs, and memory preflight receipts.
+    - Sys4AI source-first memory modules, registry catalog, lookup/search outputs, and memory preflight receipts.
     - Active runtime skills under .agents/skills and compatibility shims under .codex/skills.
   may_write:
     - Memory preflight evidence or handoff notes when authorized by the active task.

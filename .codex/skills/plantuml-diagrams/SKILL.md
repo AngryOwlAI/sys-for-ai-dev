@@ -4,7 +4,7 @@ Canonical skill ID: `plantuml-diagrams`
 
 Canonical path: `.agents/skills/plantuml-diagrams`
 
-Purpose: This file exists only so Codex skill discovery can find the sys-for-ai-dev runtime skill. The canonical runtime skill, manifest, examples, templates, references, and scripts live under `.agents/skills/plantuml-diagrams/`.
+Purpose: This file exists only so Codex skill discovery can find the Sys4AI-dev runtime skill. The canonical runtime skill, manifest, examples, templates, references, and scripts live under `.agents/skills/plantuml-diagrams/`.
 
 Direct-edit warning: do not maintain behavior here. Edit `.agents/skills/plantuml-diagrams/SKILL.md` and `.agents/skills/plantuml-diagrams/skill.yaml`, then keep this shim as a pointer.
 
@@ -14,4 +14,4 @@ Validation command:
 python3 scripts/skills/validate_skill_manifest.py --manifest .agents/skills/plantuml-diagrams/skill.yaml
 ```
 
-When this shim is triggered, load and follow `.agents/skills/plantuml-diagrams/SKILL.md` as the authoritative project-fit skill instructions. Root PRDs, implementation plans, source registries, validators, and git-tracked files outrank generated outputs. `sys-for-ai/` is the product scaffold, not the full development workspace.
+When this shim is triggered, load and follow `.agents/skills/plantuml-diagrams/SKILL.md` as the authoritative project-fit skill instructions. Root PRDs, implementation plans, source registries, validators, and git-tracked files outrank generated outputs. `Sys4AI/` is the product scaffold, not the full development workspace.

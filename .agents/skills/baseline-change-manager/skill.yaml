@@ -62,7 +62,7 @@ authority:
     - Mutate activated records without supersession evidence.
 validation:
   commands:
-    - cd sys-for-ai && make validate-registry-graph
+    - cd Sys4AI && make validate-registry-graph
   validator_classes:
     - path_validation
     - process_validation

@@ -63,7 +63,7 @@ authority:
     - Promote discovery output to requirements baseline without readiness evidence.
 validation:
   commands:
-    - cd sys-for-ai && make validate-discovery-records
+    - cd Sys4AI && make validate-discovery-records
   validator_classes:
     - schema_validation
     - trace_validation

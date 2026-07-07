@@ -1,0 +1,47 @@
+director_decision_id: DDR-SFADEV-09-GENERATED-DOCS-001
+schema_version: 0.1.0
+decision_status: completed
+created_at: "2026-07-07T05:19:36Z"
+completed_at: "2026-07-07T05:19:36Z"
+director_role: system_director
+decision_context:
+  trigger: all_recommendations_generated_docs_derivative_governance
+  program_state_id: SFA-PROGRAM-STATE-001
+  latest_handoff_id: HANDOFF-SFADEV-08-CORE-SKILLS-BATCH-2-001
+  memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-09-GENERATED-DOCS-001
+  implementation_plan: implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md
+selected_route:
+  route_id: implement_generated_docs_derivative_governance
+  rationale: >
+    The core skill scaffold batch 2 handoff names
+    AJ-SFADEV-09-GENERATED-DOCS-001 as the next open all-recommendations
+    packet. Batch 2 is complete, so generated derivative documentation and
+    derivative registry coverage are authorized as the next single bounded
+    AgentJob.
+  selected_role: documentation_librarian
+  creates_agentjob_id: AJ-SFADEV-09-GENERATED-DOCS-001
+rejected_routes:
+  - route_id: rerun_core_skill_scaffold_batch_2
+    reason: AJ-SFADEV-08-CORE-SKILLS-BATCH-2-001 is already completed and registered.
+  - route_id: end_to_end_acceptance
+    reason: AJ-10 depends on generated derivative documentation coverage from AJ-09.
+  - route_id: execute_multiple_all_recommendations_agentjobs
+    reason: Violates the one-AgentJob continuation invariant.
+authority_boundary:
+  may_create_agentjob: true
+  may_modify_generated_docs: true
+  may_modify_derivative_registry: true
+  may_modify_source_registry_for_trace_rows: true
+  may_modify_derivative_generation_code: true
+  may_modify_control_closeout_records: true
+  may_promote_generated_derivatives: false
+  may_modify_canonical_prds: false
+validators:
+  - cd Sys4AI && make validate-generated-derivatives
+  - cd Sys4AI && make generate-governance-docs
+  - cd Sys4AI && make validate-check-diff
+  - cd Sys4AI && make validate
+completion_evidence:
+  completion_receipt_id: RECEIPT-SFADEV-09-GENERATED-DOCS-001
+  handoff_id: HANDOFF-SFADEV-09-GENERATED-DOCS-001
+  notes: Generated docs and derivative governance packet completed and validated.

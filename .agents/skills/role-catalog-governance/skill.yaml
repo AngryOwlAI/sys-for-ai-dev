@@ -64,7 +64,7 @@ authority:
     - Treat generated role docs as canonical role authority.
 validation:
   commands:
-    - cd sys-for-ai && make validate-roles
+    - cd Sys4AI && make validate-roles
   validator_classes:
     - schema_validation
     - trace_validation

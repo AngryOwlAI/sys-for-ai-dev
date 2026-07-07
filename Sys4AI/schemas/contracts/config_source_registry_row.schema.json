@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/config_source_registry_row.schema.json",
+  "title": "Configuration source registry row",
+  "type": "object",
+  "required": [
+    "config_id",
+    "path",
+    "format",
+    "config_domain",
+    "authority_status",
+    "owner",
+    "parser",
+    "validation_contract_id",
+    "consumers",
+    "secrets_allowed",
+    "environment_scope",
+    "supersedes",
+    "source_hash",
+    "last_validated_at",
+    "notes"
+  ],
+  "properties": {
+    "config_id": { "type": "string", "pattern": "^cfg_[a-z0-9_]+$" },
+    "path": { "type": "string", "minLength": 1 },
+    "format": { "enum": ["toml"] },
+    "authority_status": { "enum": ["controlled", "canonical", "canonical_draft", "draft"] },
+    "parser": { "enum": ["tomllib_or_tomli"] },
+    "secrets_allowed": { "enum": ["true", "false"] }
+  },
+  "additionalProperties": { "type": "string" }
+}

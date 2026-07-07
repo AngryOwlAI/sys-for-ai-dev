@@ -8,12 +8,12 @@ Compatibility shim path: `.codex/skills/source-first-memory/SKILL.md`
 
 ## Purpose
 
-Use the sys-for-ai memory commands as a navigation layer to registered project authority.
+Use the Sys4AI memory commands as a navigation layer to registered project authority.
 
 ## Runtime Boundary
 
 - `.agents/skills/source-first-memory/SKILL.md` is the active development-runtime skill.
 - `.codex/skills/source-first-memory/SKILL.md` is compatibility-only.
-- `sys-for-ai/skills/core/source-first-memory/` is a portable product-scaffold template.
+- `Sys4AI/skills/core/source-first-memory/` is a portable product-scaffold template.
 
 Memory helps find sources. Sources and registries decide.

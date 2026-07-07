@@ -1,7 +1,7 @@
 # Handoff 0004: Phase 3 Memory Catalog and Lookup
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 3 - Memory catalog and lookup
 
 ## Latest prior handoff check
@@ -24,14 +24,14 @@ Before Phase 3 began, the latest handoff was `temp_handoff/handoff-0003.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && .venv/bin/python -m sys_for_ai.cli memory status --json`
-- `cd sys-for-ai && .venv/bin/python -m sys_for_ai.cli memory lookup SRC-PRD-P0 --json`
-- `cd sys-for-ai && .venv/bin/python -m sys_for_ai.cli memory search "source-first memory" --limit 5 --json`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && .venv/bin/python -m sys_for_ai.cli memory status --json`
+- `cd Sys4AI && .venv/bin/python -m sys_for_ai.cli memory lookup SRC-PRD-P0 --json`
+- `cd Sys4AI && .venv/bin/python -m sys_for_ai.cli memory search "source-first memory" --limit 5 --json`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
-The same memory commands failed under system Python because PyYAML is not installed there. This confirms the existing project-local validation boundary: use `sys-for-ai/.venv/bin/python` or Makefile targets for scaffold commands.
+The same memory commands failed under system Python because PyYAML is not installed there. This confirms the existing project-local validation boundary: use `Sys4AI/.venv/bin/python` or Makefile targets for scaffold commands.
 
 ## Remaining uncertainty
 

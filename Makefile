@@ -1,11 +1,14 @@
 PY ?= python3
 
-.PHONY: validate-dev-skills validate-product-scaffold validate
+.PHONY: validate-rename validate-dev-skills validate-product-scaffold validate
+
+validate-rename:
+	$(PY) scripts/validate_rename.py
 
 validate-dev-skills:
 	$(PY) scripts/skills/validate_skill_manifest.py --root .
 
 validate-product-scaffold:
-	cd sys-for-ai && $(MAKE) validate
+	cd Sys4AI && $(MAKE) validate
 
-validate: validate-dev-skills validate-product-scaffold
+validate: validate-rename validate-dev-skills validate-product-scaffold

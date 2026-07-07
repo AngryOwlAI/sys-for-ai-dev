@@ -1,0 +1,16 @@
+agentjob_id: AJ-CHANGE-ME
+objective: Replace this with one bounded unit of work.
+role: replace_with_authorized_role
+allowed_reads:
+  - PRDs/**
+allowed_writes:
+  - Sys4AI/**
+forbidden_actions:
+  - Replace source authority without a decision record.
+expected_outputs:
+  - Completion receipt.
+validators:
+  - cd Sys4AI && make validate
+stop_conditions:
+  - Required source is missing.
+  - Validation fails and cannot be repaired within the job boundary.

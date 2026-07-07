@@ -1,0 +1,24 @@
+agentjob_id: AJ-P1-SMOKE-001
+objective: Validate that the Phase 1 Python, YAML, skill, and memory scaffold is present and coherent.
+role: validation_agent
+allowed_reads:
+  - PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
+  - Sys4AI/schemas/agentjob.schema.yaml
+  - Sys4AI/skills/core_skill_manifest.yaml
+  - Sys4AI/registries/source_registry.csv
+allowed_writes:
+  - Sys4AI/.local/receipts/AJ-P1-SMOKE-001.txt
+forbidden_actions:
+  - Modify canonical PRDs during smoke validation.
+  - Promote generated derivatives to source authority.
+expected_outputs:
+  - A validation receipt describing the commands run and their result.
+validators:
+  - make doctor
+  - make validate-agentjob
+  - make validate-skills
+  - make bootstrap-memory
+stop_conditions:
+  - PyYAML cannot be imported.
+  - Required skill adapter folder is missing.
+  - Required registry file is missing or has the wrong header.

@@ -1,7 +1,7 @@
 bundle_id: full-development-runtime
 version: 0.1.0
 status: active
-description: All retained skills installed as active project-fit sys-for-ai-dev runtime skills.
+description: All retained skills installed as active project-fit Sys4AI-dev runtime skills.
 includes:
   skills:
     - continue

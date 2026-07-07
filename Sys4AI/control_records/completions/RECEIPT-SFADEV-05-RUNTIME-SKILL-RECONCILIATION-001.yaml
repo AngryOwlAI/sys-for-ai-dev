@@ -1,0 +1,156 @@
+completion_receipt_id: RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+schema_version: 0.2.0
+agentjob_id: AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+role: documentation_librarian
+result: PASS
+summary: >
+  Runtime skill reconciliation completed for continue and source-first-memory:
+  both active runtime manifests now satisfy the root development-skill schema,
+  both skills are listed in the active runtime registry and full runtime bundle,
+  and product scaffold skill validation remains intact.
+changed_artifacts:
+  - path: implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md
+    change_type: added
+    authority_status: controlled
+  - path: .agents/skill_registry/SKILL_REGISTRY.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: .agents/skill_registry/SKILL_BUNDLES/full-development-runtime.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: .agents/skills/continue/skill.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: .agents/skills/source-first-memory/skill.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/Makefile
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/sys_for_ai/cli.py
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/tests/test_agentjob_boundaries.py
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/tests/test_program_state.py
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/tests/test_self_hosting_acceptance.py
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/control_records/agentjobs/AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/completions/RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/program_state.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries/agentjob_registry.csv
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries/completion_receipt_registry.csv
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries/control_record_registry.csv
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries/handoff_registry.csv
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries/memory_preflight_receipt_registry.csv
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries/source_registry.csv
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/docs/generated/configuration_control/index.md
+    change_type: regenerated
+    authority_status: derivative
+  - path: Sys4AI/docs/generated/configuration_control/yaml-control-records.md
+    change_type: regenerated
+    authority_status: derivative
+  - path: temp_handoff/handoff-0012.md
+    change_type: added
+    authority_status: controlled
+memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+validation_evidence:
+  commands_run:
+    - command: python3 scripts/skills/validate_skill_manifest.py --manifest .agents/skills/continue/skill.yaml
+      result: pass
+    - command: python3 scripts/skills/validate_skill_manifest.py --manifest .agents/skills/source-first-memory/skill.yaml
+      result: pass
+    - command: python3 scripts/skills/validate_skill_manifest.py --registry .agents/skill_registry/SKILL_REGISTRY.yaml
+      result: pass
+    - command: python3 scripts/skills/validate_skill_manifest.py --bundle .agents/skill_registry/SKILL_BUNDLES/full-development-runtime.yaml
+      result: pass
+    - command: make validate-dev-skills
+      result: pass
+    - command: cd Sys4AI && make validate-skills
+      result: pass
+    - command: git diff --check
+      result: pass
+    - command: make validate
+      result: pass_after_control_boundary_update
+  validators:
+    - validator_id: validate-dev-skills
+      target_path: .agents
+      result: pass
+      notes: continue and source-first-memory manifests now satisfy the active runtime manifest schema.
+    - validator_id: validate-skills
+      target_path: Sys4AI/skills/core_skill_manifest.yaml
+      result: pass
+      notes: Product scaffold skill manifest remains valid.
+    - validator_id: validate-check-diff
+      target_path: current Git diff
+      result: pass
+      notes: Current changed paths are authorized by AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.
+format_profile_changes:
+  added:
+    - path: control_records/agentjobs/AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+      profile_id: fmt_yaml_control
+      registry_row_id: ctrl_runtime_skill_reconciliation_agentjob
+    - path: control_records/completions/RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+      profile_id: fmt_yaml_control
+      registry_row_id: ctrl_runtime_skill_reconciliation_completion
+    - path: control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+      profile_id: fmt_yaml_control
+      registry_row_id: ctrl_runtime_skill_reconciliation_handoff
+    - path: control_records/memory_preflights/MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+      profile_id: fmt_yaml_control
+      registry_row_id: ctrl_runtime_skill_reconciliation_memory_preflight
+  modified:
+    - path: control_records/program_state.yaml
+      profile_id: fmt_yaml_control
+      registry_row_id: ctrl_program_state
+  generated_derivatives:
+    - docs/generated/configuration_control/index.md
+    - docs/generated/configuration_control/yaml-control-records.md
+authority_changes:
+  promoted: []
+  completed:
+    - agentjob_id: AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+      reason: Runtime skill reconciliation slice completed and validated.
+  not_promoted:
+    - path: Sys4AI/skills/core/continue
+      reason: Product scaffold remains a scaffold reference rather than active runtime authority.
+    - path: Sys4AI/skills/core/source-first-memory
+      reason: Product scaffold remains a scaffold reference rather than active runtime authority.
+unresolved_issues:
+  - issue_id: SFADEV-ALL-RECS-OPEN-001
+    status: deferred
+    notes: Remaining all-recommendations workstreams require future bounded AgentJobs.
+next_recommendation: >
+  Continue with the all-recommendations plan using one bounded AgentJob at a
+  time. The logical next implementation slice is PRD integration or registry
+  and schema expansion, selected by a new tracked Director decision or AgentJob.
+next_handoff_id: HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+completed_at: "2026-07-07T03:11:28Z"

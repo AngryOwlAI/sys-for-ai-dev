@@ -1,7 +1,7 @@
 # Handoff 0001: Phase 0 Baseline Freeze and Source Inspection
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 0 - Baseline freeze and source inspection
 
 ## Latest prior handoff check
@@ -11,12 +11,12 @@ No prior `temp_handoff/handoff-*.md` file existed when Phase 0 started.
 ## Work completed
 
 - Inspected the implementation plan and extracted its phase structure.
-- Inspected the current repository state, including the root workspace, nested `sys-for-ai/` scaffold, registries, schemas, Makefiles, and core CLI/validator modules.
+- Inspected the current repository state, including the root workspace, nested `Sys4AI/` scaffold, registries, schemas, Makefiles, and core CLI/validator modules.
 - Ran baseline validation before implementation changes:
-  - `cd sys-for-ai && make doctor`
-  - `cd sys-for-ai && make validate`
+  - `cd Sys4AI && make doctor`
+  - `cd Sys4AI && make validate`
 - Recorded baseline status in `implementation_plans/current_state_baseline_self_hosting_memory_continue.md`.
-- Recorded a local ignored receipt at `sys-for-ai/.local/receipts/baseline-inspection.txt`.
+- Recorded a local ignored receipt at `Sys4AI/.local/receipts/baseline-inspection.txt`.
 - Normalized `.gitignore` with a trailing newline while preserving the existing `temp_handoff/` ignore entry.
 
 ## Validation evidence
@@ -25,7 +25,7 @@ Baseline validation passed.
 
 Observed toolchain:
 
-- Python 3.9.6 from `sys-for-ai/.venv`
+- Python 3.9.6 from `Sys4AI/.venv`
 - PyYAML 6.0.3
 - TOML parser: `tomli`
 - jsonschema 4.25.1

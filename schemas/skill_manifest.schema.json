@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/sys-for-ai/schemas/skill_manifest.schema.json",
+  "$id": "https://example.invalid/Sys4AI/schemas/skill_manifest.schema.json",
   "title": "Skill Manifest",
-  "description": "Schema for a system-agnostic skill manifest used by the sys-for-ai skill operating layer.",
+  "description": "Schema for a system-agnostic skill manifest used by the Sys4AI skill operating layer.",
   "type": "object",
   "required": [
     "skill_id",

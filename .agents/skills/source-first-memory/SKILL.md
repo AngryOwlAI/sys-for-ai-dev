@@ -1,6 +1,6 @@
 ---
 name: source-first-memory
-description: Use sys-for-ai source-first memory as navigation to registered authority.
+description: Use Sys4AI source-first memory as navigation to registered authority.
 ---
 
 # Source-First Memory

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/control_record_registry_row.schema.json",
+  "title": "Control record registry row",
+  "type": "object",
+  "required": [
+    "control_record_id",
+    "path",
+    "record_type",
+    "authority_status",
+    "owner",
+    "validation_contract_id",
+    "allowed_writers",
+    "allowed_readers",
+    "related_agentjob_id",
+    "supersedes",
+    "source_hash",
+    "last_validated_at",
+    "notes"
+  ],
+  "properties": {
+    "control_record_id": { "type": "string", "pattern": "^ctrl_[a-z0-9_]+$" },
+    "path": { "type": "string", "minLength": 1 },
+    "record_type": { "type": "string", "minLength": 1 },
+    "authority_status": { "enum": ["controlled", "canonical", "canonical_draft", "draft"] }
+  },
+  "additionalProperties": { "type": "string" }
+}

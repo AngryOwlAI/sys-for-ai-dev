@@ -1,0 +1,143 @@
+agentjob_id: AJ-SFADEV-07-CORE-SKILLS-BATCH-1-001
+schema_version: 0.2.0
+status: completed
+objective: >
+  Add the first governed batch of high-priority core skills for role catalog
+  governance, system layer classification, artifact contracts, traceability,
+  Director decisions, source authority, and context handoff.
+lifecycle_stage: implementation_initialization
+role_binding:
+  role_id: implementation_initialization_agent
+  binding_type: registered_role
+  authority_scope: all-recommendations core skill scaffold batch 1 implementation
+  expires_with_agentjob: true
+required_inputs:
+  - implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md
+  - implementation_plans/self_hosting_boundary_decision_record.md
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-06-SKILL-LIFECYCLE-001.yaml
+  - .agents/skill_registry/SKILL_REGISTRY.yaml
+  - Sys4AI/skills/core_skill_manifest.yaml
+  - Sys4AI/registries/skill_registry.csv
+  - Sys4AI/registries/core_skill_proposal_registry.csv
+allowed_reads:
+  - PRDs/**
+  - implementation_plans/**
+  - temp_handoff/**
+  - .agents/**
+  - .codex/**
+  - scripts/skills/**
+  - Sys4AI/**
+allowed_writes:
+  - .agents/skill_registry/SKILL_REGISTRY.yaml
+  - .agents/skills/role-catalog-governance/**
+  - .agents/skills/system-layer-classifier/**
+  - .agents/skills/artifact-contract-governance/**
+  - .agents/skills/traceability-matrix-engine/**
+  - .agents/skills/director-decision-governor/**
+  - .agents/skills/source-authority-auditor/**
+  - .agents/skills/context-window-and-handoff-manager/**
+  - .codex/skills/role-catalog-governance/**
+  - .codex/skills/system-layer-classifier/**
+  - .codex/skills/artifact-contract-governance/**
+  - .codex/skills/traceability-matrix-engine/**
+  - .codex/skills/director-decision-governor/**
+  - .codex/skills/source-authority-auditor/**
+  - .codex/skills/context-window-and-handoff-manager/**
+  - Sys4AI/skills/core/role-catalog-governance/**
+  - Sys4AI/skills/core/system-layer-classifier/**
+  - Sys4AI/skills/core/artifact-contract-governance/**
+  - Sys4AI/skills/core/traceability-matrix-engine/**
+  - Sys4AI/skills/core/director-decision-governor/**
+  - Sys4AI/skills/core/source-authority-auditor/**
+  - Sys4AI/skills/core/context-window-and-handoff-manager/**
+  - Sys4AI/skills/core_skill_manifest.yaml
+  - Sys4AI/registries/skill_registry.csv
+  - Sys4AI/registries/core_skill_proposal_registry.csv
+  - Sys4AI/registries/role_skill_crosswalk.csv
+  - Sys4AI/registries/source_registry.csv
+  - Sys4AI/registries/control_record_registry.csv
+  - Sys4AI/registries/agentjob_registry.csv
+  - Sys4AI/registries/director_decision_registry.csv
+  - Sys4AI/registries/completion_receipt_registry.csv
+  - Sys4AI/registries/handoff_registry.csv
+  - Sys4AI/registries/memory_preflight_receipt_registry.csv
+  - Sys4AI/sys_for_ai/validators.py
+  - Sys4AI/sys_for_ai/cli.py
+  - Sys4AI/Makefile
+  - Sys4AI/control_records/director_decisions/DDR-SFADEV-07-CORE-SKILLS-BATCH-1-001.yaml
+  - Sys4AI/control_records/agentjobs/AJ-SFADEV-07-CORE-SKILLS-BATCH-1-001.yaml
+  - Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-07-CORE-SKILLS-BATCH-1-001.yaml
+  - Sys4AI/control_records/completions/RECEIPT-SFADEV-07-CORE-SKILLS-BATCH-1-001.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-07-CORE-SKILLS-BATCH-1-001.yaml
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/docs/generated/configuration_control/**
+  - Sys4AI/docs/generated/roles/**
+  - Sys4AI/tests/test_agentjob_boundaries.py
+  - Sys4AI/tests/test_program_state.py
+  - Sys4AI/tests/test_self_hosting_acceptance.py
+  - temp_handoff/handoff-0018.md
+generated_paths:
+  - Sys4AI/docs/generated/configuration_control/**
+  - Sys4AI/docs/generated/roles/**
+forbidden_paths:
+  - LICENSE
+  - NOTICE
+  - .git/**
+  - .venv/**
+  - Sys4AI/.venv/**
+  - PRDs/**
+  - Sys4AI/docs/generated/** as canonical source
+stop_conditions:
+  - Any new skill lacks required manifest or authority rules.
+  - A proposed core skill introduces project-specific domain constraints.
+  - A product scaffold reference is promoted to runtime authority without a separate decision.
+  - A required write is outside the AJ-07 allowlist.
+  - More than one all-recommendations AgentJob is required.
+forbidden_actions:
+  - Add project-specific domain constraints as core.
+  - Treat product scaffold skills as active development runtime authority.
+  - Treat generated derivatives as canonical.
+  - Execute more than one all-recommendations AgentJob in one continuation invocation.
+memory_preflight:
+  required: true
+  minimum_queries:
+    - core skill scaffold batch 1
+    - core skill proposal registry validation
+  required_evidence:
+    - self-hosting boundary decision record inspection
+    - latest controlled handoff inspection
+    - all-recommendations plan AJ-07 inspection
+    - core skill proposal registry inspection
+expected_outputs:
+  - Seven active development-runtime core skill scaffolds under .agents/skills.
+  - Seven Codex compatibility shims under .codex/skills.
+  - Seven product scaffold reference skills under Sys4AI/skills/core.
+  - Product and runtime skill registries updated.
+  - Core skill proposal rows marked scaffolded.
+  - Role crosswalk covers newly active runtime skills.
+  - Completion receipt and handoff evidence.
+validators:
+  - make validate-dev-skills
+  - cd Sys4AI && make validate-skills
+  - cd Sys4AI && make validate-core-skill-proposals
+  - cd Sys4AI && make validate-check-diff
+  - cd Sys4AI && make validate
+completion_evidence_required:
+  - changed_artifacts
+  - command_results
+  - validation_status
+  - residual_risk
+handoff_policy:
+  create_handoff_when:
+    - core skill scaffold batch 1 completes
+    - next AgentJob is recommended
+authority_boundary:
+  may_modify_runtime_skill_registry: true
+  may_modify_product_scaffold: true
+  may_modify_skill_validators: true
+  may_add_project_specific_domain_constraints: false
+  may_modify_canonical_prds: false
+created_at: "2026-07-07T04:42:23Z"
+activated_at: "2026-07-07T04:42:23Z"
+completed_at: "2026-07-07T04:42:23Z"

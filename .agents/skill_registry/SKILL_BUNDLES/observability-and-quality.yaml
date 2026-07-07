@@ -1,7 +1,7 @@
 bundle_id: observability-and-quality
 version: 0.1.0
 status: active
-description: Active sys-for-ai-dev runtime skills for Codex observability, context-aware handoff, and prose quality.
+description: Active Sys4AI-dev runtime skills for Codex observability, context-aware handoff, and prose quality.
 includes:
   skills:
     - codex-usage-metrics

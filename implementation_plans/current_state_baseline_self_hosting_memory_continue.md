@@ -2,7 +2,7 @@
 
 Status: Baseline inspection complete
 Date: 2026-07-06
-Scope: `sys-for-ai-dev` development workspace and nested `sys-for-ai/` product scaffold
+Scope: `Sys4AI-dev` development workspace and nested `Sys4AI/` product scaffold
 
 ## Purpose
 
@@ -10,33 +10,33 @@ This note records the pre-implementation baseline for the self-hosting memory an
 
 ## Inspected authority and scaffold surfaces
 
-- `PRDs/sys-for-ai_phase-0_product_system_design_prd.md`
-- `PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md`
-- `sys-for-ai/README.md`
-- `sys-for-ai/Makefile`
-- `sys-for-ai/sys_for_ai/cli.py`
-- `sys-for-ai/sys_for_ai/validators.py`
-- `sys-for-ai/sys_for_ai/memory.py`
-- `sys-for-ai/sys_for_ai/registry_io.py`
-- `sys-for-ai/sys_for_ai/yaml_io.py`
-- `sys-for-ai/sys_for_ai/jsonschema_io.py`
-- `sys-for-ai/registries/*.csv`
-- `sys-for-ai/control_records/examples/*.yaml`
-- `sys-for-ai/schemas/contracts/*.schema.json`
+- `PRDs/Sys4AI_phase-0_product_system_design_prd.md`
+- `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md`
+- `Sys4AI/README.md`
+- `Sys4AI/Makefile`
+- `Sys4AI/sys_for_ai/cli.py`
+- `Sys4AI/sys_for_ai/validators.py`
+- `Sys4AI/sys_for_ai/memory.py`
+- `Sys4AI/sys_for_ai/registry_io.py`
+- `Sys4AI/sys_for_ai/yaml_io.py`
+- `Sys4AI/sys_for_ai/jsonschema_io.py`
+- `Sys4AI/registries/*.csv`
+- `Sys4AI/control_records/examples/*.yaml`
+- `Sys4AI/schemas/contracts/*.schema.json`
 
 ## Baseline validation
 
 The following commands passed from the existing scaffold before implementation changes:
 
 ```bash
-cd sys-for-ai
+cd Sys4AI
 make doctor
 make validate
 ```
 
 Observed environment:
 
-- Python: 3.9.6 inside `sys-for-ai/.venv`
+- Python: 3.9.6 inside `Sys4AI/.venv`
 - PyYAML: 6.0.3
 - TOML parser: `tomli`
 - jsonschema: 4.25.1

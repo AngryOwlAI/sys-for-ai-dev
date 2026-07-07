@@ -2,7 +2,7 @@
 
 Receipt ID: CR-SFADEV-ALL-RECS-IMPLEMENTED-001
 Date: 2026-07-07
-Plan: `implementation_plans/sys-for-ai-dev_all_recommendations_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md`
 AgentJob: `AJ-SFADEV-10-END-TO-END-ACCEPTANCE-001`
 Result: PASS
 
@@ -16,9 +16,9 @@ Phase 0 and Phase 1 PRDs contain the new discovery gate, Requirements Discovery 
 
 Evidence:
 
-- `PRDs/sys-for-ai_phase-0_product_system_design_prd.md`
-- `PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md`
-- `sys-for-ai/registries/requirement_trace_registry.csv`
+- `PRDs/Sys4AI_phase-0_product_system_design_prd.md`
+- `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md`
+- `Sys4AI/registries/requirement_trace_registry.csv`
 
 ## 3. Registry Changes
 
@@ -28,11 +28,11 @@ AJ-10 added the final acceptance rows and the missing self-hosting mode configur
 
 ## 4. Schema Changes
 
-JSON Schema contracts validate control records, registry rows, TOML configuration sources, and the self-hosting mode configuration. AJ-10 added `sys-for-ai/schemas/contracts/self_hosting_mode.schema.json`.
+JSON Schema contracts validate control records, registry rows, TOML configuration sources, and the self-hosting mode configuration. AJ-10 added `Sys4AI/schemas/contracts/self_hosting_mode.schema.json`.
 
 ## 5. Skill Changes
 
-Runtime skill surfaces under `.agents/skills/`, Codex compatibility shims under `.codex/skills/`, and product scaffold references under `sys-for-ai/skills/core/` validate through the root and product scaffold skill validators.
+Runtime skill surfaces under `.agents/skills/`, Codex compatibility shims under `.codex/skills/`, and product scaffold references under `Sys4AI/skills/core/` validate through the root and product scaffold skill validators.
 
 ## 6. Validator Changes
 
@@ -44,7 +44,7 @@ AJ-10 extended `validate-system-layers` so the self-hosting TOML must exist, mat
 
 Generated docs remain derivative and noncanonical. The final acceptance pass regenerated affected Configuration and Control Wiki pages, Validation Contracts Catalog pages, and governance generated pages after registry changes.
 
-AJ-10 also added `sys-for-ai/docs/self_hosting_mode_policy.md`.
+AJ-10 also added `Sys4AI/docs/self_hosting_mode_policy.md`.
 
 ## 8. Commands Run
 
@@ -60,41 +60,41 @@ Product scaffold commands:
 
 | Command | Result |
 | --- | --- |
-| `cd sys-for-ai && make doctor` | PASS |
-| `cd sys-for-ai && make validate-discovery-template` | PASS |
-| `cd sys-for-ai && make validate-system-layers` | PASS |
-| `cd sys-for-ai && make validate-discovery-records` | PASS |
-| `cd sys-for-ai && make validate-roles` | PASS |
-| `cd sys-for-ai && make validate-artifact-contracts` | PASS |
-| `cd sys-for-ai && make validate-core-skill-proposals` | PASS |
-| `cd sys-for-ai && make validate-skill-lifecycle` | PASS |
-| `cd sys-for-ai && make validate-format-profiles` | PASS |
-| `cd sys-for-ai && make validate-config-sources` | PASS |
-| `cd sys-for-ai && make validate-control-records` | PASS |
-| `cd sys-for-ai && make validate-program-state` | PASS |
-| `cd sys-for-ai && make validate-agentjob-registry` | PASS |
-| `cd sys-for-ai && make validate-director-decision-registry` | PASS |
-| `cd sys-for-ai && make validate-handoff-registry` | PASS |
-| `cd sys-for-ai && make validate-completion-receipt-registry` | PASS |
-| `cd sys-for-ai && make validate-memory-preflight-registry` | PASS |
-| `cd sys-for-ai && make validate-handoffs` | PASS |
-| `cd sys-for-ai && make validate-completion-receipts` | PASS |
-| `cd sys-for-ai && make validate-state-snapshots` | PASS |
-| `cd sys-for-ai && make validate-memory-preflight` | PASS |
-| `cd sys-for-ai && make validate-validation-contract-registry` | PASS |
-| `cd sys-for-ai && make validate-toml-config` | PASS |
-| `cd sys-for-ai && make validate-jsonschema-contracts` | PASS |
-| `cd sys-for-ai && make validate-registry-graph` | PASS |
-| `cd sys-for-ai && make validate-check-diff` | PASS |
-| `cd sys-for-ai && make validate-one-active-agentjob` | PASS |
-| `cd sys-for-ai && make validate-control-loop` | PASS |
-| `cd sys-for-ai && make validate-requirement-trace` | PASS |
-| `cd sys-for-ai && make generate-config-control-wiki` | PASS |
-| `cd sys-for-ai && make generate-validation-contracts-catalog` | PASS |
-| `cd sys-for-ai && make generate-governance-docs` | PASS |
-| `cd sys-for-ai && make validate-generated-derivatives` | PASS |
-| `cd sys-for-ai && make validate` | PASS |
-| `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests` | PASS |
+| `cd Sys4AI && make doctor` | PASS |
+| `cd Sys4AI && make validate-discovery-template` | PASS |
+| `cd Sys4AI && make validate-system-layers` | PASS |
+| `cd Sys4AI && make validate-discovery-records` | PASS |
+| `cd Sys4AI && make validate-roles` | PASS |
+| `cd Sys4AI && make validate-artifact-contracts` | PASS |
+| `cd Sys4AI && make validate-core-skill-proposals` | PASS |
+| `cd Sys4AI && make validate-skill-lifecycle` | PASS |
+| `cd Sys4AI && make validate-format-profiles` | PASS |
+| `cd Sys4AI && make validate-config-sources` | PASS |
+| `cd Sys4AI && make validate-control-records` | PASS |
+| `cd Sys4AI && make validate-program-state` | PASS |
+| `cd Sys4AI && make validate-agentjob-registry` | PASS |
+| `cd Sys4AI && make validate-director-decision-registry` | PASS |
+| `cd Sys4AI && make validate-handoff-registry` | PASS |
+| `cd Sys4AI && make validate-completion-receipt-registry` | PASS |
+| `cd Sys4AI && make validate-memory-preflight-registry` | PASS |
+| `cd Sys4AI && make validate-handoffs` | PASS |
+| `cd Sys4AI && make validate-completion-receipts` | PASS |
+| `cd Sys4AI && make validate-state-snapshots` | PASS |
+| `cd Sys4AI && make validate-memory-preflight` | PASS |
+| `cd Sys4AI && make validate-validation-contract-registry` | PASS |
+| `cd Sys4AI && make validate-toml-config` | PASS |
+| `cd Sys4AI && make validate-jsonschema-contracts` | PASS |
+| `cd Sys4AI && make validate-registry-graph` | PASS |
+| `cd Sys4AI && make validate-check-diff` | PASS |
+| `cd Sys4AI && make validate-one-active-agentjob` | PASS |
+| `cd Sys4AI && make validate-control-loop` | PASS |
+| `cd Sys4AI && make validate-requirement-trace` | PASS |
+| `cd Sys4AI && make generate-config-control-wiki` | PASS |
+| `cd Sys4AI && make generate-validation-contracts-catalog` | PASS |
+| `cd Sys4AI && make generate-governance-docs` | PASS |
+| `cd Sys4AI && make validate-generated-derivatives` | PASS |
+| `cd Sys4AI && make validate` | PASS |
+| `cd Sys4AI && .venv/bin/python -m unittest discover -s tests` | PASS |
 | `git diff --check` | PASS |
 
 ## 9. Validation Results

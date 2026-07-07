@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/target_project_config.schema.json",
+  "title": "Sys4AI target project configuration",
+  "type": "object",
+  "required": ["target_project", "agentic_harness", "memory", "control", "validation"],
+  "properties": {
+    "target_project": {
+      "type": "object",
+      "required": ["id", "name", "domain", "lifecycle_stage"],
+      "additionalProperties": true
+    },
+    "agentic_harness": {
+      "type": "object",
+      "required": ["uses_llm", "uses_tools", "uses_persistent_memory", "uses_control_loop"],
+      "additionalProperties": { "type": "boolean" }
+    },
+    "memory": {
+      "type": "object",
+      "required": ["authority_policy", "required_profiles"],
+      "properties": {
+        "authority_policy": { "const": "source-first" },
+        "required_profiles": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "control": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "validation": { "type": "object", "additionalProperties": { "type": "boolean" } }
+  },
+  "additionalProperties": true
+}

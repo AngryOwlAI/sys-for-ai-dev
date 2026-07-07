@@ -1,21 +1,21 @@
-# System Definition Interview - sys-for-ai-dev Runtime Adaptation
+# System Definition Interview - Sys4AI-dev Runtime Adaptation
 
 Canonical skill ID: `system-definition-interview`  
 Canonical runtime path: `.agents/skills/system-definition-interview`  
 Compatibility shim path: `.codex/skills/system-definition-interview/SKILL.md`  
 Source import: `skills/system-definition-interview` from `/Volumes/P-SSD/AngryOwl/ai-skills-for-sys`
 
-## sys-for-ai-dev Authority Rules
+## Sys4AI-dev Authority Rules
 
 - Root PRDs, implementation plans, source registries, validators, and git-tracked files outrank generated outputs.
-- `sys-for-ai/` is the product scaffold being developed; it is not the full development workspace.
+- `Sys4AI/` is the product scaffold being developed; it is not the full development workspace.
 - `.agents/skills/<skill-id>/` is the active runtime skill surface for this repository.
 - `.codex/skills/<skill-id>/SKILL.md` is compatibility-only and must point back to this canonical path.
-- Existing `sys-for-ai/skills/core/` files are scaffold and product-reference adapters, not the active runtime authority.
+- Existing `Sys4AI/skills/core/` files are scaffold and product-reference adapters, not the active runtime authority.
 - Do not import local receipts, caches, generated `usage-metrics.txt`, or private operational state as skill source.
 - Treat generated PRDs, plans, diagrams, warnings, and handoffs as derivative work until accepted by the relevant project authority.
 
-The imported source guidance below remains valid where it does not conflict with these sys-for-ai-dev rules.
+The imported source guidance below remains valid where it does not conflict with these Sys4AI-dev rules.
 
 ---
 

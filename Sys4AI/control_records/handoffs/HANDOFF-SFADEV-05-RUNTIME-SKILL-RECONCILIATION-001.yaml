@@ -1,0 +1,74 @@
+handoff_id: HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+schema_version: 0.2.0
+framework_name: Sys4AI
+target_agentic_system: Sys4AI-dev
+artifact_name: Runtime Skill Reconciliation Handoff
+artifact_type: operational_handoff
+artifact_version: 0.2.0
+producing_role: documentation_librarian
+artifact_status: completed
+summary: >
+  The all-recommendations plan runtime-skill reconciliation slice is complete.
+  The active development runtime now lists continue and source-first-memory in
+  the runtime registry and full runtime bundle, and both runtime manifests pass
+  the root skill manifest validator.
+source_artifacts:
+  - implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md
+  - implementation_plans/self_hosting_boundary_decision_record.md
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-P1-SELFHOST-ACCEPTANCE-001.yaml
+traceability:
+  agentjob_id: AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+  completion_receipt_id: RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+  implementation_plan_section: "20 AJ-05"
+  workstream: WS-05 Runtime Skill Reconciliation
+control_loop_notes:
+  previous_handoff_id: HANDOFF-P1-SELFHOST-ACCEPTANCE-001
+  next_agentjob_id: null
+  next_agentjob_status: requires_new_selection
+  selection_basis: Root validate-dev-skills failed before reconciliation because continue and source-first-memory manifests were incomplete.
+memory_preflight:
+  memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001
+  usable_for_routing: true
+  required_next_queries:
+    - all recommendations PRD integration
+    - registry schema expansion
+format_profile_evidence:
+  yaml_control_records:
+    - control_records/agentjobs/AJ-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    - control_records/completions/RECEIPT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    - control_records/handoffs/HANDOFF-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+    - control_records/memory_preflights/MEMPREFLIGHT-SFADEV-05-RUNTIME-SKILL-RECONCILIATION-001.yaml
+  registry_rows_added:
+    - ctrl_runtime_skill_reconciliation_agentjob
+    - ctrl_runtime_skill_reconciliation_completion
+    - ctrl_runtime_skill_reconciliation_handoff
+    - ctrl_runtime_skill_reconciliation_memory_preflight
+source_authority_evidence:
+  canonical_sources_checked:
+    - implementation_plans/self_hosting_boundary_decision_record.md
+    - Sys4AI/control_records/program_state.yaml
+    - Sys4AI/control_records/handoffs/HANDOFF-P1-SELFHOST-ACCEPTANCE-001.yaml
+    - implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md
+    - .agents/skills/continue/skill.yaml
+    - .agents/skills/source-first-memory/skill.yaml
+  authority_boundary: Product scaffold skills remain scaffold references; .agents/skills is the active runtime surface.
+derivative_surface_evidence:
+  generated_derivatives_changed: true
+  changed_derivatives:
+    - docs/generated/configuration_control/index.md
+    - docs/generated/configuration_control/yaml-control-records.md
+  notes: Generated pages were refreshed only because control registry rows changed.
+security_evidence:
+  secret_scan_scope: Manifest YAML registry YAML and control records were validated by existing structured validation and git diff whitespace checks.
+  new_secret_material: false
+recommended_next_role: system_director
+phase_boundary_notes: >
+  This handoff closes one bounded all-recommendations slice. The remaining
+  phases and AgentJobs in the all-recommendations plan are still open and
+  should be advanced one bounded AgentJob per continuation invocation.
+stop_conditions:
+  - A future task attempts to execute multiple all-recommendations AgentJobs in one invocation.
+  - Generated derivatives are treated as source authority.
+  - Product scaffold skills are treated as active runtime skills without registry promotion.
+  - A future route lacks a tracked Director decision, AgentJob, or explicit plan-backed selection.

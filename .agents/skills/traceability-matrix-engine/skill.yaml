@@ -63,7 +63,7 @@ authority:
     - Present missing or indirect evidence as proven completion.
 validation:
   commands:
-    - cd sys-for-ai && make validate-requirement-trace
+    - cd Sys4AI && make validate-requirement-trace
   validator_classes:
     - trace_validation
     - schema_validation

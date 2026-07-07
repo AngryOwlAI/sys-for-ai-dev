@@ -1,7 +1,7 @@
 # Handoff 0006: Phase 5 Continue Packet Kernel
 
 Date: 2026-07-06
-Plan: `implementation_plans/sys-for-ai-dev_memory_continue_self_hosting_implementation_plan.md`
+Plan: `implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md`
 Completed phase: Phase 5 - `/continue` packet kernel
 
 ## Latest prior handoff check
@@ -35,10 +35,10 @@ Before Phase 5 began, the latest handoff was `temp_handoff/handoff-0005.md`. It 
 
 The following commands passed:
 
-- `cd sys-for-ai && make continue-status continue-preflight continue-select continue-packet`
-- `cd sys-for-ai && make validate-one-active-agentjob validate-control-loop`
-- `cd sys-for-ai && .venv/bin/python -m unittest discover -s tests`
-- `cd sys-for-ai && make validate`
+- `cd Sys4AI && make continue-status continue-preflight continue-select continue-packet`
+- `cd Sys4AI && make validate-one-active-agentjob validate-control-loop`
+- `cd Sys4AI && .venv/bin/python -m unittest discover -s tests`
+- `cd Sys4AI && make validate`
 - `git diff --check`
 
 Observed packet behavior:

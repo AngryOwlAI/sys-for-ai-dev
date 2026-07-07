@@ -1,0 +1,117 @@
+completion_receipt_id: RECEIPT-SYS4AI-DEV-NAME-MIGRATION-001
+schema_version: 0.2.0
+agentjob_id: AJ-SYS4AI-DEV-NAME-MIGRATION-001
+role: svc_documentation_surface_architect
+result: PASS
+summary: >
+  Sys4AI and Sys4AI-dev name migration completed. The product scaffold now
+  lives under Sys4AI, public documentation and package metadata use the new
+  names, current registries and schemas are synchronized, generated derivatives
+  were refreshed, and historical SFADEV identifiers remain preserved evidence.
+changed_artifacts:
+  - path: Sys4AI/
+    change_type: renamed_product_scaffold_root
+    authority_status: controlled
+  - path: PRDs/Sys4AI_phase-0_product_system_design_prd.md
+    change_type: renamed_and_modified
+    authority_status: canonical
+  - path: PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
+    change_type: renamed_and_modified
+    authority_status: canonical_draft
+  - path: Sys4AI/pyproject.toml
+    change_type: modified
+    authority_status: controlled
+  - path: scripts/validate_rename.py
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/director_decisions/DDR-SYS4AI-DEV-NAME-MIGRATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/agentjobs/AJ-SYS4AI-DEV-NAME-MIGRATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SYS4AI-DEV-NAME-MIGRATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/completions/RECEIPT-SYS4AI-DEV-NAME-MIGRATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/handoffs/HANDOFF-SYS4AI-DEV-NAME-MIGRATION-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/docs/generated/**
+    change_type: regenerated
+    authority_status: generated_noncanonical
+memory_preflight_receipt_id: MEMPREFLIGHT-SYS4AI-DEV-NAME-MIGRATION-001
+validation_evidence:
+  commands_run:
+    - command: make validate-rename
+      result: pass
+    - command: make validate-dev-skills
+      result: pass
+    - command: make validate-product-scaffold
+      result: pass
+    - command: make validate
+      result: pass
+    - command: cd Sys4AI && make validate
+      result: pass
+    - command: cd Sys4AI && .venv/bin/python -m unittest discover -s tests
+      result: pass
+    - command: cd Sys4AI && .venv/bin/python -m pip install -e .
+      result: blocked_python_3_9_6_not_in_requires_python_ge_3_10
+    - command: cd Sys4AI && .local/venv-py312/bin/python -m pip install -e .
+      result: pass
+    - command: cd Sys4AI && .local/venv-py312/bin/Sys4AI doctor
+      result: pass
+    - command: git diff --check
+      result: pass
+  validators:
+    - validator_id: validate-rename
+      target_path: git tracked files
+      result: pass
+      notes: No unreviewed legacy hyphenated project names remain in tracked files or paths.
+    - validator_id: validate-check-diff
+      target_path: git diff
+      result: pass
+      notes: Changed paths are inside the Sys4AI-dev name migration AgentJob boundary.
+    - validator_id: editable-install-cli
+      target_path: Sys4AI
+      result: pass_with_python_3_12
+      notes: The existing ignored .venv uses Python 3.9.6 and is below the declared requires-python >=3.10; editable install and Sys4AI CLI doctor passed in an ignored Python 3.12 venv.
+format_profile_changes:
+  renamed:
+    - old_path: sys-for-ai/
+      new_path: Sys4AI/
+    - old_path: PRDs/sys-for-ai_phase-0_product_system_design_prd.md
+      new_path: PRDs/Sys4AI_phase-0_product_system_design_prd.md
+    - old_path: PRDs/sys-for-ai_phase-1_implementation_initialization_prd.md
+      new_path: PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
+    - old_path: Sys4AI/configs/examples/sys_for_ai.example.toml
+      new_path: Sys4AI/configs/examples/sys4ai.example.toml
+    - old_path: Sys4AI/schemas/contracts/sys_for_ai_config.schema.json
+      new_path: Sys4AI/schemas/contracts/sys4ai_config.schema.json
+authority_changes:
+  superseded_names:
+    - legacy: sys-for-ai
+      replacement: Sys4AI
+    - legacy: sys-for-ai-dev
+      replacement: Sys4AI-dev
+  preserved_identifiers:
+    - sys_for_ai Python import module
+    - completed SFADEV control IDs
+  promoted: []
+  not_promoted:
+    - path: Sys4AI/docs/generated/**
+      reason: Generated docs remain derivative navigation surfaces.
+unresolved_issues: []
+open_issues: []
+deferred_items:
+  - item: outer_checkout_rename
+    reason: Rename /Volumes/P-SSD/AngryOwl/sys-for-ai-dev to /Volumes/P-SSD/AngryOwl/Sys4AI-dev only after tracked validation and remote rename coordination.
+  - item: github_remote_rename
+    reason: Update origin after the GitHub repository is renamed outside this tracked migration.
+next_recommendation: >
+  Rename the local checkout and GitHub remote as a post-validation operational
+  step once the remote repository has been renamed.
+next_handoff_id: HANDOFF-SYS4AI-DEV-NAME-MIGRATION-001
+completed_at: "2026-07-07T12:00:00Z"

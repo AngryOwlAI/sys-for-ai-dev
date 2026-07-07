@@ -5,7 +5,7 @@ description: Detect when project-specific domain packs are needed and route acco
 
 # Domain Pack Router
 
-Use this skill when a task starts requiring domain-specific knowledge beyond the core sys-for-ai framework.
+Use this skill when a task starts requiring domain-specific knowledge beyond the core Sys4AI framework.
 
 ## Procedure
 
