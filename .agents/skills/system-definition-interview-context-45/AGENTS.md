@@ -28,6 +28,11 @@ template skill. It should preserve the system-definition interview workflow
 while adding context-window checkpoints and resumable `temp_prd.md` handoff
 behavior.
 
+In `sys-for-ai-dev`, preserve its role as the default discovery gate for new or
+substantially changed system definitions. The gate must classify the subject
+layer and produce or update a Requirements Discovery Record before downstream
+USRD, PRD, SRD, ARD, TRP, or SRP generation.
+
 ## Maintenance Rules
 
 - Keep `SKILL.md`, `README.md`, `AGENTS.md`, `skill.yaml`, templates, and
@@ -42,6 +47,8 @@ behavior.
   context is still safe.
 - Keep the end-of-questioning `/conversation-to-prd` prompt synchronized across
   `SKILL.md`, `README.md`, examples, and `skill.yaml`.
+- Keep discovery gate rules synchronized across runtime docs, product scaffold
+  adapter docs, and the RDR template.
 - Keep examples neutral and portable.
 - Treat `usage-metrics.txt` and `temp_prd.md` as runtime artifacts, not static
   template content.
@@ -70,6 +77,8 @@ Before finalizing changes to this template, check that:
 - PRD creation is user-gated and uses the current discussion plus
   `temp_prd.md` when it exists.
 - The record template includes stable trace IDs.
+- The record template includes system layer classification and discovery gate
+  exit checklist sections.
 - No hard-coded local source paths or project-bound names remain.
 
 ## Adaptation Instructions

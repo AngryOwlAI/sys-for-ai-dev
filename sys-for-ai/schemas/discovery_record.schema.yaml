@@ -4,6 +4,8 @@ status: draft
 purpose: Define required sections and authority rules for requirements discovery records created by system-definition skills.
 required_sections:
   - Authority Notice
+  - System Layer Classification
+  - Discovery Gate Exit Checklist
   - System Intent Profile
   - Needs
   - Stakeholders And Roles
@@ -36,6 +38,13 @@ authority_policy:
   candidate_requirements_not_baselined: true
   source_first_required: true
   promotion_required_for_canonical_status: true
+  discovery_gate: system-definition-interview-context-45
+  allowed_subject_layers:
+    - development_system
+    - framework_product
+    - target_system_template
+    - target_system_instance
+    - derivative_surface
 forbidden_authority_inversions:
   - Treating discovery records as canonical requirements without promotion.
   - Removing REQ-CAND or NFR-CAND labels before approval.

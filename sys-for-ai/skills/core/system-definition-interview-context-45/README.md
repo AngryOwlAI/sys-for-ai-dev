@@ -13,6 +13,11 @@ Adapter shell for the core `sys-for-ai` skill `system-definition-interview-conte
 
 Support long-session system-definition interviews with a 45 percent context-used checkpoint and resumable `temp_prd.md` handoff.
 
+This adapter is also the default discovery gate for new or substantially changed
+system definitions. It classifies the subject layer, produces or updates the
+Requirements Discovery Record, preserves `REQ-CAND-*` and `NFR-CAND-*` labels,
+and keeps PRD creation behind explicit user confirmation.
+
 This adapter checks context metrics after each user answer, but it writes
 `temp_prd.md` only at the handoff threshold, on unavailable/unknown metrics, or
 on explicit user request.
@@ -42,6 +47,11 @@ existing checkpoint. Confirmed archives use
 This adapter is governed by `sys-for-ai` AgentJobs, canonical PRDs, source registries, decision records, and validation commands.
 
 The `temp_prd.md` file is resumable context, not canonical authority. Candidate requirements remain candidates until promoted through an authorized source-authority workflow.
+
+The Requirements Discovery Record is controlled discovery evidence, not a
+canonical requirements baseline. USRD, PRD, SRD, ARD, TRP, and SRP generation
+must wait until the discovery state is coherent enough and the downstream route
+is explicitly confirmed.
 
 ## Metrics policy
 

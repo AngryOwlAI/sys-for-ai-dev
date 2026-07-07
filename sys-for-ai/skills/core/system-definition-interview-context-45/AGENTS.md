@@ -1,6 +1,10 @@
 # Maintenance rules for `system-definition-interview-context-45`
 
 - Preserve provenance to `skills/system-definition-interview-context-45`.
+- Preserve the default discovery-gate role for new or substantially changed
+  system definitions.
+- Keep the subject-layer classification and Requirements Discovery Record step
+  before any USRD, PRD, SRD, ARD, TRP, or SRP generation.
 - Do not remove source-first authority boundaries.
 - Do not mark this skill as `adapted` without a skill-import AgentJob and validation receipt.
 - Keep examples portable and free of private project assumptions.

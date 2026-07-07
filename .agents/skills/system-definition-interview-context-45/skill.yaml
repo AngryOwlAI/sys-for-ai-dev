@@ -2,7 +2,7 @@ skill_id: system-definition-interview-context-45
 version: 0.1.0
 status: active
 canonical_path: .agents/skills/system-definition-interview-context-45
-summary: Long-running system-definition interview for sys-for-ai-dev with Codex metric checkpoints and threshold-only temp_prd discovery handoff behavior.
+summary: Default sys-for-ai-dev discovery gate for new or substantially changed system definitions with Codex metric checkpoints and threshold-only temp_prd handoff behavior.
 scope:
   system_agnostic: false
   target_system_types:
@@ -28,6 +28,7 @@ optional_role_posture:
   - control_loop_planner
 activation:
   triggers:
+    - Start the default discovery gate for a new or substantially changed system definition.
     - Run system-definition discovery where context limits may matter.
     - Resume system-definition work from a temp_prd handoff.
     - Checkpoint discovery state when context use reaches the configured threshold.
@@ -49,11 +50,12 @@ inputs:
     - Prior handoff, generated draft, diagram, warning report, or temporary checkpoint.
 outputs:
   primary:
-    - Adapted runtime guidance or generated artifact appropriate to this skill.
+    - Requirements Discovery Record with system layer classification, discovery gate marker, candidate requirements, evidence register, open questions, and downstream route.
     - Completion receipt or concise handoff when the task changes files or creates derivative material.
   secondary:
     - Assumptions, unresolved questions, skipped checks, and recommended next step.
     - End-of-questioning prompt asking whether to create a PRD with /conversation-to-prd using the current discussion and temp_prd.md if it exists.
+    - Candidate requirements preserved as REQ-CAND-* or NFR-CAND-* until project authority promotes them.
   evidence:
     - Source files, validators, registries, user decisions, and repository observations used.
     - Distinction between canonical source, accepted project decision, generated derivative, and assumption.

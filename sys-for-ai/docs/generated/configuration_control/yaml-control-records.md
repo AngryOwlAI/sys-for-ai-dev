@@ -73,6 +73,12 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_registry_schema_expansion_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-SFADEV-02-REGISTRY-SCHEMA-EXPANSION-001.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_registry_schema_expansion_completion | control_records/completions/RECEIPT-SFADEV-02-REGISTRY-SCHEMA-EXPANSION-001.yaml | completion_receipt_v0_2 | controlled | implementation_initialization | contract_completion_receipt_v0_2 | pending |
 | ctrl_registry_schema_expansion_handoff | control_records/handoffs/HANDOFF-SFADEV-02-REGISTRY-SCHEMA-EXPANSION-001.yaml | handoff_v0_2 | controlled | implementation_initialization | contract_handoff_v0_2 | pending |
+| ctrl_discovery_gate_director_decision | control_records/director_decisions/DDR-SFADEV-03-DISCOVERY-GATE-001.yaml | director_decision | controlled | system_definition | contract_director_decision | pending |
+| ctrl_discovery_gate_agentjob | control_records/agentjobs/AJ-SFADEV-03-DISCOVERY-GATE-001.yaml | agentjob_v0_2 | controlled | system_definition | contract_agentjob_v0_2 | pending |
+| ctrl_discovery_gate_smoke_agentjob | control_records/agentjobs/AJ-P1-DISCOVERY-GATE-SMOKE-001.yaml | agentjob_v0_2 | controlled | system_definition | contract_agentjob_v0_2 | pending |
+| ctrl_discovery_gate_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-SFADEV-03-DISCOVERY-GATE-001.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_discovery_gate_completion | control_records/completions/RECEIPT-SFADEV-03-DISCOVERY-GATE-001.yaml | completion_receipt_v0_2 | controlled | system_definition | contract_completion_receipt_v0_2 | pending |
+| ctrl_discovery_gate_handoff | control_records/handoffs/HANDOFF-SFADEV-03-DISCOVERY-GATE-001.yaml | handoff_v0_2 | controlled | system_definition | contract_handoff_v0_2 | pending |
 
 ## Validation Contract Trace
 

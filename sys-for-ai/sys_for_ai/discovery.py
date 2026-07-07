@@ -12,6 +12,15 @@ from .yaml_io import load_yaml
 
 DEFAULT_SCHEMA_PATH = Path("schemas/discovery_record.schema.yaml")
 
+ALLOWED_SUBJECT_LAYERS = {
+    "development_system",
+    "framework_product",
+    "target_system_template",
+    "target_system_instance",
+    "derivative_surface",
+}
+DISCOVERY_GATE_MARKER = "system-definition-interview-context-45"
+
 BASELINE_REQUIREMENT_ID_RE = re.compile(r"\b(?:REQ|NFR)-\d{3,}\b")
 MARKDOWN_HEADING_RE = re.compile(
     r"^\s{0,3}(?P<level>#{1,6})\s+(?P<title>.+?)\s*(?:#+\s*)?$",
@@ -20,6 +29,8 @@ MARKDOWN_HEADING_RE = re.compile(
 
 FALLBACK_REQUIRED_SECTIONS = [
     "Authority Notice",
+    "System Layer Classification",
+    "Discovery Gate Exit Checklist",
     "System Intent Profile",
     "Needs",
     "Stakeholders And Roles",
@@ -107,9 +118,60 @@ def _line_is_guarded(line: str) -> bool:
     return any(guard in lower for guard in AUTHORITY_GUARD_PHRASES)
 
 
+def _metadata_value(text: str, label: str) -> str:
+    escaped = re.escape(label)
+    patterns = [
+        rf"^\*\*{escaped}:\*\*\s*(?P<value>.+?)\s*$",
+        rf"^-\s*{escaped}:\s*(?P<value>.+?)\s*$",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.MULTILINE | re.IGNORECASE)
+        if match:
+            return match.group("value").strip()
+    return ""
+
+
+def _is_template_placeholder(target: Path, value: str) -> bool:
+    return "template" in target.name and (
+        "<" in value
+        or ">" in value
+        or "/" in value
+        or "|" in value
+    )
+
+
+def _table_data_rows(section_body: str) -> list[list[str]]:
+    rows: list[list[str]] = []
+    for line in section_body.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|") or not stripped.endswith("|"):
+            continue
+        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+        if not cells or all(not cell for cell in cells):
+            continue
+        if all(set(cell.replace(" ", "")) <= {"-"} for cell in cells):
+            continue
+        if any(cell.casefold() in {"id", "source", "field", "check"} for cell in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def _has_non_placeholder_evidence_row(section_body: str) -> bool:
+    for row in _table_data_rows(section_body):
+        joined = " ".join(row).strip()
+        if not joined:
+            continue
+        if "<" in joined or ">" in joined:
+            continue
+        return True
+    return False
+
+
 def validate_discovery_record(
     path: str | Path,
     schema_path: str | Path = DEFAULT_SCHEMA_PATH,
+    require_evidence_row: bool = False,
 ) -> ValidationResult:
     target = Path(path)
     messages: list[str] = []
@@ -126,6 +188,20 @@ def validate_discovery_record(
     for section in _required_sections(contract):
         if _normalize_heading(section) not in headings:
             messages.append(f"{target}: missing required section {section!r}")
+
+    subject_layer = _metadata_value(text, "Subject layer")
+    if not subject_layer:
+        messages.append(f"{target}: missing Subject layer metadata")
+    elif subject_layer not in ALLOWED_SUBJECT_LAYERS:
+        if not (
+            _is_template_placeholder(target, subject_layer)
+            and all(layer in subject_layer for layer in ALLOWED_SUBJECT_LAYERS)
+        ):
+            messages.append(f"{target}: invalid subject layer {subject_layer!r}")
+
+    discovery_gate = _metadata_value(text, "Discovery gate")
+    if discovery_gate != DISCOVERY_GATE_MARKER:
+        messages.append(f"{target}: missing discovery gate marker {DISCOVERY_GATE_MARKER!r}")
 
     if "REQ-CAND-" not in text and "NFR-CAND-" not in text:
         messages.append(f"{target}: no candidate requirement IDs found")
@@ -166,5 +242,20 @@ def validate_discovery_record(
                 messages.append(
                     f"{target}: possible authority inversion phrase at line {line_number}: {phrase!r}"
                 )
+
+    evidence_body = _section_body(text, "Evidence Register")
+    if not evidence_body:
+        messages.append(f"{target}: missing Evidence Register body")
+    elif require_evidence_row and not _has_non_placeholder_evidence_row(evidence_body):
+        messages.append(f"{target}: registered discovery record requires at least one non-placeholder evidence row")
+
+    if not _section_body(text, "Open Questions"):
+        messages.append(f"{target}: missing Open Questions body")
+
+    if not _section_body(text, "Downstream Routing Recommendation"):
+        messages.append(f"{target}: missing Downstream Routing Recommendation body")
+
+    if not _section_body(text, "Discovery Gate Exit Checklist"):
+        messages.append(f"{target}: missing Discovery Gate Exit Checklist body")
 
     return ValidationResult(not messages, messages or [f"{target}: discovery record validation passed"])

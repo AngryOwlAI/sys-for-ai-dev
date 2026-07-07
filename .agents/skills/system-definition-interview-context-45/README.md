@@ -27,6 +27,12 @@ Provide the long-session variant of `system-definition-interview`. It
 establishes or reconstructs system intent while protecting extended stakeholder
 interviews with context checkpoints and resumable `temp_prd.md` handoff.
 
+In `sys-for-ai-dev`, this skill is the default front-door discovery gate for
+new or substantially changed system definitions. It classifies the subject
+layer, produces or updates `requirements-discovery-record.md`, and keeps
+candidate requirements labeled before any USRD, PRD, SRD, ARD, TRP, or SRP is
+generated.
+
 Do not create, overwrite, or refresh `temp_prd.md` after each question when
 context is still safe. Safe-context turns should update only the discovery
 record or live working state and the point-in-time `usage-metrics.txt` receipt.
@@ -34,6 +40,8 @@ record or live working state and the point-in-time `usage-metrics.txt` receipt.
 ## When To Use
 
 - A system-definition interview may run across multiple discussions.
+- New or substantially changed system definitions need the default discovery
+  gate before downstream requirements or architecture documents are generated.
 - A prior session should resume from `temp_prd.md` by invoking
   `/system-definition-interview-context-45 temp_prd`.
 - The work needs the same traceable discovery record as
@@ -42,6 +50,9 @@ record or live working state and the point-in-time `usage-metrics.txt` receipt.
 ## What This Skill Produces
 
 - `<OUTPUT_DIRECTORY>/requirements-discovery-record.md`.
+- System layer classification, discovery-gate status, discovery registry row,
+  downstream artifact status, and discovery gate exit checklist entries inside
+  the RDR.
 - A `System Intent Profile` inside that record.
 - Traceable entries using IDs such as `NEED-*`, `STK-*`, `SCN-*`,
   `REQ-CAND-*`, `NFR-CAND-*`, `DRV-*`, `IF-*`, `VVE-*`, and `OPEN-*`.
@@ -94,3 +105,5 @@ A valid adaptation should satisfy these checks:
 - Formal document generation remains a downstream route, not part of this
   skill.
 - PRD creation is explicitly user-gated and never automatic.
+- Candidate requirements remain `REQ-CAND-*` or `NFR-CAND-*` until project
+  authority promotes them.

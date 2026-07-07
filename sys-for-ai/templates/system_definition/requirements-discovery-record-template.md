@@ -5,6 +5,12 @@
 **System name:** <system name>
 **Prepared by role:** <role or agent>
 **Authorized by AgentJob:** <AgentJob ID or Director decision ID>
+**Subject system ID:** <system ID>
+**Subject layer:** development_system / framework_product / target_system_template / target_system_instance / derivative_surface
+**Discovery gate:** system-definition-interview-context-45
+**Producer AgentJob:** <AgentJob ID or Director decision ID>
+**Discovery registry row:** <discovery_record_registry.csv row ID>
+**Downstream artifact status:** no USRD yet / USRD proposed / USRD created / discovery waived
 **Source authority status:** derivative_draft
 **Created:** <YYYY-MM-DD>
 **Last updated:** <YYYY-MM-DD>
@@ -18,6 +24,35 @@ This record is a discovery artifact. It captures stakeholder statements, source 
 This record is not a canonical requirements baseline unless promoted through the project source-authority process. Canonical PRDs, source registries, decision records, approved requirements, and control records outrank this document.
 
 Candidate requirements must remain labeled as `REQ-CAND-*` or `NFR-CAND-*` until promoted by project authority.
+
+---
+
+## 2. System Layer Classification
+
+| Field | Value | Evidence | Open Issues |
+|---|---|---|---|
+| Subject layer | <layer> | <source> | <OPEN-*> |
+| Active authority root | <path or registry> | <source> | <OPEN-*> |
+| Product scaffold involved? | yes / no / unknown | <source> | <OPEN-*> |
+| Target-system instance involved? | yes / no / unknown | <source> | <OPEN-*> |
+| Derivative surfaces involved? | yes / no / unknown | <source> | <OPEN-*> |
+
+---
+
+## 3. Discovery Gate Exit Checklist
+
+| Check | Status | Evidence | Blocking Issues |
+|---|---|---|---|
+| Subject layer classified | pass / warn / fail | <evidence> | <OPEN-*> |
+| Mission need captured or marked missing | pass / warn / fail | <evidence> | <OPEN-*> |
+| Problem statement captured or marked missing | pass / warn / fail | <evidence> | <OPEN-*> |
+| System-of-interest identified | pass / warn / fail | <evidence> | <OPEN-*> |
+| Stakeholders identified | pass / warn / fail | <evidence> | <OPEN-*> |
+| Boundaries captured | pass / warn / fail | <evidence> | <OPEN-*> |
+| Candidate requirements remain candidate-labeled | pass / warn / fail | <evidence> | <OPEN-*> |
+| Evidence register populated | pass / warn / fail | <evidence> | <OPEN-*> |
+| Open questions routed | pass / warn / fail | <evidence> | <OPEN-*> |
+| Next route recommended | pass / warn / fail | <evidence> | <OPEN-*> |
 
 ---
 

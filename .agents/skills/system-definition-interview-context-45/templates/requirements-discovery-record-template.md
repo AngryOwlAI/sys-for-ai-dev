@@ -10,6 +10,46 @@
 - Primary authority: <PROJECT_AUTHORITY>
 - Output path: <OUTPUT_DIRECTORY>/requirements-discovery-record.md
 - Continuation skill: `/system-definition-interview-context-45 temp_prd`
+- Subject system ID: <SYSTEM_ID>
+- Subject layer: <development_system | framework_product | target_system_template | target_system_instance | derivative_surface>
+- Discovery gate: system-definition-interview-context-45
+- Producer AgentJob: <AGENTJOB_ID_OR_DIRECTOR_DECISION_ID>
+- Discovery registry row: <discovery_record_registry.csv row ID>
+- Downstream artifact status: <no USRD yet | USRD proposed | USRD created | discovery waived>
+
+## Authority Notice
+
+This Requirements Discovery Record is discovery evidence. It is not a canonical
+requirements baseline unless promoted through the target project's
+source-authority process.
+
+Candidate requirements must remain labeled as `REQ-CAND-*` or `NFR-CAND-*`
+until promoted by target-project authority.
+
+## System Layer Classification
+
+| Field | Value | Evidence | Open Issues |
+|---|---|---|---|
+| Subject layer | <layer> | <source> | <OPEN-*> |
+| Active authority root | <path or registry> | <source> | <OPEN-*> |
+| Product scaffold involved? | <yes | no | unknown> | <source> | <OPEN-*> |
+| Target-system instance involved? | <yes | no | unknown> | <source> | <OPEN-*> |
+| Derivative surfaces involved? | <yes | no | unknown> | <source> | <OPEN-*> |
+
+## Discovery Gate Exit Checklist
+
+| Check | Status | Evidence | Blocking Issues |
+|---|---|---|---|
+| Subject layer classified | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Mission need captured or marked missing | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Problem statement captured or marked missing | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| System-of-interest identified | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Stakeholders identified | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Boundaries captured | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Candidate requirements remain candidate-labeled | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Evidence register populated | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Open questions routed | <pass | warn | fail> | <evidence> | <OPEN-*> |
+| Next route recommended | <pass | warn | fail> | <evidence> | <OPEN-*> |
 
 ## System Intent Profile
 

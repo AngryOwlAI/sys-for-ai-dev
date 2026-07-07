@@ -30,6 +30,12 @@ description: Interview stakeholders to establish or reconstruct system intent wi
 
 Provide the long-session variant of `system-definition-interview`.
 
+In `sys-for-ai-dev`, this skill is the default front-door discovery gate for
+new or substantially changed system definitions. It must classify the subject
+system layer, or route to `system-layer-classifier` when that skill is
+available, before downstream requirements or architecture artifacts are
+generated.
+
 This skill preserves the same elicitation workflow and
 `requirements-discovery-record.md` output, then adds a context checkpoint after
 each user answer. When context used reaches 45 percent, context left is 55
@@ -42,10 +48,24 @@ context is still safe. During normal safe-context turns, keep the evolving state
 in the discovery record, live working context, or chat summary, and refresh only
 `usage-metrics.txt`.
 
+## Discovery Gate Rules
+
+- Produce or update `requirements-discovery-record.md` before any USRD, PRD,
+  SRD, ARD, TRP, or SRP generation.
+- Preserve candidate requirement labels as `REQ-CAND-*` and `NFR-CAND-*` until
+  project authority promotes them.
+- Do not create a PRD automatically.
+- Ask explicitly whether to create a PRD only after the discovery state is
+  coherent enough for downstream synthesis.
+- When operating inside an AgentJob flow, create or recommend a completion
+  record and handoff route instead of relying on chat memory.
+
 ## When To Use
 
 - The user wants to establish or reconstruct a system and the interview may run
   across multiple discussions.
+- A new or substantially changed system definition needs the default discovery
+  gate before USRD, PRD, SRD, ARD, TRP, or SRP generation.
 - The system definition needs stakeholder, boundary, scenario, requirements,
   driver, interface, evidence, and V&V discovery before document generation.
 - A prior `temp_prd.md` should be used to resume system-definition discovery.
@@ -111,26 +131,34 @@ discovery record is coherent enough.
    to-be state, scenarios, candidate requirements, quality attributes, drivers,
    interfaces, V&V seeds, evidence, assumptions, risks, open questions, last
    exchange, and recommended next branch.
-4. Follow the `system-definition-interview` elicitation procedure. Inspect
+4. Classify the subject layer as `development_system`, `framework_product`,
+   `target_system_template`, `target_system_instance`, or
+   `derivative_surface`. If that classification cannot be made from current
+   evidence and `system-layer-classifier` is available, route there first.
+5. Produce or update `requirements-discovery-record.md` with the subject layer,
+   discovery-gate marker, registry row reference, candidate requirements,
+   evidence register, open questions, and downstream routing recommendation
+   before any USRD, PRD, SRD, ARD, TRP, or SRP is created.
+6. Follow the `system-definition-interview` elicitation procedure. Inspect
    available repository or document evidence before asking questions that local
    evidence can answer.
-5. Ask one focused question at a time when the answer changes scope, boundary,
+7. Ask one focused question at a time when the answer changes scope, boundary,
    requirement meaning, or stakeholder priority. Use compact batches only for
    independent factual data.
-6. After the user answers, record the answer in the working context and update
+8. After the user answers, record the answer in the working context and update
    the discovery record or chat summary. Do not write that routine update to
    `temp_prd.md` while context is still safe.
-7. Run the context metrics checkpoint:
+9. Run the context metrics checkpoint:
 
    ```sh
    python3 <SKILLS_ROOT>/codex-usage-metrics/scripts/collect_usage_metrics.py \
      --output <TARGET_SKILL_PATH>/usage-metrics.txt
    ```
 
-8. Read `<TARGET_SKILL_PATH>/usage-metrics.txt` and inspect the `Context`
+10. Read `<TARGET_SKILL_PATH>/usage-metrics.txt` and inspect the `Context`
    section. Continue only when context left is known and greater than `55%`,
    unless the user explicitly requested a handoff.
-9. If context left is `<= 55%`, context used is therefore `>= 45%`, or the user
+11. If context left is `<= 55%`, context used is therefore `>= 45%`, or the user
    explicitly requested a handoff, write `<TARGET_SKILL_PATH>/temp_prd.md`,
    overwriting any previous file only after integrating still-relevant prior
    content, then tell the user:
@@ -141,10 +169,10 @@ discovery record is coherent enough.
    interview can continue with the saved context.
    ```
 
-10. If metrics cannot be collected, the metrics receipt is missing, or context
+12. If metrics cannot be collected, the metrics receipt is missing, or context
    left is unknown, fail closed: write the best available `temp_prd.md`, explain
    that metrics were unavailable, and give the same resume instruction.
-11. When discovery is coherent enough, stop the interview loop and route
+13. When discovery is coherent enough, stop the interview loop and route
     unresolved material:
     - Use `decision-grilling-context-45` for unresolved design or scope
       decisions.

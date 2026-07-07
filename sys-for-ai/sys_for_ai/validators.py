@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections import Counter
 from fnmatch import fnmatchcase
+import hashlib
 import re
 import subprocess
 import sys
@@ -1156,6 +1157,8 @@ def validate_system_layers(path: str | Path = "registries/system_layer_registry.
 
 
 def validate_discovery_records(path: str | Path = "registries/discovery_record_registry.csv") -> ValidationResult:
+    from .discovery import validate_discovery_record
+
     result = _validate_rows_against_contract(
         path,
         ROW_CONTRACTS["discovery_record_registry.csv"],
@@ -1172,6 +1175,15 @@ def validate_discovery_records(path: str | Path = "registries/discovery_record_r
         if not record_path.exists():
             result.ok = False
             result.messages.append(f"{path}: {record_id}: missing discovery record {record_path}")
+            continue
+        record_result = validate_discovery_record(record_path, require_evidence_row=True)
+        result.extend(record_result)
+        source_hash = row.get("source_hash", "").strip()
+        if source_hash and source_hash != "pending":
+            actual = hashlib.sha256(record_path.read_bytes()).hexdigest()
+            if source_hash != actual:
+                result.ok = False
+                result.messages.append(f"{path}: {record_id}: source_hash mismatch")
         downstream = row.get("downstream_usrd_path", "").strip()
         if downstream and not resolve_registered_path(downstream).exists():
             result.messages.append(f"{path}: {record_id}: downstream USRD path not found yet: {downstream}")
