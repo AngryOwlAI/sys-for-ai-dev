@@ -1,0 +1,89 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+schema_version: 0.1.0
+agentjob_id: AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+created_at: "2026-07-07T23:58:03Z"
+status: PASS_WITH_WARNINGS
+commands_run:
+  - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli memory status --json
+    result: pass_with_warnings_pending_hashes
+  - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli continue-preflight --json
+    result: pass_with_warnings_adhoc_receipt_usable
+  - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli continue-select --json
+    result: blocked_expected_director_decision_required
+  - command: inspect latest handoff and pending discovery-gate smoke AgentJob
+    result: pass
+queries:
+  - query: discovery gate smoke validation
+    returned_object_ids:
+      - SRC-AJ-DISCOVERY-GATE-SMOKE-001
+      - SRC-REG-DISCOVERY-RECORDS
+      - SRC-TEMPLATE-RDR
+      - SRC-VALIDATOR-DISCOVERY
+  - query: requirements discovery record
+    returned_object_ids:
+      - SRC-SCHEMA-DISCOVERY-RECORD
+      - SRC-TEMPLATE-RDR
+      - SRC-SYSDEF-CONTROL-README
+      - SRC-SKILL-SYSDEF-CONTEXT45-RUNTIME
+canonical_sources_inspected:
+  - path: implementation_plans/self_hosting_boundary_decision_record.md
+    registry: source_registry.csv
+    row_id: SRC-SELFHOST-BOUNDARY-DECISION
+    inspected_sections:
+      - Decision
+      - Rules
+  - path: Sys4AI/control_records/program_state.yaml
+    registry: source_registry.csv
+    row_id: SRC-PROGRAM-STATE
+    inspected_sections:
+      - active_agentjob_id
+      - allowed_next_actions
+      - blocked_actions
+  - path: Sys4AI/control_records/handoffs/HANDOFF-SFADEV-11-INIT-FRONTDOOR-001.yaml
+    registry: source_registry.csv
+    row_id: SRC-HANDOFF-INIT-FRONTDOOR-001
+    inspected_sections:
+      - control_loop_notes
+      - phase_boundary_notes
+      - stop_conditions
+  - path: Sys4AI/control_records/agentjobs/AJ-P1-DISCOVERY-GATE-SMOKE-001.yaml
+    registry: source_registry.csv
+    row_id: SRC-AJ-DISCOVERY-GATE-SMOKE-001
+    inspected_sections:
+      - objective
+      - allowed_writes
+      - stop_conditions
+  - path: Sys4AI/templates/system_definition/requirements-discovery-record-template.md
+    registry: source_registry.csv
+    row_id: SRC-TEMPLATE-RDR
+    inspected_sections:
+      - Authority Notice
+      - Discovery Gate Exit Checklist
+      - Completion Evidence
+  - path: Sys4AI/sys_for_ai/discovery.py
+    registry: source_registry.csv
+    row_id: SRC-VALIDATOR-DISCOVERY
+    inspected_sections:
+      - required sections
+      - candidate requirement validation
+registry_rows_inspected:
+  - registry: agentjob_registry.csv
+    row_id: AJ-P1-DISCOVERY-GATE-SMOKE-001
+    purpose: Confirm the unresolved smoke stub and its pending status.
+  - registry: control_record_registry.csv
+    row_id: ctrl_discovery_gate_smoke_agentjob
+    purpose: Confirm the pending smoke AgentJob is a controlled record.
+  - registry: discovery_record_registry.csv
+    row_id: rdr_20260707_001
+    purpose: Confirm the smoke RDR row created by this packet.
+  - registry: director_decision_registry.csv
+    row_id: DDR-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+    purpose: Confirm the Director Decision row authorizing this route.
+stale_context_risks:
+  - risk_id: MEMPREFLIGHT-SFADEV-12-RISK-001
+    status: observed
+    notes: Memory status reports pending source hashes for many existing controlled records.
+  - risk_id: MEMPREFLIGHT-SFADEV-12-RISK-002
+    status: mitigated
+    notes: Routing was resolved from inspected canonical sources and registries rather than hash warnings.
+usable_for_routing: true

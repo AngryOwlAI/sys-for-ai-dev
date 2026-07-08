@@ -5,7 +5,7 @@ PIP := $(VENV)/bin/pip
 SYNC_REMOTE ?= origin
 SYNC_BRANCH ?= main
 SYNC_CHECK_HASHES ?= 0
-CHECK_DIFF_AGENTJOB ?= AJ-SFADEV-WS00-BASELINE-001
+CHECK_DIFF_AGENTJOB ?= AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001
 
 .PHONY: venv install doctor sync-check continue-status continue-preflight continue-select continue-packet continue-finalize validate validate-agentjob validate-agentjobs validate-skills validate-dev-skills validate-metrics validate-discovery-template bootstrap-memory validate-format-profiles validate-config-sources validate-control-records validate-system-layers validate-discovery-records validate-roles validate-artifact-contracts validate-core-skill-proposals validate-skill-lifecycle validate-program-state validate-director-decisions validate-agentjob-registry validate-director-decision-registry validate-handoff-registry validate-completion-receipt-registry validate-memory-preflight-registry validate-handoffs validate-completion-receipts validate-state-snapshots validate-memory-preflight validate-agentjob-boundaries validate-check-diff validate-one-active-agentjob validate-control-loop validate-validation-contract-registry validate-toml-config validate-jsonschema-contracts validate-registry-graph validate-requirement-trace generate-config-control-wiki generate-validation-contracts-catalog generate-governance-docs validate-generated-derivatives clean-local
 
@@ -83,6 +83,7 @@ validate-agentjobs:
 	$(PYTHON) -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-11-INIT-FRONTDOOR-001.yaml
 	$(PYTHON) -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-WS00-BASELINE-001.yaml
 	$(PYTHON) -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-P1-DISCOVERY-GATE-SMOKE-001.yaml
+	$(PYTHON) -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
 
 validate-skills:
 	$(PYTHON) -m sys_for_ai.cli validate-skills skills/core_skill_manifest.yaml

@@ -1,0 +1,109 @@
+completion_receipt_id: RECEIPT-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+schema_version: 0.2.0
+agentjob_id: AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+role: user_wants_elicitor
+result: PASS
+summary: >
+  Completed one controlled discovery-gate smoke validation packet. The packet
+  created and validated one Requirements Discovery Record, registered it as
+  candidate discovery evidence, superseded the narrow pending smoke stub, and
+  returned program state to complete with no active AgentJob.
+changed_artifacts:
+  - path: Sys4AI/control_records/director_decisions/DDR-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/agentjobs/AJ-P1-DISCOVERY-GATE-SMOKE-001.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/control_records/agentjobs/AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/system_definition/RDR-20260707-001.md
+    change_type: added
+    authority_status: controlled_discovery_evidence
+  - path: Sys4AI/control_records/completions/RECEIPT-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/handoffs/HANDOFF-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/program_state.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/Makefile
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/docs/generated
+    change_type: regenerated
+    authority_status: generated_derivative
+  - path: temp_handoff/handoff-0022.md
+    change_type: added
+    authority_status: controlled
+memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+validation_evidence:
+  commands_run:
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-discovery-record control_records/system_definition/RDR-20260707-001.md
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-discovery-records registries/discovery_record_registry.csv
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001.yaml
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001 --json
+      result: PASS
+    - command: make validate
+      result: PASS
+    - command: git diff --check
+      result: PASS
+  validators:
+    - validator_id: validate-discovery-record
+      target_path: Sys4AI/control_records/system_definition/RDR-20260707-001.md
+      result: pass
+      notes: Smoke RDR includes candidate labels, authority notice, evidence row, open questions, and completion evidence.
+    - validator_id: validate-control-loop
+      target_path: Sys4AI/control_records/program_state.yaml
+      result: pass
+      notes: State returned to complete and no active AgentJob remains.
+format_profile_changes:
+  added:
+    - path: Sys4AI/control_records/system_definition/RDR-20260707-001.md
+      profile_id: fmt_markdown_source
+      registry_row_id: rdr_20260707_001
+  modified:
+    - path: Sys4AI/registries/**
+      profile_id: fmt_csv_registry
+      registry_row_id: multiple
+authority_changes:
+  promoted: []
+  completed:
+    - agentjob_id: AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+      reason: Discovery gate smoke validation completed and validated.
+  superseded:
+    - agentjob_id: AJ-P1-DISCOVERY-GATE-SMOKE-001
+      reason: Replaced by closeout-capable smoke packet.
+  not_promoted:
+    - path: Sys4AI/control_records/system_definition/RDR-20260707-001.md
+      reason: RDR remains discovery evidence and does not baseline requirements.
+    - path: Sys4AI/docs/generated/**
+      reason: Generated docs remain derivative navigation surfaces.
+unresolved_issues:
+  - issue_id: OPEN-001
+    status: open
+    notes: A later non-smoke discovery session should identify a real adopter persona.
+  - issue_id: OPEN-002
+    status: open
+    notes: A later Director Decision may define a dedicated smoke RDR lifecycle status.
+open_issues:
+  - OPEN-001
+  - OPEN-002
+next_recommendation: >
+  Treat this as a completed smoke validation only. Future substantive discovery
+  should start from a real user or target-system change request and a new
+  Director Decision.
+next_handoff_id: HANDOFF-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+completed_at: "2026-07-07T23:58:03Z"

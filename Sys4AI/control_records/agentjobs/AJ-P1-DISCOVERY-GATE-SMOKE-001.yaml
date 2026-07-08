@@ -1,8 +1,14 @@
 schema_version: "0.2.0"
 agentjob_id: AJ-P1-DISCOVERY-GATE-SMOKE-001
-status: pending
+status: superseded
 objective: Run the System Definition Discovery Gate on a sample framework-product change and produce a Requirements Discovery Record.
 lifecycle_stage: implementation_initialization
+superseded_by: AJ-SFADEV-12-DISCOVERY-GATE-SMOKE-001
+supersession_reason: >
+  The original smoke AgentJob was intentionally narrow and did not include
+  enough closeout authority for Director Decision, memory preflight, completion,
+  handoff, generated derivative, and program-state updates. The SFADEV-12
+  packet supersedes it with an executable bounded closeout surface.
 role_binding:
   role_id: user_wants_elicitor
   binding_type: one_job_provisional_role
