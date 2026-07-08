@@ -112,6 +112,7 @@ SRC-DERIVATIVES-VALIDATION-CONTRACTS,Sys4AI/sys_for_ai/derivatives/validation_co
 SRC-AJ-DERIVATIVE-GENERATORS-001,Sys4AI/control_records/agentjobs/AJ-P1-DERIVATIVE-GENERATORS-001.yaml,agentjob,controlled,control_loop,2026-07-06,Pending AgentJob for Phase 8 generated derivative generators.
 SRC-TEST-GENERATED-DERIVATIVES,Sys4AI/tests/test_generated_derivatives.py,test,controlled,control_loop,2026-07-06,Unit tests for deterministic generated derivative check and write behavior.
 SRC-SKILL-CONTINUE-RUNTIME,.agents/skills/continue/SKILL.md,runtime_skill,controlled,skill_governance,2026-07-06,Active runtime continue skill for Sys4AI-dev.
+SRC-SKILL-CONVERSATION-TO-PRD,.agents/skills/conversation-to-prd/SKILL.md,runtime_skill,controlled,skill_governance,2026-07-08,Active runtime conversation-to-prd skill used for WS18 PRD synthesis.
 SRC-SKILL-SOURCE-FIRST-MEMORY-RUNTIME,.agents/skills/source-first-memory/SKILL.md,runtime_skill,controlled,skill_governance,2026-07-06,Active runtime source-first memory skill for Sys4AI-dev.
 SRC-SKILL-CONTINUE-SHIM,.codex/skills/continue/SKILL.md,compatibility_shim,controlled,skill_governance,2026-07-06,Compatibility shim pointing to the .agents continue skill.
 SRC-SKILL-SOURCE-FIRST-MEMORY-SHIM,.codex/skills/source-first-memory/SKILL.md,compatibility_shim,controlled,skill_governance,2026-07-06,Compatibility shim pointing to the .agents source-first-memory skill.
@@ -302,3 +303,11 @@ SRC-RDR-PHASE2-WALKING-SKELETON-001,Sys4AI/control_records/system_definition/pha
 SRC-COMPLETION-PHASE2-WALKING-SKELETON-RDR-001,Sys4AI/control_records/completions/RECEIPT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml,completion_receipt,controlled,system_definition,2026-07-08,Completion receipt for Phase 2 walking skeleton RDR.
 SRC-HANDOFF-PHASE2-WALKING-SKELETON-RDR-001,Sys4AI/control_records/handoffs/HANDOFF-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml,handoff,controlled,system_definition,2026-07-08,Handoff for Phase 2 walking skeleton RDR.
 SRC-TEMP-HANDOFF-0027,temp_handoff/handoff-0027.md,handoff,controlled,control_loop,2026-07-08,Temp handoff closing Phase 2 walking skeleton RDR.
+SRC-DDR-PHASE2-WALKING-SKELETON-PRD-001,Sys4AI/control_records/director_decisions/DDR-SFADEV-18-PHASE2-WALKING-SKELETON-PRD-001.yaml,director_decision,controlled,framework_product,2026-07-08,Director decision selecting Phase 2 walking skeleton PRD.
+SRC-AJ-PHASE2-WALKING-SKELETON-PRD-001,Sys4AI/control_records/agentjobs/AJ-SFADEV-18-PHASE2-WALKING-SKELETON-PRD-001.yaml,agentjob,controlled,framework_product,2026-07-08,AgentJob for Phase 2 walking skeleton PRD.
+SRC-MEMORY-PREFLIGHT-PHASE2-WALKING-SKELETON-PRD-001,Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-18-PHASE2-WALKING-SKELETON-PRD-001.yaml,memory_preflight_receipt,controlled,source_first_memory,2026-07-08,Memory preflight receipt for Phase 2 walking skeleton PRD.
+SRC-PRD-P2-WALKING-SKELETON-DRAFT,PRDs/drafts/Sys4AI_phase-2_walking_skeleton_prd.draft.md,prd_draft,controlled,framework_product,2026-07-08,Draft Phase 2 walking skeleton PRD for trace validation.
+SRC-PRD-P2-WALKING-SKELETON,PRDs/Sys4AI_phase-2_walking_skeleton_prd.md,prd,controlled,framework_product,2026-07-08,Accepted Phase 2 walking skeleton PRD.
+SRC-COMPLETION-PHASE2-WALKING-SKELETON-PRD-001,Sys4AI/control_records/completions/RECEIPT-SFADEV-18-PHASE2-WALKING-SKELETON-PRD-001.yaml,completion_receipt,controlled,framework_product,2026-07-08,Completion receipt for Phase 2 walking skeleton PRD.
+SRC-HANDOFF-PHASE2-WALKING-SKELETON-PRD-001,Sys4AI/control_records/handoffs/HANDOFF-SFADEV-18-PHASE2-WALKING-SKELETON-PRD-001.yaml,handoff,controlled,framework_product,2026-07-08,Handoff for Phase 2 walking skeleton PRD.
+SRC-TEMP-HANDOFF-0028,temp_handoff/handoff-0028.md,handoff,controlled,control_loop,2026-07-08,Temp handoff closing Phase 2 walking skeleton PRD.
