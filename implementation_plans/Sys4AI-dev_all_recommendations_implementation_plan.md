@@ -91,6 +91,31 @@ Generated derivative surfaces must never authorize changes to PRDs, registries, 
 9. **Core skills must remain domain-neutral.** Project-specific domain packs can be added later, but this plan only adds core framework and development-system capabilities.
 10. **Every recommendation must land in at least one authority surface.** A recommendation is not implemented until it is reflected in PRDs, registry/schema structures, runtime skill surfaces, validators, documentation, and acceptance evidence as applicable.
 
+### 2.1 Mandatory `/continue` Execution Protocol
+
+This plan must be implemented through the active `/continue` skill, not by manually walking multiple workstreams in a single chat turn. For any remaining, resumed, corrective, or follow-on implementation task, the agent must use `/continue` to start from tracked state and let the repository select or constrain the next bounded task.
+
+Required sequence:
+
+1. Invoke `/continue` before starting implementation work.
+2. Read the self-hosting boundary decision record, run memory preflight, resolve `Sys4AI/control_records/program_state.yaml`, and inspect the latest handoff.
+3. Select or reuse at most one authorized AgentJob.
+4. Execute only that selected AgentJob. Do not batch multiple plan tasks into one continuation.
+5. On completion, write the required completion receipt, the controlled handoff record when applicable, the required `temp_handoff/handoff-*.md` markdown handoff, and any related registry, program-state, generated-derivative, memory-preflight, or Director-decision files required by the selected AgentJob.
+6. Run the validators named by the AgentJob and any aggregate validation required by the handoff.
+7. Commit the completed task as its own bounded checkpoint.
+8. Push the completed commit to the configured upstream before starting the next plan task. If the branch is ahead of upstream or the push has not happened, report that the next task is waiting on `git push` evidence and stop.
+
+The in-chat closeout after each completed task must state:
+
+- The selected AgentJob or controlled task ID.
+- What was done.
+- Which handoff markdown file and related controlled files were created or updated.
+- Which validators ran and whether they passed.
+- The commit hash, push status, remaining uncertainty, and logical next step.
+
+This rule preserves the one-AgentJob invariant, makes handoffs inspectable, and prevents a later task from starting before the previous task is both checkpointed and published.
+
 ---
 
 ## 3. Recommendation-to-Workstream Trace Matrix
@@ -2243,7 +2268,7 @@ The implementation is complete when:
 
 ## 20. Detailed AgentJob Backlog
 
-The following AgentJobs provide a bounded execution sequence. They may be implemented one by one using `/continue` once `continue` is active.
+The following AgentJobs provide a bounded execution sequence. They must be implemented one by one using `/continue` from tracked state. Each completed AgentJob requires completion evidence, a handoff markdown file, related controlled closeout files, an in-chat completion report, a commit, and `git push` evidence before the next AgentJob begins.
 
 ### AJ-00: Baseline Validation
 
@@ -2819,6 +2844,8 @@ feature/artifact-trace-governance
 ```
 
 If using one branch, commit by workstream.
+
+Continuation rule: every commit in the sequence must come from one selected `/continue` AgentJob. After each commit, push to the configured upstream and stop. The next workstream may begin only after the pushed commit is visible from repository evidence and the next `/continue` invocation selects a new authorized task.
 
 ### 25.2 Commit Sequence
 
