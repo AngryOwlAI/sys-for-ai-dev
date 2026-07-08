@@ -19,7 +19,7 @@ Tracked project state decides the route. Chat context, generated derivatives, lo
 4. Resolve `Sys4AI/control_records/program_state.yaml`.
 5. Inspect the latest handoff if one exists.
 6. Select or reuse at most one AgentJob.
-7. Stop if a Director decision is required.
+7. Stop if no active AgentJob and no explicit tracked authorization exists.
 8. Execute only the selected AgentJob.
 9. Write a completion receipt and handoff when state changes.
 10. Validate before reporting completion.

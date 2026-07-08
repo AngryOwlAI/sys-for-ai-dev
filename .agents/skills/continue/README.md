@@ -17,3 +17,9 @@ Resume `Sys4AI-dev` from tracked state and advance at most one authorized AgentJ
 - `Sys4AI/skills/core/continue/` is a portable product-scaffold template.
 
 The skill never uses generated docs, local caches, summaries, or chat memory as authority.
+
+## Compatibility Note
+
+Existing Director Decision Records remain valid historical routing evidence.
+Future continuation work should prefer neutral tracked authorization language
+unless a later migration explicitly renames the broader governance surface.

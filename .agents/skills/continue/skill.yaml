@@ -44,7 +44,7 @@ inputs:
   optional:
     - Root implementation plan named by the user.
     - Memory preflight evidence and source registry rows.
-    - Active AgentJob, Director decision, completion receipt, or prior temp_handoff file.
+    - Active AgentJob, tracked authorization, historical Director decision, completion receipt, or prior temp_handoff file.
 outputs:
   primary:
     - One completed bounded task or a blocked stop packet.
@@ -68,7 +68,7 @@ dependencies:
 authority:
   may_read:
     - Root README, PRDs, implementation plans, registries, validators, schemas, templates, and git-tracked files.
-    - Sys4AI control records, program state, AgentJobs, Director decisions, completions, handoffs, and memory preflight receipts.
+    - Sys4AI control records, program state, AgentJobs, tracked authorizations, historical Director decisions, completions, handoffs, and memory preflight receipts.
     - Active runtime skills under .agents/skills and compatibility shims under .codex/skills.
   may_write:
     - Files explicitly authorized by the selected AgentJob.
@@ -83,12 +83,12 @@ authority:
   canonical_sources:
     - Root PRDs and implementation plans.
     - Sys4AI/control_records/program_state.yaml.
-    - Registered AgentJobs, Director decisions, completions, handoffs, registries, validators, and schemas.
+    - Registered AgentJobs, tracked authorizations, historical Director decisions, completions, handoffs, registries, validators, and schemas.
     - Explicit user decisions in the active task.
   generated_derivatives:
     - Generated docs, catalogs, temporary handoffs, summaries, and memory search surfaces.
   human_gates:
-    - Director decision or explicit user authorization when no active AgentJob exists.
+    - Explicit user authorization or tracked authorization when no active AgentJob exists.
     - Owner approval before expanding beyond the selected AgentJob boundary.
 validation:
   commands:
@@ -126,14 +126,14 @@ handoff:
     - Files changed and source authority used.
     - Validation commands run, skipped checks, and residual risk.
     - Logical next step and any human approval gate.
-  next_role: system_director or implementation_initialization_agent for the next bounded AgentJob.
-  open_issue_policy: Record missing authority, unresolved ambiguity, validation failures, or Director-decision blockers before stopping.
+  next_role: system_analyst + system_engineer + software_engineer for the next bounded AgentJob.
+  open_issue_policy: Record missing authority, unresolved ambiguity, validation failures, or missing tracked authorization before stopping.
 failure_modes:
   - mode: Unbounded execution request.
     recovery: Select one authorized AgentJob, complete it, write handoff, commit, and stop.
   - mode: Authority inversion.
     recovery: Re-anchor to tracked program state, latest handoff, registered control records, and canonical sources.
-  - mode: Director decision missing.
-    recovery: Stop with a Director-decision-required packet unless the task creates an explicit tracked authorization artifact.
+  - mode: Tracked authorization missing.
+    recovery: Stop with a missing-authorization packet unless the task creates an explicit tracked authorization artifact.
 compatibility_shims:
   - .codex/skills/continue/SKILL.md
