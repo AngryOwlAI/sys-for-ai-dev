@@ -1,0 +1,131 @@
+agentjob_id: AJ-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
+schema_version: 0.2.0
+status: completed
+objective: Validate and close the next-scope implementation plan without changing requirements.
+lifecycle_stage: develop
+role_binding:
+  role_id: requirements_verifier
+  binding_type: registered_role
+  authority_scope: next scope final acceptance and handoff
+  expires_with_agentjob: true
+required_inputs:
+  - implementation_plans/Sys4AI-dev_next_scope_full_implementation_plan.md
+  - implementation_plans/Sys4AI_next_scope_full_implementation_plan.md
+  - implementation_plans/reconciliation_reports/LEGACY-PENDING-AGENTJOB-RECONCILIATION-SFADEV-16.md
+  - implementation_plans/acceptance_reports/PHASE2-WALKING-SKELETON-DEMO-SFADEV-22.md
+  - PRDs/README.md
+  - PRDs/PRD_decomposition_strategy.md
+  - PRDs/modules/**
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-25-SUBPRD-PROMOTION-001.yaml
+  - Sys4AI/registries/**
+allowed_reads:
+  - implementation_plans/**
+  - PRDs/**
+  - Sys4AI/control_records/**
+  - Sys4AI/registries/**
+  - Sys4AI/docs/generated/**
+  - Sys4AI/examples/target_systems/**
+  - Sys4AI/schemas/**
+  - Sys4AI/sys_for_ai/**
+  - Sys4AI/tests/**
+  - Sys4AI/Makefile
+  - Makefile
+allowed_writes:
+  - implementation_plans/completion_receipts/CR-SFADEV-NEXT-SCOPE-IMPLEMENTED-001.md
+  - implementation_plans/completion_audits/PLAN-COMPLETION-AUDIT-SFADEV-26.md
+  - Sys4AI/control_records/director_decisions/DDR-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml
+  - Sys4AI/control_records/agentjobs/AJ-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml
+  - Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml
+  - Sys4AI/control_records/completions/RECEIPT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/registries/source_registry.csv
+  - Sys4AI/registries/object_relationship_registry.csv
+  - Sys4AI/registries/director_decision_registry.csv
+  - Sys4AI/registries/agentjob_registry.csv
+  - Sys4AI/registries/completion_receipt_registry.csv
+  - Sys4AI/registries/handoff_registry.csv
+  - Sys4AI/registries/memory_preflight_receipt_registry.csv
+  - Sys4AI/registries/control_record_registry.csv
+  - Sys4AI/tests/test_program_state.py
+  - Sys4AI/tests/test_self_hosting_acceptance.py
+  - Sys4AI/docs/generated/**
+  - temp_handoff/handoff-0036.md
+generated_paths:
+  - Sys4AI/docs/generated/**
+forbidden_paths:
+  - LICENSE
+  - NOTICE
+  - .git/**
+  - .venv/**
+  - Sys4AI/.venv/**
+forbidden_actions:
+  - Modify requirements during acceptance.
+  - Hide failed validation.
+  - Promote sub-PRDs or generated derivatives.
+  - Mark future Phase 3 work as completed.
+  - Execute a second AgentJob in the same /continue packet.
+expected_outputs:
+  - Director Decision authorizing exactly one WS-26 AgentJob.
+  - Final next-scope acceptance report.
+  - Requirement-by-requirement plan completion audit.
+  - Completion receipt and handoff.
+  - Program state closed with no active AgentJob or Director Decision.
+  - Registry rows for the WS-26 artifacts.
+validators:
+  - make validate-dev-skills
+  - make validate-product-scaffold CHECK_DIFF_AGENTJOB=AJ-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
+  - make validate CHECK_DIFF_AGENTJOB=AJ-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
+  - cd Sys4AI && make doctor
+  - cd Sys4AI && make validate-discovery-records
+  - cd Sys4AI && make validate-prd-modules
+  - cd Sys4AI && make validate-walking-skeleton
+  - cd Sys4AI && make validate-target-package-smoke
+  - cd Sys4AI && make validate-requirement-trace
+  - cd Sys4AI && make validate-registry-graph
+  - cd Sys4AI && make validate-generated-derivatives
+  - cd Sys4AI && make validate CHECK_DIFF_AGENTJOB=AJ-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
+  - cd Sys4AI && .venv/bin/python -m unittest discover -s tests
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001 --json
+  - git diff --check
+completion_evidence_required:
+  - memory preflight receipt
+  - final acceptance report
+  - completion audit
+  - final validation output
+  - closeout receipt
+  - handoff naming next recommended phase
+memory_preflight:
+  required: true
+  minimum_queries:
+    - next-scope final acceptance and handoff
+    - final validation for sub-PRD routing
+  required_evidence:
+    - latest handoff inspection
+    - program state inspection
+    - next-scope implementation plan inspection
+    - prior workstream registry inspection
+    - PRD authority index inspection
+authority_boundary:
+  may_validate_plan_completion: true
+  may_write_acceptance_report: true
+  may_write_completion_audit: true
+  may_update_tests_for_current_control_state: true
+  may_refresh_generated_derivatives: true
+  may_modify_requirements: false
+  may_promote_subprds: false
+  may_mark_phase3_complete: false
+handoff_policy:
+  create_handoff_when:
+    - final acceptance report exists
+    - completion audit proves WS-15 through WS-26 evidence
+    - final validation passes
+    - program state has no active AgentJob
+stop_conditions:
+  - Any blocking validator fails.
+  - Any required WS-15 through WS-25 evidence is missing.
+  - Any sub-PRD authority conflict remains unresolved.
+  - A write outside the allowed boundary is required.
+created_at: "2026-07-08T23:24:32Z"
+activated_at: "2026-07-08T23:24:32Z"
+completed_at: "2026-07-08T23:24:32Z"
