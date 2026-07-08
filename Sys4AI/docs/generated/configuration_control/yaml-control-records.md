@@ -145,6 +145,11 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_legacy_pending_reconciliation_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-SFADEV-16-LEGACY-PENDING-ROW-RECONCILIATION-001.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_legacy_pending_reconciliation_completion | control_records/completions/RECEIPT-SFADEV-16-LEGACY-PENDING-ROW-RECONCILIATION-001.yaml | completion_receipt_v0_2 | controlled | implementation_initialization | contract_completion_receipt_v0_2 | pending |
 | ctrl_legacy_pending_reconciliation_handoff | control_records/handoffs/HANDOFF-SFADEV-16-LEGACY-PENDING-ROW-RECONCILIATION-001.yaml | handoff_v0_2 | controlled | implementation_initialization | contract_handoff_v0_2 | pending |
+| ctrl_phase2_walking_skeleton_rdr_director_decision | control_records/director_decisions/DDR-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml | director_decision | controlled | system_definition | contract_director_decision | pending |
+| ctrl_phase2_walking_skeleton_rdr_agentjob | control_records/agentjobs/AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml | agentjob_v0_2 | controlled | system_definition | contract_agentjob_v0_2 | pending |
+| ctrl_phase2_walking_skeleton_rdr_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_phase2_walking_skeleton_rdr_completion | control_records/completions/RECEIPT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml | completion_receipt_v0_2 | controlled | system_definition | contract_completion_receipt_v0_2 | pending |
+| ctrl_phase2_walking_skeleton_rdr_handoff | control_records/handoffs/HANDOFF-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml | handoff_v0_2 | controlled | system_definition | contract_handoff_v0_2 | pending |
 
 ## Validation Contract Trace
 

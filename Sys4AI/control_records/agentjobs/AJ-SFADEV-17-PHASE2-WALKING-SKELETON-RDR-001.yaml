@@ -1,0 +1,133 @@
+agentjob_id: AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+schema_version: 0.2.0
+status: completed
+objective: >
+  Run the discovery gate for the Phase 2 walking skeleton initiative and create
+  a Requirements Discovery Record before any Phase 2 PRD or implementation
+  artifacts are generated.
+lifecycle_stage: develop
+role_binding:
+  role_id: user_wants_elicitor
+  binding_type: registered_role
+  authority_scope: phase2 walking skeleton discovery evidence
+  expires_with_agentjob: true
+required_inputs:
+  - README.md
+  - PRDs/Sys4AI_phase-0_product_system_design_prd.md
+  - PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
+  - implementation_plans/Sys4AI-dev_next_scope_full_implementation_plan.md
+  - implementation_plans/self_hosting_boundary_decision_record.md
+  - .agents/skills/init/SKILL.md
+  - .agents/skills/system-definition-interview-context-45/SKILL.md
+  - .agents/skills/requirements-discovery-governor/SKILL.md
+  - Sys4AI/templates/system_definition/requirements-discovery-record-template.md
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-16-LEGACY-PENDING-ROW-RECONCILIATION-001.yaml
+allowed_reads:
+  - README.md
+  - PRDs/**
+  - implementation_plans/**
+  - temp_handoff/**
+  - .agents/skills/init/**
+  - .agents/skills/system-definition-interview-context-45/**
+  - .agents/skills/requirements-discovery-governor/**
+  - Sys4AI/templates/system_definition/**
+  - Sys4AI/schemas/**
+  - Sys4AI/sys_for_ai/discovery.py
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/control_records/handoffs/**
+  - Sys4AI/control_records/completions/**
+  - Sys4AI/registries/**
+allowed_writes:
+  - Sys4AI/control_records/director_decisions/DDR-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+  - Sys4AI/control_records/agentjobs/AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+  - Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+  - Sys4AI/control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+  - Sys4AI/control_records/completions/RECEIPT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+  - Sys4AI/control_records/program_state.yaml
+  - Sys4AI/registries/agentjob_registry.csv
+  - Sys4AI/registries/director_decision_registry.csv
+  - Sys4AI/registries/completion_receipt_registry.csv
+  - Sys4AI/registries/handoff_registry.csv
+  - Sys4AI/registries/memory_preflight_receipt_registry.csv
+  - Sys4AI/registries/discovery_record_registry.csv
+  - Sys4AI/registries/source_registry.csv
+  - Sys4AI/registries/control_record_registry.csv
+  - Sys4AI/docs/generated/**
+  - temp_handoff/handoff-0027.md
+generated_paths:
+  - Sys4AI/docs/generated/**
+forbidden_paths:
+  - LICENSE
+  - NOTICE
+  - .git/**
+  - .venv/**
+  - Sys4AI/.venv/**
+  - PRDs/**
+  - Sys4AI/docs/generated/** as canonical source
+forbidden_actions:
+  - Generate a Phase 2 PRD before the RDR exists and validates.
+  - Promote candidate requirements to baselined requirements.
+  - Generate target-system code or package outputs.
+  - Execute more than one AgentJob in this packet.
+  - Treat generated derivatives or memory hits as source authority.
+expected_outputs:
+  - Director Decision selecting the Phase 2 RDR route.
+  - Memory preflight receipt with source-first evidence.
+  - One validated Phase 2 walking skeleton Requirements Discovery Record.
+  - Discovery registry row for the Phase 2 RDR.
+  - Completion receipt, handoff, and temp handoff evidence.
+  - Program state returned to complete with no active AgentJob.
+validators:
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-director-decisions control_records/director_decisions
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-discovery-record control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-discovery-records registries/discovery_record_registry.csv
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-registry-graph registries
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-control-loop
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001 --json
+  - make validate CHECK_DIFF_AGENTJOB=AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+  - git diff --check
+completion_evidence_required:
+  - director_decision
+  - memory_preflight
+  - RDR path
+  - discovery registry row
+  - validation status
+  - closeout handoff
+memory_preflight:
+  required: true
+  minimum_queries:
+    - Phase 2 walking skeleton RDR
+    - target-system package planning discovery
+  required_evidence:
+    - self-hosting boundary decision record inspection
+    - latest handoff inspection
+    - WS-17 plan inspection
+    - init and discovery skill inspection
+    - discovery template and validator inspection
+authority_boundary:
+  may_create_rdr: true
+  may_create_phase2_prd: false
+  may_create_implementation_plan: false
+  may_generate_target_system_code: false
+  may_promote_candidate_requirements: false
+  may_modify_control_closeout_records: true
+  may_modify_program_state: true
+  may_modify_registries: true
+  may_refresh_generated_derivatives: true
+  may_promote_generated_derivatives: false
+handoff_policy:
+  create_handoff_when:
+    - Phase 2 RDR is produced and validated
+    - packet closes with no active AgentJob
+stop_conditions:
+  - Subject layer cannot be classified.
+  - RDR would rely on generated derivative evidence without source trace.
+  - Discovery validator fails after repair within this packet.
+  - Any write outside the allowed boundary is required.
+  - More than one AgentJob would be required.
+created_at: "2026-07-08T20:49:17Z"
+activated_at: "2026-07-08T20:49:17Z"
+completed_at: "2026-07-08T20:49:17Z"

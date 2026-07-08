@@ -1,0 +1,108 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+schema_version: 0.1.0
+agentjob_id: AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+created_at: "2026-07-08T20:49:17Z"
+status: PASS_WITH_WARNINGS
+commands_run:
+  - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli continue-preflight --json
+    result: pass_with_warnings_adhoc_receipt_usable
+  - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli continue-select --json
+    result: director_decision_required_before_WS17_selection
+  - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli memory preflight --agentjob AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001 --handoff HANDOFF-SFADEV-16-LEGACY-PENDING-ROW-RECONCILIATION-001 --query "Phase 2 walking skeleton RDR" --query "target-system package planning discovery" --json
+    result: pass_with_warnings_no_auto_receipt_written
+  - command: inspect WS-17 plan latest handoff init skill system-definition-interview-context-45 skill RDR template and discovery validator
+    result: pass
+queries:
+  - query: Phase 2 walking skeleton RDR
+    returned_object_ids:
+      - SRC-REG-AGENTJOBS
+      - SRC-REG-SOURCES
+      - SRC-REG-CONTROL-RECORDS
+      - SRC-REG-REQ-TRACE
+      - SRC-REG-MEMORY-PREFLIGHT-RECEIPTS
+      - SRC-NEXT-SCOPE-FULL-IMPLEMENTATION-PLAN
+  - query: target-system package planning discovery
+    returned_object_ids:
+      - SRC-RDR-DISCOVERY-GATE-SMOKE-001
+      - SRC-ALL-RECS-IMPLEMENTATION-PLAN
+      - SRC-PRD-P0
+      - AJ-SFADEV-03-DISCOVERY-GATE-001
+      - SRC-AJ-DISCOVERY-GATE-001
+      - SRC-COMPLETION-DISCOVERY-GATE-001
+canonical_sources_inspected:
+  - path: implementation_plans/self_hosting_boundary_decision_record.md
+    registry: source_registry.csv
+    row_id: SRC-SELFHOST-BOUNDARY-DECISION
+    inspected_sections:
+      - Rules
+      - Consequences
+  - path: Sys4AI/control_records/program_state.yaml
+    registry: source_registry.csv
+    row_id: SRC-PROGRAM-STATE
+    inspected_sections:
+      - allowed_next_actions
+      - latest_handoff_id
+      - active_agentjob_id
+  - path: Sys4AI/control_records/handoffs/HANDOFF-SFADEV-16-LEGACY-PENDING-ROW-RECONCILIATION-001.yaml
+    registry: source_registry.csv
+    row_id: SRC-HANDOFF-LEGACY-PENDING-ROW-RECONCILIATION-001
+    inspected_sections:
+      - control_loop_notes
+      - phase_boundary_notes
+      - stop_conditions
+  - path: implementation_plans/Sys4AI-dev_next_scope_full_implementation_plan.md
+    registry: source_registry.csv
+    row_id: SRC-NEXT-SCOPE-FULL-IMPLEMENTATION-PLAN
+    inspected_sections:
+      - WS-17 Phase 2 Discovery and RDR
+  - path: .agents/skills/init/SKILL.md
+    registry: source_registry.csv
+    row_id: SRC-SKILL-INIT
+    inspected_sections:
+      - Purpose
+      - Required Gates
+  - path: .agents/skills/system-definition-interview-context-45/SKILL.md
+    registry: source_registry.csv
+    row_id: SRC-SKILL-SYSDEF-CONTEXT45-RUNTIME
+    inspected_sections:
+      - Discovery Gate Rules
+      - Procedure
+  - path: .agents/skills/requirements-discovery-governor/SKILL.md
+    registry: source_registry.csv
+    row_id: SRC-SKILL-REQUIREMENTS-DISCOVERY-GOVERNOR
+    inspected_sections:
+      - Procedure
+      - Boundary
+  - path: Sys4AI/templates/system_definition/requirements-discovery-record-template.md
+    registry: source_registry.csv
+    row_id: SRC-TEMPLATE-RDR
+    inspected_sections:
+      - Required sections
+      - Candidate requirements
+  - path: Sys4AI/sys_for_ai/discovery.py
+    registry: source_registry.csv
+    row_id: SRC-VALIDATOR-DISCOVERY
+    inspected_sections:
+      - validate_discovery_record
+      - required sections
+registry_rows_inspected:
+  - registry: source_registry.csv
+    row_id: SRC-PRD-P0
+    purpose: Confirm Phase 0 product discovery and traceability authority.
+  - registry: source_registry.csv
+    row_id: SRC-PRD-P1
+    purpose: Confirm Phase 1 implementation initialization authority.
+  - registry: discovery_record_registry.csv
+    row_id: rdr_20260707_001
+    purpose: Compare existing validated RDR structure and status.
+stale_context_risks:
+  - risk_id: MEMPREFLIGHT-SFADEV-17-RISK-001
+    status: observed
+    notes: Memory search returned generated derivative hits that were used only as navigation.
+  - risk_id: MEMPREFLIGHT-SFADEV-17-RISK-002
+    status: mitigated
+    notes: RDR content uses live PRDs control records skills and validators as evidence.
+  - risk_id: MEMPREFLIGHT-SFADEV-17-RISK-003
+    status: mitigated
+    notes: Phase 2 PRD synthesis is explicitly deferred to the next bounded AgentJob.
+usable_for_routing: true

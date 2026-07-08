@@ -1,0 +1,129 @@
+completion_receipt_id: RECEIPT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+schema_version: 0.2.0
+agentjob_id: AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+role: user_wants_elicitor
+result: PASS
+summary: >
+  Completed one controlled Phase 2 walking-skeleton discovery packet. The
+  packet created and validated a Requirements Discovery Record, registered it
+  as candidate discovery evidence, and routed the next bounded packet to Phase
+  2 PRD synthesis without creating a PRD.
+changed_artifacts:
+  - path: Sys4AI/control_records/director_decisions/DDR-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+    change_type: added_then_completed
+    authority_status: controlled
+  - path: Sys4AI/control_records/agentjobs/AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+    change_type: added_then_completed
+    authority_status: controlled
+  - path: Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+    change_type: added
+    authority_status: controlled_discovery_evidence
+  - path: Sys4AI/control_records/completions/RECEIPT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/handoffs/HANDOFF-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+    change_type: added
+    authority_status: controlled
+  - path: Sys4AI/control_records/program_state.yaml
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/registries
+    change_type: modified
+    authority_status: controlled
+  - path: Sys4AI/docs/generated
+    change_type: regenerated
+    authority_status: generated_derivative
+  - path: temp_handoff/handoff-0027.md
+    change_type: added
+    authority_status: controlled
+memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+validation_evidence:
+  commands_run:
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-discovery-record control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-discovery-records registries/discovery_record_registry.csv
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001.yaml
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-registry-graph registries
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-control-loop
+      result: PASS
+    - command: cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001 --json
+      result: PASS
+    - command: make validate CHECK_DIFF_AGENTJOB=AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+      result: PASS
+    - command: git diff --check
+      result: PASS
+  validators:
+    - validator_id: validate-discovery-record
+      target_path: Sys4AI/control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+      result: pass
+      notes: Phase 2 RDR includes candidate labels authority notice evidence rows open questions and completion evidence.
+    - validator_id: validate-discovery-records
+      target_path: Sys4AI/registries/discovery_record_registry.csv
+      result: pass
+      notes: Discovery registry row resolves to the Phase 2 RDR and validates.
+    - validator_id: validate-registry-graph
+      target_path: Sys4AI/registries
+      result: pass
+      notes: Registry references remain connected after adding the Phase 2 RDR packet.
+    - validator_id: validate-control-loop
+      target_path: Sys4AI/control_records/program_state.yaml
+      result: pass
+      notes: No active AgentJob remains after the bounded packet.
+    - validator_id: validate-check-diff
+      target_path: AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+      result: pass
+      notes: Current diff remains inside the selected Phase 2 RDR packet.
+    - validator_id: make-validate
+      target_path: Sys4AI-dev
+      result: pass
+      notes: Root aggregate validation passed after generated derivative refresh.
+format_profile_changes:
+  added:
+    - path: Sys4AI/control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+      profile_id: fmt_markdown_source
+      registry_row_id: rdr_phase2_walking_skeleton_001
+  modified:
+    - path: Sys4AI/registries/**
+      profile_id: fmt_csv_registry
+      registry_row_id: multiple
+    - path: Sys4AI/docs/generated/**
+      profile_id: fmt_markdown_generated_derivative
+      registry_row_id: multiple
+authority_changes:
+  promoted: []
+  completed:
+    - agentjob_id: AJ-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+      reason: Phase 2 walking-skeleton RDR created and validated.
+    - director_decision_id: DDR-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+      reason: Selected AgentJob completed.
+  not_promoted:
+    - path: Sys4AI/control_records/system_definition/phase2_walking_skeleton_requirements_discovery_record.md
+      reason: RDR remains discovery evidence and does not baseline requirements.
+    - path: Sys4AI/docs/generated/**
+      reason: Generated docs remain derivative navigation surfaces.
+unresolved_issues:
+  - issue_id: OPEN-P2-001
+    status: open
+    notes: Choose the concrete target-system example for package smoke evidence in a later packet.
+  - issue_id: OPEN-P2-002
+    status: open
+    notes: Define the exact package or export artifact shape in later planning.
+  - issue_id: OPEN-P2-003
+    status: open
+    notes: Decide final task-packet count during implementation planning.
+open_issues:
+  - OPEN-P2-001
+  - OPEN-P2-002
+  - OPEN-P2-003
+next_recommendation: >
+  Stop after this bounded packet. The next logical AgentJob is
+  AJ-SFADEV-18-PHASE2-WALKING-SKELETON-PRD-001, which should generate and
+  validate the Phase 2 walking-skeleton PRD from this RDR.
+next_handoff_id: HANDOFF-SFADEV-17-PHASE2-WALKING-SKELETON-RDR-001
+completed_at: "2026-07-08T20:49:17Z"
