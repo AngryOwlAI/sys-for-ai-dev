@@ -177,6 +177,9 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_prd_decomposition_strategy_completion | control_records/completions/RECEIPT-SFADEV-23-PRD-DECOMPOSITION-STRATEGY-001.yaml | completion_receipt_v0_2 | controlled | framework_product | contract_completion_receipt_v0_2 | pending |
 | ctrl_prd_decomposition_strategy_handoff | control_records/handoffs/HANDOFF-SFADEV-23-PRD-DECOMPOSITION-STRATEGY-001.yaml | handoff_v0_2 | controlled | framework_product | contract_handoff_v0_2 | pending |
 | ctrl_subprd_drafts_agentjob | control_records/agentjobs/AJ-SFADEV-24-SUBPRD-DRAFTS-001.yaml | agentjob_v0_2 | controlled | framework_product | contract_agentjob_v0_2 | pending |
+| ctrl_subprd_drafts_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-SFADEV-24-SUBPRD-DRAFTS-001.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_subprd_drafts_completion | control_records/completions/RECEIPT-SFADEV-24-SUBPRD-DRAFTS-001.yaml | completion_receipt_v0_2 | controlled | framework_product | contract_completion_receipt_v0_2 | pending |
+| ctrl_subprd_drafts_handoff | control_records/handoffs/HANDOFF-SFADEV-24-SUBPRD-DRAFTS-001.yaml | handoff_v0_2 | controlled | framework_product | contract_handoff_v0_2 | pending |
 
 ## Validation Contract Trace
 
