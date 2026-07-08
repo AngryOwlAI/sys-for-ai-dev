@@ -1,0 +1,61 @@
+director_decision_id: DDR-SFADEV-14-PLAN-COMPLETION-AUDIT-001
+schema_version: 0.1.0
+decision_status: completed
+created_at: "2026-07-08T00:43:46Z"
+completed_at: "2026-07-08T00:46:59Z"
+director_role: system_director
+decision_context:
+  trigger: plan_completion_continuation
+  program_state_id: SYS4AI-PROGRAM-STATE-001
+  latest_handoff_id: HANDOFF-SFADEV-13-PLAN-CONTROL-001
+  user_request: >
+    Continue implementing all remaining phases and tasks in the user-named
+    PRD decomposition implementation plan while respecting the one-AgentJob
+    /continue boundary.
+  observed_evidence:
+    - HANDOFF-SFADEV-13-PLAN-CONTROL-001 requires a new Director Decision before future work.
+    - RECEIPT-SFADEV-10-END-TO-END-ACCEPTANCE-001 states no further all-recommendations AgentJob remains.
+    - implementation_plans/Sys4AI_PRD_decomposition_full_implementation_plan.md is a compatibility pointer to the canonical all-recommendations plan.
+selected_route:
+  route_id: run_plan_completion_audit
+  rationale: >
+    The next bounded action should reconcile the user-named plan pointer with
+    the canonical all-recommendations plan and the control-record evidence.
+    A completion audit can determine whether remaining work is a real
+    implementation gap or only closure evidence without executing multiple
+    workstreams in one continuation.
+  selected_role: requirements_verifier
+  creates_agentjob_id: AJ-SFADEV-14-PLAN-COMPLETION-AUDIT-001
+rejected_routes:
+  - route_id: execute_multiple_remaining_workstreams
+    reason: /continue and the self-hosting boundary allow at most one AgentJob per invocation.
+  - route_id: reopen_completed_all_recommendations_sequence
+    reason: AJ-10 and HANDOFF-SFADEV-10 record terminal acceptance for the all-recommendations sequence.
+  - route_id: select_legacy_pending_selfhost_agentjobs
+    reason: Legacy pending self-hosting rows require separate reconciliation before reuse because terminal self-hosting acceptance already exists.
+  - route_id: declare_goal_complete_without_current_audit
+    reason: The active goal references all remaining plan tasks and needs current repo evidence before closure.
+authority_boundary:
+  may_create_agentjob: true
+  may_execute_selected_agentjob: true
+  may_modify_completion_audit: true
+  may_modify_control_closeout_records: true
+  may_modify_program_state: true
+  may_modify_registries: true
+  may_refresh_generated_derivatives: true
+  may_modify_canonical_prds: false
+  may_execute_multiple_agentjobs: false
+  may_promote_generated_derivatives: false
+validators:
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-director-decisions control_records/director_decisions
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-agentjob control_records/agentjobs/AJ-SFADEV-14-PLAN-COMPLETION-AUDIT-001.yaml
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli continue-select --json
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli continue-packet --json
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-check-diff --agentjob AJ-SFADEV-14-PLAN-COMPLETION-AUDIT-001 --json
+  - cd Sys4AI && .venv/bin/python -m sys_for_ai.cli validate-control-loop
+  - make validate CHECK_DIFF_AGENTJOB=AJ-SFADEV-14-PLAN-COMPLETION-AUDIT-001
+  - git diff --check
+completion_evidence:
+  completion_receipt_id: RECEIPT-SFADEV-14-PLAN-COMPLETION-AUDIT-001
+  handoff_id: HANDOFF-SFADEV-14-PLAN-COMPLETION-AUDIT-001
+  notes: Plan completion audit completed with no next AgentJob remaining for the current plan sequence.
