@@ -7,21 +7,25 @@
 **Canonical source:** This file is the authoritative Phase 0 PRD.
 **Supersedes:** `PRDs/Sys4AI_phase-0_prd.md` as an authoritative Phase 0 source.
 **Downstream dependency:** `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` consumes this file.
-**Last updated:** 2026-07-07
+**Identity authority:** `DDR-SFADEV-STRATEGIC-BASELINE-001`
+**Strategic-baseline state:** `TX-03-P0-IDENTITY` migrates only the approved identity and product statement. Vision and core values remain unapproved and outside this transaction.
+**Last updated:** 2026-07-09
 
 ---
 
 ## 1. Executive summary
 
-`Sys4AI` is a domain-agnostic system development and management framework for AI agents. It enables a root AI agent, such as Codex or another AI-harnessed agent, to design, develop, run, improve, and maintain target agentic systems.
+> `Sys4AI` shall be a Meta-Agentic AI Framework System comprising a governed framework product and a Codex-hosted Meta-Agent Runtime. Working with an authorized user, the runtime applies the framework to design, develop, implement, test, run, maintain, and improve target AI agents and target agentic systems.
 
-The product is meta-agentic. Its output is not merely a prompt, document, workflow, or one-off codebase. Its output is a governed target agentic system, or a package ready to implement such a system, with defined roles, artifacts, requirements, architecture, verification hooks, operating assumptions, source-first memory rules, improvement loops, and maintenance obligations.
+This is the canonical product statement. The composite system contains four distinct objects: the `Sys4AI Framework Product`, the executable `Sys4AI Meta-Agent Runtime`, the `Codex App Host Harness` as the initial reference host, and each separate `Target AI Agent` or `Target Agentic System`. The framework product owns governed methods and assets; the runtime applies them only within human and host authorization; the host retains its platform and permission authority; and every target retains its own purpose, authority, data, approval, and operational boundary.
 
-For Phase 0, an agentic AI software system is treated as a software harness around one or more LLMs, tools, state stores, files, skills, policies, and user-facing interfaces. The harness must include requirements for a bounded control loop, an AgentJob-style execution contract, a source-first memory and knowledge system, source/version-control governance, and derivative documentation surfaces such as generated wikis or reader artifacts.
+The product is meta-agentic. A plan, prompt, document, scaffold, or package may be a valid governed output, but it is not by itself evidence that a target was implemented, tested, run, maintained, or improved. `Sys4AI` shall claim execution only when observable execution and validation evidence supports the claim.
+
+Codex is the initial reference host, not the source of Sys4AI purpose or product authority. Host-capability and permission mappings remain subject to `G-07`; this identity baseline neither asserts unverified Codex capabilities nor expands host or project permissions.
 
 This revision also establishes core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. These profiles define authority classes, registry requirements, validator expectations, derivative-surface policy, promotion rules, drift behavior, and security constraints for structured source, control, configuration, registry, and validation-contract artifacts.
 
-This revision adds system-layer classification, a Requirements Discovery Record gate, self-hosting authority rules, expanded role governance, and skill-lifecycle controls. These additions keep `Sys4AI-dev` development-system work distinct from `Sys4AI` framework-product requirements and from future target-system instances.
+This revision also preserves system-layer classification, a Requirements Discovery Record gate, self-hosting authority rules, expanded role governance, and skill-lifecycle controls. `subject_layer` classifies the system surface under change; `runtime_actor` separately identifies the actor performing authorized work. Neither classification grants authority.
 
 This Phase 0 PRD defines what `Sys4AI` must be. It does not initialize the implementation repository. Implementation initialization belongs to Phase 1.
 
@@ -33,6 +37,8 @@ This file consolidates the July 4 core-requirement baseline with the richer July
 
 `PRDs/Sys4AI_phase-0_prd.md` is retained as a historical reference only. When the two documents differ, this file controls Phase 0.
 
+The identity migration is authorized by `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml`. The strategic migration plan and Requirements Discovery Record provide controlled scope and provenance; they are not competing canonical requirements sources. The decision does not approve a candidate vision or value set.
+
 ---
 
 ## 3. Phase boundary
@@ -43,7 +49,7 @@ A core requirement describes a durable capability the delivered `Sys4AI` framewo
 
 Phase 0 owns:
 
-- Product identity and scope.
+- Product identity and scope, including the four-object composite model and the independent `subject_layer` and `runtime_actor` dimensions.
 - Role model and lifecycle model.
 - Artifact contracts.
 - AgentJob semantics.
@@ -59,6 +65,8 @@ Phase 0 owns:
 - Documentation and derivative-surface rules.
 - Improvement-loop requirements.
 - Acceptance criteria for moving into implementation initialization.
+
+This transaction does not migrate the later AgentJob and `/continue` requirement families. Where those retained migration targets conflict with the accepted post-retraction decision, `DDR-SFADEV-STRATEGIC-BASELINE-001` controls: their current active-framework status is retired until later portable execution-contract transactions revise the canonical requirement families.
 
 ### 3.2 Phase 1 owns initialization requirements
 
@@ -92,9 +100,13 @@ Phase 1 does not re-litigate Phase 0 product identity, lifecycle, role ownership
 
 | Term | Definition |
 |---|---|
-| Framework system | `Sys4AI`, the meta-framework being specified here. |
-| Root AI agent | The AI agent using `Sys4AI` to design, implement, run, improve, or maintain a target agentic system. |
-| Target agentic system | A governed AI-agent system created or managed using `Sys4AI`. |
+| Meta-Agentic AI Framework System | The composite `Sys4AI` system comprising the governed framework product and the executable Meta-Agent Runtime, with explicit host and target-system boundaries. |
+| Sys4AI Framework Product | The governed requirements, methods, roles, skills, contracts, templates, registries, validators, policies, and reference implementation used to create and steward target systems. |
+| Sys4AI Meta-Agent Runtime | The executable AI-agent identity that applies the framework only within bounded human and host authorization. It cannot self-authorize purpose, values, permissions, evaluation standards, acceptance, or authority. |
+| Codex App Host Harness | The initial reference host supplying model execution, interaction, workspace, tools, task state, cancellation, and other capabilities only as verified by its host profile. Platform policy, system and developer instructions, permissions, and human approvals remain binding. |
+| Authorized user | The accountable human principal, or a properly delegated human authority, who authorizes bounded work. A model identity is not an approval principal. |
+| Target AI Agent or Target Agentic System | A single agent, multi-agent system, workflow, or agentic application created or stewarded through Sys4AI as a separate system of interest with its own purpose, authority, data, approval, and operational boundary. |
+| Runtime actor | The human principal, host harness, Meta-Agent Runtime, delegated role actor, target runtime, verifier, or operator acting in a transaction. Runtime actor is independent of system-layer classification and does not confer authority by itself. |
 | Requirements Discovery Record (RDR) | A pre-USRD discovery artifact that captures initial intent, mission, stakeholders, boundaries, scenarios, candidate requirements, evidence, risks, assumptions, constraints, open questions, and downstream routing before formal requirements generation. |
 | System layer | A controlled classification for the subject of work: `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, or `derivative_surface`. |
 | Development system | The workspace and runtime surface used to develop or improve `Sys4AI`, such as `Sys4AI-dev`. |
@@ -124,7 +136,7 @@ Phase 1 does not re-litigate Phase 0 product identity, lifecycle, role ownership
 
 ---
 
-## 5. Problem and product vision
+## 5. Problem statement and product direction
 
 AI agents can generate code, plans, prompts, documents, and workflows, but building reliable agentic systems requires more than output generation. A reusable target agentic system needs governed requirements, architecture, role boundaries, artifact contracts, verification methods, improvement loops, and maintenance rules.
 
@@ -147,7 +159,7 @@ Common failure modes:
 | Schema theater | Schema-like files document structure but are not executable contracts, so invalid control/config artifacts can pass as if validated. |
 | Format-profile confusion | Markdown, CSV, YAML, TOML, JSON, generated wiki notes, and local vault notes are mixed without clear authority class or promotion rules. |
 
-The framework should let the root AI agent answer:
+The framework product and Meta-Agent Runtime, working with an authorized user, should make it possible to answer:
 
 1. What target agentic system does the user want?
 2. Why does the user want it?
@@ -174,6 +186,14 @@ The framework should let the root AI agent answer:
 `SFA-CORE-ID-002`: `Sys4AI` shall clearly distinguish the framework system from target agentic systems generated, operated, improved, or maintained through the framework.
 
 `SFA-CORE-ID-003`: `Sys4AI` shall support domains including software engineering, AI, machine learning, mathematics, physics, finance, biology, and other fields without hard-coding one domain as the default authority.
+
+`SFA-CORE-ID-004`: `Sys4AI` shall be defined as a Meta-Agentic AI Framework System comprising a governed framework product and an executable Meta-Agent Runtime.
+
+`SFA-CORE-ID-005`: The Meta-Agent Runtime shall collaborate with an authorized user to design, develop, implement, test, run, maintain, and improve target AI agents or agentic systems.
+
+`SFA-CORE-ID-006`: Artifacts shall distinguish framework product, Meta-Agent Runtime, host harness, target-system template, target-system instance, and derivative surfaces.
+
+`SFA-CORE-ID-007`: `Sys4AI` shall distinguish orchestration from execution and shall not claim execution when it only generated a plan or artifact.
 
 ### 6.2 Lifecycle model
 
@@ -210,6 +230,8 @@ The framework should let the root AI agent answer:
 `SFA-CORE-LAYER-004`: Work on a future generated target system shall not mutate core `Sys4AI` framework authority unless routed through a framework-improvement AgentJob and Director decision.
 
 `SFA-CORE-LAYER-005`: Generated derivatives shall never authorize changes to canonical sources, registries, control records, validation contracts, role catalogs, or skill manifests without a promotion workflow.
+
+The controlled layer model and the runtime-actor model are independent dimensions. `subject_layer` identifies whether the subject is the development system, framework product, target-system template, target-system instance, or derivative surface. `runtime_actor` identifies who or what is acting. A runtime actor's capability does not grant write, approval, promotion, or supersession authority over the subject layer.
 
 `SFA-CORE-SELFHOST-001`: `Sys4AI-dev` shall define a self-hosting mode for cases where the development workspace uses `Sys4AI` concepts to improve `Sys4AI`.
 
@@ -466,15 +488,15 @@ The following detailed requirements are binding refinements of the core requirem
 | ID | Requirement | Priority | Verification method | Acceptance criteria |
 |---|---|---:|---|---|
 | SFA-P0-FR-001 | `Sys4AI` shall use `Sys4AI` as the product name and treat `sys-dev-for-ai` as a former working name. | Must | Inspection | Phase 0 artifacts use `Sys4AI` except in explicit change-history references. |
-| SFA-P0-FR-002 | `Sys4AI` shall define itself as a framework used by AI agents to design, develop, run, improve, and maintain target agentic systems. | Must | Inspection | Executive summary, product statement, and definitions express the meta-agentic purpose. |
-| SFA-P0-FR-003 | `Sys4AI` shall distinguish the framework system from the target agentic system in every major artifact. | Must | Inspection | Artifact templates include framework versus target-system boundaries. |
+| SFA-P0-FR-002 | `Sys4AI` shall define itself as a composite Meta-Agentic AI Framework System whose authorized runtime applies its governed framework product to target AI agents and target agentic systems. | Must | Inspection | Executive summary, canonical product statement, definitions, and conceptual model express the approved identity. |
+| SFA-P0-FR-003 | `Sys4AI` shall distinguish framework product, Meta-Agent Runtime, host harness, target-system template, target-system instance, and derivative surface in every major artifact where the distinction affects authority or evidence. | Must | Inspection | Artifact templates include the applicable object boundary and preserve each target as a separate system of interest. |
 | SFA-P0-FR-004 | `Sys4AI` shall support target agentic systems across software engineering, AI, ML, physics, mathematics, finance, biology, and other domains. | Must | Inspection | Domain coverage includes specialist hooks and domain-specific constraints. |
 | SFA-P0-FR-005 | `Sys4AI` shall define a System Design phase pipeline that produces USRD, SRD, ARD, TRP, RSRD, RARD, and SRP. | Must | Inspection | Pipeline diagram and artifact catalog include all required artifacts and producer roles. |
 | SFA-P0-FR-006 | `Sys4AI` shall support optional current-state analysis for existing target agentic systems or related systems. | Should | Inspection | Existing System Analyst role and ESAR artifact are defined. |
 | SFA-P0-FR-007 | `Sys4AI` shall require each role to have explicit input artifacts, output artifacts, responsibilities, and exit criteria. | Must | Inspection | Role catalog and handoff contract include these fields. |
 | SFA-P0-FR-008 | `Sys4AI` shall preserve traceability from user intent through final implementation-ready requirements. | Must | Trace review | Traceability ledger and artifact trace matrices are defined. |
 | SFA-P0-FR-009 | `Sys4AI` shall treat missing facts, thresholds, constraints, owners, environments, and acceptance criteria as open issues rather than silent inventions. | Must | Inspection | Universal rules and issue-register requirements state this behavior. |
-| SFA-P0-FR-010 | `Sys4AI` shall include a spawn-ready role prompt skeleton that root AI agents can use to create specialist sub-agents. | Should | Inspection | Prompt skeleton exists and references target agentic system context. |
+| SFA-P0-FR-010 | `Sys4AI` shall include a spawn-ready role prompt skeleton that the Meta-Agent Runtime can use, when authorized and host-supported, to create specialist sub-agents. | Should | Inspection | Prompt skeleton references the framework, runtime, host, target-system, and authorization context. |
 | SFA-P0-FR-011 | `Sys4AI` shall define a universal handoff contract for artifacts and sub-agent outputs. | Must | Inspection | Handoff contract includes source artifacts, assumptions, open issues, traceability, and next role. |
 | SFA-P0-FR-012 | `Sys4AI` shall include domain-specialist review hooks for specialized target domains. | Should | Inspection | Domain Specialist role and domain coverage table are present. |
 | SFA-P0-FR-013 | `Sys4AI` shall include security, safety, privacy, and compliance review hooks for sensitive or high-impact target agentic systems. | Must | Inspection | Reviewer role and control-mapping responsibilities are defined. |
@@ -516,17 +538,17 @@ The following detailed requirements are binding refinements of the core requirem
 | SFA-P0-NFR-001 | The framework shall be domain-agnostic while allowing domain-specific constraints and specialist review. | Must | Inspection | Domain-specific requirements are isolated from core lifecycle rules. |
 | SFA-P0-NFR-002 | The framework shall be modular enough for simple target agentic systems and robust enough for complex, regulated, or scientific systems. | Must | Review | Minimal and robust role sets are defined. |
 | SFA-P0-NFR-003 | The framework shall favor explicit, testable, traceable requirements over loose prose. | Must | Inspection | Requirement templates include IDs, sources, rationale, priority, verification, and acceptance criteria. |
-| SFA-P0-NFR-004 | The framework shall be usable by AI agents without requiring unstated human interpretation. | Must | Simulation | A root AI agent can identify next role, required inputs, required outputs, and stop conditions from the PRD. |
+| SFA-P0-NFR-004 | The framework shall be usable by authorized AI runtime actors without requiring unstated human interpretation. | Must | Simulation | The Meta-Agent Runtime can identify the next role, required inputs, required outputs, authorization boundary, and stop conditions from controlled evidence. |
 | SFA-P0-NFR-005 | The framework shall preserve human oversight for ambiguous, risky, high-impact, or approval-bound decisions. | Must | Review | Open issue ownership and sign-off records are required where decisions are unresolved or sensitive. |
 | SFA-P0-NFR-006 | The framework shall be maintainable through stable IDs, artifact registries, versioning, and change-control notes. | Must | Inspection | ID scheme, artifact registry, and change-control sections are defined. |
 | SFA-P0-NFR-007 | The framework shall support future runtime monitoring, evaluation, improvement, and maintenance requirements. | Should | Inspection | Lifecycle and runtime-planning sections include these concerns without implementing them in Phase 0. |
 | SFA-P0-NFR-008 | The framework shall avoid coupling Phase 0 to a specific runtime, repository layout, orchestration engine, or vendor. | Must | Inspection | Phase 0 non-scope excludes implementation substrate decisions. |
 | SFA-P0-NFR-009 | The framework shall preserve source-first authority by preventing generated retrieval surfaces from silently becoming normative. | Must | Review | Universal rules and CKMSRA require retrieval surfaces to trace back to canonical sources or registries. |
-| SFA-P0-NFR-010 | The framework shall support resumability through tracked state, handoffs, bounded work units, and completion evidence. | Must | Simulation | A root AI agent can determine the lawful next action from state, handoff, and AgentJob records. |
+| SFA-P0-NFR-010 | The framework shall support resumability through tracked state, handoffs, bounded work units, and completion evidence. | Must | Simulation | An authorized runtime actor can determine the lawful next action from registered state and evidence without inferring authority from model identity. |
 | SFA-P0-NFR-011 | The framework shall make stale context detectable and recoverable. | Must | Inspection | Memory preflight, source verification, and derivative regeneration requirements are defined. |
 | SFA-P0-NFR-012 | The framework shall avoid coupling Phase 0 to a specific memory database, wiki engine, SVC provider, orchestration engine, or LLM vendor. | Must | Inspection | CLRA, CKMSRA, and SVCDA define requirements while deferring concrete tooling to Phase 1. |
 | SFA-P0-NFR-013 | The framework shall be auditable after long interruptions or multiple agent handoffs. | Must | Scenario review | Artifact registry, trace ledger, handoff contract, AgentJob contract, and completion receipts preserve source and decision history. |
-| SFA-P0-NFR-014 | The framework shall make structured artifact authority inspectable by agents and humans. | Must | Simulation | A root agent can determine whether a YAML, TOML, CSV, Markdown, or JSON Schema artifact is canonical, controlled, derivative, stale, or invalid. |
+| SFA-P0-NFR-014 | The framework shall make structured artifact authority inspectable by agents and humans. | Must | Simulation | An authorized runtime actor can determine whether a YAML, TOML, CSV, Markdown, or JSON Schema artifact is canonical, controlled, derivative, stale, or invalid. |
 | SFA-P0-NFR-015 | The framework shall minimize parser and schema dependencies while preserving deterministic validation. | Should | Architecture review | Phase 1 dependency policy separates lightweight parser/validator dependencies from heavy runtime services. |
 | SFA-P0-NFR-016 | The framework shall prevent configuration/control/security drift caused by unregistered structured files. | Must | Validation review | Validators detect unregistered governed YAML/TOML/JSON Schema files in controlled roots. |
 | SFA-P0-NFR-017 | The framework shall keep generated reader surfaces subordinate to registered sources, registries, and validation contracts. | Must | Inspection | Generated wiki/catalog policy states non-canonical status and promotion workflow. |
@@ -537,9 +559,11 @@ The following detailed requirements are binding refinements of the core requirem
 
 ```mermaid
 flowchart TD
-    U[Human user or sponsor] --> R[Root AI agent]
-    R --> SFA[Sys4AI framework]
-    SFA --> D[System Director]
+    U["Authorized human user or sponsor"] -->|authorizes bounded work| M["Sys4AI Meta-Agent Runtime"]
+    F["Sys4AI Framework Product"] -->|governed methods and assets| M
+    H["Codex App Host Harness"] -->|verified execution capabilities and limits| M
+    H -->|platform policy and permissions bind| M
+    M -->|applies framework under authorization| D["System Director role"]
     D --> P0[Phase 0: Product and system-design baseline]
     P0 --> RDR[Requirements Discovery Record]
     RDR --> USRD[User System Requirements Document]
@@ -550,13 +574,14 @@ flowchart TD
     P0 --> RARD[Reconciled Architecture Requirements Document]
     P0 --> SRP[System Requirements Package]
     SRP --> P1[Phase 1: Implementation Initialization]
-    P1 --> TAS[Target agentic system]
+    P1 --> TAS["Target AI Agent or Target Agentic System"]
+    M -->|stewards as a separate system of interest| TAS
     TAS --> RUN[Run, observe, improve, maintain]
     RUN --> CHANGE[Change requests and evidence]
     CHANGE --> D
 ```
 
-The diagram separates `Sys4AI` from the target agentic system. `Sys4AI` is the framework used by the root AI agent. The target agentic system is the system being produced, run, improved, or maintained.
+The diagram separates the framework product, executable runtime, host harness, and target system. The runtime applies the framework within human and host authorization. The target is not a component of Sys4AI authority: it remains a separate system of interest with target-specific purpose, data, approvals, and operating boundaries.
 
 Every serious target agentic system should be analyzed as cooperating subsystems. Phase 0 does not implement these subsystems, but it must determine their requirements when the target system is expected to run, improve, or be maintained over time.
 
@@ -761,7 +786,7 @@ For a serious reusable target agentic system, include the support roles triggere
 | RSRD | Reconciled system requirements after user intent and technical derivation are aligned. | Reconciliation Analyst | Reconciled Architect, Final Packager |
 | RARD | Reconciled architecture baseline aligned to RSRD. | Reconciled Architect | Final Packager |
 | SRP | Final implementation-ready system requirements package for the target agentic system. | Final System Requirements Packager | Phase 1 Implementation Initialization |
-| `design-phase-readiness-report.md` | Phase 0 closure report with readiness, risks, unresolved items, and Phase 1 handoff notes. | System Director | Human sponsor, root AI agent, Phase 1 |
+| `design-phase-readiness-report.md` | Phase 0 closure report with readiness, risks, unresolved items, and Phase 1 handoff notes. | System Director | Human sponsor, Meta-Agent Runtime, Phase 1 |
 | CLRA | Defines `/continue`, tracked state, handoffs, AgentJob boundaries, role binding, completion receipts, validators, checkpoint expectations, and stop conditions. | System Architect, System Engineer, Control Loop and AgentJob Planner | Final Packager, Phase 1 |
 | CKMSRA | Defines source-first memory, canonical sources, registries, context preflight, retrieval surfaces, generated wikis, derivative artifacts, and stale-context rules. | Context, Memory, and Knowledge Architect | Architect, Engineer, Phase 1 |
 | SVCDA | Defines markdown-like sources, SVC expectations, supersession, generated derivative governance, PDF/TeX/HTML/wiki policies, and release evidence. | Documentation Librarian, SVC and Documentation Surface Architect | Final Packager, Phase 1 |
@@ -1030,8 +1055,9 @@ authority_changes:
 You are the <ROLE NAME> for Sys4AI.
 
 Framework context:
-- Sys4AI is a domain-agnostic system development and management framework for AI agents.
-- It enables a root AI agent to design, develop, run, improve, and maintain target agentic systems for specific use cases.
+- Sys4AI is a Meta-Agentic AI Framework System comprising a governed framework product and an executable Meta-Agent Runtime.
+- The runtime acts only within the authorized user's scope and the verified host permission envelope.
+- The host harness and each target AI agent or target agentic system remain distinct systems with separate authority boundaries.
 
 Target agentic system context:
 - Name: <TARGET SYSTEM NAME OR TBD>
@@ -1086,7 +1112,7 @@ Return:
 
 | Use case | Phase 0 responsibility |
 |---|---|
-| Greenfield target agentic system | Guide root AI agent from user intent through requirements, architecture, technical packaging, and implementation readiness. |
+| Greenfield target agentic system | Guide the authorized user and Meta-Agent Runtime from user intent through requirements, architecture, technical packaging, and implementation readiness. |
 | Brownfield target agentic system improvement | Analyze current state, preserve what works, identify risks, reconcile requirements, and produce an improvement plan. |
 | Agentic-system operation and maintenance | Capture requirements for monitoring, evaluation, issue handling, safety controls, prompt/tool updates, regression checks, and change control. |
 | Agentic AI software harness | Require SRP to define LLM, tool, state, memory, policy, user-interface, and control-loop boundaries. |
@@ -1139,8 +1165,8 @@ Phase 0 is complete when:
 | ID | Acceptance criterion | Evidence |
 |---|---|---|
 | SFA-P0-AC-001 | The product is named `Sys4AI` and former `sys-dev-for-ai` wording is retained only as historical context. | Document inspection. |
-| SFA-P0-AC-002 | The PRD clearly states that `Sys4AI` is a framework for AI agents to create and manage target agentic systems. | Executive summary and core product statement. |
-| SFA-P0-AC-003 | The PRD distinguishes `Sys4AI`, the root AI agent, and the target agentic system. | Definitions and conceptual model. |
+| SFA-P0-AC-002 | The PRD contains exactly one canonical product statement defining `Sys4AI` as a Meta-Agentic AI Framework System whose Codex-hosted runtime works with an authorized user. | Executive summary and `DDR-SFADEV-STRATEGIC-BASELINE-001`. |
+| SFA-P0-AC-003 | The PRD distinguishes the Sys4AI Framework Product, Sys4AI Meta-Agent Runtime, Codex App Host Harness, and each Target AI Agent or Target Agentic System, and keeps `subject_layer` independent from `runtime_actor`. | Definitions, core identity requirements, and conceptual model. |
 | SFA-P0-AC-004 | The System Design phase role pipeline is defined with artifact outputs and gates. | Pipeline diagram and spawn sequence table. |
 | SFA-P0-AC-005 | The artifact catalog includes USRD, SRD, ARD, TRP, RSRD, RARD, and SRP. | Artifact catalog. |
 | SFA-P0-AC-006 | The PRD includes traceability, issue handling, verification, and handoff rules. | Universal rules, ID scheme, handoff contract. |
@@ -1171,7 +1197,7 @@ Phase 0 is complete when:
 
 | ID | Risk | Impact | Mitigation |
 |---|---|---|---|
-| SFA-P0-RISK-001 | The framework may be confused with the target agentic system. | Agents may produce artifacts at the wrong level. | Require every artifact to distinguish framework context from target agentic system context. |
+| SFA-P0-RISK-001 | The framework product, Meta-Agent Runtime, host harness, or target system may be conflated. | Actors may infer authority, capability, or evidence at the wrong boundary. | Require applicable artifacts to declare the distinct object boundary, `subject_layer`, `runtime_actor`, and target-specific authority. |
 | SFA-P0-RISK-002 | The framework may become too generic to guide implementation. | Phase 1 agents may lack actionable details. | Preserve artifact contracts, role outputs, ID schemes, and verification hooks. |
 | SFA-P0-RISK-003 | AI agents may invent missing domain facts. | Requirements, architecture, or implementation may be unsound. | Use explicit TBD, TBR, assumptions, open issues, and Domain Specialist review. |
 | SFA-P0-RISK-004 | Safety and compliance may be bolted on too late. | High-impact target agentic systems may be unsafe or noncompliant. | Include Security, Safety, Privacy, and Compliance Reviewer early when triggers apply. |
@@ -1256,3 +1282,11 @@ Expected Phase 1 starting concerns include:
 | 2026-07-05 | Promoted this file to canonical Phase 0 baseline and merged July 3 detail. | Eliminates competing Phase 0 authorities while preserving role pipeline, artifact structures, CLRA/CKMSRA/SVCDA detail, risks, and acceptance criteria. |
 | 2026-07-06 | Added core file-format memory profile requirements for Markdown, CSV, YAML, TOML, and JSON Schema. Added Configuration and Control Wiki and Validation Contracts Catalog requirements. Clarified that JSON Schema uses a validation catalog rather than a standalone JSON wiki by default. | Extends source-first memory architecture with governed configuration, control, registry, and validation-contract profiles. |
 | 2026-07-07 | Added system-layer classification, discovery-gate, RDR, self-hosting, role-governance, and skill-lifecycle requirements. | Establishes requirement authority before registry/schema expansion and runtime-skill implementation. |
+| 2026-07-09 | Migrated the approved four-object identity and canonical product statement; added `SFA-CORE-ID-004` through `007`, the independent runtime-actor distinction, execution-claim guardrail, and updated identity acceptance evidence. | Implements `TX-03-P0-IDENTITY` under `DDR-SFADEV-STRATEGIC-BASELINE-001` without approving candidate vision or core values or claiming runtime implementation. |
+
+### 20.1 Identity-migration provenance
+
+- AngryOwlAI. (2026, July 9). *DDR-SFADEV-STRATEGIC-BASELINE-001: Sys4AI strategic-baseline identity and execution-model decision* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml`.
+- AngryOwlAI. (2026, July 9). *Sys4AI strategic-baseline migration requirements discovery record* [Requirements Discovery Record]. `Sys4AI/control_records/system_definition/strategic_baseline_migration_requirements_discovery_record.md`.
+- AngryOwlAI. (2026, July 9). *Sys4AI-dev strategic baseline migration full implementation plan* [Implementation plan]. `implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md`.
+- AngryOwlAI. (2026, July 3). *Sys4AI Phase 0 PRD* [Historical product requirements document]. `PRDs/Sys4AI_phase-0_prd.md`.
