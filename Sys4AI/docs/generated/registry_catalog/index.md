@@ -74,7 +74,7 @@ This generated page indexes registered CSV registries. It is a navigation surfac
 | registries/role_skill_crosswalk.csv | SRC-REG-ROLE-SKILL-CROSSWALK | role_skill_crosswalk | controlled | 43 | implementation_initialization |
 | registries/skill_lifecycle_status_registry.csv | SRC-REG-SKILL-LIFECYCLE | skill_lifecycle_status_registry | controlled | 8 | implementation_initialization |
 | registries/skill_registry.csv | SRC-PRODUCT-SKILL-REGISTRY | skill_registry | controlled | 32 | skill_governance |
-| registries/source_registry.csv | SRC-REG-SOURCES | source_registry | controlled | 367 | implementation_initialization |
+| registries/source_registry.csv | SRC-REG-SOURCES | source_registry | controlled | 368 | implementation_initialization |
 | registries/system_layer_registry.csv | SRC-REG-SYSTEM-LAYERS | system_layer_registry | controlled | 5 | implementation_initialization |
 | registries/validation_contract_registry.csv | SRC-REG-VALIDATION-CONTRACTS | validation_contract_registry | controlled | 33 | implementation_initialization |
 

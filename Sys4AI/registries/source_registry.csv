@@ -366,3 +366,4 @@ SRC-HANDOFF-NEXT-SCOPE-ACCEPTANCE-001,Sys4AI/control_records/handoffs/HANDOFF-SF
 SRC-NEXT-SCOPE-COMPLETION-RECEIPT-001,implementation_plans/completion_receipts/CR-SFADEV-NEXT-SCOPE-IMPLEMENTED-001.md,completion_report,controlled,framework_product,2026-07-08,Final acceptance report for the next-scope implementation plan.
 SRC-NEXT-SCOPE-COMPLETION-AUDIT-001,implementation_plans/completion_audits/PLAN-COMPLETION-AUDIT-SFADEV-26.md,completion_audit,controlled,framework_product,2026-07-08,Plan completion audit for WS15 through WS26.
 SRC-TEMP-HANDOFF-0036,temp_handoff/handoff-0036.md,temporary_handoff,controlled,control_loop,2026-07-08,Human-readable temporary handoff for AJ26 closeout.
+SRC-STRATEGIC-BASELINE-WS00-RECEIPT,implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-WS00-001.md,baseline_completion_receipt,controlled,implementation_initialization,2026-07-09,Controlled TX-00 baseline evidence for the strategic semantic-baseline migration.
