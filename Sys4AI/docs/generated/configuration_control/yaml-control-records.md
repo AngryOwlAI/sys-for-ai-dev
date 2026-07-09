@@ -190,6 +190,7 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_next_scope_acceptance_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_next_scope_acceptance_completion | control_records/completions/RECEIPT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml | completion_receipt_v0_2 | controlled | framework_product | contract_completion_receipt_v0_2 | pending |
 | ctrl_next_scope_acceptance_handoff | control_records/handoffs/HANDOFF-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001.yaml | handoff_v0_2 | controlled | framework_product | contract_handoff_v0_2 | pending |
+| ctrl_strategic_baseline_director_decision | control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml | director_decision | controlled | framework_product | contract_director_decision | pending |
 
 ## Validation Contract Trace
 
