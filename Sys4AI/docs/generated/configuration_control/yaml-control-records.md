@@ -202,6 +202,10 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx10_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-10-ACTIVE-SURFACE-MIGRATION-20260710T135843Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx10_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001.yaml | completion_receipt | controlled | bounded_execution_planner | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx10_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001.yaml | handoff | controlled | bounded_execution_planner | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_tx11_execution_transaction | control_records/execution_transactions/TX-11-TRACE-SCHEMA.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx11_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-11-TRACE-SCHEMA-20260710T142714Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx11_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX11-001.yaml | completion_receipt | controlled | trace_owner | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx11_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX11-001.yaml | handoff | controlled | trace_owner | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 

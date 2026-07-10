@@ -34,6 +34,7 @@ from .walking_skeleton import (
     write_walking_skeleton_flow_report,
 )
 from .target_package import target_package_status, validate_target_package
+from .trace_migration import validate_requirement_trace_migration
 from .validators import (
     ValidationResult,
     print_result,
@@ -314,6 +315,20 @@ def build_parser() -> argparse.ArgumentParser:
     validate_trace.add_argument("--phase0-prd", default="PRDs/Sys4AI_phase-0_product_system_design_prd.md")
     validate_trace.add_argument("--phase1-prd", default="PRDs/Sys4AI_phase-1_implementation_initialization_prd.md")
 
+    validate_trace_migration = sub.add_parser(
+        "validate-requirement-trace-migration",
+        help="Dry-run the generalized requirement-trace row migration without writing data",
+    )
+    validate_trace_migration.add_argument(
+        "path",
+        default="registries/requirement_trace_registry.csv",
+        nargs="?",
+    )
+    validate_trace_migration.add_argument(
+        "--schema",
+        default="schemas/contracts/requirement_trace_registry_row.schema.json",
+    )
+
     validate_prd_module_rows = sub.add_parser("validate-prd-modules", help="Validate PRD module registry rows")
     validate_prd_module_rows.add_argument("path", default="registries/prd_module_registry.csv", nargs="?")
 
@@ -474,6 +489,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "validate-requirement-trace":
         return print_result(validate_requirement_trace(args.path, args.phase0_prd, args.phase1_prd))
 
+    if args.command == "validate-requirement-trace-migration":
+        return print_result(validate_requirement_trace_migration(args.path, args.schema))
+
     if args.command == "validate-prd-modules":
         return print_result(validate_prd_modules(args.path))
 
@@ -520,6 +538,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_registry_graph(args.registries))
         result.extend(validate_capability_migration(args.capability_migration_manifest))
         result.extend(validate_requirement_trace(args.requirement_trace))
+        result.extend(validate_requirement_trace_migration(args.requirement_trace))
         result.extend(validate_prd_modules(args.prd_modules))
         result.extend(check_governance_generated_docs())
         result.extend(validate_generated_derivatives(args.generated_docs, "registries/derivative_registry.csv"))

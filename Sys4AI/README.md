@@ -33,6 +33,7 @@ make validate-jsonschema-contracts
 make validate-registry-graph
 make validate-capability-migration
 make validate-requirement-trace
+make validate-requirement-trace-migration
 make validate-generated-derivatives
 make validate
 .venv/bin/python -m sys_for_ai.cli validate-discovery-record <path>

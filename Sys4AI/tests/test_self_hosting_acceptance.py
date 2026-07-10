@@ -21,11 +21,11 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001",
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX11-001",
             state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001",
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX11-001",
             state["latest_handoff_evidence_id"],
         )
         self.assertEqual("ready", state["continuation_state"])
@@ -34,6 +34,8 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
 
         handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")
         completion_rows = _rows(PRODUCT_ROOT / "registries/completion_receipt_registry.csv", "completion_receipt_id")
+        self.assertIn(state["latest_closeout_evidence_id"], completion_rows)
+        self.assertIn(state["latest_handoff_evidence_id"], handoff_rows)
         self.assertIn("RECEIPT-P1-SELFHOST-ACCEPTANCE-001", completion_rows)
         self.assertIn("RECEIPT-SYS4AI-DEV-NAME-MIGRATION-001", completion_rows)
         self.assertIn("RECEIPT-SFADEV-20-WALKING-SKELETON-FLOW-001", completion_rows)

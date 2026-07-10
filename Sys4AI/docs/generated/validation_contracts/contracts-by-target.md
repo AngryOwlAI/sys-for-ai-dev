@@ -149,7 +149,7 @@ Validation contracts prove structural conformance only. They do not prove semant
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_requirement_trace_registry_row | schemas/contracts/requirement_trace_registry_row.schema.json | 2020-12 | csv | requirement_trace_registry_row | registries/requirement_trace_registry.csv | Sys4AI validate-requirement-trace | implementation_initialization | controlled | pending | pending |
+| contract_requirement_trace_registry_row | schemas/contracts/requirement_trace_registry_row.schema.json | 2020-12 | csv | requirement_trace_registry_row | registries/requirement_trace_registry.csv | Sys4AI validate-requirement-trace;Sys4AI validate-requirement-trace-migration | implementation_initialization | controlled | pending | pending |
 
 ## csv / role_execution_binding_registry_row
 

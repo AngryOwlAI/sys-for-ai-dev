@@ -1,0 +1,34 @@
+handoff_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX11-001
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+producing_execution_transaction_id: TX-11-TRACE-SCHEMA
+next_execution_transaction_id: TX-12-TRACE-DATA
+status: ready
+producing_role: trace_owner
+recommended_next_role: trace_owner
+summary: TX-11 closes with a versioned generalized row contract and a reversible 214-row dry-run; TX-12 alone may migrate and semantically review the trace CSV.
+source_ids:
+- SRC-STRATEGIC-BASELINE-MIGRATION-PLAN
+- SRC-CONTRACT-REQUIREMENT-TRACE-ROW
+- SRC-TRACE-SCHEMA-MIGRATION-PROFILE
+- SRC-VALIDATOR-TRACE-MIGRATION
+- SRC-REG-REQ-TRACE
+- SRC-STRATEGIC-BASELINE-TX11-RECEIPT
+closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX11-001
+current_state_evidence:
+- Sys4AI/control_records/program_state.yaml
+- TX11-TRACE-MIGRATION-DRY-RUN-PASS
+- TX11-LEGACY-SHA256-95E59C
+validation_evidence:
+  trace_migration_dry_run: PASS_214_ROWS_AND_ID_PARITY
+  trace_registry_write_count: ZERO
+  focused_tests: PASS_18_OF_18
+  product_suite: PASS_137_OF_137
+  root_suite: PASS
+  generated_derivatives: PASS
+stop_conditions:
+- TX-12 must preserve all 214 trace IDs and requirement IDs and retain exact rollback evidence.
+- TX-12 must replace provisional states through accountable semantic review rather than mechanical promotion.
+- Do not begin TX-13 before TX-12 closes with count ID and semantic-review evidence.
+- Do not treat schema conformance or existing paths as proof of current or operational capability.
+- Do not modify accepted historical control records.
