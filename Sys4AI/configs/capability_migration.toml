@@ -4,7 +4,7 @@ manifest_version = "2.0.0"
 schema_path = "Sys4AI/schemas/contracts/capability_migration.schema.json"
 gate_id = "G-05"
 mode = "post_tx10"
-reviewed_head_commit = "0bf38b6acebf5839de61a5f05adb8e84c751c91b"
+reviewed_head_commit = "d03c51935f52abc4da966b43a968fb0139f6135d"
 owner = "baseline_change_manager"
 replacement_capability = "ExecutionTransaction"
 legacy_terms = [
@@ -66,6 +66,14 @@ paths = [
   "Sys4AI/tests/test_active_surface_migration.py",
   "Sys4AI/tests/test_execution_transactions.py",
   "Sys4AI/tests/test_skill_surfaces.py",
+  "Sys4AI/sys_for_ai/trace_migration.py",
+  "Sys4AI/docs/requirement_trace_schema_v2_migration.md",
+  "Sys4AI/docs/requirement_trace_semantic_review_tx12.md",
+  "Sys4AI/control_records/execution_transactions/TX-12-TRACE-DATA.yaml",
+  "Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-12-TRACE-DATA-20260710T145240Z.yaml",
+  "Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX12-001.yaml",
+  "Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX12-001.yaml",
+  "implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX12-001.md",
 ]
 path_globs = []
 disposition = "Retired terms are used only to define migration controls, negative tests, or explicit absence; they do not assert capability."
@@ -73,9 +81,9 @@ owner = "baseline_change_manager"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "none"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 6
-expected_references = 116
-expected_inventory_sha256 = "6c1d13b8fb6729dfe88c09f23035d178b131dfce0064b51e985e854e7e86493c"
+expected_files = 12
+expected_references = 130
+expected_inventory_sha256 = "e7befcb917522c3d8c12ffd5c98ae5840fa8c0ff6384c76be7d560dfc48269e2"
 
 [[classifications]]
 classification_id = "canonical_legacy_context"
@@ -170,19 +178,19 @@ expected_references = 34
 expected_inventory_sha256 = "7e350f2e78ea9216a037e9a59f3f08b89e6bf5d269dbce4d99266bc4918af4c2"
 
 [[classifications]]
-classification_id = "trace_migration_deferred"
+classification_id = "trace_migration_reviewed"
 priority = 20
-state = "authority_deferred"
+state = "active_valid"
 paths = ["Sys4AI/registries/requirement_trace_registry.csv"]
 path_globs = []
-disposition = "Quarantine legacy capability and evidence claims until the versioned trace dry-run and data migration preserve count, ID, and review evidence."
+disposition = "TX-12 reviewed generalized capability and evidence states while compatibility columns retain retired terms only for exact rollback and historical provenance."
 owner = "trace_owner"
 replacement_capability = "generalized capability and evidence states"
-blocking_transaction = "TX-11-TRACE-SCHEMA;TX-12-TRACE-DATA"
-allowed_modes = ["pre_tx10", "post_tx10"]
+blocking_transaction = "none"
+allowed_modes = ["post_tx10"]
 expected_files = 1
-expected_references = 58
-expected_inventory_sha256 = "19d5ecd94f8361ae1f43b928314584883647a29db232d108d7476a76102a0e65"
+expected_references = 62
+expected_inventory_sha256 = "08415a51f2503214c4aa0fd70cfee7471a21b8eb2701b15b2be46be3108086b0"
 
 [[classifications]]
 classification_id = "phase2_authority_deferred"

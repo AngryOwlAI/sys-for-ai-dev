@@ -39,7 +39,7 @@ BACKTICK_REQUIREMENT_RE = re.compile(rf"^\s*`(?P<id>{REQUIREMENT_ID_PATTERN})`\s
 TABLE_REQUIREMENT_RE = re.compile(rf"^\|\s*(?P<id>{REQUIREMENT_ID_PATTERN})\s*\|")
 PHASE0_REQUIREMENT_PREFIXES = ("SFA-CORE-", "SFA-P0-FR-", "SFA-P0-NFR-")
 PHASE1_REQUIREMENT_PREFIX = "SFA-P1-INIT-"
-TRACE_COVERAGE_STATUSES = {"covered", "partial", "deferred", "not_applicable"}
+TRACE_COVERAGE_STATUSES = {"missing", "covered", "partial", "not_applicable"}
 TRACE_CLASSES = {"implemented", "scaffolded", "deferred", "out_of_phase"}
 TRACE_CLASSES_BY_COVERAGE = {
     "covered": {"implemented"},
@@ -224,15 +224,31 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "notes",
     ],
     "requirement_trace_registry.csv": [
+        "schema_version",
         "trace_id",
+        "requirement_id",
+        "requirement_source_id",
+        "requirement_lifecycle",
+        "applicability_status",
+        "coverage_status",
+        "capability_status",
+        "verification_status",
+        "verification_waiver_id",
+        "evidence_status",
+        "implementation_artifacts",
+        "validation_evidence",
+        "evidence_paths",
+        "semantic_review_owner",
+        "semantic_review_date",
+        "semantic_review_verdict",
+        "supersedes",
         "phase0_selector",
         "phase0_source",
-        "coverage_status",
+        "legacy_coverage_status",
         "trace_class",
         "semantic_justification",
-        "semantic_review_verdict",
+        "legacy_semantic_review_verdict",
         "phase1_selectors",
-        "evidence_paths",
         "notes",
     ],
     "prd_module_registry.csv": [
@@ -789,6 +805,9 @@ def validate_requirement_trace(
 
     coverage: dict[str, list[str]] = {requirement_id: [] for requirement_id in phase0_ids}
     trace_class_counts: Counter[str] = Counter()
+    capability_status_counts: Counter[str] = Counter()
+    verification_status_counts: Counter[str] = Counter()
+    evidence_status_counts: Counter[str] = Counter()
     semantic_review_counts: Counter[str] = Counter()
     rows = read_registry_rows(target)
     for row in rows:
@@ -807,6 +826,9 @@ def validate_requirement_trace(
                     f"{target}: {trace_id}: trace_class {trace_class!r} does not match "
                     f"coverage_status {status!r}"
                 )
+        capability_status_counts[row.get("capability_status", "")] += 1
+        verification_status_counts[row.get("verification_status", "")] += 1
+        evidence_status_counts[row.get("evidence_status", "")] += 1
         semantic_justification = row.get("semantic_justification", "").strip()
         if status == "partial" and not semantic_justification:
             messages.append(f"{target}: {trace_id}: partial row requires semantic_justification")
@@ -829,7 +851,9 @@ def validate_requirement_trace(
                 "semantic_review_verdict"
             )
 
-        phase0_selectors = _split_selectors(row.get("phase0_selector", ""))
+        phase0_selectors = _split_selectors(
+            row.get("requirement_id", "") or row.get("phase0_selector", "")
+        )
         if not phase0_selectors:
             messages.append(f"{target}: {trace_id}: missing phase0_selector")
         elif len(phase0_selectors) != 1:
@@ -890,10 +914,17 @@ def validate_requirement_trace(
             f"{target}: requirement trace validation passed "
             f"({len(phase0_ids)} Phase 0 requirements traced by explicit rows; "
             f"{len(phase1_ids)} Phase 1 requirements indexed; "
-            f"trace classes: {_format_trace_class_counts(trace_class_counts)}; "
+            f"legacy trace classes: {_format_trace_class_counts(trace_class_counts)}; "
+            f"capability: {_format_named_counts(capability_status_counts)}; "
+            f"verification: {_format_named_counts(verification_status_counts)}; "
+            f"evidence: {_format_named_counts(evidence_status_counts)}; "
             f"semantic review: {_format_semantic_review_counts(semantic_review_counts)})"
         ],
     )
+
+
+def _format_named_counts(counts: Counter[str]) -> str:
+    return ", ".join(f"{name}={counts[name]}" for name in sorted(counts) if name)
 
 
 def _format_trace_class_counts(counts: Counter[str]) -> str:

@@ -2,7 +2,7 @@
 
 ## Authority and boundary
 
-This controlled profile prepares `TX-11-TRACE-SCHEMA`. It defines the generalized row contract and a deterministic migration dry-run. It does not modify `registries/requirement_trace_registry.csv`, complete `TX-12-TRACE-DATA`, perform semantic review, or satisfy the broader `TX-13-VALIDATORS` obligations.
+This controlled profile records the `TX-11-TRACE-SCHEMA` preparation and the completed `TX-12-TRACE-DATA` migration. The generalized row contract, deterministic dry-run, atomic writer, exact reverse mapping, reviewed CSV, and row-by-row review evidence are current. The broader `TX-13-VALIDATORS` obligations remain open.
 
 The live pre-migration baseline is the registry content at TX-11 execution time. The dry-run records its SHA-256 digest, row count, trace-ID set, and requirement-ID set rather than relying on the plan's older row-count estimate.
 
@@ -41,7 +41,7 @@ The TX-11 dry-run uses the following conservative provisional mappings:
 | `trace_class` | `capability_status` | `implemented -> scaffolded`, `scaffolded -> scaffolded`, `deferred -> absent`, `out_of_phase -> absent` |
 | `evidence_paths` | `evidence_paths` | Exact copy; existence alone does not establish current evidence |
 
-Every dry-run row is provisionally `requirement_lifecycle=proposed`, `applicability_status=not_reviewed`, `verification_status=not_run`, `evidence_status=missing`, and `semantic_review_verdict=not_reviewed`. These values prevent mechanical migration from overstating current authority, optional-profile treatment, implementation, verification, or evidence. TX-12 must replace provisional values through accountable semantic review.
+Every TX-11 dry-run row was provisionally `requirement_lifecycle=proposed`, `applicability_status=not_reviewed`, `verification_status=not_run`, `evidence_status=missing`, and `semantic_review_verdict=not_reviewed`. Those values prevented mechanical migration from overstating current authority, optional-profile treatment, implementation, verification, or evidence. TX-12 replaced all five provisional dimensions through accountable semantic review.
 
 The legacy selector, source, coverage, trace class, semantic justification, semantic-review verdict, Phase 1 selectors, evidence paths, and notes remain recoverable. The dry-run reverses every generalized row and compares it to the exact legacy input.
 
@@ -58,10 +58,25 @@ The legacy selector, source, coverage, trace class, semantic justification, sema
 - A completed semantic review requires an owner and date; `not_reviewed` requires an empty date.
 - Generated derivatives cannot become sole canonical or operational evidence merely by satisfying the row schema.
 
-## TX-12 promotion obligations
+## TX-12 semantic-review result
 
-TX-12 must migrate the CSV header and every row atomically, preserve all existing trace and requirement IDs, review all provisional states, add exact implementation and validation evidence where claimed, and report state-dimension counts. It must not leave an old row under the new header or a new row under the old header.
+TX-12 migrated the CSV header and every row atomically. All 214 trace IDs, requirement IDs, legacy fields, evidence paths, and row order are preserved. Compatibility columns reconstruct the exact TX-11 SHA-256 `95e59cf5befc4f9fd29d857d1f609a4c0d2c321c1b3adf1efca1a69cdb01b28c`; the reviewed generalized CSV SHA-256 is `b76dd57a8e5be11703213e57661690d7219e3a62eec9971fea633328e9003f97`.
+
+Reviewed counts:
+
+- lifecycle: 214 `active`;
+- applicability: 214 `required`;
+- coverage: 79 `covered`, 135 `partial`;
+- capability: 72 `implemented`, 137 `scaffolded`, 5 `absent`, and zero `operational`;
+- verification: 14 `pass`, 200 `planned`;
+- evidence: 214 `current`;
+- semantic review: 207 `sufficient`, 7 `needs_evidence`, zero `not_reviewed`; and
+- retired-runtime compatibility evidence: 32 rows, classified as historical evidence only.
+
+`docs/requirement_trace_semantic_review_tx12.md` records the review method, explicit gaps, state counts, and all 214 row dispositions. Exact implementation and validation paths remain in the controlled trace row rather than being duplicated as a second authority source.
+
+The seven `needs_evidence` rows were legacy `implemented` mappings with no exact current implementation artifact. They were demoted to `scaffolded` and `planned`. File existence, generated output, and historical AgentJob or `/continue` evidence were not treated as operational proof.
 
 ## Rollback
 
-Before TX-12 writes data, retain the TX-11 SHA-256 baseline and deterministic reverse mapping. Rollback must restore the schema, header, all rows, validator behavior, tests, registries, and generated readers as one packet. Activated historical evidence is never rewritten as part of either direction.
+The TX-11 SHA-256 baseline and deterministic reverse mapping remain retained after the write. Rollback must restore the schema, header, all rows, validator behavior, tests, registries, and generated readers as one packet. Activated historical evidence is never rewritten as part of either direction.
