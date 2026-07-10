@@ -31,7 +31,15 @@ class SafetyEvaluationTests(unittest.TestCase):
 
         self.assertTrue(result.ok, result.messages)
         self.assertTrue(any("scenarios=24 positive=3 negative=17 conflict=4" in item for item in result.messages))
-        self.assertTrue(any("TX-18" in item and "G-07" in item and "G-08" in item for item in result.messages))
+        self.assertTrue(
+            any(
+                "TX-17 snapshot" in item
+                and "TX-18" in item
+                and "current G-08 status" in item
+                and "G-07" in item
+                for item in result.messages
+            )
+        )
 
     def test_all_seven_assurance_artifacts_have_exact_ids(self) -> None:
         packet = load_yaml(PACKET)

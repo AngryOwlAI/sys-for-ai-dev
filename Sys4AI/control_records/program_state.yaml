@@ -6,22 +6,23 @@ system_context:
   target_system: Sys4AI
   self_hosting_mode: true
   reflection_depth: 1
-current_phase: strategic_baseline_migration_after_TX_17
+current_phase: strategic_baseline_migration_after_TX_18
 lifecycle_stage: test
 active_task_id: null
 active_director_decision_id: null
 active_execution_transaction_id: null
 execution_profile_id: portable_execution_transaction_v1
 current_state_evidence:
-- TX-17-SAFETY-EVALUATION
-- RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001
-- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+- TX-18-HUMAN-APPROVAL
+- DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+- RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001
+- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001
 continuation_state: ready
 cancellation_state: not_requested
 escalation_state: not_required
-latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001
-latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
-latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-17-SAFETY-EVALUATION-20260710T175106Z
+latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001
+latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001
+latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z
 capability_status_summary:
   portable_execution_contract: implemented
   current_state_model: implemented
@@ -29,25 +30,28 @@ capability_status_summary:
   removed_runtime_surfaces: absent
   broader_semantic_validation: implemented
   safety_evaluation_controls: implemented
-state_status: human_gated
-blocked_reason: Accountable human strategic approval remains pending at TX-18 and G-08.
-human_gate_required: true
+  strategic_approval: accepted_G_08
+state_status: active
+blocked_reason: null
+human_gate_required: false
 allowed_next_actions:
 - run_memory_preflight
 - inspect_latest_handoff
-- execute_TX_18_HUMAN_APPROVAL_only_after_TX_17_shared_baseline
+- execute_TX_19_MODULES_only_after_TX_18_shared_baseline
 blocked_actions:
 - execute_multiple_transactions_without_concurrency_authorization
 - use_chat_memory_as_authority
 - treat_generated_derivative_as_canonical
 - mutate_activated_control_record_without_supersession
 - treat_historical_execution_evidence_as_current_capability
-- begin_TX_19_before_G_08_acceptance
-- accept_self_change_without_TX_18_accountable_human_review
-- treat_TX_17_structural_or_holdout_validation_as_G_07_G_08_or_domain_acceptance
+- begin_TX_19_before_TX_18_shared_baseline
+- begin_TX_20_before_TX_19_closes
+- treat_TX_17_structural_or_holdout_validation_as_G_07_or_domain_acceptance
+- use_G_08_approval_to_expand_permissions
+- claim_broad_stakeholder_consensus_or_domain_truth_from_G_08
 - claim_production_readiness_or_operational_authority
 validation_status:
-  last_validated_at: '2026-07-10T18:24:59Z'
+  last_validated_at: '2026-07-10T19:10:56Z'
   validators:
   - make validate-program-state
   - make validate-capability-migration

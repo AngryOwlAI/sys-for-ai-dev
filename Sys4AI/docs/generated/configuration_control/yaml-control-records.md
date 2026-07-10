@@ -230,6 +230,11 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx17_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-17-SAFETY-EVALUATION-20260710T175106Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx17_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001.yaml | completion_receipt | controlled | security_safety_privacy_compliance_reviewer | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx17_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001.yaml | handoff | controlled | security_safety_privacy_compliance_reviewer | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_g08_director_decision | control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G08-001.yaml | director_decision | controlled | framework_product | contract_director_decision | pending |
+| ctrl_strategic_baseline_tx18_execution_transaction | control_records/execution_transactions/TX-18-HUMAN-APPROVAL.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx18_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx18_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001.yaml | completion_receipt | controlled | system_director | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx18_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001.yaml | handoff | controlled | system_director | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 

@@ -8,7 +8,7 @@
 **Supersedes:** `PRDs/Sys4AI_phase-0_prd.md` as an authoritative Phase 0 source.
 **Downstream dependency:** `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` consumes this file.
 **Identity authority:** `DDR-SFADEV-STRATEGIC-BASELINE-001`
-**Strategic-baseline state:** `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts the reviewed Phase 0 normative baseline for implementation and activates the complete lifecycle plus independent coordination-pattern and operational-maturity requirements. The vision and core-values content remains `candidate`, its strategic requirement lifecycle remains `proposed`, and only `G-08` may record final human approval.
+**Strategic-baseline state:** `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts the reviewed Phase 0 normative baseline for implementation and activates the complete lifecycle plus independent coordination-pattern and operational-maturity requirements. `DDR-SFADEV-STRATEGIC-BASELINE-G08-001` records accountable human approval of `SFA-VISION-001` and `SFA-VALUE-001` through `SFA-VALUE-008`, changes their content approval status to `approved`, and activates the corresponding vision and core-values requirements. This approval does not satisfy `G-07`, grant production or operational authority, establish broad stakeholder consensus or domain truth, or expand any permission.
 **Last updated:** 2026-07-09
 
 ---
@@ -23,9 +23,9 @@ The product is meta-agentic. A plan, prompt, document, scaffold, or package may 
 
 Codex is the initial reference host, not the source of Sys4AI purpose or product authority. Host-capability and permission mappings remain subject to `G-07`; this identity baseline neither asserts unverified Codex capabilities nor expands host or project permissions.
 
-This revision also establishes one candidate Sys4AI vision and eight controlled candidate core values. They record a reviewable strategic proposal, not approved stakeholder intent. Only an accountable human product owner with represented stakeholder evidence may approve, reject, or revise them at `G-08`; model authorship, canonical-file location, and structural validation do not constitute approval.
+This revision also establishes one approved Sys4AI vision and eight controlled approved core values. `DDR-SFADEV-STRATEGIC-BASELINE-G08-001` records the accountable human product owner's approval of the exact previously reviewed wording after the TX-17 safety and evaluation packet. Model authorship, canonical-file location, structural validation, or implementation progress alone did not constitute that approval and cannot supersede it.
 
-This revision also records the accepted complete lifecycle—Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire—and separates coordination pattern from operational maturity. `G-03` accepts these normative requirements for implementation; it does not activate `G-04`-blocked templates or schemas, prove lifecycle capability, approve the candidate vision or values, or authorize prototype-to-production promotion.
+This revision also records the accepted complete lifecycle—Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire—and separates coordination pattern from operational maturity. `G-03` accepted these normative requirements for implementation but did not approve the then-candidate vision or values; that separate approval occurred only at `G-08`. Neither gate proves lifecycle capability or authorizes prototype-to-production promotion.
 
 This revision also establishes core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. These profiles define authority classes, registry requirements, validator expectations, derivative-surface policy, promotion rules, drift behavior, and security constraints for structured source, control, configuration, registry, and validation-contract artifacts.
 
@@ -41,7 +41,7 @@ This file consolidates the July 4 core-requirement baseline with the richer July
 
 `PRDs/Sys4AI_phase-0_prd.md` is retained as a historical reference only. When the two documents differ, this file controls Phase 0.
 
-The identity migration is authorized by `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml`. The strategic migration plan and Requirements Discovery Record provide controlled scope and provenance; they are not competing canonical requirements sources. `TX-04-P0-VISION-VALUES` migrates their strategic candidates into this canonical PRD as controlled candidate content only. The accepted decision does not approve that content, and `G-08` remains the approval authority.
+The identity migration is authorized by `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml`. The strategic migration plan and Requirements Discovery Record provide controlled scope and provenance; they are not competing canonical requirements sources. `TX-04-P0-VISION-VALUES` migrated their strategic candidates into this canonical PRD for review; `DDR-SFADEV-STRATEGIC-BASELINE-G08-001` is the separate approval authority for the exact accepted wording.
 
 ---
 
@@ -191,32 +191,32 @@ The framework product and Meta-Agent Runtime, working with an authorized user, s
 15. Which coordination pattern fits the target problem, and what operational maturity is supported independently by current evidence?
 16. What evidence, ownership, monitoring, recovery, promotion, maintenance, data-disposition, authority-withdrawal, and retirement obligations apply?
 
-### 5.1 Candidate Sys4AI vision
+### 5.1 Approved Sys4AI vision
 
 **Vision ID:** `SFA-VISION-001`
 
 > **Sys4AI envisions a future in which people, working through Codex and compatible AI harnesses, can reliably create and steward fit-for-purpose AI agents across their complete lifecycle—from intent and design through development, implementation, testing, operation, maintenance, and improvement—while accountable stakeholders retain authority and every consequential claim, decision, and change remains evidence-grounded, traceable, safe, and reviewable.**
 
-| Field | Candidate baseline |
+| Field | Approved baseline |
 |---|---|
-| Content approval status | `candidate`; AI-drafted wording awaiting `G-08`. |
-| Requirement lifecycle | `proposed`; the presence of this text does not satisfy the approved-vision requirement. |
+| Content approval status | `approved`; accepted at `G-08` by `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`. |
+| Requirement lifecycle | `active`; `SFA-CORE-VISION-001` through `SFA-CORE-VISION-003` are activated by the accountable human approval record. |
 | Owner | Sys4AI product owner. |
-| Approval principal | Accountable human product owner with represented stakeholder evidence. A model identity cannot approve, reject, or supersede this vision. |
+| Approval principal | Alex Omegapy, accountable human repository maintainer and product owner, recorded by `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`. A model identity cannot approve, reject, or supersede this vision. |
 | Beneficiaries | People and organizations that need to create or steward fit-for-purpose AI agents, including target users, operators, maintainers, affected stakeholders, and accountable sponsors. |
 | Horizon | Multi-release product horizon beginning with the Codex reference-host profile and extending to compatible harnesses; this statement is not a delivery-date commitment. |
 | Scope | The Sys4AI framework product and its authorized Meta-Agent Runtime across target-system intent, design, development, implementation, testing, operation, maintenance, and improvement. |
 | Exclusions | It does not define a target system's separate purpose or vision; promise universal fitness, safety, autonomy, or production readiness; authorize actions; verify host capabilities; or claim that all lifecycle capabilities are currently implemented. Retirement obligations are handled by the lifecycle baseline rather than omitted from product stewardship. |
 | Success signals | Accountable human authority remains visible; target systems retain separate strategic intent and boundaries; material claims and decisions trace to current evidence; execution claims match observable behavior; and lifecycle changes remain reviewable, testable, and reversible where practical. Quantitative thresholds require later evaluation and approval evidence. |
 | Source evidence | Historical product-direction language in `PRDs/Sys4AI_phase-0_prd.md`; candidate synthesis in `RDR-SFADEV-STRATEGIC-BASELINE-001`; scope and metadata obligations in `SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001`; identity boundary in `DDR-SFADEV-STRATEGIC-BASELINE-001`. |
-| Version and supersession | Candidate version `0.1`; no approved predecessor and no superseding vision. The historical Phase 0 vision remains provenance, not current authority. |
-| Revision triggers | `G-08` review; material change to beneficiaries, product scope, host strategy, lifecycle, authority model, risk posture, or success evidence; or evidence that the wording is ambiguous, unsafe, infeasible, or inconsistent with stakeholder intent. |
+| Version and supersession | Approved version `1.0`; no approved predecessor and no superseding vision. Candidate version `0.1` remains review provenance, and the historical Phase 0 vision remains provenance rather than current authority. |
+| Revision triggers | Material change to beneficiaries, product scope, host strategy, lifecycle, authority model, risk posture, or success evidence; evidence that the wording is ambiguous, unsafe, infeasible, or inconsistent with stakeholder intent; or an accountable human supersession decision. |
 
-**Authority note:** This vision records an AI-drafted candidate aspiration for the Sys4AI framework product. It does not imply that an AI model has personal desires, consciousness, moral agency, stakeholder standing, or authority to choose or approve its own purpose.
+**Authority note:** This vision records a human-approved aspiration for the Sys4AI framework product whose wording was initially AI-drafted and then reviewed. It does not imply that an AI model has personal desires, consciousness, moral agency, stakeholder standing, or authority to choose or approve its own purpose.
 
-### 5.2 Candidate Sys4AI core values
+### 5.2 Approved Sys4AI core values
 
-The following eight values are a controlled candidate set. Their stable IDs support review and trace without implying approval. Each value constrains decisions only after applicable authority accepts it, and no value can create permission or override a higher-precedence obligation.
+The following eight values are the controlled approved Sys4AI core-values set under `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`. Their stable IDs support review, trace, and supersession. They constrain material decisions within their stated scope, but no value creates permission or overrides a higher-precedence obligation.
 
 #### 5.2.1 `SFA-VALUE-001` — Human-directed purpose and accountable authority
 
@@ -348,7 +348,7 @@ The following eight values are a controlled candidate set. Their stable IDs supp
 
 ### 5.3 Value precedence, conflict, trace, and approval
 
-The candidate precedence order is:
+The approved precedence order is:
 
 1. Applicable law and mandatory platform policy.
 2. Safety, security, privacy, and compliance constraints.
@@ -361,9 +361,9 @@ Values never grant permission. A lower-precedence value or preference cannot wai
 
 Material requirements, architecture and permission decisions, risk acceptances, evaluation scenarios, release decisions, maintenance changes, improvement proposals, and retirement decisions shall reference the affected value IDs. Materiality exists when a decision or change can affect purpose, authority, stakeholder outcomes, safety, privacy, security, behavior, deployment, or lifecycle state. Purely editorial or deterministic mechanical changes need no value citation unless they alter meaning or evidence.
 
-| Participant | Candidate-baseline responsibility | Authority boundary |
+| Participant | Approved-baseline responsibility | Authority boundary |
 |---|---|---|
-| Product owner | Represent stakeholder evidence and approve, reject, or request revision at `G-08`. | Must be an accountable human principal; approval cannot be delegated to a model identity. |
+| Product owner | Own the approved baseline, represent stakeholder evidence, and approve any later supersession. | Must be an accountable human principal; approval cannot be delegated to a model identity. |
 | Represented stakeholders and affected parties | Supply needs, risks, exclusions, success evidence, and objections for informed review. | Participation does not automatically grant repository or execution authority. |
 | Meta-Agent Runtime or delegated role agent | Elicit, draft, analyze, trace, and test candidate wording within authorization. | Cannot approve its own purpose, vision, values, permissions, authority, evaluation standard, or acceptance. |
 | Requirements manager | Check clarity, completeness, conflicts, stable IDs, and downstream requirement implications. | May recommend disposition but cannot substitute for the accountable human approval principal. |
@@ -371,7 +371,7 @@ Material requirements, architecture and permission decisions, risk acceptances, 
 | Security, safety, privacy, and compliance reviewer | Review precedence, prohibited behaviors, permission limits, affected parties, and critical risks. | Cannot waive binding law, policy, or host/project restrictions. |
 | Independent requirements verifier | Review internal consistency and future scenario-probe coverage. | Structural or semantic review does not constitute stakeholder approval. |
 
-`G-08` is open. Until accountable human approval evidence is recorded, the vision and values remain candidate content, downstream references must preserve that state, and no artifact may label them approved or use them to claim permission.
+`G-08` is accepted by `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`. The approval applies only to the exact `SFA-VISION-001` and `SFA-VALUE-001` through `SFA-VALUE-008` baseline recorded here. Downstream references may label this content approved but may not use the approval to claim host verification, production readiness, operational authority, broad stakeholder consensus, domain truth, or expanded permission. Later wording changes require explicit impact review and accountable human supersession evidence.
 
 ---
 
@@ -393,9 +393,9 @@ Material requirements, architecture and permission decisions, risk acceptances, 
 
 `SFA-CORE-ID-007`: `Sys4AI` shall distinguish orchestration from execution and shall not claim execution when it only generated a plan or artifact.
 
-### 6.1.1 Proposed vision and core-values requirements
+### 6.1.1 Active vision and core-values requirements
 
-The following requirements are a controlled candidate baseline with requirement lifecycle `proposed`. Their inclusion in this canonical PRD makes their wording reviewable and traceable; it does not activate them, approve the candidate content, or satisfy `G-08`.
+The following requirements are active under `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`. Approval activates the normative strategic baseline while keeping capability, implementation, verification, operational maturity, host authority, and target-system authority as independent evidence dimensions.
 
 `SFA-CORE-VISION-001`: Canonical Phase 0 shall contain one approved future-state Sys4AI vision.
 
@@ -415,7 +415,7 @@ The following requirements are a controlled candidate baseline with requirement 
 
 ### 6.2 Accepted complete lifecycle model
 
-`TX-05-P0-LIFECYCLE-PATTERN` introduced the complete lifecycle and pattern taxonomy as a controlled candidate for `G-03`. `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts that reviewed normative baseline for implementation. The replacement wording for `SFA-CORE-LIFE-001`, new lifecycle requirements `004` through `008`, and pattern requirements `001` through `005` are now active requirements. Acceptance does not make them implemented or operational, activate `G-04`-blocked contracts, supply target-specific promotion thresholds, or satisfy the separate `G-08` vision/value approval gate.
+`TX-05-P0-LIFECYCLE-PATTERN` introduced the complete lifecycle and pattern taxonomy as a controlled candidate for `G-03`. `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts that reviewed normative baseline for implementation. The replacement wording for `SFA-CORE-LIFE-001`, new lifecycle requirements `004` through `008`, and pattern requirements `001` through `005` are active requirements. `G-03` acceptance did not make them implemented or operational, activate then-blocked contracts, supply target-specific promotion thresholds, or substitute for the later separate `G-08` vision/value approval.
 
 `SFA-CORE-LIFE-001`: `Sys4AI` shall define and support the design, development, implementation, testing, requirements verification, stakeholder and system validation, behavioral and performance evaluation, operation, maintenance, improvement, and retirement of target AI agents and target agentic systems.
 
@@ -1651,7 +1651,7 @@ These belong to Phase 1 or later implementation artifacts.
 
 Phase 0 is complete when:
 
-The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIFECYCLE-PATTERN` are structurally complete. `G-03` accepts the reviewed normative baseline for implementation and activates the lifecycle and pattern requirements. It does not satisfy `G-08`, activate proposed vision/value requirements or `G-04`-blocked artifact contracts, prove lifecycle capability, or establish stakeholder or production approval.
+The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIFECYCLE-PATTERN` are structurally complete. `G-03` accepted the reviewed normative baseline for implementation and activated the lifecycle and pattern requirements. `G-08` now separately approves the vision and values and activates their requirement family. Neither decision proves lifecycle capability, host verification, production readiness, operational authority, broad stakeholder consensus, or domain truth.
 
 | ID | Acceptance criterion | Evidence |
 |---|---|---|
@@ -1681,9 +1681,9 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIF
 | SFA-P0-AC-024 | The PRD requires memory retrieval and handoff evidence to expose format profile, registry row, authority status, validation status, and derivative freshness where applicable. | CKMSRA and universal handoff contract. |
 | SFA-P0-AC-025 | The PRD states that JSON Schema validation proves structural admissibility only, not semantic truth or domain acceptance. | JSON Schema requirements, NFRs, and universal rules. |
 | SFA-P0-AC-026 | The PRD states that Phase 1 must initialize minimal registries, validators, examples, and derivative stubs for the format-profile spine. | Phase boundary and Phase 1 handoff note. |
-| SFA-P0-AC-027 | The PRD contains one candidate Sys4AI vision location with a stable ID, owner, human approval principal, beneficiaries, horizon, scope and exclusions, success signals, sources, version, revision triggers, supersession state, and non-anthropomorphism notice. | Candidate Sys4AI vision section and open `G-08` status. |
-| SFA-P0-AC-028 | The PRD contains exactly eight stable-ID candidate core values, and every value declares all required commitment, behavior, decision, design, operational, evaluation, precedence, provenance, ownership, evidence, and review fields. | Candidate Sys4AI core-values section and requirement-trace rows. |
-| SFA-P0-AC-029 | The PRD keeps strategic content approval independent from canonical source status and structural validation, prohibits model self-approval and value-based permission expansion, and routes approval to an accountable human principal at `G-08`. | Strategic authority table, precedence rules, proposed requirements, and open issue. |
+| SFA-P0-AC-027 | The PRD contains one approved Sys4AI vision location with a stable ID, owner, human approval principal, beneficiaries, horizon, scope and exclusions, success signals, sources, version, revision triggers, supersession state, and non-anthropomorphism notice. | Approved Sys4AI vision section and `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`. |
+| SFA-P0-AC-028 | The PRD contains exactly eight stable-ID approved core values, and every value declares all required commitment, behavior, decision, design, operational, evaluation, precedence, provenance, ownership, evidence, and review fields. | Approved Sys4AI core-values section, `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`, and requirement-trace rows. |
+| SFA-P0-AC-029 | The PRD keeps strategic content approval independent from canonical source status and structural validation, prohibits model self-approval and value-based permission expansion, and records approval by an accountable human principal at `G-08`. | Strategic authority table, precedence rules, active requirements, and the accepted G-08 decision. |
 | SFA-P0-AC-030 | The PRD names Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire and defines every required entry, input, role, permission, activity, output, evidence, exit, failure, transition, rollback, and review field for each stage. | Candidate lifecycle requirements and stage-contract tables. |
 | SFA-P0-AC-031 | Testing is both a named lifecycle stage and a cross-cutting release, maintenance, improvement, and material-change gate, and required gates cannot be skipped by a transition. | Candidate transition table and Test contract. |
 | SFA-P0-AC-032 | Test execution, requirements verification, stakeholder/system validation, and behavioral/performance evaluation are separately defined and cannot substitute for one another. | Candidate evidence-concept table and `SFA-CORE-LIFE-005`. |
@@ -1715,7 +1715,7 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIF
 | SFA-P0-RISK-FORMAT-004 | Generated wiki/catalog pages become ghost authorities. | Memory authority inversion. | Authority banners, derivative registry rows, stale checks, and promotion workflow. |
 | SFA-P0-RISK-FORMAT-005 | Python version policy conflicts with TOML parser choice. | Phase 1 setup confusion. | Keep Python `>=3.10` and add conditional `tomli`, or bump to Python `>=3.11` by explicit decision. |
 | SFA-P0-RISK-FORMAT-006 | Validators become decorative and incomplete. | Schema theater. | Add executable JSON Schema validation and cross-registry graph checks as acceptance criteria. |
-| SFA-P0-RISK-STRAT-001 | Candidate vision or values may be mistaken for approved stakeholder intent because they appear in a canonical PRD. | Downstream artifacts may infer authority, acceptance, or product commitments that no accountable human approved. | Keep content approval, source authority, validation, requirement lifecycle, capability, and evidence states independent; retain the explicit open `G-08` gate. |
+| SFA-P0-RISK-STRAT-001 | Approved vision or values may be treated as broader authority than the accountable human decision grants. | Downstream artifacts may infer host capability, production readiness, permission, stakeholder consensus, or domain truth from strategic approval alone. | Keep content approval, source authority, validation, requirement lifecycle, capability, operational maturity, and evidence states independent; enforce the exact `G-08` authority boundary and supersession rule. |
 | SFA-P0-RISK-STRAT-002 | Values may be used as arguments to expand permissions or bypass binding constraints. | A runtime actor may perform unauthorized, unsafe, insecure, noncompliant, or privacy-invasive work. | State that values never grant permission, enforce the precedence order, and test denied-capability and model-only approval cases in later validator/evaluation transactions. |
 | SFA-P0-RISK-STRAT-003 | Broad aspirational language may be reported as present operational capability. | Stakeholders may mistake a future-state vision for verified implementation, fitness, or lifecycle evidence. | Keep the vision future-facing, record explicit exclusions, require observable execution evidence, and establish quantitative success thresholds only through later evaluation and human approval. |
 | SFA-P0-RISK-LIFE-001 | A lifecycle transition may be inferred from schedule progress, file creation, or validator success instead of required evidence and approval. | Work may skip testing, permission, release, recovery, or human gates. | Require explicit transition evidence, failure routing, rollback, and approval; represent blocked or cancelled states truthfully. |
@@ -1744,8 +1744,8 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIF
 | SFA-P0-ISSUE-FORMAT-003 | Should generated wiki/catalog files be committed or generated locally? | Documentation owner | No for Phase 0 | Phase 1 may commit stubs and indexes; later CI can regenerate. All generated files must be registered as derivatives. |
 | SFA-P0-ISSUE-FORMAT-004 | Should Obsidian mirror Configuration and Control Wiki pages? | Documentation owner | No for Phase 0 | Optional and derivative only. Not required for Phase 1. |
 | SFA-P0-ISSUE-FORMAT-005 | Should TOML writing/editing be supported? | Phase 1 owner | No for Phase 0 | No for Phase 1. Parse and validate only. |
-| SFA-P0-ISSUE-STRAT-001 | Will the accountable product owner approve, reject, or revise the candidate Sys4AI vision and eight candidate values after reviewing represented stakeholder evidence? | Product owner | Yes for approved strategic status; no for candidate-baseline continuation through pre-`G-08` transactions | Resolve at `G-08`; do not infer approval from this PRD, validation, commit, or model authorship. |
-| SFA-P0-ISSUE-STRAT-002 | Which quantitative thresholds and scenario probes will demonstrate the vision success signals and each value's positive, negative, and conflict behavior? | Independent evaluation owner and product owner | Yes for `G-08`; no for this candidate wording transaction | Develop protected, reviewable probes in `TX-17-SAFETY-EVALUATION` and present results and limitations in the `G-08` approval packet. |
+| SFA-P0-ISSUE-STRAT-001 | Resolved: the accountable product owner approved the exact Sys4AI vision and eight values after reviewing the TX-17 packet and its limitations. | Product owner | `G-08` strategic status only | `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`; later revision requires impact review and explicit supersession. |
+| SFA-P0-ISSUE-STRAT-002 | Partially resolved: TX-17 supplies protected positive, negative, and conflict probes for all eight values; quantitative vision-success thresholds and independently curated confidential holdouts remain future evaluation work. | Independent evaluation owner and product owner | No for production, operations, broad stakeholder consensus, or domain acceptance | Preserve the TX-17 evidence and limitations; add rotated external holdouts and operational measures only through their named gates. |
 | SFA-P0-ISSUE-LIFE-001 | Which legal, privacy, security, contractual, data-retention, archive, dependency, and stakeholder-notification obligations apply to retirement for each target system? | Target sponsor with data, operations, security, privacy, compliance, and archive owners | No for the generic `G-03` candidate; yes before target retirement approval | Require target discovery and the pattern/lifecycle decision to classify applicable obligations, explicit inapplicability, owners, evidence, and review dates. |
 | SFA-P0-ISSUE-PATTERN-001 | Which quantitative reliability, evaluation, safety, security, integration, support, and service thresholds permit each target to advance from prototype to production candidate, production approved, and operational? | Target product owner, architect, operations owner, security owner, and independent evaluator | No for the generic `G-03` candidate; yes before target production promotion | Define target-specific thresholds and approval roles in the `G-04` artifact contract and later evaluation/production evidence; fail closed while unknown. |
 
@@ -1797,6 +1797,7 @@ Expected Phase 1 starting concerns include:
 | 2026-07-09 | Added one candidate Sys4AI vision, eight complete stable-ID candidate values, proposed vision/value requirement families, precedence and materiality rules, human approval boundaries, acceptance criteria, risks, open issues, and exact trace obligations. | Implements `TX-04-P0-VISION-VALUES` as a candidate strategic baseline while preserving `G-08` as the only approval gate and preventing value-based permission expansion. |
 | 2026-07-09 | Added the complete eight-stage lifecycle, full stage contracts, transition and evidence-class rules, separate coordination-pattern and operational-maturity taxonomies, candidate pattern-decision contract, discovery/role/artifact-flow integration, acceptance criteria, risks, open issues, and trace obligations. | Implements `TX-05-P0-LIFECYCLE-PATTERN` as a controlled candidate while leaving `G-03` open and deferring concrete templates, schemas, validators, and runtime claims to their authorized transactions. |
 | 2026-07-09 | Recorded human-authorized `G-03` acceptance of the reviewed Phase 0 normative baseline and activated the complete lifecycle and pattern requirement families. | Authorizes `TX-06-P1-BASELINE` while keeping candidate vision/value content and its proposed requirement lifecycle exclusively pending `G-08`. |
+| 2026-07-10 | Recorded accountable human `G-08` approval of `SFA-VISION-001` and `SFA-VALUE-001` through `SFA-VALUE-008`, activated their requirement family, and preserved independent capability, permission, host, production, stakeholder, and domain-evidence boundaries. | Implements `TX-18-HUMAN-APPROVAL` through `DDR-SFADEV-STRATEGIC-BASELINE-G08-001` without beginning derivative regeneration or satisfying `G-07` or `G-10`. |
 
 ### 20.1 Strategic-baseline provenance
 

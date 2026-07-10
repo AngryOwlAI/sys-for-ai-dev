@@ -57,6 +57,18 @@ class TraceSemanticTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("unsupported strategic-baseline program phase" in item for item in result.messages))
 
+    def test_post_tx18_state_requires_exact_tx19_route(self) -> None:
+        def mutate_state(state):
+            state["allowed_next_actions"] = [
+                item
+                for item in state["allowed_next_actions"]
+                if item != "execute_TX_19_MODULES_only_after_TX_18_shared_baseline"
+            ]
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("exact TX-19 module route" in item for item in result.messages))
+
     def test_current_evidence_freshness_fails_against_controlled_state_date(self) -> None:
         def mutate_state(state):
             state["validation_status"]["last_validated_at"] = "2026-09-20T00:00:00Z"

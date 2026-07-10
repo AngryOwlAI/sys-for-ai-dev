@@ -1,0 +1,266 @@
+execution_transaction_id: TX-18-HUMAN-APPROVAL
+contract_version: 1.0.0
+objective: Record accountable human G-08 approval of the exact Sys4AI vision and core-values baseline, activate only the corresponding requirements, accept the bounded TX-17 controls, and stop before TX-19 derivative regeneration.
+source_requirement_ids:
+- SFA-CORE-VISION-001
+- SFA-CORE-VISION-002
+- SFA-CORE-VISION-003
+- SFA-CORE-VALUES-001
+- SFA-CORE-VALUES-002
+- SFA-CORE-VALUES-003
+- SFA-CORE-VALUES-004
+- SFA-CORE-VALUES-005
+- SFA-P1-INIT-STRAT-005
+- SFA-P1-INIT-STRAT-008
+- SFA-P1-INIT-SELF-001
+- SFA-P1-INIT-SELF-002
+- SFA-P2-ADD-APPROVAL-001
+- SFA-P2-ADD-SAFETY-001
+source_decision_ids:
+- DDR-SFADEV-STRATEGIC-BASELINE-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G03-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G04-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+subject_system:
+  system_id: sys4ai
+  system_name: Sys4AI framework product
+subject_layer: framework_product
+runtime_actor:
+  actor_id: codex_meta_agent_runtime
+  actor_type: meta_agent_runtime
+  role_ids:
+  - bounded_execution_planner
+  - system_director
+  - requirements_verifier
+  - source_authority_auditor
+  - verification_engineer
+  - svc_documentation_surface_architect
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-10-TX18-G08-APPROVAL
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+approval_principal:
+  principal_id: alex_omegapy
+  principal_type: accountable_human
+  approval_scope: Approve the exact reviewed Sys4AI vision and eight core values, activate their requirement family, accept bounded TX-17 controls, close TX-18, and preserve every host production operational stakeholder domain permission and later-transaction boundary.
+  authorization_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX18-G08-APPROVAL
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+  model_self_approval: false
+execution_authorization:
+  status: authorized
+  authorized_at: '2026-07-10T18:48:03Z'
+  expires_at: '2026-07-11T18:48:03Z'
+  authority_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX18-G08-APPROVAL
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+  self_authorized: false
+permission_envelope:
+  envelope_id: PERMISSION-ENVELOPE-TX-18-HUMAN-APPROVAL
+  status: current
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-10-TX18-G08-APPROVAL
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+  data_classes:
+  - repository_controlled_artifacts
+  - accountable_human_approval_evidence
+  - local_validation_and_holdout_evidence
+  resource_limits:
+  - One bounded TX-18 G-08 approval baseline-activation and closeout packet.
+  - Approve only the exact SFA-VISION-001 and SFA-VALUE-001 through SFA-VALUE-008 wording reviewed at TX-17 closeout.
+  - Preserve accepted Phase 2 sources TX-17 assurance packet protected holdouts thresholds and activated history unchanged.
+  - Preserve the exact TX-12 trace rows rollback digest seven needs-evidence gaps 200 planned verifications and zero operational claims; record G-08 status in the canonical PRD decision and program state instead.
+  - Keep G-07 production readiness operational authority broad stakeholder consensus domain truth and permission expansion open or prohibited.
+  - Do not begin TX-19 or any later transaction.
+  valid_from: '2026-07-10T18:48:03Z'
+  expires_at: '2026-07-11T18:48:03Z'
+  sensitive_data_allowed: false
+  secrets_allowed: false
+  data_egress_allowed: true
+  external_side_effects_allowed: true
+  delegation_allowed: false
+  delegation_expires_at: not_applicable
+  permission_expansion_allowed: false
+allowed_reads:
+- .agents/**
+- .codex/**
+- PRDs/**
+- Sys4AI/**
+- implementation_plans/**
+allowed_writes:
+- PRDs/Sys4AI_phase-0_product_system_design_prd.md
+- Sys4AI/configs/capability_migration.toml
+- Sys4AI/schemas/contracts/program_state.schema.json
+- Sys4AI/sys_for_ai/prd_semantics.py
+- Sys4AI/sys_for_ai/safety_evaluation.py
+- Sys4AI/sys_for_ai/trace_validation.py
+- Sys4AI/tests/test_prd_semantics.py
+- Sys4AI/tests/test_safety_evaluation.py
+- Sys4AI/tests/test_trace_semantics.py
+- Sys4AI/tests/test_self_hosting_acceptance.py
+- Sys4AI/control_records/**
+- Sys4AI/registries/**
+- Sys4AI/docs/generated/**
+- implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX18-001.md
+allowed_tools:
+- repository file inspection
+- apply_patch
+- repository-native validation commands
+- deterministic generated-document writers
+- git status diff add commit and push
+allowed_external_actions:
+- Push the validated TX-18 commit to origin main.
+forbidden_actions:
+- Modify PRDs/Sys4AI_phase-2_walking_skeleton_prd.md.
+- Modify PRDs/drafts/Sys4AI_phase-2_walking_skeleton_prd.draft.md.
+- Modify the TX-17 assurance packet or protected holdout suite.
+- Change holdout thresholds expected results evaluator ownership or reflection-depth controls.
+- Promote unrelated trace rows or remove reviewed needs-evidence gaps without exact authority.
+- Begin TX-19 derivative-module regeneration or any later transaction.
+- Claim G-07 host verification production readiness operational authority broad stakeholder consensus autonomous capability or domain truth.
+- Expand host project transaction or target-system permissions.
+- Use the approved values as permission sources or as grounds to bypass a higher-precedence constraint.
+- Restore retired runtime surfaces or rewrite activated control history.
+inputs:
+- implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md
+- PRDs/Sys4AI_phase-0_product_system_design_prd.md
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001.yaml
+- Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001.yaml
+- implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX17-001.md
+- Sys4AI/assurance/meta_agent_self_change_safety_evaluation.yaml
+- Sys4AI/assurance/holdouts/meta_agent_self_change_holdouts.yaml
+- Sys4AI/registries/requirement_trace_registry.csv
+- Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z.yaml
+expected_outputs:
+- Completed G-08 Director Decision with direct accountable human evidence selected and rejected routes and exact authority boundaries.
+- Canonical Phase 0 approved version 1.0 vision and core-values status with active requirements and explicit supersession triggers.
+- Exact approval evidence in the canonical PRD decision and program state while the reversible TX-12 trace baseline remains unchanged.
+- Post-TX-18 program state and semantic checks that fail closed on counterfeit self-approval or premature TX-19 routing.
+- Registered portable completion receipt human-readable receipt and TX-19-only handoff that stop before derivative regeneration.
+validators:
+- validator_id: focused_approval_semantics
+  command_or_method: .venv/bin/python -m unittest tests.test_prd_semantics tests.test_trace_semantics -v
+  blocking: true
+  expected_evidence: Approved Phase 0 markers human G-08 decision exact state routing and counterfeit self-approval negative probes pass.
+- validator_id: decision_and_control_records
+  command_or_method: make validate-director-decisions validate-director-decision-registry validate-program-state validate-control-records
+  blocking: true
+  expected_evidence: G-08 decision and TX-18 control records conform and remain human-authorized and bounded.
+- validator_id: strategic_trace_and_migration
+  command_or_method: make validate-strategic-intent validate-prd-semantics validate-requirement-trace validate-requirement-trace-migration validate-capability-migration
+  blocking: true
+  expected_evidence: Approved strategic status and exact trace promotions pass while independent evidence states and historical migration baselines remain intact.
+- validator_id: product_unit_suite
+  command_or_method: .venv/bin/python -m unittest discover -s tests
+  blocking: true
+  expected_evidence: All retained and new product tests pass.
+- validator_id: aggregate_validation
+  command_or_method: make validate at product and repository roots
+  blocking: true
+  expected_evidence: Product and development-system validation pass.
+- validator_id: protected_baselines
+  command_or_method: sha256 and Git diff checks for both protected Phase 2 sources TX-17 safety packet and protected holdouts
+  blocking: true
+  expected_evidence: Protected hashes remain 98567cf4 9e290964 d04f7510 and 8128ae1a with zero Git diff.
+- validator_id: diff_integrity
+  command_or_method: git diff --check
+  blocking: true
+  expected_evidence: No whitespace or patch-integrity errors.
+stop_conditions:
+- The human approval evidence is absent ambiguous contradicted model-authored or broader than the user instruction.
+- Either protected Phase 2 source TX-17 assurance packet or protected holdout suite changes.
+- Any unrelated trace state changes or any G-07 production operational stakeholder domain or permission claim is promoted.
+- The approved values are used to expand permission or waive a higher-precedence constraint.
+- A blocking validator fails after TX-18-scoped repair is exhausted.
+host_capability_requirements:
+  execution_profile_id: codex_local_observed_subset
+  overall_status: verified_available
+  required_capability_ids:
+  - workspace_filesystem
+  - terminal_and_tests
+  - git_local_and_push
+  evidence_ids:
+  - HOST-CODEX-LOCAL-OBSERVATION-2026-07-10
+  - SRC-HOST-PROFILE-CODEX-APP-REFERENCE
+  checked_at: '2026-07-10T18:48:03Z'
+  values_or_goals_may_override: false
+state:
+  status: completed
+  current_state_evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001
+  continuation_state: consumed
+  continuation_evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+  state_transition_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX18-G08-APPROVAL
+  - DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+cancellation:
+  state: not_requested
+  requested_by: not_applicable
+  behavior: Stop at the nearest safe boundary preserve TX-17 and all protected evidence retain the complete TX-18 diagnostic diff and do not begin TX-19.
+  evidence_ids: []
+  uncertain_operations: []
+escalation:
+  state: not_required
+  conditions:
+  - The approval principal scope or exact content becomes disputed.
+  - A request attempts to infer G-07 production operational stakeholder domain or permission authority from G-08.
+  - A protected baseline holdout threshold approval identity or value-precedence rule becomes absent stale denied or contradicted.
+  responsible_principal_id: alex_omegapy
+  required_decision: Supersede the G-08 decision explicitly or keep the bounded approval in force; never infer an authority expansion.
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+resume_evidence:
+  required: true
+  status: consumed
+  last_known_state: TX-17 closed on the shared baseline and handed off only to accountable TX-18 review with G-08 open.
+  evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001
+  - MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z
+closeout_evidence:
+  status: complete
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001
+  - CR-SFADEV-STRATEGIC-BASELINE-TX18-001
+  changed_artifacts:
+  - accountable G-08 Director Decision and approved canonical Phase 0 strategic status
+  - exact strategic program-state semantic validator and registry updates with unchanged trace data
+  - portable transaction memory completion handoff and human-readable receipt
+  validation_evidence_ids:
+  - TX18-FOCUSED-APPROVAL-SEMANTICS-PASS
+  - TX18-PRODUCT-UNIT-PASS
+  - TX18-PRODUCT-VALIDATE-PASS
+  - TX18-ROOT-VALIDATE-PASS
+  - TX18-PROTECTED-BASELINES-PASS
+  - TX18-DIFF-CHECK-PASS
+  acceptance_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX18-G08-APPROVAL
+  - DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+rollback:
+  status: available
+  strategy: Before publication revert the complete TX-18 decision Phase 0 trace state validator registry derivative receipt and handoff packet; after shared-baseline publication or downstream dependency supersede the accepted decision instead of deleting or mutating it.
+  triggers:
+  - The accountable human withdraws or corrects approval before publication.
+  - A focused decision strategic trace state or aggregate validator fails.
+  - The packet overstates G-07 production operational stakeholder domain or permission authority.
+  - A protected Phase 2 TX-17 or holdout artifact changes.
+  actions:
+  - Stop TX-19 and preserve the complete failure and approval evidence.
+  - Revert the unshared TX-18 packet or create an explicit human-authorized superseding decision after sharing.
+  - Retain TX-17 and earlier activated evidence unchanged and keep later gates blocked as applicable.
+  evidence_ids:
+  - PHASE0-CANDIDATE-SHA256-0C337A27
+  - PHASE2-ACCEPTED-SHA256-98567CF4
+  - PHASE2-DRAFT-SHA256-9E290964
+  - TX17-SAFETY-SHA256-D04F7510
+  - HOLDOUT-SHA256-8128AE1A
+supersession:
+  status: current
+  supersedes_transaction_ids: []
+  superseded_by: not_applicable
+  evidence_ids: []

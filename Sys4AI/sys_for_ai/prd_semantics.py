@@ -10,6 +10,7 @@ from .registry_io import resolve_registered_path
 from .toml_io import load_toml
 from .validation_semantics import STRUCTURAL_LIMITATION
 from .validators import ValidationResult
+from .yaml_io import load_yaml
 
 
 LEGACY_TERMS = ("/continue", "AgentJob", "control_loop")
@@ -25,6 +26,9 @@ PHASE0_MARKERS = (
     "SFA-VISION-001",
     "SFA-VALUE-008",
     "G-08",
+    "Approved Sys4AI vision",
+    "Approved Sys4AI core values",
+    "DDR-SFADEV-STRATEGIC-BASELINE-G08-001",
     "structural validation",
 )
 PHASE1_MARKERS = (
@@ -66,6 +70,8 @@ def validate_prd_semantics(
     phase2_addendum: str | Path = "PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md",
     *,
     capability_manifest: str | Path = "configs/capability_migration.toml",
+    program_state: str | Path = "control_records/program_state.yaml",
+    g08_decision: str | Path = "control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G08-001.yaml",
     modules_root: str | Path = "../PRDs/modules",
     repository_root: str | Path | None = None,
 ) -> ValidationResult:
@@ -91,6 +97,10 @@ def validate_prd_semantics(
             if marker not in text:
                 messages.append(f"{path}: missing canonical semantic marker {marker!r}")
         messages.extend(_legacy_reference_context_errors(path, text))
+
+    phase0_text = texts.get(phase0)
+    if phase0_text is not None:
+        messages.extend(_validate_strategic_approval_state(phase0_text, program_state, g08_decision))
 
     manifest_path = resolve_registered_path(str(capability_manifest))
     try:
@@ -136,6 +146,95 @@ def validate_prd_semantics(
             STRUCTURAL_LIMITATION,
         ],
     )
+
+
+def _validate_strategic_approval_state(
+    phase0_text: str,
+    program_state: str | Path,
+    g08_decision: str | Path,
+) -> list[str]:
+    """Bind post-TX-18 approved PRD status to accountable human decision evidence."""
+
+    state_path = resolve_registered_path(str(program_state))
+    try:
+        state = load_yaml(state_path)
+    except RuntimeError as exc:
+        return [str(exc)]
+    if state.get("current_phase") != "strategic_baseline_migration_after_TX_18":
+        return []
+
+    messages: list[str] = []
+    required_markers = (
+        "### 5.1 Approved Sys4AI vision",
+        "| Content approval status | `approved`; accepted at `G-08`",
+        "### 5.2 Approved Sys4AI core values",
+        "### 6.1.1 Active vision and core-values requirements",
+        "`G-08` is accepted by `DDR-SFADEV-STRATEGIC-BASELINE-G08-001`",
+    )
+    for marker in required_markers:
+        if marker not in phase0_text:
+            messages.append(f"post-TX-18 Phase 0 is missing approved strategic marker {marker!r}")
+
+    decision_path = resolve_registered_path(str(g08_decision))
+    try:
+        decision = load_yaml(decision_path)
+    except RuntimeError as exc:
+        messages.append(str(exc))
+        return messages
+
+    if decision.get("director_decision_id") != "DDR-SFADEV-STRATEGIC-BASELINE-G08-001":
+        messages.append(f"{decision_path}: unexpected G-08 Director Decision ID")
+    if decision.get("decision_status") != "completed":
+        messages.append(f"{decision_path}: G-08 Director Decision must be completed")
+
+    human = decision.get("human_authorization")
+    human = human if isinstance(human, dict) else {}
+    principal = str(human.get("principal_name", "")).casefold()
+    if not principal or any(term in principal for term in ("model", "agent", "runtime", "assistant")):
+        messages.append(f"{decision_path}: G-08 approval principal must be an accountable human")
+    if human.get("model_self_approval") is not False:
+        messages.append(f"{decision_path}: G-08 must explicitly reject model self-approval")
+    if not human.get("approval_evidence") or not human.get("approval_scope"):
+        messages.append(f"{decision_path}: G-08 requires explicit human approval evidence and scope")
+
+    selected = decision.get("selected_route")
+    selected = selected if isinstance(selected, dict) else {}
+    if selected.get("route_id") != "approve_exact_strategic_baseline_with_bounded_TX17_acceptance":
+        messages.append(f"{decision_path}: G-08 selected route does not match the approved bounded route")
+
+    reviewed = decision.get("reviewed_content")
+    reviewed = reviewed if isinstance(reviewed, dict) else {}
+    vision = reviewed.get("vision") if isinstance(reviewed.get("vision"), dict) else {}
+    values = reviewed.get("core_values") if isinstance(reviewed.get("core_values"), dict) else {}
+    expected_values = {f"SFA-VALUE-{index:03d}" for index in range(1, 9)}
+    if vision.get("vision_id") != "SFA-VISION-001" or vision.get("disposition") != "approved":
+        messages.append(f"{decision_path}: G-08 must approve SFA-VISION-001 exactly")
+    if values.get("disposition") != "approved" or set(values.get("value_ids", [])) != expected_values:
+        messages.append(f"{decision_path}: G-08 must approve exactly SFA-VALUE-001 through SFA-VALUE-008")
+
+    boundary = decision.get("authority_boundary")
+    boundary = boundary if isinstance(boundary, dict) else {}
+    if boundary.get("accepts_gate_G_08") is not True:
+        messages.append(f"{decision_path}: authority boundary does not accept G-08")
+    forbidden_true = (
+        "may_claim_G_07_host_verification",
+        "may_claim_production_readiness",
+        "may_grant_operational_authority",
+        "may_claim_broad_stakeholder_consensus",
+        "may_claim_domain_truth_or_domain_acceptance",
+        "may_expand_host_project_or_transaction_permissions",
+        "may_treat_values_as_permission_sources",
+        "may_claim_G_10_final_acceptance",
+    )
+    for field in forbidden_true:
+        if boundary.get(field) is not False:
+            messages.append(f"{decision_path}: G-08 authority boundary must keep {field}=false")
+
+    summary = state.get("capability_status_summary")
+    summary = summary if isinstance(summary, dict) else {}
+    if summary.get("strategic_approval") != "accepted_G_08":
+        messages.append(f"{state_path}: post-TX-18 state must record strategic_approval=accepted_G_08")
+    return messages
 
 
 def _classification(relative: str, values: Any) -> dict[str, Any] | None:

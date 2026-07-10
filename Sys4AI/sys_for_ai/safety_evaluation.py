@@ -161,8 +161,9 @@ def validate_safety_evaluation(
             f"{holdout_target}: protected holdout evaluation passed "
             f"(scenarios={scenario_count} positive={counts['positive']} "
             f"negative={counts['negative']} conflict={counts['conflict']})",
-            "Self-change acceptance remains blocked pending TX-18 accountable human review; "
-            "G-07, G-08, operational authority, and production readiness remain open.",
+            "TX-17 snapshot: self-change acceptance was blocked pending TX-18 accountable human review; "
+            "current G-08 status is governed by program state and DDR-SFADEV-STRATEGIC-BASELINE-G08-001. "
+            "G-07, operational authority, and production readiness remain open.",
             STRUCTURAL_LIMITATION,
         ],
     )

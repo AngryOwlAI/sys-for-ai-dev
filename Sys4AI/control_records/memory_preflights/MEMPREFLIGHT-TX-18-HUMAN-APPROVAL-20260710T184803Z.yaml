@@ -1,0 +1,63 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-18-HUMAN-APPROVAL
+created_at: '2026-07-10T18:48:03Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-18-HUMAN-APPROVAL --json
+  result: warn
+- command: python -m sys_for_ai.cli memory search 'TX-18 human approval G-08 candidate
+    Sys4AI vision core values TX-17 safety evaluation handoff canonical Phase 0 baseline
+    status' --limit 10 --json
+  result: pass
+queries:
+- query: TX-18 human approval G-08 candidate Sys4AI vision core values TX-17 safety
+    evaluation handoff canonical Phase 0 baseline status
+  returned_object_ids:
+  - SRC-REG-AGENTJOBS
+  - SRC-TRACE-SEMANTIC-REVIEW-TX12
+  - SRC-REG-REQ-TRACE
+  - SRC-REG-HANDOFFS
+  - SRC-REG-MEMORY-PREFLIGHT-RECEIPTS
+  - SRC-REG-COMPLETION-RECEIPTS
+  - SRC-REG-CONTROL-RECORDS
+  - SRC-REG-SOURCES
+  - SRC-RDR-STRATEGIC-BASELINE-001
+  - der_configuration_control_yaml
+canonical_sources_inspected:
+- path: Sys4AI/registries/agentjob_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-AGENTJOBS
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/docs/requirement_trace_semantic_review_tx12.md
+  registry: source_registry.csv
+  row_id: SRC-TRACE-SEMANTIC-REVIEW-TX12
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/registries/requirement_trace_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-REQ-TRACE
+  inspected_sections:
+  - registered source metadata
+registry_rows_inspected:
+- path: Sys4AI/registries/handoff_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-HANDOFFS
+  purpose: Confirm memory hit registry evidence.
+- path: Sys4AI/registries/memory_preflight_receipt_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-MEMORY-PREFLIGHT-RECEIPTS
+  purpose: Confirm memory hit registry evidence.
+- path: Sys4AI/registries/completion_receipt_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-COMPLETION-RECEIPTS
+  purpose: Confirm memory hit registry evidence.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: observed
+  notes: Derivative hit der_configuration_control_yaml requires source inspection.
+usable_for_routing: true

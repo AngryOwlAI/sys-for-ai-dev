@@ -1,0 +1,69 @@
+completion_receipt_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-18-HUMAN-APPROVAL
+role: system_director
+result: PASS
+summary: TX-18 records direct accountable human G-08 approval of the exact Sys4AI vision and eight core values, activates their canonical requirement family, accepts bounded TX-17 controls, and preserves all host production operational stakeholder domain permission and later-transaction boundaries.
+changed_artifacts:
+- path: PRDs/Sys4AI_phase-0_product_system_design_prd.md
+  change_summary: Advanced the exact SFA-VISION-001 and SFA-VALUE-001 through SFA-VALUE-008 content from candidate 0.1 to approved 1.0 and activated the corresponding requirement family with explicit supersession limits.
+- path: Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G08-001.yaml
+  change_summary: Recorded direct accountable human approval evidence selected and rejected routes reviewed hashes limitations and the exact G-08 authority boundary.
+- path: Sys4AI/control_records/execution_transactions/TX-18-HUMAN-APPROVAL.yaml;Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z.yaml
+  change_summary: Bound execution to the human-authorized TX-18 transaction and preserved source-first routing evidence as navigation rather than authority.
+- path: Sys4AI/schemas/contracts/program_state.schema.json;Sys4AI/control_records/program_state.yaml
+  change_summary: Added an optional strategic-approval state and advanced only to the post-TX-18 active TX-19-eligible boundary.
+- path: Sys4AI/sys_for_ai/prd_semantics.py;Sys4AI/tests/test_prd_semantics.py;Sys4AI/sys_for_ai/safety_evaluation.py;Sys4AI/tests/test_safety_evaluation.py;Sys4AI/sys_for_ai/trace_validation.py;Sys4AI/tests/test_trace_semantics.py
+  change_summary: Added fail-closed post-TX-18 approval decision and state routing checks and labeled TX-17 gate results as snapshot evidence with current G-08 authority routed to program state and the accepted decision.
+- path: Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001.yaml;Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001.yaml
+  change_summary: Recorded the portable completion evidence and TX-19-only handoff while stopping before derivative-module regeneration.
+- path: Sys4AI/registries/*.csv;Sys4AI/docs/generated/**
+  change_summary: Registered the decision transaction preflight completion handoff sources and relationships and refreshed noncanonical readers without changing the TX-12 trace data.
+- path: implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX18-001.md
+  change_summary: Records the human-readable approval scope validation limitations rollback supersession and next-gate boundary.
+validation_evidence:
+  focused_approval_semantics: PASS_20_OF_20
+  product_unit_suite: PASS_235_OF_235
+  named_validator_targets: PASS
+  product_aggregate_validation: PASS
+  root_aggregate_validation: PASS
+  requirement_trace_rows: 227
+  preserved_needs_evidence: 7
+  preserved_planned_verification: 200
+  operational_capability_rows: 0
+  generalized_trace_sha256: b868e4d201bf1a5908cd87357f51214be9081684e56c04f9cd48850653958138
+  rollback_legacy_sha256: 95e59cf5befc4f9fd29d857d1f609a4c0d2c321c1b3adf1efca1a69cdb01b28c
+  accepted_phase2_sha256: 98567cf4f4af8ca99650a6220a78d840dae5e11195891fc808c69c4828528038
+  accepted_phase2_draft_sha256: 9e290964200137329827a0164f50c2d3e97dc194fac65dd086c8b1dd7e57d84f
+  tx17_safety_packet_sha256: d04f7510b48e2ccf619ffbeecd1397fea4c516d70d1a6fd2379a8ab1b4cae1be
+  protected_holdout_sha256: 8128ae1aa3464cef89ccf9bd536e14c4d39cfcff7e8034ee0cc64cfec447fcda
+  protected_artifact_git_diff: ZERO
+  generated_derivatives: PASS
+  diff_check: PASS
+  memory_status: PASS_WITH_WARNINGS_962_OBJECTS_420_WARNINGS_ZERO_AUTHORITY_INVERSIONS
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z
+authority_changes:
+  g08_approved: true
+  vision_id: SFA-VISION-001
+  vision_content_status: approved
+  vision_version: "1.0"
+  core_value_ids: SFA-VALUE-001_THROUGH_SFA-VALUE-008
+  core_values_content_status: approved
+  strategic_requirement_family: active
+  tx17_bounded_self_change_controls_accepted: true
+  tx12_trace_data_changed: false
+  g07_approved: false
+  production_readiness_claimed: false
+  operational_authority_granted: false
+  broad_stakeholder_consensus_claimed: false
+  domain_truth_or_acceptance_claimed: false
+  permission_expansion_granted: false
+unresolved_issues:
+- G-07 observable host verification remains open and no host-dependent capability claim is promoted.
+- Production readiness operational authority broad stakeholder consensus autonomous capability and domain truth remain open or unclaimed.
+- Repository holdouts are integrity protected but not confidential externally curated or independently rotated.
+- Vision success thresholds real-host operational measures seven needs-evidence rows and 200 planned verification rows remain explicit future evidence obligations.
+- The TX-16 walking-skeleton generated report retains its pre-G-08 snapshot warning until the named TX-19 and TX-20 derivative-regeneration sequence; it is not current approval authority.
+- TX-19 derivative-module regeneration has not begun.
+next_recommendation: Commit and push TX-18 as one rollback-coherent shared baseline then route only to TX-19-MODULES; do not begin TX-20 or claim G-07 G-10 production or operational acceptance.
