@@ -8,7 +8,7 @@
 **Supersedes:** `PRDs/Sys4AI_phase-0_prd.md` as an authoritative Phase 0 source.
 **Downstream dependency:** `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` consumes this file.
 **Identity authority:** `DDR-SFADEV-STRATEGIC-BASELINE-001`
-**Strategic-baseline state:** `TX-04-P0-VISION-VALUES` records candidate vision and core-values content under the approved identity. The content remains `candidate`, its requirements remain `proposed`, and `G-08` human approval remains open.
+**Strategic-baseline state:** `TX-04-P0-VISION-VALUES` records candidate vision and core-values content under the approved identity, and `TX-05-P0-LIFECYCLE-PATTERN` records the candidate complete lifecycle plus independent coordination-pattern and operational-maturity taxonomies. The new content and proposed requirements remain pending their named gates: `G-03` for the lifecycle/pattern candidate baseline and `G-08` for human strategic approval.
 **Last updated:** 2026-07-09
 
 ---
@@ -24,6 +24,8 @@ The product is meta-agentic. A plan, prompt, document, scaffold, or package may 
 Codex is the initial reference host, not the source of Sys4AI purpose or product authority. Host-capability and permission mappings remain subject to `G-07`; this identity baseline neither asserts unverified Codex capabilities nor expands host or project permissions.
 
 This revision also establishes one candidate Sys4AI vision and eight controlled candidate core values. They record a reviewable strategic proposal, not approved stakeholder intent. Only an accountable human product owner with represented stakeholder evidence may approve, reject, or revise them at `G-08`; model authorship, canonical-file location, and structural validation do not constitute approval.
+
+This revision also records a controlled candidate complete lifecycle—Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire—and separates coordination pattern from operational maturity. These additions do not complete `G-03`, activate templates or schemas, prove lifecycle capability, or authorize prototype-to-production promotion.
 
 This revision also establishes core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. These profiles define authority classes, registry requirements, validator expectations, derivative-surface policy, promotion rules, drift behavior, and security constraints for structured source, control, configuration, registry, and validation-contract artifacts.
 
@@ -114,6 +116,11 @@ Phase 1 does not re-litigate Phase 0 product identity, lifecycle, role ownership
 | Target AI Agent or Target Agentic System | A single agent, multi-agent system, workflow, or agentic application created or stewarded through Sys4AI as a separate system of interest with its own purpose, authority, data, approval, and operational boundary. |
 | Runtime actor | The human principal, host harness, Meta-Agent Runtime, delegated role actor, target runtime, verifier, or operator acting in a transaction. Runtime actor is independent of system-layer classification and does not confer authority by itself. |
 | Requirements Discovery Record (RDR) | A pre-USRD discovery artifact that captures initial intent, mission, stakeholders, boundaries, scenarios, candidate requirements, evidence, risks, assumptions, constraints, open questions, and downstream routing before formal requirements generation. |
+| Lifecycle stage | One controlled state in the target-system stewardship lifecycle: `design`, `develop`, `implement`, `test`, `run`, `maintain`, `improve`, or `retire`; `blocked` and `cancelled` are explicit non-progress states rather than hidden transitions. |
+| Coordination pattern | The target system's architecture topology and control-flow classification: `linear_workflow`, `goal_directed_autonomous_agent`, `role_based_multi_agent`, `production_orchestration`, or `hybrid`. It does not state operational readiness. |
+| Operational maturity | The target system's independently evidenced readiness or operating state: `concept`, `prototype`, `validated_prototype`, `production_candidate`, `production_approved`, `operational`, `maintenance`, or `retired`. It does not select architecture. |
+| Agentic System Pattern Decision | A candidate typed architecture decision recording coordination pattern, operational maturity, alternatives, autonomy, roles, integrations, communication, task/state, monitoring, failure, reliability, security, recovery, and promotion evidence. Concrete contract activation requires `G-04`. |
+| Lifecycle transition evidence | Evidence that a stage's exit criteria, permissions, reviews, approvals, failure behavior, rollback readiness, and next-state conditions are satisfied. Schedule progress or artifact existence alone is insufficient. |
 | System layer | A controlled classification for the subject of work: `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, or `derivative_surface`. |
 | Development system | The workspace and runtime surface used to develop or improve `Sys4AI`, such as `Sys4AI-dev`. |
 | Framework product | The `Sys4AI` product and its governed requirements, scaffold, registries, validators, templates, and reference implementation. |
@@ -180,6 +187,9 @@ The framework product and Meta-Agent Runtime, working with an authorized user, s
 11. What continuation loop resumes work from tracked state without unbounded wandering?
 12. What AgentJob contract constrains each unit of agent work?
 13. What markdown-like, SVC, wiki, PDF, TeX, HTML, notebook, or other derivative surfaces are required, and which sources remain authoritative?
+14. Which lifecycle stage is current, which transitions are allowed, and what evidence and approval does the next transition require?
+15. Which coordination pattern fits the target problem, and what operational maturity is supported independently by current evidence?
+16. What evidence, ownership, monitoring, recovery, promotion, maintenance, data-disposition, authority-withdrawal, and retirement obligations apply?
 
 ### 5.1 Candidate Sys4AI vision
 
@@ -403,13 +413,252 @@ The following requirements are a controlled candidate baseline with requirement 
 
 `SFA-CORE-VALUES-005`: An AI runtime actor shall not approve its own purpose, vision, values, authority, permissions, evaluation standard, production promotion, or acceptance.
 
-### 6.2 Lifecycle model
+### 6.2 Candidate complete lifecycle model
 
-`SFA-CORE-LIFE-001`: `Sys4AI` shall define a lifecycle for designing, developing, running, improving, and maintaining target agentic systems.
+`TX-05-P0-LIFECYCLE-PATTERN` introduces the complete lifecycle and pattern taxonomy as a controlled candidate for `G-03`. The canonical location does not make the candidate approved, implemented, or operational. Until `G-03` accepts, revises, or rejects this migration, the narrower pre-`TX-05` wording of `SFA-CORE-LIFE-001` remains the active minimum obligation; `SFA-CORE-LIFE-002` and `003` remain active without change. The proposed replacement wording for `SFA-CORE-LIFE-001`, new lifecycle requirements `004` through `008`, and pattern requirements `001` through `005` have requirement lifecycle `proposed`.
+
+`SFA-CORE-LIFE-001`: `Sys4AI` shall define and support the design, development, implementation, testing, requirements verification, stakeholder and system validation, behavioral and performance evaluation, operation, maintenance, improvement, and retirement of target AI agents and target agentic systems.
 
 `SFA-CORE-LIFE-002`: Each lifecycle phase shall define expected inputs, outputs, authorities, handoffs, validators, and exit criteria.
 
 `SFA-CORE-LIFE-003`: Lifecycle phases shall separate product requirements, system requirements, architecture, implementation planning, execution, improvement, and maintenance.
+
+`SFA-CORE-LIFE-004`: Each lifecycle stage shall define entry criteria, required inputs, responsible and approving roles, permission requirements, activities, expected outputs, required evidence, exit criteria, failure and degraded-mode behavior, allowed transitions, rollback or return transitions, and monitoring or review cadence where applicable.
+
+`SFA-CORE-LIFE-005`: `Sys4AI` shall distinguish test execution, requirements verification, stakeholder and system validation, and behavioral or performance evaluation so that evidence for one claim is not represented as evidence for another.
+
+`SFA-CORE-LIFE-006`: Testing shall be both a named lifecycle stage and a cross-cutting gate before release, after maintenance, after improvement, and after any material model, data, prompt, tool, policy, host, integration, or permission change.
+
+`SFA-CORE-LIFE-007`: Improvement shall be evidence-driven and shall route approved changes back through every affected discovery, design, development, implementation, testing, operations, approval, and source-baseline artifact.
+
+`SFA-CORE-LIFE-008`: Production target systems shall define retirement, archival, data disposition, credential and authority withdrawal, dependency shutdown, retained evidence, and stakeholder notification obligations.
+
+#### 6.2.1 Lifecycle stage contracts
+
+The normal lifecycle is `Design -> Develop -> Implement -> Test -> Run -> Maintain -> Improve -> Retire`. It is not a one-way project schedule: failed gates return work to the earliest affected stage, improvement re-enters the affected stages, and approved retirement may be initiated from any active production stage.
+
+##### Design
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | An authorized need, problem, or change request exists; the system of interest, stakeholders, initial authority boundary, and available evidence are identifiable; an RDR or approved discovery substitution is available. |
+| Required inputs | Stakeholder intent, current-state evidence when applicable, strategic-intent evidence, constraints, risks, interfaces, assumptions, and source-authority context. |
+| Responsible and approving roles | System Developer / User Wants Elicitor, Requirements Manager, System Architect, Domain Specialist, and applicable assurance reviewers; the accountable sponsor or product owner approves design readiness. |
+| Permission requirements | Read and discovery access only by default; any external action, sensitive-data access, or controlled-source mutation requires separate authorization. |
+| Activities | Discovery, requirements derivation, architecture, pattern and maturity analysis, threat/risk analysis, interface analysis, trace planning, and verification/validation/evaluation planning. |
+| Expected outputs | RDR, requirements and architecture baselines, risk and issue records, pattern-decision proposal, lifecycle plan, verification basis, and implementation-ready package. |
+| Required evidence | Stakeholder and source trace, alternatives, assumptions, decisions, unresolved issues, risks, acceptance criteria, and review findings. |
+| Exit criteria and primary gate | Intent and boundary are approved; requirements and architecture are coherent and traceable; risks and verification basis are sufficient for the authorized scope. Primary gate: design readiness. |
+| Failure or degraded mode | Stop or remain blocked when authority, system boundary, stakeholder need, critical evidence, or risk ownership is unresolved; preserve candidate artifacts without promoting them. |
+| Allowed transitions | `Develop`; return from `Improve`; `blocked` or `cancelled` with evidence. |
+| Rollback or return | Return to discovery, revise candidate requirements, or supersede an unaccepted design baseline without rewriting prior approved evidence. |
+| Monitoring and review cadence | At every design baseline, material intent or boundary change, newly discovered risk, or upstream strategic-intent change. |
+
+##### Develop
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | An approved design baseline, build plan, environment boundary, acceptance basis, and authorized work scope exist. |
+| Required inputs | Requirements package, architecture, interfaces, data contracts, security controls, implementation plan, test design, and configuration baseline. |
+| Responsible and approving roles | Developers and technical engineers produce components; architects, security reviewers, and requirements verifiers review; the delegated development owner approves development completeness. |
+| Permission requirements | Repository, model, tool, data, and environment access must stay within the execution authorization; production mutation is not implied. |
+| Activities | Create and review code, prompts, skills, tools, configurations, tests, documentation, migrations, and build artifacts. |
+| Expected outputs | Implementable components, configurations, prompts, skills, tests, build artifacts, dependency records, and updated trace. |
+| Required evidence | Source review, unit and component test results, dependency and provenance evidence, configuration validation, known limitations, and unresolved defects. |
+| Exit criteria and primary gate | Required components exist, declared development checks pass, interfaces are ready for integration, and residual defects are owned. Primary gate: development completeness. |
+| Failure or degraded mode | Preserve partial artifacts as non-release evidence, isolate unsafe or invalid components, and return architecture defects to Design. |
+| Allowed transitions | `Implement`; `Design` for architecture or requirement defects; `blocked` or `cancelled` with evidence. |
+| Rollback or return | Revert to the last accepted source/configuration baseline or withdraw the development candidate. |
+| Monitoring and review cadence | At controlled checkpoints, dependency or model changes, and every integration candidate. |
+
+##### Implement
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | Development completeness, an approved build and environment plan, integration contracts, and a deployable candidate exist. |
+| Required inputs | Components, configuration, infrastructure and integration definitions, data and migration plans, security controls, and rollback plan. |
+| Responsible and approving roles | Implementers and integration owners assemble the system; operators and security reviewers assess the target environment; the implementation owner approves verification readiness. |
+| Permission requirements | Environment provisioning, configuration, secret, integration, and deployment permissions must be explicit and least-privileged; production access requires separate production authority. |
+| Activities | Assemble, configure, provision, integrate, migrate, package, and deploy to an authorized test or staging environment. |
+| Expected outputs | Integrated target-system instance or reproducible deployable package, environment/configuration baseline, migration record, and integration evidence. |
+| Required evidence | Build reproducibility, installation and integration results, configuration and secret-handling checks, environment identity, provenance, and rollback rehearsal. |
+| Exit criteria and primary gate | The integrated candidate is reproducible, testable, traceable to the approved design, and safe to enter controlled testing. Primary gate: implementation verification. |
+| Failure or degraded mode | Isolate the environment, prevent release, record the failed integration, and return to Develop or Design according to cause. |
+| Allowed transitions | `Test`; `Develop` for component defects; `Design` for boundary or architecture defects; `blocked` or `cancelled`. |
+| Rollback or return | Remove the failed deployment, restore configuration/data snapshots, and return to the last verified implementation baseline. |
+| Monitoring and review cadence | Every integration candidate, environment change, migration, or deployment-mechanism change. |
+
+##### Test
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | A testable integrated build, approved test and evaluation plan, defined metrics and thresholds, controlled test data, and required reviewers exist. |
+| Required inputs | Requirements and trace, architecture, risk controls, build and environment evidence, scenarios, oracles, evaluation datasets, and release criteria. |
+| Responsible and approving roles | Test executors, requirements verifiers, stakeholder/system validators, domain and security reviewers, and an independent evaluator where required; an accountable human release authority approves promotion. |
+| Permission requirements | Test tools, data, environments, models, and external actions must be isolated and authorized; test access does not grant production permission. |
+| Activities | Execute functional, integration, regression, safety, security, recovery, rollback, requirements-verification, stakeholder-validation, and behavioral/performance-evaluation work. |
+| Expected outputs | Separately labeled test, verification, validation, and evaluation results; defects and risk updates; release recommendation; and limitations. |
+| Required evidence | Reproducible commands and conditions, result provenance, metric calculations, threshold comparison, negative cases, reviewer identity, unresolved failures, and approval evidence. |
+| Exit criteria and primary gate | Required evidence meets the approved release basis, failures are resolved or explicitly accepted by authorized humans, and production promotion is approved. Primary gate: release recommendation and approval. |
+| Failure or degraded mode | Fail closed, prohibit Run transition, preserve evidence, and route to Develop, Implement, or Design according to the defect source. |
+| Allowed transitions | `Run` only after release approval; `Develop` or `Implement` on failure; `Design` when requirements or architecture are wrong; `blocked` or `cancelled`. |
+| Rollback or return | Reject the candidate, reset test fixtures and environments, and restore the last accepted release candidate. |
+| Monitoring and review cadence | Before every release and after maintenance, improvement, or any material model, data, prompt, tool, policy, host, integration, or permission change. |
+
+##### Run
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | Production approval, operations readiness, named service and incident owners, monitoring, security, rollback, support, and continuity evidence exist. |
+| Required inputs | Approved release, production configuration, runbooks, permission envelope, service objectives, monitoring and alert rules, incident plan, and rollback package. |
+| Responsible and approving roles | Operators run the service; product, security, data, and incident owners govern their domains; the accountable production owner accepts operational service. |
+| Permission requirements | Production permissions are least-privileged, time- and scope-bounded where practical, monitored, revocable, and independent from model goals or values. |
+| Activities | Operate, observe, support, audit, respond to incidents, collect telemetry and user feedback, and enforce stop or degraded-mode controls. |
+| Expected outputs | Operational service, telemetry, audit and incident records, user feedback, service-level evidence, and change proposals. |
+| Required evidence | Current release and configuration identity, authorization, health and safety signals, action logs, incident evidence, drift status, and rollback readiness. |
+| Exit criteria and primary gate | Continuing operation remains within approved service, risk, permission, and evidence bounds. Primary gate: operational acceptance and continuing review. |
+| Failure or degraded mode | Enter a declared degraded state, restrict or stop unsafe capability, invoke incident response, and fail closed when required evidence or authority is lost. |
+| Allowed transitions | `Maintain`; `Improve` through an evidence-backed proposal; `Retire` through approval; emergency `blocked` or safe-stop state. |
+| Rollback or return | Restore the last accepted release, disable affected capabilities, or stop service according to the incident and rollback plan. |
+| Monitoring and review cadence | Continuous operational monitoring plus scheduled service, risk, security, privacy, model/data drift, and ownership reviews. |
+
+##### Maintain
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | An incident, defect, dependency or host change, drift signal, routine maintenance need, or approved maintenance schedule exists. |
+| Required inputs | Operational evidence, defect and incident records, dependency/model/data notices, maintenance scope, current baseline, risk analysis, and regression plan. |
+| Responsible and approving roles | Maintainers and operators prepare changes; architecture, security, data, and verification owners review as triggered; the delegated release authority approves the maintenance release. |
+| Permission requirements | Maintenance access is bounded to affected systems and data; emergency access is logged, temporary, reviewed, and revoked after use. |
+| Activities | Patch, update, repair, rotate, migrate, reconcile drift, update documentation and evidence, and run required regression and recovery checks. |
+| Expected outputs | Controlled maintenance candidate, updated dependencies/configuration/docs/trace, incident resolution evidence, and updated rollback material. |
+| Required evidence | Change and impact record, provenance, security and compatibility review, regression results, deployment/rollback evidence, and residual-risk ownership. |
+| Exit criteria and primary gate | The maintenance candidate passes affected tests and approvals and is safe to return to Run. Primary gate: regression and maintenance-release approval. |
+| Failure or degraded mode | Roll back, retain the prior supported baseline, isolate the affected capability, and escalate unsupported or unsafe dependencies. |
+| Allowed transitions | `Test` before return to `Run`; `Improve` for material redesign; `Retire` when support is no longer safe or justified; `blocked`. |
+| Rollback or return | Restore the last accepted release and revoke temporary maintenance permissions. |
+| Monitoring and review cadence | Scheduled maintenance windows and event-driven review for incidents, vulnerabilities, dependency/model/host changes, drift, or support expiry. |
+
+##### Improve
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | A traceable, evidence-backed improvement proposal identifies the affected outcome, baseline, value or requirement, risks, and expected benefit. |
+| Required inputs | User and stakeholder feedback, telemetry, evaluations, incidents, defects, drift, new capabilities, value impacts, cost, and current requirements/architecture. |
+| Responsible and approving roles | Improvement proposer, product and architecture owners, operators, affected assurance owners, and independent verifier; accountable humans approve material purpose, permission, evaluation, or production changes. |
+| Permission requirements | Proposal and analysis authority does not grant implementation or permission expansion; each downstream stage requires its own bounded authorization. |
+| Activities | Analyze root cause and value, compare alternatives, perform impact and threat analysis, update candidate baselines, and select the earliest affected re-entry stage. |
+| Expected outputs | Approved, rejected, or deferred improvement decision; updated candidate requirements/architecture/plan; impact map; evaluation and rollback obligations. |
+| Required evidence | Source and metric trace, alternatives, expected and adverse effects, value and permission impact, independent review, decision authority, and success/rollback criteria. |
+| Exit criteria and primary gate | The proposal has an accountable disposition and every approved change is routed to affected lifecycle stages and evidence owners. Primary gate: improvement/change approval. |
+| Failure or degraded mode | Reject or defer the proposal, preserve the current accepted baseline, and record insufficient or contradictory evidence. |
+| Allowed transitions | `Design`, `Develop`, `Implement`, or `Test` according to impact; `blocked` or `cancelled` when authority or evidence is insufficient. |
+| Rollback or return | Withdraw the proposal or restore the prior accepted baseline when improvement evidence fails. |
+| Monitoring and review cadence | Triggered by evidence, incidents, stakeholder feedback, regression, material ecosystem change, or scheduled product review. |
+
+##### Retire
+
+| Contract field | Candidate minimum |
+|---|---|
+| Entry criteria | An accountable human retirement decision, impact analysis, retirement plan, affected-owner inventory, and continuation or migration disposition exist. |
+| Required inputs | Service and dependency inventory, data/record retention rules, credential and authority inventory, stakeholder list, contracts, legal/privacy/security obligations, and archive plan. |
+| Responsible and approving roles | Product and operations owners coordinate; data, security, privacy, compliance, dependency, archive, and stakeholder owners execute their obligations; an accountable human approves retirement acceptance. |
+| Permission requirements | Shutdown, revocation, export, deletion, archival, and notification permissions must be explicit, segregated where required, and auditable. |
+| Activities | Notify stakeholders, stop intake and service, revoke credentials and authority, dispose of or transfer data, shut down dependencies, archive evidence, and document residual obligations. |
+| Expected outputs | Retirement record, shutdown and revocation evidence, data-disposition record, retained archive, dependency closure, stakeholder notification, and residual-obligation register. |
+| Required evidence | Approved decision, inventories, completion attestations, deletion/transfer/retention evidence, revoked access, stopped services, archive integrity, and exceptions. |
+| Exit criteria and primary gate | Required obligations are complete or explicitly inapplicable, residual risks have owners, authority is withdrawn, and retained evidence is accessible under policy. Primary gate: retirement acceptance. |
+| Failure or degraded mode | Keep necessary controls and ownership active, block final retirement status, prevent orphaned data/credentials/dependencies, and escalate unresolved obligations. |
+| Allowed transitions | Terminal `retired` maturity after acceptance; exceptional reactivation requires a new authorized decision and re-entry no later than Design and Test. |
+| Rollback or return | Pause staged shutdown when safe and restore only from a verified recovery point under new authorization; retirement approval alone does not authorize reactivation. |
+| Monitoring and review cadence | At each retirement checkpoint and later retention, deletion, archive-integrity, or residual-contract review date. |
+
+#### 6.2.2 Allowed transitions and cross-cutting gates
+
+| From | To | Minimum rule |
+|---|---|---|
+| Design | Develop | Design-readiness gate accepted. |
+| Develop | Implement | Development-completeness gate accepted. |
+| Implement | Test | Integrated candidate is reproducible and testable. |
+| Test | Develop or Implement | A failed test routes to the stage that owns the defect. |
+| Test | Run | Release and production approval evidence exists; no required gate is skipped. |
+| Run | Maintain | An operational, dependency, defect, incident, drift, or routine-maintenance trigger exists. |
+| Maintain | Test, then Run | Affected regression and approval gates pass before service returns. |
+| Run or Maintain | Improve | An evidence-backed proposal exists and does not self-authorize downstream work. |
+| Improve | Design, Develop, Implement, or Test | Impact analysis selects the earliest affected stage. |
+| Run, Maintain, or Improve | Retire | Accountable retirement approval and the retirement plan exist. |
+| Any stage | blocked or cancelled | The state, cause, responsible authority, preserved evidence, safe-stop condition, and permitted next action are recorded. |
+
+No transition may skip required test, verification, validation, evaluation, security, permission, release, or human-approval gates. The four evidence concepts remain distinct:
+
+| Evidence concept | Question answered |
+|---|---|
+| Test execution | Did the implementation behave as specified under the stated test conditions? |
+| Requirements verification | Was each requirement implemented correctly and traced to evidence? |
+| Stakeholder and system validation | Is the right system being built for the approved need and operating context? |
+| Behavioral or performance evaluation | How well does the probabilistic system perform against defined scenarios, metrics, thresholds, and uncertainty bounds? |
+
+#### 6.2.3 Candidate coordination-pattern taxonomy
+
+Coordination pattern describes architecture topology and control flow. It is independent from operational maturity.
+
+| Controlled value | Definition and selection signal |
+|---|---|
+| `linear_workflow` | Deterministic or mostly predetermined ordered steps with explicit handoffs; prefer when predictability and reviewability dominate open-ended adaptation. |
+| `goal_directed_autonomous_agent` | One agent selects and sequences actions toward a bounded goal within an explicit permission and stop envelope; use only when open-ended planning is necessary and risks are controlled. |
+| `role_based_multi_agent` | Multiple agents have explicit role, authority, input/output, communication, and conflict boundaries; use when specialization or independent review materially improves the system. |
+| `production_orchestration` | A production-grade orchestration layer manages state, scheduling, retries, observability, recovery, approvals, and service integration for one or more agents or workflows. |
+| `hybrid` | A justified composition of two or more permitted patterns whose boundaries, state transfers, authorities, and failure behavior are explicit. |
+
+`SFA-CORE-PATTERN-001`: Discovery shall classify the target system's coordination pattern separately from operational maturity.
+
+`SFA-CORE-PATTERN-002`: Permitted coordination patterns shall include `linear_workflow`, `goal_directed_autonomous_agent`, `role_based_multi_agent`, `production_orchestration`, and `hybrid`.
+
+`SFA-CORE-PATTERN-003`: Rapid prototyping shall be treated as an operational-maturity condition and shall not be represented as a coordination pattern or assumed production architecture.
+
+`SFA-CORE-PATTERN-004`: Architecture selection shall record the target problem, system of interest, predictability versus open-endedness, autonomy, role specialization, integrations, communication protocol, task and state model, monitoring, failure and degraded modes, reliability and recovery, security and data boundaries, promotion criteria, alternatives rejected, and rationale.
+
+`SFA-CORE-PATTERN-005`: A prototype shall not become operational without evaluation, security, integration, ownership, rollback, monitoring, incident-response, and accountable production-approval evidence.
+
+#### 6.2.4 Candidate operational-maturity taxonomy
+
+| Controlled value | Minimum meaning |
+|---|---|
+| `concept` | Need, hypothesis, or architecture direction exists; no working target-system claim. |
+| `prototype` | A limited implementation explores feasibility; evidence is incomplete and production use is prohibited. |
+| `validated_prototype` | Defined prototype scenarios and acceptance checks pass within stated limits; production fitness is still unapproved. |
+| `production_candidate` | Integration, operations, safety, security, ownership, monitoring, incident, and rollback evidence is assembled for approval. |
+| `production_approved` | An accountable human production authority accepts the release basis and declared residual risk; operation has not necessarily begun. |
+| `operational` | The approved system is running within its permission envelope with current monitoring, ownership, and incident controls. |
+| `maintenance` | The system remains governed while undergoing controlled maintenance, regression, or recovery work. |
+| `retired` | Retirement acceptance is complete, authority is withdrawn, service/dependencies are shut down as required, and retained evidence and data disposition are recorded. |
+
+Pattern and maturity must be stored and reviewed as separate fields. A `role_based_multi_agent` system can be a `prototype`; a `linear_workflow` can be `operational`; and `production_orchestration` does not itself prove `production_approved` or `operational` maturity.
+
+#### 6.2.5 Candidate Agentic System Pattern Decision contract
+
+Every target system requires an Agentic System Pattern Decision. The preferred future representation is a typed use of the Director Decision contract with `decision_type: agentic_system_pattern`; concrete schema and template mutation remain blocked until `G-04` approves artifact and interface contracts.
+
+| Required field | Decision obligation |
+|---|---|
+| Target problem and system of interest | Identify the need, target boundary, stakeholders, and operating context. |
+| Coordination pattern | Select one permitted value and define hybrid sub-pattern boundaries when applicable. |
+| Operational maturity | Record the current maturity independently from the selected pattern. |
+| Predictability versus open-endedness | Explain how much action sequencing can be predetermined and why. |
+| Single-agent versus multi-agent need | State whether role separation is necessary and what benefit justifies it. |
+| Role specialization and authority | Define responsibilities, approvals, communication, conflict handling, and forbidden authority. |
+| Autonomy level | Bound planning, tools, external actions, stop conditions, and human gates. |
+| APIs, databases, and business workflows | Identify required integrations, ownership, failure semantics, and data boundaries. |
+| Communication protocol | Define message, event, state-transfer, timeout, retry, and escalation behavior. |
+| Task and state model | Define unit of work, state ownership, persistence, concurrency, resumption, and cancellation. |
+| Monitoring and observability | Define health, quality, safety, security, cost, drift, audit, and alert signals. |
+| Failure and degraded-mode behavior | Define fail-closed behavior, safe stop, partial service, escalation, and recovery. |
+| Reliability and recovery | Define service expectations, idempotency, retry, backup/restore, recovery objectives, and rollback. |
+| Security and data boundaries | Define permissions, trust boundaries, data classes, isolation, retention, and incident ownership. |
+| Prototype-to-production criteria | Define required evaluation, integration, ownership, rollback, monitoring, incident-response, and approval evidence. |
+| Alternatives rejected and rationale | Record credible alternatives, comparison criteria, rejection reasons, assumptions, and review triggers. |
+
+The pattern decision must be reviewed at initial architecture selection and whenever the target problem, autonomy, roles, integrations, communication, task/state model, reliability, security boundary, operational maturity, or promotion basis changes materially.
 
 ### 6.3 Role and artifact model
 
@@ -459,7 +708,9 @@ The controlled layer model and the runtime-actor model are independent dimension
 
 `SFA-CORE-DISCOVERY-004`: Candidate requirements from discovery shall remain candidate requirements until promoted through the requirements authority workflow.
 
-`SFA-CORE-DISCOVERY-005`: The discovery gate shall capture system layer, mission need, problem statement, desired outcome, value case, system-of-interest, stakeholders, boundaries, as-is state when applicable, to-be state, operational scenarios, candidate requirements, quality attributes, architecture drivers, interface candidates, V&V seeds, evidence, assumptions, risks, constraints, open questions, and downstream routing recommendation.
+`SFA-CORE-DISCOVERY-005`: The discovery gate shall capture system layer, mission need, problem statement, desired outcome, value case, system-of-interest, stakeholders, boundaries, as-is state when applicable, to-be state, operational scenarios, candidate requirements, quality attributes, architecture drivers, interface candidates, target coordination-pattern candidates, operational-maturity starting point, reliability requirements, autonomy constraints, integration and communication needs, monitoring and degraded-mode requirements, prototype-to-production evidence, V&V seeds, evidence, assumptions, risks, constraints, open questions, and downstream routing recommendation.
+
+For the `TX-05` candidate discovery contract, pattern and maturity are separate decisions. Discovery may recommend candidates, but it shall not infer production approval from prototype evidence, use `prototype` as a coordination pattern, or treat a pattern recommendation as permission to create templates, schemas, deployments, or runtime behavior before the applicable downstream gate.
 
 `SFA-CORE-DISCOVERY-006`: The discovery gate shall inspect available repository or document evidence before asking questions that existing source evidence can answer.
 
@@ -784,12 +1035,35 @@ flowchart TD
     SRP --> P1[Phase 1: Implementation Initialization]
     P1 --> TAS["Target AI Agent or Target Agentic System"]
     M -->|stewards as a separate system of interest| TAS
-    TAS --> RUN[Run, observe, improve, maintain]
-    RUN --> CHANGE[Change requests and evidence]
+    TAS --> LIFE["Design, Develop, Implement, Test, Run, Maintain, Improve, Retire"]
+    LIFE --> CHANGE[Lifecycle evidence and change requests]
     CHANGE --> D
 ```
 
 The diagram separates the framework product, executable runtime, host harness, and target system. The runtime applies the framework within human and host authorization. The target is not a component of Sys4AI authority: it remains a separate system of interest with target-specific purpose, data, approvals, and operating boundaries.
+
+The lifecycle transition model is evidence-gated and allows controlled return paths:
+
+```mermaid
+flowchart LR
+    DES[Design] --> DEV[Develop]
+    DEV --> IMP[Implement]
+    IMP --> TEST[Test]
+    TEST -->|release approved| RUN[Run]
+    TEST -->|component or integration failure| DEV
+    RUN --> MAINT[Maintain]
+    MAINT --> TEST
+    RUN -->|evidence-backed proposal| BETTER[Improve]
+    MAINT -->|material change| BETTER
+    BETTER -->|affected scope| DES
+    BETTER --> DEV
+    BETTER --> IMP
+    BETTER --> TEST
+    RUN -->|retirement approved| RET[Retire]
+    MAINT -->|retirement approved| RET
+```
+
+Testing, requirements verification, stakeholder and system validation, and behavioral or performance evaluation also act as cross-cutting gates. The arrows do not authorize a transition: required permissions, evidence, and accountable approvals remain controlling.
 
 Every serious target agentic system should be analyzed as cooperating subsystems. Phase 0 does not implement these subsystems, but it must determine their requirements when the target system is expected to run, improve, or be maintained over time.
 
@@ -918,7 +1192,7 @@ The role model shall be represented as controlled role data first and reader-fac
 | System Developer / User Wants Elicitor | Elicit target-system intent, stakeholders, desired capabilities, constraints, quality expectations, acceptance expectations, and unknowns through the discovery gate. | RDR and USRD. |
 | Existing System Analyst | Discover current-state systems when the target system already exists, replaces something, integrates with something, or modernizes something. | ESAR. |
 | System Manager / Requirements Manager | Normalize user wants into atomic, classified, testable system requirements. | SRD. |
-| System Architect / Architecture Requirements Architect | Derive architecture drivers, ASRs, views, mechanisms, ADRs, and evaluation evidence from SRD. | ARD. |
+| System Architect / Architecture Requirements Architect | Derive architecture drivers, ASRs, views, mechanisms, coordination-pattern and maturity decisions, ADRs, and evaluation evidence from SRD. | ARD and Agentic System Pattern Decision proposal. |
 | System Engineer / Technical Requirements Engineer | Convert SRD and ARD into implementable technical requirements, allocation, and verification matrices. | TRP. |
 | System Analyst / Reconciliation Analyst | Compare USRD to TRP, detect overbuild and underbuild, reconcile tradeoffs, and produce a decision log. | RSRD. |
 | System Architect / Reconciled Architecture Architect | Update architecture drivers, views, interfaces, data flows, ADRs, and verification evidence after reconciliation. | RARD. |
@@ -928,11 +1202,11 @@ The role model shall be represented as controlled role data first and reader-fac
 
 | Role | When to include | Primary contribution |
 |---|---|---|
-| Requirements Verifier / Consistency Auditor | After SRD, ARD, TRP, RSRD, RARD, and SRP. | Reviews quality, traceability, contradictions, missing acceptance criteria, vague requirements, and hidden implementation assumptions. |
+| Requirements Verifier / Consistency Auditor | After SRD, ARD, TRP, RSRD, RARD, SRP, and material lifecycle gates. | Reviews quality, traceability, contradictions, missing acceptance criteria, vague requirements, hidden implementation assumptions, and correct separation of test, verification, validation, and evaluation claims. |
 | Domain Specialist | Any specialized scientific, mathematical, financial, biological, ML, safety, or engineering domain. | Validates assumptions, hidden constraints, terminology, acceptance metrics, and domain-specific risks. |
-| Security, Safety, Privacy, and Compliance Reviewer | Sensitive, regulated, production, autonomous, or high-impact target agentic systems. | Maps threat, hazard, privacy, compliance, data-handling, and AI/ML risk controls to evidence obligations. |
+| Security, Safety, Privacy, and Compliance Reviewer | Sensitive, regulated, production, autonomous, or high-impact target agentic systems. | Maps threat, hazard, privacy, compliance, data-handling, and AI/ML risk controls to evidence obligations and reviews production-promotion and retirement evidence. |
 | Documentation Librarian / Configuration Controller | Any project with multiple artifacts, versions, or agent handoffs. | Maintains artifact index, ID registry, template consistency, change log, and release bundles. |
-| Runtime and Maintenance Planner | When target agentic system must run over time. | Captures operations, monitoring, evaluation, update, incident, and maintenance requirements for later phases. |
+| Runtime and Maintenance Planner | When a target system must run, be maintained, improve, or retire over time. | Defines Run, Maintain, Improve, and Retire stage obligations; monitoring, evaluation, incident, recovery, maintenance, promotion, data-disposition, authority-withdrawal, and retirement evidence. |
 | Control Loop and AgentJob Planner | When the target system must resume work, dispatch sub-agents, or constrain tool-using actions. | Defines `/continue`, tracked state, AgentJob schema needs, completion evidence, validator gates, stop conditions, and handoff semantics. |
 | Context, Memory, and Knowledge Architect | When the target system needs durable knowledge, project memory, generated documentation, or retrieval. | Defines source authority, registries, context preflight, generated wikis, file-type derivative surfaces, retrieval limits, and source-verification rules. |
 | SVC and Documentation Surface Architect | When the target system has controlled sources, generated docs, or multi-file artifacts. | Defines markdown-like authoring, source/version control, supersession, derivative regeneration, PDF/TeX/HTML/wiki authority boundaries, and release evidence. |
@@ -959,6 +1233,8 @@ Every role shall obey these rules unless the System Director explicitly override
 | Bound continuation | A continuation invocation should advance at most one authorized AgentJob unless the SRP explicitly defines a safer project-specific transaction model. |
 | Supersede, do not rewrite | Activated Director decisions, AgentJobs, completion records, handoffs, and baseline artifacts should be corrected through supersession rather than silent historical mutation. |
 | Validator success is scoped | A passing validator proves only the defined process or artifact check, not domain truth, scientific validity, business correctness, or safety in production. |
+| Separate pattern from maturity | Coordination topology and operational readiness must use independent fields, evidence, decisions, and review triggers. |
+| Fail closed on promotion | Prototype evidence, architecture choice, or framework capability never implies production approval or operation. |
 
 ### 10.4 Minimal and robust role sets
 
@@ -985,7 +1261,7 @@ For a serious reusable target agentic system, include the support roles triggere
 | `artifact-registry.md` | Single index of current artifact versions, owners, status, source links, and downstream dependencies. | System Director or Documentation Librarian | All roles |
 | `traceability-ledger.md` | Cross-artifact trace from user intent to implementation-ready requirements. | System Director | Verifiers, Phase 1 |
 | `open-issues-register.md` | All unresolved assumptions, conflicts, risks, TBD items, and TBR items. | System Director | All roles |
-| RDR / `requirements-discovery-record.md` | Captures initial system intent, mission, stakeholders, boundaries, scenarios, candidate requirements, evidence, risks, assumptions, constraints, open questions, and downstream routing before formal requirements generation. | System Developer / User Wants Elicitor using `system-definition-interview-context-45` | USRD author, Requirements Manager, System Director |
+| RDR / `requirements-discovery-record.md` | Captures initial system intent, mission, stakeholders, boundaries, scenarios, candidate requirements, coordination-pattern candidates, operational-maturity starting point, reliability, autonomy, integrations, communication, monitoring, degraded modes, prototype-to-production evidence, risks, assumptions, constraints, open questions, and downstream routing before formal requirements generation. | System Developer / User Wants Elicitor using `system-definition-interview-context-45` | USRD author, Requirements Manager, System Architect, System Director |
 | USRD | Captures user goals, desired capabilities, domain context, constraints, priorities, and acceptance expectations. | User Wants Elicitor | Requirements Manager, Reconciliation Analyst |
 | ESAR | Current-state assessment for existing target agentic systems or related systems. | Existing System Analyst | Requirements Manager, Architect, Engineer |
 | SRD | Controlled system requirements for the target agentic system. | Requirements Manager | Architect, Engineer, Verifier |
@@ -995,6 +1271,8 @@ For a serious reusable target agentic system, include the support roles triggere
 | RARD | Reconciled architecture baseline aligned to RSRD. | Reconciled Architect | Final Packager |
 | SRP | Final implementation-ready system requirements package for the target agentic system. | Final System Requirements Packager | Phase 1 Implementation Initialization |
 | `design-phase-readiness-report.md` | Phase 0 closure report with readiness, risks, unresolved items, and Phase 1 handoff notes. | System Director | Human sponsor, Meta-Agent Runtime, Phase 1 |
+| Agentic System Pattern Decision | Candidate typed Director Decision recording coordination pattern, operational maturity, alternatives, autonomy, roles, integrations, communication, state, reliability, monitoring, security, failure behavior, recovery, and promotion criteria. Concrete contract activation waits for `G-04`. | System Architect with target sponsor, operations, security, and data owners | Implementers, operators, evaluators, release authority |
+| Lifecycle transition evidence | Candidate evidence packet for entry, output, gate, failure, rollback, approval, and next-state claims at material lifecycle transitions. Concrete artifact contract activation waits for `G-04`. | Stage owner and verifier | Next-stage owner, approver, trace owner |
 | CLRA | Defines `/continue`, tracked state, handoffs, AgentJob boundaries, role binding, completion receipts, validators, checkpoint expectations, and stop conditions. | System Architect, System Engineer, Control Loop and AgentJob Planner | Final Packager, Phase 1 |
 | CKMSRA | Defines source-first memory, canonical sources, registries, context preflight, retrieval surfaces, generated wikis, derivative artifacts, and stale-context rules. | Context, Memory, and Knowledge Architect | Architect, Engineer, Phase 1 |
 | SVCDA | Defines markdown-like sources, SVC expectations, supersession, generated derivative governance, PDF/TeX/HTML/wiki policies, and release evidence. | Documentation Librarian, SVC and Documentation Surface Architect | Final Packager, Phase 1 |
@@ -1013,11 +1291,11 @@ SRD shall include document control, purpose and scope, stakeholders and roles, s
 
 ### 12.3 ARD
 
-ARD shall include purpose and scope, stakeholders and concerns, source SRD baseline, assumptions and constraints, architecture drivers, quality scenarios, agent architecture overview, logical architecture, interfaces and integrations, data architecture, context/memory/knowledge architecture, control-loop architecture, SVC and derivative-surface architecture, deployment architecture, security and privacy architecture, ADR index, traceability matrix, risks and mitigations, and acceptance and verification.
+ARD shall include purpose and scope, stakeholders and concerns, source SRD baseline, assumptions and constraints, architecture drivers, quality scenarios, agent architecture overview, selected coordination pattern, operational-maturity starting point, Agentic System Pattern Decision, logical architecture, interfaces and integrations, task/state and communication model, data architecture, context/memory/knowledge architecture, control-loop architecture, monitoring, degraded modes, reliability and recovery, SVC and derivative-surface architecture, deployment architecture, security and privacy architecture, promotion criteria, rejected alternatives, ADR index, traceability matrix, risks and mitigations, and acceptance and verification.
 
 ### 12.4 TRP
 
-TRP shall include purpose and scope, applicable documents and precedence, technical context, derivation rules, technical requirements, agent/prompt/skill requirements, control-loop requirements, context/memory/knowledge requirements, SVC and derivative-surface requirements, interface and data requirements, deployment and operations requirements, security and compliance requirements, verification matrix, traceability matrix, open issues and assumptions, and sign-off record.
+TRP shall include purpose and scope, applicable documents and precedence, technical context, derivation rules, technical requirements, agent/prompt/skill requirements, control-loop requirements, lifecycle-stage and transition requirements, pattern and maturity implementation requirements, context/memory/knowledge requirements, SVC and derivative-surface requirements, interface and data requirements, deployment and operations requirements, security and compliance requirements, separately labeled test/verification/validation/evaluation obligations, verification matrix, traceability matrix, open issues and assumptions, and sign-off record.
 
 ### 12.5 RSRD
 
@@ -1029,7 +1307,7 @@ RARD shall include reconciliation summary, updated architecture drivers, updated
 
 ### 12.7 SRP
 
-SRP shall include purpose and scope, source baseline, final technical requirements, allocation matrix, verification matrix, risk and issue register, implementation readiness matrix, control-loop and AgentJob baseline, context/memory/knowledge baseline, SVC and derivative-surface baseline, Phase 1 handoff block, change-control notes, and sign-off record.
+SRP shall include purpose and scope, source baseline, final technical requirements, allocation matrix, verification matrix, risk and issue register, implementation readiness matrix, selected coordination pattern, operational maturity, Agentic System Pattern Decision, lifecycle and allowed-transition baseline, production-promotion evidence obligations, retirement obligations, control-loop and AgentJob baseline, context/memory/knowledge baseline, SVC and derivative-surface baseline, Phase 1 handoff block, change-control notes, and sign-off record.
 
 ### 12.8 CLRA, Control Loop Requirements Annex
 
@@ -1127,7 +1405,7 @@ handoff:
   target_agentic_system:
     name:
     domain:
-    lifecycle_stage: design | implementation_initialization | build | run | improve | maintain
+    lifecycle_stage: design | develop | implement | test | run | maintain | improve | retire | blocked | cancelled
   artifact_name:
   artifact_type:
   artifact_version:
@@ -1320,9 +1598,9 @@ Return:
 
 | Use case | Phase 0 responsibility |
 |---|---|
-| Greenfield target agentic system | Guide the authorized user and Meta-Agent Runtime from user intent through requirements, architecture, technical packaging, and implementation readiness. |
-| Brownfield target agentic system improvement | Analyze current state, preserve what works, identify risks, reconcile requirements, and produce an improvement plan. |
-| Agentic-system operation and maintenance | Capture requirements for monitoring, evaluation, issue handling, safety controls, prompt/tool updates, regression checks, and change control. |
+| Greenfield target agentic system | Guide the authorized user and Meta-Agent Runtime from user intent through requirements, pattern and maturity selection, architecture, technical packaging, implementation readiness, lifecycle gates, and retirement planning. |
+| Brownfield target agentic system improvement | Analyze current state, preserve what works, identify current pattern and maturity, expose lifecycle and promotion gaps, reconcile requirements, and route an evidence-backed improvement plan. |
+| Agentic-system operation, maintenance, and retirement | Capture requirements for monitoring, evaluation, issue handling, safety controls, prompt/tool updates, regression checks, change control, data disposition, authority withdrawal, dependency shutdown, retained evidence, and notification. |
 | Agentic AI software harness | Require SRP to define LLM, tool, state, memory, policy, user-interface, and control-loop boundaries. |
 | Domain-specialized agentic system | Add domain-specific constraints, artifacts, verification, risks, memory sources, file-type surfaces, and continuation policy. |
 
@@ -1330,11 +1608,14 @@ Return:
 
 | Lifecycle stage | Meaning | Phase 0 responsibility |
 |---|---|---|
-| Design | Understand user wants, requirements, architecture, and implementation readiness. | Fully defined in this PRD. |
-| Develop | Create prompts, tools, code, tests, configuration, and documentation for the target agentic system. | Prepare Phase 1 handoff requirements. |
-| Run | Operate the target agentic system for real tasks. | Capture operational requirements, continuation state, AgentJob boundaries, memory preflight, and validation constraints where known. |
-| Improve | Evaluate outputs, detect weaknesses, update prompts, tools, architecture, memory, control loops, documentation surfaces, or policies. | Capture improvement-loop requirements, evidence expectations, and project-system repair boundaries. |
-| Maintain | Manage versions, regressions, incidents, dependencies, data, security, context, generated derivatives, SVC history, and domain changes. | Capture maintainability, governance, source authority, supersession, and change-control requirements. |
+| Design | Establish approved intent, boundary, requirements, architecture, risks, pattern and maturity candidates, and verification basis. | Define the complete Design contract and produce implementation readiness without claiming a build exists. |
+| Develop | Create implementable prompts, tools, code, skills, tests, configuration, documentation, migrations, and build artifacts from the approved design. | Specify development inputs, permissions, evidence, failure routing, and completeness gate for later implementation. |
+| Implement | Integrate, configure, provision, migrate, package, and deploy an authorized candidate into a reproducible testable environment. | Specify environment, integration, security, provenance, rollback, and implementation-verification obligations. |
+| Test | Execute tests and separately assess requirements verification, stakeholder/system validation, and behavioral/performance evaluation. | Define the fail-closed release gate, evidence classes, negative cases, and return transitions. |
+| Run | Operate an approved target system within its permission envelope with current monitoring, ownership, incident, and rollback controls. | Capture operational acceptance, telemetry, degraded-mode, safe-stop, authorization, and continuous-review requirements. |
+| Maintain | Repair defects, incidents, drift, dependencies, models, data, configuration, and documentation under controlled change. | Require impact analysis, maintenance permissions, regression through Test, release approval, and rollback. |
+| Improve | Use evidence to propose and approve changes, then re-enter the earliest affected lifecycle stage. | Define value/permission impact, independent review, downstream authorization, success evidence, and rollback obligations. |
+| Retire | Stop operation, withdraw credentials and authority, dispose of or retain data, shut down dependencies, preserve evidence, and notify stakeholders. | Define target-specific retirement planning and human acceptance without treating service cessation alone as complete retirement. |
 
 ### 14.3 Domain adapter expectations
 
@@ -1370,7 +1651,7 @@ These belong to Phase 1 or later implementation artifacts.
 
 Phase 0 is complete when:
 
-The strategic additions introduced by `TX-04-P0-VISION-VALUES` are structurally complete only as a candidate baseline. They do not satisfy `G-08`, activate the proposed strategic requirements, or establish stakeholder approval.
+The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIFECYCLE-PATTERN` are structurally complete only as controlled candidates. They do not satisfy `G-03` or `G-08`, activate proposed requirements or artifact contracts, prove lifecycle capability, or establish stakeholder or production approval.
 
 | ID | Acceptance criterion | Evidence |
 |---|---|---|
@@ -1403,6 +1684,11 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` are structurally 
 | SFA-P0-AC-027 | The PRD contains one candidate Sys4AI vision location with a stable ID, owner, human approval principal, beneficiaries, horizon, scope and exclusions, success signals, sources, version, revision triggers, supersession state, and non-anthropomorphism notice. | Candidate Sys4AI vision section and open `G-08` status. |
 | SFA-P0-AC-028 | The PRD contains exactly eight stable-ID candidate core values, and every value declares all required commitment, behavior, decision, design, operational, evaluation, precedence, provenance, ownership, evidence, and review fields. | Candidate Sys4AI core-values section and requirement-trace rows. |
 | SFA-P0-AC-029 | The PRD keeps strategic content approval independent from canonical source status and structural validation, prohibits model self-approval and value-based permission expansion, and routes approval to an accountable human principal at `G-08`. | Strategic authority table, precedence rules, proposed requirements, and open issue. |
+| SFA-P0-AC-030 | The PRD names Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire and defines every required entry, input, role, permission, activity, output, evidence, exit, failure, transition, rollback, and review field for each stage. | Candidate lifecycle requirements and stage-contract tables. |
+| SFA-P0-AC-031 | Testing is both a named lifecycle stage and a cross-cutting release, maintenance, improvement, and material-change gate, and required gates cannot be skipped by a transition. | Candidate transition table and Test contract. |
+| SFA-P0-AC-032 | Test execution, requirements verification, stakeholder/system validation, and behavioral/performance evaluation are separately defined and cannot substitute for one another. | Candidate evidence-concept table and `SFA-CORE-LIFE-005`. |
+| SFA-P0-AC-033 | Coordination pattern and operational maturity are independent controlled taxonomies, and the candidate pattern decision contains every required problem, autonomy, role, integration, communication, state, monitoring, failure, reliability, security, promotion, alternative, and rationale field. | Candidate taxonomy and Agentic System Pattern Decision sections. |
+| SFA-P0-AC-034 | Prototype-to-production promotion fails closed without evaluation, security, integration, ownership, rollback, monitoring, incident-response, and accountable approval evidence, and retirement includes archival, disposition, withdrawal, shutdown, evidence, and notification. | `SFA-CORE-PATTERN-005`, `SFA-CORE-LIFE-008`, Test/Run/Retire contracts, risks, and open issues. |
 
 ---
 
@@ -1415,7 +1701,7 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` are structurally 
 | SFA-P0-RISK-003 | AI agents may invent missing domain facts. | Requirements, architecture, or implementation may be unsound. | Use explicit TBD, TBR, assumptions, open issues, and Domain Specialist review. |
 | SFA-P0-RISK-004 | Safety and compliance may be bolted on too late. | High-impact target agentic systems may be unsafe or noncompliant. | Include Security, Safety, Privacy, and Compliance Reviewer early when triggers apply. |
 | SFA-P0-RISK-005 | Phase boundaries may blur. | Phase 0 could become implementation planning prematurely. | Keep Phase 1 implementation initialization in a separate artifact. |
-| SFA-P0-RISK-006 | Run, improve, and maintain concerns may be under-specified. | Target agentic systems may be difficult to operate after initial build. | Include lifecycle requirements and Runtime and Maintenance Planner hooks. |
+| SFA-P0-RISK-006 | Run, Maintain, Improve, and Retire concerns may be under-specified or deferred until after build. | Target systems may become unsafe, unmaintainable, irreversible, or impossible to retire cleanly. | Require complete lifecycle contracts and Runtime and Maintenance Planner involvement from Design. |
 | SFA-P0-RISK-007 | Generated memory, wiki notes, semantic caches, local vaults, or PDFs may be treated as authoritative. | Agents may route, claim, or implement from stale summaries. | Require source-first memory, memory-hit verification, derivative classification, and source registries. |
 | SFA-P0-RISK-008 | Continuation may become unbounded or driven by stale chat context. | Agents may perform unauthorized work or lose auditability. | Require `/continue`, tracked state, latest handoff, one bounded AgentJob, completion receipts, and stop conditions. |
 | SFA-P0-RISK-009 | Activated control records may be rewritten to fit later work. | Audit trail and accountability may collapse. | Require supersession rather than silent mutation for activated decisions, AgentJobs, completions, and handoffs. |
@@ -1432,6 +1718,10 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` are structurally 
 | SFA-P0-RISK-STRAT-001 | Candidate vision or values may be mistaken for approved stakeholder intent because they appear in a canonical PRD. | Downstream artifacts may infer authority, acceptance, or product commitments that no accountable human approved. | Keep content approval, source authority, validation, requirement lifecycle, capability, and evidence states independent; retain the explicit open `G-08` gate. |
 | SFA-P0-RISK-STRAT-002 | Values may be used as arguments to expand permissions or bypass binding constraints. | A runtime actor may perform unauthorized, unsafe, insecure, noncompliant, or privacy-invasive work. | State that values never grant permission, enforce the precedence order, and test denied-capability and model-only approval cases in later validator/evaluation transactions. |
 | SFA-P0-RISK-STRAT-003 | Broad aspirational language may be reported as present operational capability. | Stakeholders may mistake a future-state vision for verified implementation, fitness, or lifecycle evidence. | Keep the vision future-facing, record explicit exclusions, require observable execution evidence, and establish quantitative success thresholds only through later evaluation and human approval. |
+| SFA-P0-RISK-LIFE-001 | A lifecycle transition may be inferred from schedule progress, file creation, or validator success instead of required evidence and approval. | Work may skip testing, permission, release, recovery, or human gates. | Require explicit transition evidence, failure routing, rollback, and approval; represent blocked or cancelled states truthfully. |
+| SFA-P0-RISK-PATTERN-001 | Coordination pattern may be conflated with operational maturity. | A prototype, multi-agent topology, or production-orchestration mechanism may be misreported as production-approved or operational. | Store and review separate pattern and maturity fields and prohibit `prototype` as a pattern. |
+| SFA-P0-RISK-PROMOTION-001 | Prototype behavior may silently enter production without operations and assurance evidence. | Unowned, unmonitored, insecure, or irreversible behavior may affect users, data, or external systems. | Fail closed on promotion until evaluation, security, integration, ownership, rollback, monitoring, incident-response, and accountable approval evidence exists. |
+| SFA-P0-RISK-RETIRE-001 | Service cessation may be treated as complete retirement while data, credentials, dependencies, obligations, or stakeholders remain. | Orphaned access, retained sensitive data, unexpected cost, compliance exposure, and unusable audit evidence may persist. | Require retirement acceptance covering disposition, withdrawal, shutdown, archive integrity, notification, exceptions, and residual owners. |
 
 ---
 
@@ -1456,6 +1746,8 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` are structurally 
 | SFA-P0-ISSUE-FORMAT-005 | Should TOML writing/editing be supported? | Phase 1 owner | No for Phase 0 | No for Phase 1. Parse and validate only. |
 | SFA-P0-ISSUE-STRAT-001 | Will the accountable product owner approve, reject, or revise the candidate Sys4AI vision and eight candidate values after reviewing represented stakeholder evidence? | Product owner | Yes for approved strategic status; no for candidate-baseline continuation through pre-`G-08` transactions | Resolve at `G-08`; do not infer approval from this PRD, validation, commit, or model authorship. |
 | SFA-P0-ISSUE-STRAT-002 | Which quantitative thresholds and scenario probes will demonstrate the vision success signals and each value's positive, negative, and conflict behavior? | Independent evaluation owner and product owner | Yes for `G-08`; no for this candidate wording transaction | Develop protected, reviewable probes in `TX-17-SAFETY-EVALUATION` and present results and limitations in the `G-08` approval packet. |
+| SFA-P0-ISSUE-LIFE-001 | Which legal, privacy, security, contractual, data-retention, archive, dependency, and stakeholder-notification obligations apply to retirement for each target system? | Target sponsor with data, operations, security, privacy, compliance, and archive owners | No for the generic `G-03` candidate; yes before target retirement approval | Require target discovery and the pattern/lifecycle decision to classify applicable obligations, explicit inapplicability, owners, evidence, and review dates. |
+| SFA-P0-ISSUE-PATTERN-001 | Which quantitative reliability, evaluation, safety, security, integration, support, and service thresholds permit each target to advance from prototype to production candidate, production approved, and operational? | Target product owner, architect, operations owner, security owner, and independent evaluator | No for the generic `G-03` candidate; yes before target production promotion | Define target-specific thresholds and approval roles in the `G-04` artifact contract and later evaluation/production evidence; fail closed while unknown. |
 
 ---
 
@@ -1487,6 +1779,7 @@ Expected Phase 1 starting concerns include:
 - SVC implementation details, supersession mechanics, checkpoint or commit rules, release bundles, and generated-derivative validation.
 - Tooling and dependency choices.
 - Test and verification harness initialization.
+- Lifecycle-stage, allowed-transition, coordination-pattern, operational-maturity, pattern-decision, promotion-gate, and retirement-evidence initialization after `G-03` and `G-04` authorize the relevant contracts.
 - Documentation and change-control setup.
 - Initial task plan for Codex-like implementation agents.
 
@@ -1502,6 +1795,7 @@ Expected Phase 1 starting concerns include:
 | 2026-07-07 | Added system-layer classification, discovery-gate, RDR, self-hosting, role-governance, and skill-lifecycle requirements. | Establishes requirement authority before registry/schema expansion and runtime-skill implementation. |
 | 2026-07-09 | Migrated the approved four-object identity and canonical product statement; added `SFA-CORE-ID-004` through `007`, the independent runtime-actor distinction, execution-claim guardrail, and updated identity acceptance evidence. | Implements `TX-03-P0-IDENTITY` under `DDR-SFADEV-STRATEGIC-BASELINE-001` without approving candidate vision or core values or claiming runtime implementation. |
 | 2026-07-09 | Added one candidate Sys4AI vision, eight complete stable-ID candidate values, proposed vision/value requirement families, precedence and materiality rules, human approval boundaries, acceptance criteria, risks, open issues, and exact trace obligations. | Implements `TX-04-P0-VISION-VALUES` as a candidate strategic baseline while preserving `G-08` as the only approval gate and preventing value-based permission expansion. |
+| 2026-07-09 | Added the complete eight-stage lifecycle, full stage contracts, transition and evidence-class rules, separate coordination-pattern and operational-maturity taxonomies, candidate pattern-decision contract, discovery/role/artifact-flow integration, acceptance criteria, risks, open issues, and trace obligations. | Implements `TX-05-P0-LIFECYCLE-PATTERN` as a controlled candidate while leaving `G-03` open and deferring concrete templates, schemas, validators, and runtime claims to their authorized transactions. |
 
 ### 20.1 Strategic-baseline provenance
 
