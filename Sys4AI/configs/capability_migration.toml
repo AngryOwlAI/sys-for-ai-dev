@@ -145,8 +145,8 @@ replacement_capability = "ExecutionTransaction"
 blocking_transaction = "TX-13-VALIDATORS"
 allowed_modes = ["post_tx10"]
 expected_files = 14
-expected_references = 546
-expected_inventory_sha256 = "2265c83f6af2293a1daafb54a1a87fbf5697880ebe6d47c31236f4b3e1904489"
+expected_references = 560
+expected_inventory_sha256 = "ea5cc666326468032b5517499ea1bfba06ed6ef012bcec9208e2607cd2e187e4"
 
 [[classifications]]
 classification_id = "legacy_schema_compatibility"
@@ -282,8 +282,26 @@ expected_references = 16
 expected_inventory_sha256 = "8200462cee49a9a3c3f196111f1778ff334fb376ad2619bcaac77d376df108d5"
 
 [[classifications]]
-classification_id = "prd_derivative_migration_deferred"
+classification_id = "tx19_module_validation_compatibility"
 priority = 25
+state = "active_valid"
+paths = [
+  "Sys4AI/control_records/execution_transactions/TX-19-MODULES.yaml",
+  "Sys4AI/sys_for_ai/prd_modules.py",
+]
+path_globs = []
+disposition = "Active TX-19 transaction and module validator retain AgentJob and /continue terms only in historical compatibility mappings forbidden-action boundaries and negative checks; no retired runtime surface is active."
+owner = "requirements_manager"
+replacement_capability = "ExecutionTransaction"
+blocking_transaction = "none"
+allowed_modes = ["post_tx10"]
+expected_files = 2
+expected_references = 13
+expected_inventory_sha256 = "90346fa25b6823ce5668a26e2c6c0dcdd43df22de6778b9dd299d146afbbc79d"
+
+[[classifications]]
+classification_id = "prd_derivative_migration_tx19"
+priority = 26
 state = "generated_derivative"
 paths = [
   "PRDs/PRD_decomposition_strategy.md",
@@ -292,18 +310,18 @@ paths = [
   "Sys4AI/tests/test_prd_modules.py",
 ]
 path_globs = ["PRDs/modules/**"]
-disposition = "Keep module PRDs and navigation noncanonical until G-08 and regenerate or reclassify them only in TX-19."
+disposition = "TX-19 regenerated the twelve module PRDs as noncanonical derivative drafts; retained AgentJob and /continue terms are historical compatibility labels only and current execution semantics are portable."
 owner = "requirements_manager"
 replacement_capability = "ExecutionTransaction"
-blocking_transaction = "TX-19-MODULES"
+blocking_transaction = "none"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 16
-expected_references = 43
-expected_inventory_sha256 = "2d9fe847faa939109280e76f3880d9aa49bc246bfffbd0d76135d5f5246248e0"
+expected_files = 14
+expected_references = 75
+expected_inventory_sha256 = "c05812ef03f9144c6f6c29e680a38420a0d1d1ea69c09a864971a2e8851835f5"
 
 [[classifications]]
 classification_id = "generated_reader_migration_deferred"
-priority = 26
+priority = 27
 state = "generated_derivative"
 paths = [
   "Sys4AI/registries/derivative_registry.csv",
@@ -372,6 +390,6 @@ owner = "source_authority_auditor"
 replacement_capability = "not applicable; retained provenance"
 blocking_transaction = "none"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 189
-expected_references = 2913
-expected_inventory_sha256 = "105e94e26e4d2ce509cbe2ae0cc1b0c152540cd4095a662295315d42a513efc9"
+expected_files = 193
+expected_references = 2923
+expected_inventory_sha256 = "82730252d29c5c796c9b313cd679587eb01789d5106f202d2972847e111ccde2"

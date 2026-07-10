@@ -262,6 +262,25 @@ def _validate_program_state_alignment(path: Path, state: dict[str, Any]) -> list
             messages.append(f"{path}: post-TX-18 state is not aligned to the TX-18 handoff")
         if state.get("state_status") != "active" or state.get("human_gate_required") is not False:
             messages.append(f"{path}: post-TX-18 state must be active with the G-08 human gate closed")
+    elif phase == "strategic_baseline_migration_after_TX_19":
+        if summary.get("broader_semantic_validation") != "implemented":
+            messages.append(f"{path}: post-TX-19 state must retain broader_semantic_validation implemented")
+        if summary.get("safety_evaluation_controls") != "implemented":
+            messages.append(f"{path}: post-TX-19 state must retain safety_evaluation_controls implemented")
+        if summary.get("strategic_approval") != "accepted_G_08":
+            messages.append(f"{path}: post-TX-19 state must retain strategic_approval accepted_G_08")
+        if "execute_TX_20_GENERATED_DOCS_only_after_TX_19_shared_baseline" not in allowed:
+            messages.append(f"{path}: post-TX-19 state does not allow the exact TX-20 generated-docs route")
+        if "begin_TX_21_before_TX_20_closes" not in blocked:
+            messages.append(f"{path}: post-TX-19 state must block premature TX-21 work")
+        if "claim_G_09_complete_before_TX_20_closes" not in blocked:
+            messages.append(f"{path}: post-TX-19 state must keep G-09 open until TX-20 closes")
+        if state.get("latest_closeout_evidence_id") != "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX19-001":
+            messages.append(f"{path}: post-TX-19 state is not aligned to the TX-19 completion")
+        if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX19-001":
+            messages.append(f"{path}: post-TX-19 state is not aligned to the TX-19 handoff")
+        if state.get("state_status") != "active" or state.get("human_gate_required") is not False:
+            messages.append(f"{path}: post-TX-19 state must remain active without claiming a new human gate")
     else:
         messages.append(f"{path}: unsupported strategic-baseline program phase {phase!r}")
     return messages

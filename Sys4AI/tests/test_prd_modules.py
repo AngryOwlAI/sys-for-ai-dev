@@ -6,8 +6,15 @@ import tempfile
 import unittest
 from contextlib import contextmanager
 from pathlib import Path
+from typing import Optional
 
-from sys_for_ai.prd_modules import validate_prd_modules
+from sys_for_ai.prd_modules import (
+    TX19_COMMON_PROVENANCE_RELATIONSHIPS,
+    TX19_SOURCE_PRDS,
+    _validate_registered_provenance,
+    _validate_tx19_module,
+    validate_prd_modules,
+)
 
 PRODUCT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -71,6 +78,118 @@ class PrdModuleTests(unittest.TestCase):
                 result.messages,
             )
 
+    def test_orphan_active_requirement_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            registry = _write_fixture(
+                Path(temp_dir),
+                status="draft",
+                validation_status="pending",
+                write_module=True,
+                orphan_requirement=True,
+            )
+
+            with _working_directory(registry.parents[1]):
+                result = validate_prd_modules("registries/prd_module_registry.csv")
+
+            self.assertFalse(result.ok)
+            self.assertTrue(
+                any("orphan active requirement prefix: SFA-CORE-TWO" in message for message in result.messages),
+                result.messages,
+            )
+
+    def test_duplicate_draft_intended_ownership_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            registry = _write_fixture(
+                Path(temp_dir),
+                status="draft",
+                validation_status="pending",
+                duplicate_intended=True,
+            )
+
+            with _working_directory(registry.parents[1]):
+                result = validate_prd_modules("registries/prd_module_registry.csv")
+
+            self.assertFalse(result.ok)
+            self.assertTrue(
+                any("multiple intended owners" in message for message in result.messages),
+                result.messages,
+            )
+
+    def test_validated_module_requires_current_source_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            registry = _write_fixture(
+                Path(temp_dir),
+                status="draft",
+                validation_status="validated",
+                write_module=True,
+            )
+
+            with _working_directory(registry.parents[1]):
+                result = validate_prd_modules("registries/prd_module_registry.csv")
+
+            self.assertFalse(result.ok)
+            self.assertTrue(
+                any("validated module cannot retain a pending source_hash" in message for message in result.messages),
+                result.messages,
+            )
+
+    def test_retired_agentjob_phrase_fails_tx19_semantics(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            module = Path(temp_dir) / "legacy.md"
+            module.write_text(
+                "TX-19-MODULES DDR-SFADEV-STRATEGIC-BASELINE-G08-001 historical compatibility "
+                "ExecutionTransaction resume operation retired\n\n"
+                "Define bounded AgentJob execution.\n",
+                encoding="utf-8",
+            )
+            row = {
+                "prd_module_id": "PRD-MOD-AGENTJOB-CONTINUE",
+                "status": "draft",
+                "source_authority_status": "derivative_draft",
+                "validation_status": "validated",
+            }
+
+            messages = _validate_tx19_module(
+                module,
+                row,
+                "fixture",
+                sorted(TX19_SOURCE_PRDS),
+            )
+
+            self.assertTrue(any("retired execution phrase remains active" in message for message in messages), messages)
+
+    def test_missing_tx19_plan_provenance_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            registry_root, row = _write_provenance_fixture(
+                Path(temp_dir),
+                module_id="PRD-MOD-INIT-DISCOVERY",
+                omitted_relationship=("traces_to", "SRC-STRATEGIC-BASELINE-MIGRATION-PLAN"),
+            )
+
+            messages = _validate_registered_provenance(registry_root, row, "fixture")
+
+            self.assertTrue(
+                any(
+                    "traces_to -> SRC-STRATEGIC-BASELINE-MIGRATION-PLAN" in message
+                    for message in messages
+                ),
+                messages,
+            )
+
+    def test_missing_module_specific_g02_provenance_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            registry_root, row = _write_provenance_fixture(
+                Path(temp_dir),
+                module_id="PRD-MOD-SYSTEM-LAYERS-SELF-HOSTING",
+            )
+
+            messages = _validate_registered_provenance(registry_root, row, "fixture")
+
+            self.assertTrue(
+                any("supported_by -> SRC-DDR-STRATEGIC-BASELINE-001" in message for message in messages),
+                messages,
+            )
+
 
 def _write_fixture(
     temp_root: Path,
@@ -79,7 +198,9 @@ def _write_fixture(
     validation_status: str,
     source_authority_status: str = "derivative_draft",
     duplicate_canonical: bool = False,
+    duplicate_intended: bool = False,
     write_module: bool = False,
+    orphan_requirement: bool = False,
 ) -> Path:
     product = temp_root / "Sys4AI"
     registries = product / "registries"
@@ -105,29 +226,26 @@ def _write_fixture(
         encoding="utf-8",
     )
     (registries / "requirement_trace_registry.csv").write_text(
-        "trace_id,phase0_selector,phase0_source,coverage_status,trace_class,semantic_justification,semantic_review_verdict,phase1_selectors,evidence_paths,notes\n"
-        "TRACE-PRD-MOD-ONE,SFA-CORE-ONE,PRD-MOD-ONE,covered,implemented,fixture,sufficient,PRD-MOD-ONE,PRD-MOD-ONE,fixture\n"
-        "TRACE-PRD-MOD-TWO,SFA-CORE-ONE,PRD-MOD-TWO,covered,implemented,fixture,sufficient,PRD-MOD-TWO,PRD-MOD-TWO,fixture\n",
+        "trace_id,requirement_id,requirement_lifecycle,applicability_status,phase0_selector,phase0_source,coverage_status,trace_class,semantic_justification,semantic_review_verdict,phase1_selectors,evidence_paths,notes\n"
+        "TRACE-PRD-MOD-ONE,SFA-CORE-ONE,active,required,SFA-CORE-ONE,PRD-MOD-ONE,covered,implemented,fixture,sufficient,PRD-MOD-ONE,PRD-MOD-ONE,fixture\n"
+        + (
+            "TRACE-PRD-MOD-TWO,SFA-CORE-TWO,active,required,SFA-CORE-TWO,PRD-MOD-TWO,covered,implemented,fixture,sufficient,PRD-MOD-TWO,PRD-MOD-TWO,fixture\n"
+            if orphan_requirement
+            else ""
+        ),
         encoding="utf-8",
     )
 
     module_path = prds / "module.md"
     if write_module or status != "planned":
-        module_path.write_text(
-            "# Module\n\n"
-            "> Authority notice: fixture.\n\n"
-            "**Source PRDs:** source.md\n"
-            "**Subject layer:** framework_product\n"
-            f"**Source authority status:** {source_authority_status}\n",
-            encoding="utf-8",
-        )
+        _write_module(module_path, "PRD-MOD-ONE", source_authority_status)
 
     rows = [
         _row("PRD-MOD-ONE", module_path, source_prd, status, source_authority_status, validation_status),
     ]
-    if duplicate_canonical:
+    if duplicate_canonical or duplicate_intended:
         second_module = prds / "module_two.md"
-        second_module.write_text(module_path.read_text(encoding="utf-8"), encoding="utf-8")
+        _write_module(second_module, "PRD-MOD-TWO", source_authority_status)
         rows.append(_row("PRD-MOD-TWO", second_module, source_prd, status, source_authority_status, validation_status))
 
     registry = registries / "prd_module_registry.csv"
@@ -150,6 +268,45 @@ def _row(
         f"SFA-CORE-ONE,{source_registry_path},,{source_authority_status},requirements_manager,"
         f"{validation_status},pending,2026-07-08T22:26:00Z,fixture\n"
     )
+
+
+def _write_module(path: Path, module_id: str, source_authority_status: str) -> None:
+    path.write_text(
+        "# Module\n\n"
+        f"**PRD module ID:** {module_id}\n"
+        "> Authority notice: fixture.\n\n"
+        "**Source PRDs:** PRDs/source.md\n"
+        "**Owns requirement prefixes:** SFA-CORE-ONE\n"
+        "**Subject layer:** framework_product\n"
+        f"**Source authority status:** {source_authority_status}\n",
+        encoding="utf-8",
+    )
+
+
+def _write_provenance_fixture(
+    temp_root: Path,
+    *,
+    module_id: str,
+    omitted_relationship: Optional[tuple[str, str]] = None,
+) -> tuple[Path, dict[str, str]]:
+    registry_root = temp_root / "registries"
+    registry_root.mkdir()
+    module_path = "PRDs/modules/fixture.md"
+    source_id = "SRC-PRD-MODULE-FIXTURE"
+    (registry_root / "source_registry.csv").write_text(
+        "source_id,path,authority_status\n"
+        f"{source_id},{module_path},derivative_draft\n",
+        encoding="utf-8",
+    )
+    relationships = sorted(TX19_COMMON_PROVENANCE_RELATIONSHIPS - {omitted_relationship})
+    (registry_root / "object_relationship_registry.csv").write_text(
+        "subject_id,predicate,object_id\n"
+        + "".join(
+            f"{source_id},{predicate},{object_id}\n" for predicate, object_id in relationships
+        ),
+        encoding="utf-8",
+    )
+    return registry_root, {"prd_module_id": module_id, "path": module_path}
 
 
 @contextmanager

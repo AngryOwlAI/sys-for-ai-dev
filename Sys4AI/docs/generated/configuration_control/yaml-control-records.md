@@ -235,6 +235,10 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx18_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-18-HUMAN-APPROVAL-20260710T184803Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx18_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX18-001.yaml | completion_receipt | controlled | system_director | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx18_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX18-001.yaml | handoff | controlled | system_director | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_tx19_execution_transaction | control_records/execution_transactions/TX-19-MODULES.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx19_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-19-MODULES-20260710T193535Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx19_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX19-001.yaml | completion_receipt | controlled | requirements_manager | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx19_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX19-001.yaml | handoff | controlled | requirements_manager | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 

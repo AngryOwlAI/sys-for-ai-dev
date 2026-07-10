@@ -160,7 +160,10 @@ def _validate_strategic_approval_state(
         state = load_yaml(state_path)
     except RuntimeError as exc:
         return [str(exc)]
-    if state.get("current_phase") != "strategic_baseline_migration_after_TX_18":
+    if state.get("current_phase") not in {
+        "strategic_baseline_migration_after_TX_18",
+        "strategic_baseline_migration_after_TX_19",
+    }:
         return []
 
     messages: list[str] = []
