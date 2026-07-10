@@ -225,6 +225,15 @@ def _validate_program_state_alignment(path: Path, state: dict[str, Any]) -> list
             messages.append(f"{path}: post-TX-15 state must block premature TX-17 work")
         if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX15-001":
             messages.append(f"{path}: post-TX-15 state is not aligned to the TX-15 handoff")
+    elif phase == "strategic_baseline_migration_after_TX_16":
+        if summary.get("broader_semantic_validation") != "implemented":
+            messages.append(f"{path}: post-TX-16 state must retain broader_semantic_validation implemented")
+        if "execute_TX_17_SAFETY_EVALUATION_only_after_TX_16_shared_baseline" not in allowed:
+            messages.append(f"{path}: post-TX-16 state does not allow the exact TX-17 route")
+        if "begin_TX_18_before_TX_17_closes" not in blocked:
+            messages.append(f"{path}: post-TX-16 state must block premature TX-18 work")
+        if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX16-001":
+            messages.append(f"{path}: post-TX-16 state is not aligned to the TX-16 handoff")
     else:
         messages.append(f"{path}: unsupported strategic-baseline program phase {phase!r}")
     return messages

@@ -207,8 +207,8 @@ replacement_capability = "generalized capability and evidence states"
 blocking_transaction = "none"
 allowed_modes = ["post_tx10"]
 expected_files = 1
-expected_references = 62
-expected_inventory_sha256 = "08415a51f2503214c4aa0fd70cfee7471a21b8eb2701b15b2be46be3108086b0"
+expected_references = 63
+expected_inventory_sha256 = "bf8c0d172453da7a9a21e94bb3bb96a6a439234f183df550cb176fb9daced5a3"
 
 [[classifications]]
 classification_id = "phase2_authority_deferred"
@@ -263,22 +263,23 @@ expected_references = 4
 expected_inventory_sha256 = "f058c61a70be8259a6c3e5b5041536231de0782370ba2fba1da9b89bfb17bf13"
 
 [[classifications]]
-classification_id = "walking_skeleton_deferred"
+classification_id = "walking_skeleton_tx16_active"
 priority = 24
-state = "authority_deferred"
+state = "active_valid"
 paths = [
   "Sys4AI/sys_for_ai/walking_skeleton.py",
   "Sys4AI/tests/test_walking_skeleton.py",
+  "Sys4AI/control_records/execution_transactions/TX-16-WALKING-SKELETON.yaml",
 ]
 path_globs = []
-disposition = "Do not generalize the accepted demonstration flow before the Phase 2 authority and target-package gates are satisfied."
+disposition = "TX-16 implements the manifest-driven active flow; retained retired terms occur only in explicit rejection logic, negative tests, and historical-evidence boundaries."
 owner = "system_engineer"
 replacement_capability = "ExecutionTransaction"
-blocking_transaction = "TX-16-WALKING-SKELETON"
-allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 2
-expected_references = 46
-expected_inventory_sha256 = "d333eb95892786c7825df592fb8f82457a7ecc5538c9dd69b1145311c21ee5cb"
+blocking_transaction = "none"
+allowed_modes = ["post_tx10"]
+expected_files = 3
+expected_references = 16
+expected_inventory_sha256 = "8200462cee49a9a3c3f196111f1778ff334fb376ad2619bcaac77d376df108d5"
 
 [[classifications]]
 classification_id = "prd_derivative_migration_deferred"
@@ -371,6 +372,6 @@ owner = "source_authority_auditor"
 replacement_capability = "not applicable; retained provenance"
 blocking_transaction = "none"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 185
-expected_references = 2904
-expected_inventory_sha256 = "1cff7a9c07d00239ae83bb24caeaa64f93383066ee741d17d3c8c2578cbe890c"
+expected_files = 188
+expected_references = 2910
+expected_inventory_sha256 = "9136e5b5f0a667d701191afd258f7b380e663ee1e0e64746c7ad804c72c24e62"

@@ -387,9 +387,19 @@ def build_parser() -> argparse.ArgumentParser:
     walking_sub = walking.add_subparsers(dest="walking_command", required=True)
 
     walking_status = walking_sub.add_parser("status", help="Report walking-skeleton flow status")
+    walking_status.add_argument(
+        "package_root",
+        nargs="?",
+        default="examples/target_systems/repo_steward_agent_package",
+    )
     walking_status.add_argument("--json", action="store_true")
 
     walking_validate = walking_sub.add_parser("validate-flow", help="Validate the walking-skeleton flow")
+    walking_validate.add_argument(
+        "package_root",
+        nargs="?",
+        default="examples/target_systems/repo_steward_agent_package",
+    )
     walking_validate.add_argument("--json", action="store_true")
 
     walking_report = walking_sub.add_parser("write-report", help="Write the generated walking-skeleton flow report")
@@ -594,9 +604,9 @@ def main(argv: list[str] | None = None) -> int:
 
 def _handle_walking_skeleton_command(args: argparse.Namespace) -> int:
     if args.walking_command == "status":
-        return _emit_payload(walking_skeleton_status(), args.json)
+        return _emit_payload(walking_skeleton_status(package_root=args.package_root), args.json)
     if args.walking_command == "validate-flow":
-        return _emit_payload(validate_walking_skeleton_flow(), args.json)
+        return _emit_payload(validate_walking_skeleton_flow(package_root=args.package_root), args.json)
     if args.walking_command == "write-report":
         result = write_walking_skeleton_flow_report()
         return print_result(result)

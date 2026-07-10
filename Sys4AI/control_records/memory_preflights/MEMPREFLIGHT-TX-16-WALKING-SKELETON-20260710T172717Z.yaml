@@ -1,0 +1,64 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-16-WALKING-SKELETON-20260710T172717Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-16-WALKING-SKELETON
+created_at: '2026-07-10T17:27:17Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-16-WALKING-SKELETON --json
+  result: warn
+- command: python -m sys_for_ai.cli memory lookup HANDOFF-SFADEV-STRATEGIC-BASELINE-TX15-001
+    --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search 'TX-16 walking skeleton strategic
+    baseline handoff' --limit 10 --json
+  result: pass
+queries:
+- query: TX-16 walking skeleton strategic baseline handoff
+  returned_object_ids:
+  - SRC-REG-HANDOFFS
+  - SRC-WALKING-SKELETON-FLOW-MODULE
+  - SRC-REG-COMPLETION-RECEIPTS
+  - SRC-TEST-WALKING-SKELETON
+  - SRC-REG-AGENTJOBS
+  - SRC-HANDOFF-PHASE2-WALKING-SKELETON-PLAN-001
+  - HANDOFF-SFADEV-19-PHASE2-WALKING-SKELETON-PLAN-001
+  - ctrl_phase2_walking_skeleton_plan_handoff
+  - SRC-P2-WALKING-SKELETON-IMPLEMENTATION-PLAN
+  - SRC-COMPLETION-PHASE2-WALKING-SKELETON-PLAN-001
+canonical_sources_inspected:
+- path: Sys4AI/registries/handoff_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-HANDOFFS
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/sys_for_ai/walking_skeleton.py
+  registry: source_registry.csv
+  row_id: SRC-WALKING-SKELETON-FLOW-MODULE
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/registries/completion_receipt_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-COMPLETION-RECEIPTS
+  inspected_sections:
+  - registered source metadata
+registry_rows_inspected:
+- path: Sys4AI/tests/test_walking_skeleton.py
+  registry: source_registry.csv
+  row_id: SRC-TEST-WALKING-SKELETON
+  purpose: Confirm memory hit registry evidence.
+- path: Sys4AI/registries/agentjob_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-AGENTJOBS
+  purpose: Confirm memory hit registry evidence.
+- path: Sys4AI/control_records/handoffs/HANDOFF-SFADEV-19-PHASE2-WALKING-SKELETON-PLAN-001.yaml
+  registry: source_registry.csv
+  row_id: SRC-HANDOFF-PHASE2-WALKING-SKELETON-PLAN-001
+  purpose: Confirm memory hit registry evidence.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: not_observed
+  notes: No generated derivative was used as source authority.
+usable_for_routing: true
