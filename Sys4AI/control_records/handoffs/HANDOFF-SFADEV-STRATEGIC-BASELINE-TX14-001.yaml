@@ -1,0 +1,41 @@
+handoff_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX14-001
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+producing_execution_transaction_id: TX-14-PHASE2
+next_execution_transaction_id: TX-15-TARGET-PACKAGE
+status: ready
+producing_role: requirements_manager
+recommended_next_role: implementation_initialization_agent
+summary: TX-14 closes with the controlled Phase 2 strategic-baseline addendum and preserved accepted evidence; TX-15 target-package work alone is next.
+source_ids:
+- SRC-PRD-P2-STRATEGIC-BASELINE-ADDENDUM
+- SRC-PRD-P2-WALKING-SKELETON
+- SRC-DDR-STRATEGIC-BASELINE-001
+- SRC-REG-REQ-TRACE
+- SRC-VALIDATOR-PRD-SEMANTICS
+- SRC-VALIDATOR-TRACE-MIGRATION
+- SRC-STRATEGIC-BASELINE-TX14-RECEIPT
+closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX14-001
+current_state_evidence:
+- Sys4AI/control_records/program_state.yaml
+- TX14-PHASE2-ADDENDUM-CONTROLLED
+- TX14-PHASE2-PRESERVATION-PASS
+- TX14-TRACE-214-PLUS-13-PASS
+validation_evidence:
+  focused_tests: PASS_42_OF_42
+  product_suite: PASS_187_OF_187
+  named_validators: PASS
+  product_and_root_validate: PASS
+  trace_rows: 227
+  preserved_tx12_rows: 214
+  additive_phase2_rows: 13
+  preserved_gap_counts: NEEDS_EVIDENCE_7_PLANNED_200
+  accepted_phase2_sha256: 98567cf4f4af8ca99650a6220a78d840dae5e11195891fc808c69c4828528038
+  accepted_phase2_draft_sha256: 9e290964200137329827a0164f50c2d3e97dc194fac65dd086c8b1dd7e57d84f
+stop_conditions:
+- TX-15 may implement only the target-package schema example validator and tests authorized by the plan.
+- The accepted Phase 2 source and draft remain protected and must not be rewritten.
+- The 13 additive rows remain not_run until exact package or walking-skeleton evidence supports a reviewed change.
+- The seven needs_evidence and 200 planned TX-12 states remain explicit until exact evidence supports change.
+- Do not treat structural validation as G-08 stakeholder acceptance domain truth production readiness or operational capability.
+- Do not begin TX-16 or later work before TX-15 closes.

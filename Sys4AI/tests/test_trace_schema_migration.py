@@ -37,10 +37,20 @@ class TraceSchemaMigrationTests(unittest.TestCase):
             cls.live_header = tuple(reader.fieldnames or ())
             cls.live_rows = list(reader)
         if cls.live_header == GENERALIZED_HEADER:
-            cls.legacy_rows = [reverse_generalized_trace_row(row) for row in cls.live_rows]
-            cls.generalized = cls.live_rows[0]
+            cls.tx12_rows = [
+                row for row in cls.live_rows
+                if row["requirement_source_id"] == "SRC-PRD-P0"
+            ]
+            cls.additive_rows = [
+                row for row in cls.live_rows
+                if row["requirement_source_id"] != "SRC-PRD-P0"
+            ]
+            cls.legacy_rows = [reverse_generalized_trace_row(row) for row in cls.tx12_rows]
+            cls.generalized = cls.tx12_rows[0]
         else:
             cls.legacy_rows = cls.live_rows
+            cls.tx12_rows = []
+            cls.additive_rows = []
             cls.generalized = migrate_legacy_trace_row(cls.legacy_rows[0])
 
     def test_schema_is_valid_draft_2020_12(self) -> None:
@@ -118,11 +128,14 @@ class TraceSchemaMigrationTests(unittest.TestCase):
             lambda data: data.__setitem__("semantic_review_verdict", "not_reviewed")
         )
 
-    def test_live_registry_is_fully_reviewed_and_preserves_all_214_rows(self) -> None:
+    def test_live_registry_preserves_tx12_and_accepts_additive_rows(self) -> None:
         before = TRACE_PATH.read_bytes()
         result = validate_requirement_trace_migration(TRACE_PATH, SCHEMA_PATH)
         self.assertTrue(result.ok, result.messages)
-        self.assertIn("rows=214 trace_ids=214 requirement_ids=214", result.messages)
+        self.assertIn(
+            "rows=227 tx12_rows=214 additive_rows=13 trace_ids=227 requirement_ids=227",
+            result.messages,
+        )
         self.assertEqual(before, TRACE_PATH.read_bytes())
         self.assertEqual(GENERALIZED_HEADER, self.live_header)
 
@@ -135,8 +148,8 @@ class TraceSchemaMigrationTests(unittest.TestCase):
         self.assertEqual(TX11_LEGACY_SHA256, digest)
 
     def test_all_214_rows_have_accountable_nonprovisional_review(self) -> None:
-        self.assertEqual(214, len(self.live_rows))
-        for row in self.live_rows:
+        self.assertEqual(214, len(self.tx12_rows))
+        for row in self.tx12_rows:
             self.assertEqual("active", row["requirement_lifecycle"])
             self.assertEqual("required", row["applicability_status"])
             self.assertNotEqual("not_run", row["verification_status"])
@@ -147,7 +160,7 @@ class TraceSchemaMigrationTests(unittest.TestCase):
 
     def test_reviewed_dimension_counts_are_stable(self) -> None:
         def counts(field: str) -> dict[str, int]:
-            values = [row[field] for row in self.live_rows]
+            values = [row[field] for row in self.tx12_rows]
             return {value: values.count(value) for value in sorted(set(values))}
 
         self.assertEqual({"covered": 79, "partial": 135}, counts("coverage_status"))
@@ -162,9 +175,17 @@ class TraceSchemaMigrationTests(unittest.TestCase):
         )
 
     def test_legacy_runtime_evidence_never_implies_operational_capability(self) -> None:
-        affected = [row for row in self.live_rows if row_uses_legacy_runtime_evidence(row)]
+        affected = [row for row in self.tx12_rows if row_uses_legacy_runtime_evidence(row)]
         self.assertEqual(32, len(affected))
         self.assertTrue(all(row["capability_status"] != "operational" for row in affected))
+
+    def test_additive_phase2_rows_are_reviewed_without_changing_tx12_counts(self) -> None:
+        self.assertEqual(13, len(self.additive_rows))
+        self.assertTrue(
+            all(row["requirement_source_id"] == "SRC-PRD-P2-STRATEGIC-BASELINE-ADDENDUM" for row in self.additive_rows)
+        )
+        self.assertTrue(all(row["semantic_review_owner"] == "requirements_manager" for row in self.additive_rows))
+        self.assertTrue(all(row["verification_status"] == "not_run" for row in self.additive_rows))
 
     def test_atomic_writer_migrates_exact_legacy_copy(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

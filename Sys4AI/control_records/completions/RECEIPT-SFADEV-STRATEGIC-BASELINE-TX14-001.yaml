@@ -1,0 +1,56 @@
+completion_receipt_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX14-001
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-14-PHASE2
+role: requirements_manager
+result: PASS
+summary: TX-14 created and controlled the selected Phase 2 strategic-baseline addendum with 13 reviewed additive trace rows while preserving the accepted Phase 2 source draft and all 214 TX-12 rows.
+changed_artifacts:
+- path: PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md
+  change_summary: Added the G-06 strategic intent host pattern lifecycle testing portable execution trace package and non-production obligations.
+- path: PRDs/README.md
+  change_summary: Indexed the controlled addendum and its narrow authority effect.
+- path: Sys4AI/registries/source_registry.csv;Sys4AI/registries/object_relationship_registry.csv
+  change_summary: Registered the addendum and its relationships to Phase 0 Phase 1 accepted Phase 2 the RDR and the controlling decision.
+- path: Sys4AI/registries/requirement_trace_registry.csv
+  change_summary: Added 13 reviewed non-Phase-0 rows with not_run verification while preserving all 214 TX-12 rows and exact gap counts.
+- path: Sys4AI/sys_for_ai/prd_semantics.py;Sys4AI/tests/test_prd_semantics.py
+  change_summary: Added direct semantic markers and a negative probe for the controlled addendum.
+- path: Sys4AI/sys_for_ai/validators.py;Sys4AI/sys_for_ai/trace_migration.py;Sys4AI/tests/test_trace_schema_migration.py
+  change_summary: Allowed separately sourced additive requirements without duplicate Phase 0 coverage and preserved exact TX-11 reconstruction of the 214-row TX-12 subset.
+- path: Sys4AI/sys_for_ai/trace_validation.py;Sys4AI/control_records/program_state.yaml
+  change_summary: Added fail-closed post-TX-14 state alignment and the TX-15-only next route.
+- path: Sys4AI/control_records/**;Sys4AI/registries/*.csv;Sys4AI/docs/generated/**;implementation_plans/completion_receipts/**
+  change_summary: Recorded source-first memory execution completion handoff and regenerated noncanonical reader evidence.
+validation_evidence:
+  focused_tx14_suite: PASS_42_OF_42
+  product_unit_suite: PASS_187_OF_187
+  named_validator_targets: PASS
+  product_aggregate_validation: PASS
+  root_aggregate_validation: PASS
+  requirement_trace_rows: 227
+  preserved_tx12_rows: 214
+  additive_phase2_rows: 13
+  preserved_needs_evidence: 7
+  preserved_planned_verification: 200
+  preserved_tx11_rollback_sha256: 95e59cf5befc4f9fd29d857d1f609a4c0d2c321c1b3adf1efca1a69cdb01b28c
+  accepted_phase2_sha256: 98567cf4f4af8ca99650a6220a78d840dae5e11195891fc808c69c4828528038
+  accepted_phase2_draft_sha256: 9e290964200137329827a0164f50c2d3e97dc194fac65dd086c8b1dd7e57d84f
+  protected_phase2_git_diff: ZERO
+  generated_derivatives: PASS
+  diff_check: PASS
+  memory_final_status: PASS_WITH_WARNINGS_901_OBJECTS_387_WARNINGS_ZERO_AUTHORITY_INVERSIONS
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-14-PHASE2-20260710T155212Z
+authority_changes:
+  phase2_strategic_addendum: controlled
+  accepted_phase2_changed: false
+  accepted_phase2_draft_changed: false
+  g08_approved: false
+  production_readiness_claimed: false
+  tx15_started: false
+unresolved_issues:
+- Seven preserved TX-12 rows remain needs_evidence because exact current implementation evidence is absent.
+- Two hundred preserved TX-12 rows remain planned rather than passing requirement-level verification.
+- The 13 additive Phase 2 requirements remain not_run until their package or walking-skeleton evidence exists.
+- TX-15 still owns target-package implementation and negative validation evidence.
+next_recommendation: Commit and push TX-14 as one rollback-coherent packet then execute TX-15-TARGET-PACKAGE in a new bounded transaction.

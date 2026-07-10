@@ -16,6 +16,7 @@
 | `PRDs/Sys4AI_phase-0_product_system_design_prd.md` | canonical | Product and system-design baseline for Sys4AI. |
 | `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` | canonical_draft | `TX-06`-accepted implementation initialization baseline with exact strategic, lifecycle, pattern, host, portable-execution, package, validation, and migration requirements. |
 | `PRDs/Sys4AI_phase-2_walking_skeleton_prd.md` | controlled | Accepted Phase 2 walking-skeleton PRD. |
+| `PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md` | controlled addendum | `G-06`-accepted current Phase 2 strategic, portable-execution, host-evidence, pattern, testing, trace, and package obligations; the accepted Phase 2 source remains unchanged. |
 | `PRDs/PRD_decomposition_strategy.md` | controlled strategy | Decomposition and promotion strategy for modular PRD work. |
 
 ## Product Identity And Strategic Intent Authority
@@ -27,6 +28,7 @@
 | Sys4AI complete lifecycle | Accepted normative section in canonical Phase 0 | `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts the eight-stage lifecycle, replacement `SFA-CORE-LIFE-001`, and lifecycle requirements `004` through `008` for implementation. Acceptance does not prove capability or authorize production. |
 | Coordination pattern and operational maturity | Separate accepted normative taxonomies and Agentic System Pattern Decision contract in canonical Phase 0 | `G-03` activates the pattern requirements. Pattern describes architecture topology; maturity describes readiness and operating state. Neither field proves the other, and concrete schemas/templates remain blocked until `G-04`. |
 | Target-system vision and core values | Separate target strategic-intent artifacts to be introduced by their authorized contract transaction | A target's vision and values must remain separate from Sys4AI product intent and from every other target. USRDs and PRDs reference these artifacts; they do not create competing copies. |
+| Phase 2 strategic-baseline delta | `PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md`, authorized by `DDR-SFADEV-STRATEGIC-BASELINE-001` and `TX-14-PHASE2` | The addendum controls current Phase 2 strategic, execution, host, pattern, testing, trace, and package obligations without rewriting the accepted Phase 2 PRD or satisfying `G-08`. |
 | Historical Phase 0 product direction | `PRDs/Sys4AI_phase-0_prd.md` | Historical provenance only. Useful wording may be migrated into canonical Phase 0 with trace, but the historical file does not regain authority. |
 | Derivative PRD modules and generated readers | Registered derivative surfaces | Noncanonical navigation and analysis only; they cannot approve or supersede identity, vision, values, requirements, or permissions. |
 
@@ -119,6 +121,8 @@ Sys4AI-dev. (2026b). *Sys4AI implementation initialization PRD* [Product require
 
 Sys4AI-dev. (2026c). *Sys4AI Phase 2 walking skeleton PRD* [Product requirements document]. `PRDs/Sys4AI_phase-2_walking_skeleton_prd.md`.
 
-Sys4AI-dev. (2026d). *Sys4AI PRD decomposition strategy* [Decomposition strategy]. `PRDs/PRD_decomposition_strategy.md`.
+Sys4AI-dev. (2026d). *Sys4AI Phase 2 strategic baseline addendum* [Product requirements document addendum]. `PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md`.
 
-Sys4AI-dev. (2026e). *Sub-PRD promotion Director Decision* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-25-SUBPRD-PROMOTION-001.yaml`.
+Sys4AI-dev. (2026e). *Sys4AI PRD decomposition strategy* [Decomposition strategy]. `PRDs/PRD_decomposition_strategy.md`.
+
+Sys4AI-dev. (2026f). *Sub-PRD promotion Director Decision* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-25-SUBPRD-PROMOTION-001.yaml`.

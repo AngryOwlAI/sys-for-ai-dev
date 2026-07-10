@@ -7,6 +7,7 @@ import tempfile
 import unittest
 
 from sys_for_ai.trace_validation import STRUCTURAL_LIMITATION, validate_generalized_trace_semantics
+from sys_for_ai.validators import validate_requirement_trace
 from sys_for_ai.yaml_io import dump_yaml, load_yaml
 
 
@@ -16,6 +17,8 @@ PROGRAM_STATE = PRODUCT_ROOT / "control_records/program_state.yaml"
 SOURCES = PRODUCT_ROOT / "registries/source_registry.csv"
 DERIVATIVES = PRODUCT_ROOT / "registries/derivative_registry.csv"
 POLICY = PRODUCT_ROOT / "configs/capability_migration.toml"
+PHASE0 = PRODUCT_ROOT.parent / "PRDs/Sys4AI_phase-0_product_system_design_prd.md"
+PHASE1 = PRODUCT_ROOT.parent / "PRDs/Sys4AI_phase-1_implementation_initialization_prd.md"
 
 
 class TraceSemanticTests(unittest.TestCase):
@@ -99,6 +102,25 @@ class TraceSemanticTests(unittest.TestCase):
             result = self._validate_fixture(root)
         self.assertFalse(result.ok)
         self.assertTrue(any("requirement source cannot be" in item for item in result.messages))
+
+    def test_additive_requirement_id_must_exist_in_registered_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self._fixture_root(Path(temporary))
+            rows = self._read_rows(root / "trace.csv")
+            row = next(
+                item for item in rows
+                if item["requirement_source_id"] == "SRC-PRD-P2-STRATEGIC-BASELINE-ADDENDUM"
+            )
+            row["requirement_id"] = "SFA-P2-ADD-NOT-DECLARED-001"
+            self._write_rows(root / "trace.csv", rows)
+            result = validate_requirement_trace(
+                root / "trace.csv",
+                PHASE0,
+                PHASE1,
+                source_registry=root / "source_registry.csv",
+            )
+        self.assertFalse(result.ok)
+        self.assertTrue(any("is not declared by registered source" in item for item in result.messages))
 
     def test_policy_detects_silent_planned_gap_change(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

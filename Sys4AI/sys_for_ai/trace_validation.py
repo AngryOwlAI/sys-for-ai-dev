@@ -207,6 +207,15 @@ def _validate_program_state_alignment(path: Path, state: dict[str, Any]) -> list
             messages.append(f"{path}: post-TX-13 state does not allow the exact TX-14 route")
         if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX13-001":
             messages.append(f"{path}: post-TX-13 state is not aligned to the TX-13 handoff")
+    elif phase == "strategic_baseline_migration_after_TX_14":
+        if summary.get("broader_semantic_validation") != "implemented":
+            messages.append(f"{path}: post-TX-14 state must retain broader_semantic_validation implemented")
+        if "execute_TX_15_TARGET_PACKAGE_only_after_TX_14_shared_baseline" not in allowed:
+            messages.append(f"{path}: post-TX-14 state does not allow the exact TX-15 route")
+        if "begin_TX_16_before_TX_15_closes" not in blocked:
+            messages.append(f"{path}: post-TX-14 state must block premature TX-16 work")
+        if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX14-001":
+            messages.append(f"{path}: post-TX-14 state is not aligned to the TX-14 handoff")
     else:
         messages.append(f"{path}: unsupported strategic-baseline program phase {phase!r}")
     return messages

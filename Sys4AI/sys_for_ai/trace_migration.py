@@ -376,7 +376,7 @@ def validate_requirement_trace_migration(
     trace_registry: str | Path = DEFAULT_TRACE_REGISTRY,
     schema_path: str | Path = DEFAULT_TRACE_SCHEMA,
 ) -> ValidationResult:
-    """Validate the TX-11 dry-run or the completed TX-12 reviewed registry."""
+    """Validate the TX-11 dry-run or a generalized registry preserving TX-12."""
 
     target = resolve_registered_path(str(trace_registry))
     schema_target = resolve_registered_path(str(schema_path))
@@ -500,7 +500,9 @@ def _validate_generalized_registry(
     messages.extend(_duplicate_messages(target, "trace ID", trace_ids))
     messages.extend(_duplicate_messages(target, "requirement ID", requirement_ids))
 
-    reversed_rows = [reverse_generalized_trace_row(row) for row in rows]
+    tx12_rows = [row for row in rows if row.get("requirement_source_id") == "SRC-PRD-P0"]
+    additive_rows = [row for row in rows if row.get("requirement_source_id") != "SRC-PRD-P0"]
+    reversed_rows = [reverse_generalized_trace_row(row) for row in tx12_rows]
     rollback_bytes = _serialize_legacy_rows(reversed_rows)
     rollback_hash = hashlib.sha256(rollback_bytes).hexdigest()
     if rollback_hash != TX11_LEGACY_SHA256:
@@ -508,8 +510,8 @@ def _validate_generalized_registry(
             f"{target}: rollback digest mismatch; "
             f"expected {TX11_LEGACY_SHA256}, found {rollback_hash}"
         )
-    if len(rows) != 214:
-        messages.append(f"{target}: expected 214 reviewed rows, found {len(rows)}")
+    if len(tx12_rows) != 214:
+        messages.append(f"{target}: expected 214 preserved TX-12 rows, found {len(tx12_rows)}")
 
     if messages:
         return ValidationResult(False, messages)
@@ -520,7 +522,8 @@ def _validate_generalized_registry(
             f"{target}: TX-12 reviewed requirement trace migration validation passed",
             f"generalized_sha256={current_hash}",
             f"rollback_legacy_sha256={rollback_hash}",
-            f"rows={len(rows)} trace_ids={len(set(trace_ids))} "
+            f"rows={len(rows)} tx12_rows={len(tx12_rows)} additive_rows={len(additive_rows)} "
+            f"trace_ids={len(set(trace_ids))} "
             f"requirement_ids={len(set(requirement_ids))}",
             f"requirement_lifecycle: {_format_counts(rows, 'requirement_lifecycle')}",
             f"applicability_status: {_format_counts(rows, 'applicability_status')}",
@@ -548,15 +551,16 @@ def _validate_reviewed_rows(
             messages.append(f"{target}:{index}: {trace_id}: provisional requirement lifecycle remains")
         if row.get("applicability_status") == "not_reviewed":
             messages.append(f"{target}:{index}: {trace_id}: applicability remains unreviewed")
-        if row.get("verification_status") in {"not_run"}:
+        is_tx12_row = row.get("requirement_source_id") == "SRC-PRD-P0"
+        if is_tx12_row and row.get("verification_status") in {"not_run"}:
             messages.append(f"{target}:{index}: {trace_id}: provisional verification state remains")
         if row.get("evidence_status") == "missing":
             messages.append(f"{target}:{index}: {trace_id}: provisional evidence state remains")
         if row.get("semantic_review_verdict") == "not_reviewed":
             messages.append(f"{target}:{index}: {trace_id}: semantic review remains incomplete")
-        if row.get("semantic_review_owner") != TX12_REVIEW_OWNER:
+        if is_tx12_row and row.get("semantic_review_owner") != TX12_REVIEW_OWNER:
             messages.append(f"{target}:{index}: {trace_id}: unexpected semantic review owner")
-        if row.get("semantic_review_date") != TX12_REVIEW_DATE:
+        if is_tx12_row and row.get("semantic_review_date") != TX12_REVIEW_DATE:
             messages.append(f"{target}:{index}: {trace_id}: unexpected semantic review date")
         for field in ("implementation_artifacts", "validation_evidence", "evidence_paths"):
             for path in _split_paths(row.get(field, "")):

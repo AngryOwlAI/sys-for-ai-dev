@@ -41,11 +41,29 @@ PHASE1_MARKERS = (
     "Portable Successor Transaction and Historical Packet Provenance",
     "structural validation",
 )
+PHASE2_ADDENDUM_MARKERS = (
+    "SFA-P2-ADD-STRAT-001",
+    "SFA-P2-ADD-STRAT-002",
+    "SFA-P2-ADD-APPROVAL-001",
+    "SFA-P2-ADD-HOST-001",
+    "SFA-P2-ADD-PATTERN-001",
+    "SFA-P2-ADD-LIFE-001",
+    "SFA-P2-ADD-EXEC-001",
+    "SFA-P2-ADD-STATE-001",
+    "SFA-P2-ADD-TRACE-001",
+    "SFA-P2-ADD-PACKAGE-001",
+    "SFA-P2-ADD-SEM-001",
+    "SFA-P2-ADD-FLOW-001",
+    "SFA-P2-ADD-SAFETY-001",
+    "validated_prototype",
+    "Structural validation does not prove strategic quality",
+)
 
 
 def validate_prd_semantics(
     phase0_prd: str | Path = "PRDs/Sys4AI_phase-0_product_system_design_prd.md",
     phase1_prd: str | Path = "PRDs/Sys4AI_phase-1_implementation_initialization_prd.md",
+    phase2_addendum: str | Path = "PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md",
     *,
     capability_manifest: str | Path = "configs/capability_migration.toml",
     modules_root: str | Path = "../PRDs/modules",
@@ -55,9 +73,14 @@ def validate_prd_semantics(
 
     phase0 = resolve_registered_path(str(phase0_prd))
     phase1 = resolve_registered_path(str(phase1_prd))
+    phase2 = resolve_registered_path(str(phase2_addendum))
     messages: list[str] = []
     texts: dict[Path, str] = {}
-    for path, markers in ((phase0, PHASE0_MARKERS), (phase1, PHASE1_MARKERS)):
+    for path, markers in (
+        (phase0, PHASE0_MARKERS),
+        (phase1, PHASE1_MARKERS),
+        (phase2, PHASE2_ADDENDUM_MARKERS),
+    ):
         try:
             text = path.read_text(encoding="utf-8")
         except OSError as exc:
@@ -109,7 +132,7 @@ def validate_prd_semantics(
     return ValidationResult(
         True,
         [
-            f"canonical PRD semantic validation passed ({phase0.name}; {phase1.name})",
+            f"canonical PRD semantic validation passed ({phase0.name}; {phase1.name}; {phase2.name})",
             STRUCTURAL_LIMITATION,
         ],
     )

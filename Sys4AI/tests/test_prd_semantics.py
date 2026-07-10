@@ -13,6 +13,7 @@ PRODUCT_ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = PRODUCT_ROOT.parent
 PHASE0 = REPOSITORY_ROOT / "PRDs/Sys4AI_phase-0_product_system_design_prd.md"
 PHASE1 = REPOSITORY_ROOT / "PRDs/Sys4AI_phase-1_implementation_initialization_prd.md"
+PHASE2_ADDENDUM = REPOSITORY_ROOT / "PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md"
 MANIFEST = PRODUCT_ROOT / "configs/capability_migration.toml"
 
 
@@ -52,6 +53,16 @@ class PrdSemanticTests(unittest.TestCase):
             )
         )
 
+    def test_missing_phase2_addendum_portable_execution_requirement_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self._fixture_root(Path(temporary))
+            path = root / "PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md"
+            text = path.read_text(encoding="utf-8")
+            path.write_text(text.replace("SFA-P2-ADD-EXEC-001", "REMOVED-EXEC-REQUIREMENT"), encoding="utf-8")
+            result = self._validate_fixture(root)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("SFA-P2-ADD-EXEC-001" in item for item in result.messages))
+
     def test_derivative_module_cannot_claim_unclassified_authority(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -67,6 +78,7 @@ class PrdSemanticTests(unittest.TestCase):
         (root / "Sys4AI/configs").mkdir(parents=True)
         shutil.copy2(PHASE0, root / "PRDs/Sys4AI_phase-0_product_system_design_prd.md")
         shutil.copy2(PHASE1, root / "PRDs/Sys4AI_phase-1_implementation_initialization_prd.md")
+        shutil.copy2(PHASE2_ADDENDUM, root / "PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md")
         shutil.copy2(MANIFEST, root / "Sys4AI/configs/capability_migration.toml")
         return root
 
@@ -74,6 +86,7 @@ class PrdSemanticTests(unittest.TestCase):
         return validate_prd_semantics(
             root / "PRDs/Sys4AI_phase-0_product_system_design_prd.md",
             root / "PRDs/Sys4AI_phase-1_implementation_initialization_prd.md",
+            root / "PRDs/Sys4AI_phase-2_strategic_baseline_addendum.md",
             capability_manifest=root / "Sys4AI/configs/capability_migration.toml",
             modules_root=root / "missing-modules",
             repository_root=root,

@@ -37,6 +37,7 @@ class RequirementDeclaration:
 REQUIREMENT_ID_PATTERN = r"SFA-[A-Z0-9]+(?:-[A-Z0-9]+)*"
 BACKTICK_REQUIREMENT_RE = re.compile(rf"^\s*`(?P<id>{REQUIREMENT_ID_PATTERN})`\s*:")
 TABLE_REQUIREMENT_RE = re.compile(rf"^\|\s*(?P<id>{REQUIREMENT_ID_PATTERN})\s*\|")
+BACKTICK_TABLE_REQUIREMENT_RE = re.compile(rf"^\|\s*`(?P<id>{REQUIREMENT_ID_PATTERN})`\s*\|")
 PHASE0_REQUIREMENT_PREFIXES = ("SFA-CORE-", "SFA-P0-FR-", "SFA-P0-NFR-")
 PHASE1_REQUIREMENT_PREFIX = "SFA-P1-INIT-"
 TRACE_COVERAGE_STATUSES = {"missing", "covered", "partial", "not_applicable"}
@@ -764,6 +765,8 @@ def validate_requirement_trace(
     trace_registry: str | Path = "registries/requirement_trace_registry.csv",
     phase0_prd: str | Path = "PRDs/Sys4AI_phase-0_product_system_design_prd.md",
     phase1_prd: str | Path = "PRDs/Sys4AI_phase-1_implementation_initialization_prd.md",
+    *,
+    source_registry: str | Path = "registries/source_registry.csv",
 ) -> ValidationResult:
     """Validate PRD ID uniqueness and Phase 0 to Phase 1 trace coverage."""
 
@@ -804,6 +807,8 @@ def validate_requirement_trace(
         messages.append(f"{phase1_prd}: no Phase 1 requirement IDs found")
 
     coverage: dict[str, list[str]] = {requirement_id: [] for requirement_id in phase0_ids}
+    source_index = rows_by_id(read_registry_rows(resolve_registered_path(str(source_registry))), "source_id")
+    source_requirement_ids: dict[Path, set[str]] = {}
     trace_class_counts: Counter[str] = Counter()
     capability_status_counts: Counter[str] = Counter()
     verification_status_counts: Counter[str] = Counter()
@@ -851,8 +856,32 @@ def validate_requirement_trace(
                 "semantic_review_verdict"
             )
 
+        requirement_source_id = row.get("requirement_source_id", "")
+        is_phase0_requirement = not requirement_source_id or requirement_source_id == "SRC-PRD-P0"
+        if not is_phase0_requirement:
+            source_row = source_index.get(requirement_source_id)
+            if source_row is not None and source_row.get("path"):
+                requirement_source_path = resolve_registered_path(source_row["path"])
+                if requirement_source_path not in source_requirement_ids:
+                    declarations, declaration_errors = _extract_requirement_declarations(requirement_source_path)
+                    messages.extend(declaration_errors)
+                    declared_ids = {
+                        declaration.requirement_id for declaration in declarations
+                    }
+                    if requirement_source_path.exists():
+                        for source_line in requirement_source_path.read_text(encoding="utf-8").splitlines():
+                            source_match = BACKTICK_TABLE_REQUIREMENT_RE.match(source_line)
+                            if source_match is not None:
+                                declared_ids.add(source_match.group("id"))
+                    source_requirement_ids[requirement_source_path] = declared_ids
+                if row.get("requirement_id", "") not in source_requirement_ids[requirement_source_path]:
+                    messages.append(
+                        f"{target}: {trace_id}: requirement_id {row.get('requirement_id', '')!r} "
+                        f"is not declared by registered source {requirement_source_path}"
+                    )
         phase0_selectors = _split_selectors(
-            row.get("requirement_id", "") or row.get("phase0_selector", "")
+            (row.get("requirement_id", "") if is_phase0_requirement else "")
+            or row.get("phase0_selector", "")
         )
         if not phase0_selectors:
             messages.append(f"{target}: {trace_id}: missing phase0_selector")
@@ -870,8 +899,9 @@ def validate_requirement_trace(
                     f"{target}: {trace_id}: phase0 selector {selector!r} must be one literal Phase 0 requirement ID"
                 )
                 continue
-            for requirement_id in matches:
-                coverage.setdefault(requirement_id, []).append(trace_id)
+            if is_phase0_requirement:
+                for requirement_id in matches:
+                    coverage.setdefault(requirement_id, []).append(trace_id)
 
         phase1_selectors = _split_selectors(row.get("phase1_selectors", ""))
         if status in {"covered", "partial"} and not phase1_selectors:
