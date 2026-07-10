@@ -14,7 +14,7 @@
 | Source | Status | Current authority |
 |---|---|---|
 | `PRDs/Sys4AI_phase-0_product_system_design_prd.md` | canonical | Product and system-design baseline for Sys4AI. |
-| `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` | canonical_draft | Phase 1 implementation initialization baseline and scaffold requirements. |
+| `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` | canonical_draft | `TX-06`-accepted implementation initialization baseline with exact strategic, lifecycle, pattern, host, portable-execution, package, validation, and migration requirements. |
 | `PRDs/Sys4AI_phase-2_walking_skeleton_prd.md` | controlled | Accepted Phase 2 walking-skeleton PRD. |
 | `PRDs/PRD_decomposition_strategy.md` | controlled strategy | Decomposition and promotion strategy for modular PRD work. |
 

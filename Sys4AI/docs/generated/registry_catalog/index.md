@@ -66,7 +66,7 @@ This generated page indexes registered CSV registries. It is a navigation surfac
 | registries/format_profile_registry.csv | SRC-REG-FORMAT-PROFILES | format_profile_registry | controlled | 5 | implementation_initialization |
 | registries/handoff_registry.csv | SRC-REG-HANDOFFS | handoff_registry | controlled | 29 | control_loop |
 | registries/memory_preflight_receipt_registry.csv | SRC-REG-MEMORY-PREFLIGHT-RECEIPTS | memory_preflight_receipt_registry | controlled | 29 | control_loop |
-| registries/object_relationship_registry.csv | SRC-REG-OBJECT-RELATIONSHIPS | object_relationship_registry | controlled | 105 | source_first_memory |
+| registries/object_relationship_registry.csv | SRC-REG-OBJECT-RELATIONSHIPS | object_relationship_registry | controlled | 107 | source_first_memory |
 | registries/prd_module_registry.csv | SRC-REG-PRD-MODULES | registry | controlled | 12 | framework_product |
 | registries/requirement_trace_registry.csv | SRC-REG-REQ-TRACE | requirement_trace_registry | controlled | 214 | implementation_initialization |
 | registries/role_execution_binding_registry.csv | SRC-REG-ROLE-EXECUTION-BINDINGS | role_execution_binding_registry | controlled | 15 | implementation_initialization |
