@@ -1,0 +1,64 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-17-SAFETY-EVALUATION-20260710T175106Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-17-SAFETY-EVALUATION
+created_at: '2026-07-10T17:51:06Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-17-SAFETY-EVALUATION --json
+  result: warn
+- command: python -m sys_for_ai.cli memory lookup HANDOFF-SFADEV-STRATEGIC-BASELINE-TX16-001
+    --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search 'TX-17 safety self-change permission
+    holdout threat evaluation' --limit 10 --json
+  result: pass
+queries:
+- query: TX-17 safety self-change permission holdout threat evaluation
+  returned_object_ids:
+  - SRC-HOST-PROFILE-CODEX-APP-REFERENCE
+  - cfg_codex_app_reference
+  - DDR-SFADEV-STRATEGIC-BASELINE-001
+  - SRC-DDR-STRATEGIC-BASELINE-001
+  - ctrl_strategic_baseline_director_decision
+  - SRC-RDR-STRATEGIC-BASELINE-001
+  - SRC-DEV-SKILL-REGISTRY
+  - SRC-REG-CORE-SKILL-PROPOSALS
+  - SRC-STRATEGIC-BASELINE-TX09-RECEIPT
+  - SRC-TEST-EXECUTION-TRANSACTION
+canonical_sources_inspected:
+- path: Sys4AI/configs/host_profiles/codex_app_reference.toml
+  registry: source_registry.csv
+  row_id: SRC-HOST-PROFILE-CODEX-APP-REFERENCE
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml
+  registry: source_registry.csv
+  row_id: SRC-DDR-STRATEGIC-BASELINE-001
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/control_records/system_definition/strategic_baseline_migration_requirements_discovery_record.md
+  registry: source_registry.csv
+  row_id: SRC-RDR-STRATEGIC-BASELINE-001
+  inspected_sections:
+  - registered source metadata
+registry_rows_inspected:
+- path: configs/host_profiles/codex_app_reference.toml
+  registry: config_source_registry.csv
+  row_id: cfg_codex_app_reference
+  purpose: Confirm memory hit registry evidence.
+- path: control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml
+  registry: director_decision_registry.csv
+  row_id: DDR-SFADEV-STRATEGIC-BASELINE-001
+  purpose: Confirm memory hit registry evidence.
+- path: control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml
+  registry: control_record_registry.csv
+  row_id: ctrl_strategic_baseline_director_decision
+  purpose: Confirm memory hit registry evidence.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: not_observed
+  notes: No generated derivative was used as source authority.
+usable_for_routing: true

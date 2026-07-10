@@ -7,9 +7,9 @@
 - Role ID: `svc_documentation_surface_architect`
 - Role class: `system_design_support`
 - System layer scope: `framework_product;target_system_template;target_system_instance`
-- Primary mission: Define source control and derivative surfaces
-- Primary outputs: `SVCDA`
-- Allowed artifact classes: `source_control;derivatives`
+- Primary mission: Define source control derivative baseline supersession and rollback surfaces
+- Primary outputs: `SVCDA;baseline-and-rollback-record`
+- Allowed artifact classes: `source_control;derivatives;assurance`
 - Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
@@ -27,6 +27,8 @@
 
 ## Execution Bindings
 
-No role execution binding is registered for this role.
+| Binding ID | Binding Scope | Required Validators | Expiry Policy |
+|---|---|---|---|
+| bind_svc_documentation_surface_architect | baseline_change;rollback_planning;supersession | validate-safety-evaluation;validate-generated-derivatives;make validate | registered role no expiry and controlled baseline changes require explicit authority |
 
 Canonical inputs remain the three role registries listed in the notice.

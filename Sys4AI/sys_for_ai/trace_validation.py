@@ -234,6 +234,19 @@ def _validate_program_state_alignment(path: Path, state: dict[str, Any]) -> list
             messages.append(f"{path}: post-TX-16 state must block premature TX-18 work")
         if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX16-001":
             messages.append(f"{path}: post-TX-16 state is not aligned to the TX-16 handoff")
+    elif phase == "strategic_baseline_migration_after_TX_17":
+        if summary.get("broader_semantic_validation") != "implemented":
+            messages.append(f"{path}: post-TX-17 state must retain broader_semantic_validation implemented")
+        if summary.get("safety_evaluation_controls") != "implemented":
+            messages.append(f"{path}: post-TX-17 state must mark safety_evaluation_controls implemented")
+        if "execute_TX_18_HUMAN_APPROVAL_only_after_TX_17_shared_baseline" not in allowed:
+            messages.append(f"{path}: post-TX-17 state does not allow the exact TX-18 human gate")
+        if "begin_TX_19_before_G_08_acceptance" not in blocked:
+            messages.append(f"{path}: post-TX-17 state must block premature TX-19 work")
+        if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001":
+            messages.append(f"{path}: post-TX-17 state is not aligned to the TX-17 handoff")
+        if state.get("state_status") != "human_gated" or state.get("human_gate_required") is not True:
+            messages.append(f"{path}: post-TX-17 state must remain human gated")
     else:
         messages.append(f"{path}: unsupported strategic-baseline program phase {phase!r}")
     return messages

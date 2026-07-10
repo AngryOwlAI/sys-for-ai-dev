@@ -30,6 +30,7 @@ from .memory import hash_path as memory_hash_path
 from .memory import lookup_memory, memory_status, run_memory_preflight, search_memory, update_hashes, validate_hashes
 from .prd_modules import validate_prd_modules
 from .prd_semantics import validate_prd_semantics
+from .safety_evaluation import validate_safety_evaluation
 from .strategic_intent import validate_strategic_intent
 from .walking_skeleton import (
     validate_walking_skeleton_flow,
@@ -318,6 +319,26 @@ def build_parser() -> argparse.ArgumentParser:
         nargs="?",
     )
 
+    validate_safety = sub.add_parser(
+        "validate-safety-evaluation",
+        help="Validate self-change safety, permissions, holdouts, and assurance evidence",
+    )
+    validate_safety.add_argument(
+        "packet",
+        default="assurance/meta_agent_self_change_safety_evaluation.yaml",
+        nargs="?",
+    )
+    validate_safety.add_argument(
+        "--schema",
+        default="schemas/contracts/self_change_safety_evaluation.schema.json",
+    )
+    validate_safety.add_argument("--holdouts")
+    validate_safety.add_argument(
+        "--holdout-schema",
+        default="schemas/contracts/self_change_holdout_suite.schema.json",
+    )
+    validate_safety.add_argument("--json", action="store_true")
+
     validate_capability = sub.add_parser(
         "validate-capability-migration",
         help="Validate the G-05 retired-capability boundary inventory",
@@ -522,6 +543,17 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "validate-lifecycle-and-patterns":
         return print_result(validate_lifecycle_and_patterns(args.path))
 
+    if args.command == "validate-safety-evaluation":
+        return _emit_validation_result(
+            validate_safety_evaluation(
+                args.packet,
+                args.schema,
+                args.holdouts,
+                args.holdout_schema,
+            ),
+            args.json,
+        )
+
     if args.command == "validate-capability-migration":
         return _emit_validation_result(
             validate_capability_migration(args.manifest, args.repository_root),
@@ -589,6 +621,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_strategic_intent())
         result.extend(validate_host_capability_profiles())
         result.extend(validate_lifecycle_and_patterns())
+        result.extend(validate_safety_evaluation())
         result.extend(validate_prd_semantics())
         result.extend(validate_capability_migration(args.capability_migration_manifest))
         result.extend(validate_requirement_trace(args.requirement_trace))

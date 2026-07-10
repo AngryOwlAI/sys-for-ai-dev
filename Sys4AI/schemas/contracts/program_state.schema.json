@@ -73,14 +73,16 @@
         "current_state_model",
         "historical_compatibility",
         "removed_runtime_surfaces",
-        "broader_semantic_validation"
+        "broader_semantic_validation",
+        "safety_evaluation_controls"
       ],
       "properties": {
         "portable_execution_contract": { "enum": ["implemented", "partial", "deferred", "removed"] },
         "current_state_model": { "enum": ["implemented", "partial", "deferred", "removed"] },
         "historical_compatibility": { "enum": ["implemented", "partial", "deferred", "removed"] },
         "removed_runtime_surfaces": { "enum": ["absent", "present", "unknown"] },
-        "broader_semantic_validation": { "enum": ["implemented", "partial", "deferred", "removed"] }
+        "broader_semantic_validation": { "enum": ["implemented", "partial", "deferred", "removed"] },
+        "safety_evaluation_controls": { "enum": ["implemented", "partial", "deferred", "removed"] }
       },
       "additionalProperties": false
     },

@@ -23,7 +23,7 @@ This directory is generated from controlled role registries. It is navigation on
 | reconciliation_analyst | System Analyst / Reconciliation Analyst | system_design_core | framework_product;target_system_template;target_system_instance |
 | requirements_manager | System Manager / Requirements Manager | system_design_core | framework_product;target_system_template;target_system_instance |
 | requirements_verifier | Requirements Verifier / Consistency Auditor | verification | framework_product;target_system_template;target_system_instance |
-| runtime_maintenance_planner | Runtime and Maintenance Planner | maintenance | target_system_template;target_system_instance |
+| runtime_maintenance_planner | Runtime and Maintenance Planner | maintenance | framework_product;target_system_template;target_system_instance |
 | security_safety_privacy_compliance_reviewer | Security Safety Privacy and Compliance Reviewer | verification | framework_product;target_system_template;target_system_instance |
 | skill_dependency_adaptation_agent | Skill Dependency Adaptation Agent | temporary_legacy_role | development_system;framework_product |
 | skill_integration_agent | Skill Integration Agent | temporary_legacy_role | development_system;framework_product |

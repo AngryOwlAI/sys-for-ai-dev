@@ -53,6 +53,8 @@ page_metadata:
     - contract_completion_receipt_v1_0
     - contract_handoff_v1_0
     - contract_target_system_package_manifest
+    - contract_self_change_safety_evaluation
+    - contract_self_change_holdout_suite
   generated_at: 2026-07-06T00:00:00Z
   generator: sys_for_ai.derivatives.validation_contracts_catalog:0.1.0
   stale_or_orphan_status: current
@@ -303,6 +305,18 @@ Validation contracts prove structural conformance only. They do not prove semant
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | contract_program_state | schemas/contracts/program_state.schema.json | 2020-12 | yaml | program_state | control_records/program_state.yaml | Sys4AI validate-program-state | control_loop | controlled | pending | pending |
+
+## yaml / self_change_holdout_suite
+
+| contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contract_self_change_holdout_suite | schemas/contracts/self_change_holdout_suite.schema.json | 2020-12 | yaml | self_change_holdout_suite | assurance/holdouts/*.yaml | Sys4AI validate-safety-evaluation | verification_engineer | controlled | pending | pending |
+
+## yaml / self_change_safety_evaluation
+
+| contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contract_self_change_safety_evaluation | schemas/contracts/self_change_safety_evaluation.schema.json | 2020-12 | yaml | self_change_safety_evaluation | assurance/meta_agent_self_change_safety_evaluation.yaml | Sys4AI validate-safety-evaluation | verification_engineer | controlled | pending | pending |
 
 ## yaml / state_snapshot
 

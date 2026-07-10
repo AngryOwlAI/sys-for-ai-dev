@@ -7,9 +7,9 @@
 - Role ID: `security_safety_privacy_compliance_reviewer`
 - Role class: `verification`
 - System layer scope: `framework_product;target_system_template;target_system_instance`
-- Primary mission: Review risk controls and compliance obligations
-- Primary outputs: `risk-review`
-- Allowed artifact classes: `security;validation`
+- Primary mission: Review threats permissions risk controls and assurance claims
+- Primary outputs: `threat-model;permission-scope-record;assurance-case;residual-risk-review`
+- Allowed artifact classes: `security;validation;assurance`
 - Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
@@ -28,6 +28,8 @@
 
 ## Execution Bindings
 
-No role execution binding is registered for this role.
+| Binding ID | Binding Scope | Required Validators | Expiry Policy |
+|---|---|---|---|
+| bind_security_safety_privacy_compliance_reviewer | safety_review;permission_scope;assurance_case | validate-safety-evaluation;validate-roles;make validate | registered role no expiry and each action remains transaction bounded |
 
 Canonical inputs remain the three role registries listed in the notice.

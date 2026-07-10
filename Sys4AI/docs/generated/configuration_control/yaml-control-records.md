@@ -226,6 +226,10 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx16_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-16-WALKING-SKELETON-20260710T172717Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx16_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX16-001.yaml | completion_receipt | controlled | system_engineer | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx16_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX16-001.yaml | handoff | controlled | system_engineer | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_tx17_execution_transaction | control_records/execution_transactions/TX-17-SAFETY-EVALUATION.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx17_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-17-SAFETY-EVALUATION-20260710T175106Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx17_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001.yaml | completion_receipt | controlled | security_safety_privacy_compliance_reviewer | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx17_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001.yaml | handoff | controlled | security_safety_privacy_compliance_reviewer | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 

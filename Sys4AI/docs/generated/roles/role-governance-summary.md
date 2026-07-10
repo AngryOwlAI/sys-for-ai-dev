@@ -56,7 +56,7 @@ This generated page summarizes role governance registries and execution binding 
 | context_memory_knowledge_architect | system_design_support | source-first-memory;source-authority-auditor | artifact-contract-governance | false | false |
 | svc_documentation_surface_architect | system_design_support | source-authority-auditor;baseline-change-manager | technical-writing-quality-gate | false | false |
 | implementation_initialization_agent | implementation | prd-to-implementation-plan | source-first-memory | false | true |
-| verification_engineer | verification | verification-validation-planner;technical-writing-quality-gate | evaluation-harness-designer | false | false |
+| verification_engineer | verification | verification-validation-planner;technical-writing-quality-gate;evaluation-harness-designer | pending | false | false |
 | software_engineer | implementation | prd-to-implementation-plan | source-first-memory | false | true |
 | system_engineer | system_design_core | prd-to-implementation-plan;technical-writing-quality-gate | decision-grilling | false | false |
 | system_analyst | system_design_core | decision-grilling;source-first-memory | conversation-to-prd | false | false |
@@ -92,7 +92,7 @@ This generated page summarizes role governance registries and execution binding 
 | context_memory_knowledge_architect | 2 | 0 | 0 | 0 | 0 |
 | svc_documentation_surface_architect | 1 | 0 | 0 | 0 | 0 |
 | implementation_initialization_agent | 0 | 0 | 0 | 0 | 0 |
-| verification_engineer | 1 | 1 | 0 | 0 | 0 |
+| verification_engineer | 2 | 0 | 0 | 0 | 0 |
 | software_engineer | 0 | 0 | 0 | 0 | 0 |
 | system_engineer | 0 | 0 | 0 | 0 | 0 |
 | system_analyst | 0 | 0 | 0 | 0 | 0 |
@@ -120,15 +120,15 @@ This generated page summarizes role governance registries and execution binding 
 | final_system_requirements_packager | pending | pending | pending | pending |
 | requirements_verifier | pending | pending | pending | pending |
 | domain_specialist | pending | pending | pending | pending |
-| security_safety_privacy_compliance_reviewer | pending | pending | pending | pending |
+| security_safety_privacy_compliance_reviewer | bind_security_safety_privacy_compliance_reviewer | safety_review;permission_scope;assurance_case | validate-safety-evaluation;validate-roles;make validate | threat model;permission scope;assurance case;residual risk |
 | documentation_librarian | bind_documentation_librarian | configuration_control;runtime_skill_reconciliation | validate-generated-derivatives;validate-registry-graph | registry rows;generated derivative check |
-| runtime_maintenance_planner | pending | pending | pending | pending |
+| runtime_maintenance_planner | bind_runtime_maintenance_planner | operations_planning;maintenance_planning;readiness_review | validate-safety-evaluation;validate-roles;make validate | operations and maintenance plan;readiness gap register |
 | control_loop_agentjob_planner | bind_control_loop_agentjob_planner | legacy_control_review;handoff_planning | validate-handoffs;validate-registry-graph | historical review evidence |
 | bounded_execution_planner | bind_bounded_execution_planner | baseline_migration;implementation;validation;handoff_planning | make validate;validate-capability-migration | execution transaction;completion evidence;handoff |
 | context_memory_knowledge_architect | pending | pending | pending | pending |
-| svc_documentation_surface_architect | pending | pending | pending | pending |
+| svc_documentation_surface_architect | bind_svc_documentation_surface_architect | baseline_change;rollback_planning;supersession | validate-safety-evaluation;validate-generated-derivatives;make validate | baseline and rollback record;supersession evidence |
 | implementation_initialization_agent | bind_implementation_initialization_agent | implementation_initialization | make validate | completion receipt;handoff |
-| verification_engineer | pending | pending | pending | pending |
+| verification_engineer | bind_verification_engineer | verification;self_change_evaluation;holdout_evaluation | validate-safety-evaluation;validate-roles;make validate | evaluation harness;holdout result;regression evidence;validation report |
 | software_engineer | bind_software_engineer | implementation | make validate | code change;test evidence |
 | system_engineer | bind_system_engineer | prd_integration;requirements_trace | validate-requirement-trace | trace rows;completion receipt |
 | system_analyst | pending | pending | pending | pending |

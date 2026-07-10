@@ -17,25 +17,29 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
     def test_program_state_uses_portable_current_execution_fields(self) -> None:
         state = load_yaml(PRODUCT_ROOT / "control_records/program_state.yaml")
 
-        self.assertEqual("active", state["state_status"])
+        self.assertEqual("human_gated", state["state_status"])
         self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX16-001",
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001",
             state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX16-001",
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001",
             state["latest_handoff_evidence_id"],
         )
         self.assertEqual("ready", state["continuation_state"])
         self.assertEqual("not_requested", state["cancellation_state"])
         self.assertEqual("not_required", state["escalation_state"])
+        self.assertTrue(state["human_gate_required"])
+        self.assertEqual("implemented", state["capability_status_summary"]["safety_evaluation_controls"])
 
         handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")
         completion_rows = _rows(PRODUCT_ROOT / "registries/completion_receipt_registry.csv", "completion_receipt_id")
         self.assertIn(state["latest_closeout_evidence_id"], completion_rows)
         self.assertIn(state["latest_handoff_evidence_id"], handoff_rows)
+        self.assertIn("RECEIPT-SFADEV-STRATEGIC-BASELINE-TX17-001", completion_rows)
+        self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX17-001", handoff_rows)
         self.assertIn("RECEIPT-P1-SELFHOST-ACCEPTANCE-001", completion_rows)
         self.assertIn("RECEIPT-SYS4AI-DEV-NAME-MIGRATION-001", completion_rows)
         self.assertIn("RECEIPT-SFADEV-20-WALKING-SKELETON-FLOW-001", completion_rows)
