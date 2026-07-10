@@ -8,7 +8,7 @@
 **Supersedes:** `PRDs/Sys4AI_phase-0_prd.md` as an authoritative Phase 0 source.
 **Downstream dependency:** `PRDs/Sys4AI_phase-1_implementation_initialization_prd.md` consumes this file.
 **Identity authority:** `DDR-SFADEV-STRATEGIC-BASELINE-001`
-**Strategic-baseline state:** `TX-04-P0-VISION-VALUES` records candidate vision and core-values content under the approved identity, and `TX-05-P0-LIFECYCLE-PATTERN` records the candidate complete lifecycle plus independent coordination-pattern and operational-maturity taxonomies. The new content and proposed requirements remain pending their named gates: `G-03` for the lifecycle/pattern candidate baseline and `G-08` for human strategic approval.
+**Strategic-baseline state:** `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts the reviewed Phase 0 normative baseline for implementation and activates the complete lifecycle plus independent coordination-pattern and operational-maturity requirements. The vision and core-values content remains `candidate`, its strategic requirement lifecycle remains `proposed`, and only `G-08` may record final human approval.
 **Last updated:** 2026-07-09
 
 ---
@@ -25,7 +25,7 @@ Codex is the initial reference host, not the source of Sys4AI purpose or product
 
 This revision also establishes one candidate Sys4AI vision and eight controlled candidate core values. They record a reviewable strategic proposal, not approved stakeholder intent. Only an accountable human product owner with represented stakeholder evidence may approve, reject, or revise them at `G-08`; model authorship, canonical-file location, and structural validation do not constitute approval.
 
-This revision also records a controlled candidate complete lifecycle—Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire—and separates coordination pattern from operational maturity. These additions do not complete `G-03`, activate templates or schemas, prove lifecycle capability, or authorize prototype-to-production promotion.
+This revision also records the accepted complete lifecycle—Design, Develop, Implement, Test, Run, Maintain, Improve, and Retire—and separates coordination pattern from operational maturity. `G-03` accepts these normative requirements for implementation; it does not activate `G-04`-blocked templates or schemas, prove lifecycle capability, approve the candidate vision or values, or authorize prototype-to-production promotion.
 
 This revision also establishes core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. These profiles define authority classes, registry requirements, validator expectations, derivative-surface policy, promotion rules, drift behavior, and security constraints for structured source, control, configuration, registry, and validation-contract artifacts.
 
@@ -413,9 +413,9 @@ The following requirements are a controlled candidate baseline with requirement 
 
 `SFA-CORE-VALUES-005`: An AI runtime actor shall not approve its own purpose, vision, values, authority, permissions, evaluation standard, production promotion, or acceptance.
 
-### 6.2 Candidate complete lifecycle model
+### 6.2 Accepted complete lifecycle model
 
-`TX-05-P0-LIFECYCLE-PATTERN` introduces the complete lifecycle and pattern taxonomy as a controlled candidate for `G-03`. The canonical location does not make the candidate approved, implemented, or operational. Until `G-03` accepts, revises, or rejects this migration, the narrower pre-`TX-05` wording of `SFA-CORE-LIFE-001` remains the active minimum obligation; `SFA-CORE-LIFE-002` and `003` remain active without change. The proposed replacement wording for `SFA-CORE-LIFE-001`, new lifecycle requirements `004` through `008`, and pattern requirements `001` through `005` have requirement lifecycle `proposed`.
+`TX-05-P0-LIFECYCLE-PATTERN` introduced the complete lifecycle and pattern taxonomy as a controlled candidate for `G-03`. `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts that reviewed normative baseline for implementation. The replacement wording for `SFA-CORE-LIFE-001`, new lifecycle requirements `004` through `008`, and pattern requirements `001` through `005` are now active requirements. Acceptance does not make them implemented or operational, activate `G-04`-blocked contracts, supply target-specific promotion thresholds, or satisfy the separate `G-08` vision/value approval gate.
 
 `SFA-CORE-LIFE-001`: `Sys4AI` shall define and support the design, development, implementation, testing, requirements verification, stakeholder and system validation, behavioral and performance evaluation, operation, maintenance, improvement, and retirement of target AI agents and target agentic systems.
 
@@ -1651,7 +1651,7 @@ These belong to Phase 1 or later implementation artifacts.
 
 Phase 0 is complete when:
 
-The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIFECYCLE-PATTERN` are structurally complete only as controlled candidates. They do not satisfy `G-03` or `G-08`, activate proposed requirements or artifact contracts, prove lifecycle capability, or establish stakeholder or production approval.
+The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIFECYCLE-PATTERN` are structurally complete. `G-03` accepts the reviewed normative baseline for implementation and activates the lifecycle and pattern requirements. It does not satisfy `G-08`, activate proposed vision/value requirements or `G-04`-blocked artifact contracts, prove lifecycle capability, or establish stakeholder or production approval.
 
 | ID | Acceptance criterion | Evidence |
 |---|---|---|
@@ -1796,10 +1796,12 @@ Expected Phase 1 starting concerns include:
 | 2026-07-09 | Migrated the approved four-object identity and canonical product statement; added `SFA-CORE-ID-004` through `007`, the independent runtime-actor distinction, execution-claim guardrail, and updated identity acceptance evidence. | Implements `TX-03-P0-IDENTITY` under `DDR-SFADEV-STRATEGIC-BASELINE-001` without approving candidate vision or core values or claiming runtime implementation. |
 | 2026-07-09 | Added one candidate Sys4AI vision, eight complete stable-ID candidate values, proposed vision/value requirement families, precedence and materiality rules, human approval boundaries, acceptance criteria, risks, open issues, and exact trace obligations. | Implements `TX-04-P0-VISION-VALUES` as a candidate strategic baseline while preserving `G-08` as the only approval gate and preventing value-based permission expansion. |
 | 2026-07-09 | Added the complete eight-stage lifecycle, full stage contracts, transition and evidence-class rules, separate coordination-pattern and operational-maturity taxonomies, candidate pattern-decision contract, discovery/role/artifact-flow integration, acceptance criteria, risks, open issues, and trace obligations. | Implements `TX-05-P0-LIFECYCLE-PATTERN` as a controlled candidate while leaving `G-03` open and deferring concrete templates, schemas, validators, and runtime claims to their authorized transactions. |
+| 2026-07-09 | Recorded human-authorized `G-03` acceptance of the reviewed Phase 0 normative baseline and activated the complete lifecycle and pattern requirement families. | Authorizes `TX-06-P1-BASELINE` while keeping candidate vision/value content and its proposed requirement lifecycle exclusively pending `G-08`. |
 
 ### 20.1 Strategic-baseline provenance
 
 - AngryOwlAI. (2026a, July 9). *DDR-SFADEV-STRATEGIC-BASELINE-001: Sys4AI strategic-baseline identity and execution-model decision* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml`.
-- AngryOwlAI. (2026b, July 3). *Sys4AI Phase 0 PRD* [Historical product requirements document]. `PRDs/Sys4AI_phase-0_prd.md`.
-- AngryOwlAI. (2026c, July 9). *Sys4AI strategic-baseline migration requirements discovery record* [Requirements Discovery Record]. `Sys4AI/control_records/system_definition/strategic_baseline_migration_requirements_discovery_record.md`.
-- AngryOwlAI. (2026d, July 9). *Sys4AI-dev strategic baseline migration full implementation plan* [Implementation plan]. `implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md`.
+- AngryOwlAI. (2026b, July 9). *DDR-SFADEV-STRATEGIC-BASELINE-G03-001: Candidate normative baseline disposition* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G03-001.yaml`.
+- AngryOwlAI. (2026c, July 3). *Sys4AI Phase 0 PRD* [Historical product requirements document]. `PRDs/Sys4AI_phase-0_prd.md`.
+- AngryOwlAI. (2026d, July 9). *Sys4AI strategic-baseline migration requirements discovery record* [Requirements Discovery Record]. `Sys4AI/control_records/system_definition/strategic_baseline_migration_requirements_discovery_record.md`.
+- AngryOwlAI. (2026e, July 9). *Sys4AI-dev strategic baseline migration full implementation plan* [Implementation plan]. `implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md`.

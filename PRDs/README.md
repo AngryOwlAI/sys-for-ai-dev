@@ -24,8 +24,8 @@
 |---|---|---|
 | Sys4AI product identity | `PRDs/Sys4AI_phase-0_product_system_design_prd.md`, constrained by accepted `DDR-SFADEV-STRATEGIC-BASELINE-001` | Canonical Phase 0 owns the approved four-object identity and product statement. |
 | Sys4AI vision and core values | One controlled candidate location in canonical Phase 0 | The artifact is canonical, but the embedded content approval status remains `candidate` and its strategic requirement lifecycle remains `proposed` until an accountable human principal records `G-08` disposition. |
-| Sys4AI complete lifecycle | Controlled candidate section in canonical Phase 0 | The eight-stage lifecycle, proposed replacement for `SFA-CORE-LIFE-001`, and new lifecycle requirements remain pending `G-03`. The narrower pre-`TX-05` lifecycle obligation remains the active minimum until that gate records acceptance, revision, or rejection. |
-| Coordination pattern and operational maturity | Separate controlled candidate taxonomies and Agentic System Pattern Decision contract in canonical Phase 0 | Pattern describes architecture topology; maturity describes readiness and operating state. Neither field proves the other, and concrete schemas/templates remain blocked until `G-04`. |
+| Sys4AI complete lifecycle | Accepted normative section in canonical Phase 0 | `DDR-SFADEV-STRATEGIC-BASELINE-G03-001` accepts the eight-stage lifecycle, replacement `SFA-CORE-LIFE-001`, and lifecycle requirements `004` through `008` for implementation. Acceptance does not prove capability or authorize production. |
+| Coordination pattern and operational maturity | Separate accepted normative taxonomies and Agentic System Pattern Decision contract in canonical Phase 0 | `G-03` activates the pattern requirements. Pattern describes architecture topology; maturity describes readiness and operating state. Neither field proves the other, and concrete schemas/templates remain blocked until `G-04`. |
 | Target-system vision and core values | Separate target strategic-intent artifacts to be introduced by their authorized contract transaction | A target's vision and values must remain separate from Sys4AI product intent and from every other target. USRDs and PRDs reference these artifacts; they do not create competing copies. |
 | Historical Phase 0 product direction | `PRDs/Sys4AI_phase-0_prd.md` | Historical provenance only. Useful wording may be migrated into canonical Phase 0 with trace, but the historical file does not regain authority. |
 | Derivative PRD modules and generated readers | Registered derivative surfaces | Noncanonical navigation and analysis only; they cannot approve or supersede identity, vision, values, requirements, or permissions. |
@@ -107,9 +107,11 @@ later migration unless a maintainer explicitly chooses that route.
 
 AngryOwlAI. (2026a, July 9). *DDR-SFADEV-STRATEGIC-BASELINE-001: Sys4AI strategic-baseline identity and execution-model decision* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-001.yaml`.
 
-AngryOwlAI. (2026b, July 9). *Sys4AI strategic-baseline migration requirements discovery record* [Requirements Discovery Record]. `Sys4AI/control_records/system_definition/strategic_baseline_migration_requirements_discovery_record.md`.
+AngryOwlAI. (2026b, July 9). *DDR-SFADEV-STRATEGIC-BASELINE-G03-001: Candidate normative baseline disposition* [Director Decision Record]. `Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G03-001.yaml`.
 
-AngryOwlAI. (2026c, July 9). *Sys4AI-dev strategic baseline migration full implementation plan* [Implementation plan]. `implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md`.
+AngryOwlAI. (2026c, July 9). *Sys4AI strategic-baseline migration requirements discovery record* [Requirements Discovery Record]. `Sys4AI/control_records/system_definition/strategic_baseline_migration_requirements_discovery_record.md`.
+
+AngryOwlAI. (2026d, July 9). *Sys4AI-dev strategic baseline migration full implementation plan* [Implementation plan]. `implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md`.
 
 Sys4AI-dev. (2026a). *Sys4AI product and system-design PRD* [Product requirements document]. `PRDs/Sys4AI_phase-0_product_system_design_prd.md`.
 
