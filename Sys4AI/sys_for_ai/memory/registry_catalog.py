@@ -44,6 +44,26 @@ class MemoryCatalog:
     def lookup(self, query: str) -> MemoryObject | None:
         if query in self.objects_by_id:
             return self.objects_by_id[query]
+        transaction_matches = [
+            item
+            for item in self.objects
+            if query
+            and query
+            in {
+                item.registry_evidence.row.get("related_execution_transaction_id", ""),
+                item.registry_evidence.row.get("execution_transaction_id", ""),
+                item.registry_evidence.row.get("producing_execution_transaction_id", ""),
+            }
+        ]
+        if transaction_matches:
+            return sorted(
+                transaction_matches,
+                key=lambda item: (
+                    item.artifact_class != "execution_transaction",
+                    item.registry_evidence.registry_name,
+                    item.object_id,
+                ),
+            )[0]
         normalized = _normalize_query_path(query, self.root)
         by_path = self.objects_by_path
         if normalized in by_path:

@@ -10,7 +10,7 @@
 - Primary mission: Maintain temporary runtime and scaffold skill surface compatibility
 - Primary outputs: `skill-surface-update`
 - Allowed artifact classes: `skills;registries`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

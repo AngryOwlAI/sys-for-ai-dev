@@ -10,7 +10,7 @@
 - Primary mission: Initialize implementation scaffold
 - Primary outputs: `implementation-scaffold`
 - Allowed artifact classes: `code;registries;schemas;validators`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

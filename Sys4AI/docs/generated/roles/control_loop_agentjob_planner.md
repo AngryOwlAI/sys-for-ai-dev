@@ -7,10 +7,10 @@
 - Role ID: `control_loop_agentjob_planner`
 - Role class: `runtime_control`
 - System layer scope: `development_system;framework_product;target_system_template;target_system_instance`
-- Primary mission: Define continuation and bounded work semantics
+- Primary mission: Review historical continuation and bounded-work evidence
 - Primary outputs: `CLRA`
 - Allowed artifact classes: `control_records;handoffs`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills
@@ -23,13 +23,13 @@
 
 | Skill ID | Binding Type | Required When | System Layer Scope | Evidence Path |
 |---|---|---|---|---|
-| codex-usage-metrics | required | when continuation metrics are recorded | development_system;framework_product | implementation_plans/self_hosting_boundary_decision_record.md |
-| context-window-and-handoff-manager | required | when resumable handoffs or context checkpoints are needed | development_system;framework_product;target_system_template;target_system_instance | implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md |
+| codex-usage-metrics | required | when historical continuation metrics are reviewed | development_system;framework_product | implementation_plans/self_hosting_boundary_decision_record.md |
+| context-window-and-handoff-manager | required | when historical resumability evidence is reviewed | development_system;framework_product;target_system_template;target_system_instance | implementation_plans/Sys4AI-dev_all_recommendations_implementation_plan.md |
 
 ## Execution Bindings
 
 | Binding ID | Binding Scope | Required Validators | Expiry Policy |
 |---|---|---|---|
-| bind_control_loop_agentjob_planner | legacy_control_review;handoff_planning | validate-handoffs;validate-registry-graph | registered role no expiry |
+| bind_control_loop_agentjob_planner | legacy_control_review;handoff_planning | validate-handoffs;validate-registry-graph | read-only historical compatibility |
 
 Canonical inputs remain the three role registries listed in the notice.

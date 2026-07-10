@@ -6,7 +6,7 @@
   "required": [
     "binding_id",
     "role_id",
-    "allowed_agentjob_types",
+    "allowed_transaction_types",
     "allowed_reads",
     "allowed_writes",
     "forbidden_actions",
@@ -23,7 +23,7 @@
   "properties": {
     "binding_id": { "type": "string", "pattern": "^bind_[a-z0-9_]+$" },
     "role_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
-    "allowed_agentjob_types": { "type": "string", "minLength": 1 },
+    "allowed_transaction_types": { "type": "string", "minLength": 1 },
     "allowed_reads": { "type": "string", "minLength": 1 },
     "allowed_writes": { "type": "string", "minLength": 1 },
     "authority_status": { "enum": ["controlled", "draft", "superseded", "deprecated"] }

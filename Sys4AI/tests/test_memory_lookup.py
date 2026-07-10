@@ -14,6 +14,17 @@ class MemoryLookupTests(unittest.TestCase):
         self.assertEqual(result["path"], "PRDs/Sys4AI_phase-0_product_system_design_prd.md")
         self.assertEqual(result["required_next_action"], "inspect_canonical_source")
 
+    def test_lookup_current_execution_transaction_alias(self) -> None:
+        payload = lookup_memory("TX-10-ACTIVE-SURFACE-MIGRATION")
+        self.assertTrue(payload["ok"])
+        result = payload["result"]
+        self.assertIsInstance(result, dict)
+        self.assertEqual(
+            result["object_id"],
+            "ctrl_strategic_baseline_tx10_execution_transaction",
+        )
+        self.assertEqual(result["artifact_class"], "execution_transaction")
+
     def test_memory_status_reports_objects(self) -> None:
         payload = memory_status()
         self.assertTrue(payload["ok"])

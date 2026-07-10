@@ -10,7 +10,7 @@
 - Primary mission: Validate domain assumptions and terminology
 - Primary outputs: `domain-review`
 - Allowed artifact classes: `analysis;requirements`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

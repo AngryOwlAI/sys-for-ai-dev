@@ -10,7 +10,7 @@
 - Primary mission: Maintain generated derivative compatibility
 - Primary outputs: `generated-derivative-update`
 - Allowed artifact classes: `generated_derivatives;registries`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

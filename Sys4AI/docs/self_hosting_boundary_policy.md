@@ -1,7 +1,7 @@
 # Self-Hosting Boundary Policy
 
 **Status:** Draft
-**Scope:** `Sys4AI-dev` dogfooding `Sys4AI` Phase 1 control-loop concepts
+**Scope:** `Sys4AI-dev` dogfooding `Sys4AI` Phase 1 bounded-execution concepts
 
 ---
 
@@ -29,4 +29,4 @@ For this implementation, the target system is also `Sys4AI`, so `self_hosting_mo
 - Do not treat a generated page as canonical by convenience.
 - Do not let a local cache or chat summary authorize a code change.
 - Do not collapse active development skills into product scaffold skills.
-- Do not run multiple AgentJobs through one `/continue` invocation.
+- Do not run multiple ExecutionTransactions through one `resume operation` invocation.

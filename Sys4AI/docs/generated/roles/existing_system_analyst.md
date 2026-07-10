@@ -10,7 +10,7 @@
 - Primary mission: Analyze brownfield or related current state
 - Primary outputs: `ESAR`
 - Allowed artifact classes: `analysis;requirements`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

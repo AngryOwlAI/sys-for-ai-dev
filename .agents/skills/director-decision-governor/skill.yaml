@@ -14,7 +14,7 @@ scope:
 domain_emphasis:
   - decision_governance
   - routing_authority
-  - control_loop
+  - bounded_execution
 required_role_posture:
   - system_analyst
   - system_engineer

@@ -18,7 +18,7 @@ Active runtime skills live under `.agents/skills/`. Product scaffold skills unde
 
 ## Authority Hierarchy
 
-PRDs, controlled registries, validation contracts, AgentJobs, completion receipts, and handoffs outrank generated docs, local caches, and chat memory.
+PRDs, controlled registries, validation contracts, ExecutionTransactions, completion receipts, and handoffs outrank generated docs, local caches, and chat memory.
 
 ## Required System-Layer Classification Fields
 
@@ -26,7 +26,7 @@ Controlled work must identify the subject system, subject layer, work type, cano
 
 ## When Director Decision Is Required
 
-A Director Decision is required for authority expansion, promotion of generated derivatives, cross-layer mutation, new AgentJob creation after a completed packet, or product-scaffold promotion to runtime authority.
+A Director Decision is required for authority expansion, promotion of generated derivatives, cross-layer mutation, new ExecutionTransaction creation after a completed packet, or product-scaffold promotion to runtime authority.
 
 ## Forbidden Mutations
 
@@ -36,9 +36,9 @@ Generated derivatives, local caches, and compatibility shims must not authorize 
 
 Generated pages are navigation only. They must carry noncanonical metadata, source trace, generator identity, and stale/orphan status.
 
-## AgentJob Implications
+## ExecutionTransaction Implications
 
-Every self-hosting change must be bounded by one AgentJob, list allowed reads and writes, preserve stop conditions, and produce completion evidence before updating handoff state.
+Every self-hosting change must be bounded by one ExecutionTransaction, list allowed reads and writes, preserve stop conditions, and produce completion evidence before updating handoff state.
 
 ## Validation Commands
 
@@ -56,5 +56,5 @@ Every self-hosting change must be bounded by one AgentJob, list allowed reads an
 
 - Treating product scaffold skills as active runtime authority.
 - Using a generated page as source authority.
-- Running multiple AgentJobs through one continuation.
+- Running multiple ExecutionTransactions through one continuation.
 - Mutating a target-system instance as though it were framework-product authority.

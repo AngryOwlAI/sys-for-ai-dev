@@ -1,10 +1,10 @@
 [manifest]
 manifest_id = "capability_migration_g05"
-manifest_version = "1.0.0"
+manifest_version = "2.0.0"
 schema_path = "Sys4AI/schemas/contracts/capability_migration.schema.json"
 gate_id = "G-05"
-mode = "pre_tx10"
-reviewed_head_commit = "6cde56448e9f3fd3b30f7ceba028ace6210aa1c2"
+mode = "post_tx10"
+reviewed_head_commit = "0bf38b6acebf5839de61a5f05adb8e84c751c91b"
 owner = "baseline_change_manager"
 replacement_capability = "ExecutionTransaction"
 legacy_terms = [
@@ -63,6 +63,7 @@ paths = [
   "Sys4AI/docs/skill_integration_policy.md",
   "Sys4AI/sys_for_ai/capability_migration.py",
   "Sys4AI/tests/test_capability_migration.py",
+  "Sys4AI/tests/test_active_surface_migration.py",
   "Sys4AI/tests/test_execution_transactions.py",
   "Sys4AI/tests/test_skill_surfaces.py",
 ]
@@ -72,9 +73,54 @@ owner = "baseline_change_manager"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "none"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 5
-expected_references = 110
-expected_inventory_sha256 = "b842b2afd1356b59da1bb793ce676b0ea672e689d73dab1a23e93dfb68a6ce42"
+expected_files = 6
+expected_references = 116
+expected_inventory_sha256 = "6c1d13b8fb6729dfe88c09f23035d178b131dfce0064b51e985e854e7e86493c"
+
+[[classifications]]
+classification_id = "canonical_legacy_context"
+priority = 12
+state = "active_valid"
+paths = ["PRDs/Sys4AI_phase-1_implementation_initialization_prd.md"]
+path_globs = []
+disposition = "The canonical Phase 1 baseline retains explicitly labeled historical compatibility requirements and verbatim provenance examples while its current commands state and execution route use the portable contract. TX-13 must enforce the labels semantically."
+owner = "baseline_change_manager"
+replacement_capability = "ExecutionTransaction"
+blocking_transaction = "none"
+allowed_modes = ["post_tx10"]
+expected_files = 1
+expected_references = 33
+expected_inventory_sha256 = "6e3cb2f1244b9bf9006883076da6611a012163d9b0ce51674ddc51d901dbb844"
+
+[[classifications]]
+classification_id = "legacy_registry_compatibility"
+priority = 14
+state = "legacy_compatibility"
+paths = [
+  "Sys4AI/registries/agentjob_registry.csv",
+  "Sys4AI/registries/artifact_contract_registry.csv",
+  "Sys4AI/registries/completion_receipt_registry.csv",
+  "Sys4AI/registries/control_record_registry.csv",
+  "Sys4AI/registries/director_decision_registry.csv",
+  "Sys4AI/registries/discovery_record_registry.csv",
+  "Sys4AI/registries/handoff_registry.csv",
+  "Sys4AI/registries/memory_preflight_receipt_registry.csv",
+  "Sys4AI/registries/object_relationship_registry.csv",
+  "Sys4AI/registries/role_execution_binding_registry.csv",
+  "Sys4AI/registries/role_registry.csv",
+  "Sys4AI/registries/role_skill_crosswalk.csv",
+  "Sys4AI/registries/source_registry.csv",
+  "Sys4AI/registries/validation_contract_registry.csv",
+]
+path_globs = []
+disposition = "Registry headers and current rows use portable execution fields lifecycle states and profile markers. Stable historical IDs paths and evidence relationships remain visible but cannot establish current capability."
+owner = "baseline_change_manager"
+replacement_capability = "ExecutionTransaction"
+blocking_transaction = "TX-13-VALIDATORS"
+allowed_modes = ["post_tx10"]
+expected_files = 14
+expected_references = 546
+expected_inventory_sha256 = "2265c83f6af2293a1daafb54a1a87fbf5697880ebe6d47c31236f4b3e1904489"
 
 [[classifications]]
 classification_id = "legacy_schema_compatibility"
@@ -85,6 +131,11 @@ paths = [
   "Sys4AI/schemas/contracts/agentjob.schema.json",
   "Sys4AI/schemas/contracts/agentjob_registry_row.schema.json",
   "Sys4AI/schemas/contracts/agentjob_v0_2.schema.json",
+  "Sys4AI/schemas/contracts/completion_receipt.schema.json",
+  "Sys4AI/schemas/contracts/completion_receipt_v0_2.schema.json",
+  "Sys4AI/schemas/contracts/handoff_v0_2.schema.json",
+  "Sys4AI/schemas/contracts/memory_preflight_receipt_v0_1.schema.json",
+  "Sys4AI/schemas/contracts/state_snapshot.schema.json",
 ]
 path_globs = []
 disposition = "Preserve read-only validation of explicitly historical records; TX-10 must prevent these contracts from serving as current execution authority."
@@ -92,9 +143,31 @@ owner = "verification_engineer"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "TX-10-ACTIVE-SURFACE-MIGRATION"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 4
-expected_references = 17
-expected_inventory_sha256 = "ac033313de8fda555ea7e7fe8940c0be04350a3b6a239baddcd4f0c1e56aebd8"
+expected_files = 9
+expected_references = 27
+expected_inventory_sha256 = "50a89f67a6a5c11b1da86d102a6e0664950dc14a62c3bbadf9e0dcbbf487d0ec"
+
+[[classifications]]
+classification_id = "legacy_reader_compatibility"
+priority = 16
+state = "legacy_compatibility"
+paths = [
+  "Sys4AI/sys_for_ai/memory/authority.py",
+  "Sys4AI/sys_for_ai/memory/registry_catalog.py",
+  "Sys4AI/sys_for_ai/role_validators.py",
+  "Sys4AI/sys_for_ai/validators.py",
+  "Sys4AI/templates/project/agentjob_template.yaml",
+  "Sys4AI/tests/test_self_hosting_acceptance.py",
+]
+path_globs = []
+disposition = "Current writers use portable fields. These readers tests and the retained template support read-only validation and inspection of explicitly historical records and do not expose a current authoring route."
+owner = "verification_engineer"
+replacement_capability = "ExecutionTransaction"
+blocking_transaction = "TX-13-VALIDATORS"
+allowed_modes = ["post_tx10"]
+expected_files = 6
+expected_references = 34
+expected_inventory_sha256 = "7e350f2e78ea9216a037e9a59f3f08b89e6bf5d269dbce4d99266bc4918af4c2"
 
 [[classifications]]
 classification_id = "trace_migration_deferred"
@@ -132,6 +205,7 @@ priority = 22
 state = "authority_deferred"
 paths = [
   "Sys4AI/configs/examples/target_project.example.toml",
+  "Sys4AI/schemas/contracts/target_project_config.schema.json",
   "Sys4AI/sys_for_ai/target_package.py",
 ]
 path_globs = ["Sys4AI/examples/target_systems/**"]
@@ -140,9 +214,9 @@ owner = "implementation_initialization_agent"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "TX-15-TARGET-PACKAGE"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 6
-expected_references = 8
-expected_inventory_sha256 = "eabe8e3ae8f03c47181797f176ff307ad0f8280156cbd4bfbe32b301eaa6ad19"
+expected_files = 7
+expected_references = 9
+expected_inventory_sha256 = "babfad9242b10f22cd0fadffb3b14721964dfca27a9511068c401251e2fa81e8"
 
 [[classifications]]
 classification_id = "walking_skeleton_deferred"
@@ -178,9 +252,9 @@ owner = "requirements_manager"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "TX-19-MODULES"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 17
-expected_references = 44
-expected_inventory_sha256 = "623513fff6471936a8f28d7f45a8f0a1b673696bd71547874436ad5cff5e9274"
+expected_files = 16
+expected_references = 43
+expected_inventory_sha256 = "2d9fe847faa939109280e76f3880d9aa49bc246bfffbd0d76135d5f5246248e0"
 
 [[classifications]]
 classification_id = "generated_reader_migration_deferred"
@@ -197,9 +271,9 @@ owner = "verification_engineer"
 replacement_capability = "source-classified portable execution documentation"
 blocking_transaction = "TX-20-GENERATED-DOCS"
 allowed_modes = ["pre_tx10", "post_tx10"]
-expected_files = 43
-expected_references = 325
-expected_inventory_sha256 = "9ccd4682f914cd6ada87e2ac8fd0966973d230b45cfbf3010958b696211da2e5"
+expected_files = 14
+expected_references = 288
+expected_inventory_sha256 = "26265b3c1115cfc15c2e8a6437ed07f35e7c752ac5f3151dd280728861e2930d"
 
 [[classifications]]
 classification_id = "active_surface_tx10"
@@ -227,9 +301,9 @@ owner = "baseline_change_manager"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "TX-10-ACTIVE-SURFACE-MIGRATION"
 allowed_modes = ["pre_tx10"]
-expected_files = 88
-expected_references = 871
-expected_inventory_sha256 = "5d080b7c44f64f7477cad33fe027c757d55dce5397a51d0d47fdab4e2e8a15db"
+expected_files = 0
+expected_references = 0
+expected_inventory_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[classifications]]
 classification_id = "historical_control_evidence"

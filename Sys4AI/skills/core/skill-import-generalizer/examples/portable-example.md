@@ -2,11 +2,11 @@
 
 ## Scenario
 
-A `Sys4AI` implementation agent receives an AgentJob requiring `skill_library_maintenance` support.
+A `Sys4AI` implementation agent receives an ExecutionTransaction requiring `skill_library_maintenance` support.
 
 ## Minimal use
 
-1. Read the AgentJob objective and allowed files.
+1. Read the ExecutionTransaction objective and allowed files.
 2. Read canonical sources before generated notes.
 3. Apply the `skill-import-generalizer` adapter procedure.
 4. Produce bounded output with provenance notes.

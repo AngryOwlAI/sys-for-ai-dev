@@ -10,7 +10,7 @@
 - Primary mission: Implement code changes under explicit project authority
 - Primary outputs: `code-change`
 - Allowed artifact classes: `code;tests`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

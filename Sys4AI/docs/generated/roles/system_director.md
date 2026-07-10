@@ -10,7 +10,7 @@
 - Primary mission: Orchestrate phases gates handoffs and artifact governance
 - Primary outputs: `system-design-run-manifest;artifact-registry;traceability-ledger;open-issues-register;design-phase-readiness-report`
 - Allowed artifact classes: `control_records;requirements;handoffs`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

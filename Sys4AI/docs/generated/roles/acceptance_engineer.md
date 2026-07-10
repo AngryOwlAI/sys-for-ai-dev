@@ -10,7 +10,7 @@
 - Primary mission: Maintain acceptance evidence compatibility
 - Primary outputs: `acceptance-report;completion-receipt`
 - Allowed artifact classes: `validation;control_records`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

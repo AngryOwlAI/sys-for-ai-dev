@@ -194,12 +194,14 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "control_record_id",
         "path",
         "record_type",
+        "execution_profile",
         "authority_status",
         "owner",
         "validation_contract_id",
         "allowed_writers",
         "allowed_readers",
-        "related_agentjob_id",
+        "related_execution_transaction_id",
+        "related_legacy_execution_id",
         "supersedes",
         "source_hash",
         "last_validated_at",
@@ -213,6 +215,7 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "target_artifact_type",
         "target_glob",
         "authority_status",
+        "lifecycle_status",
         "owner",
         "validator_command",
         "supersedes",
@@ -252,6 +255,8 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
     "agentjob_registry.csv": [
         "agentjob_id",
         "path",
+        "execution_profile",
+        "lifecycle_status",
         "status",
         "role_id",
         "task_id",
@@ -272,7 +277,9 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "status",
         "task_id",
         "selected_route",
-        "selected_agentjob_id",
+        "execution_profile",
+        "selected_execution_transaction_id",
+        "selected_legacy_execution_id",
         "authority_status",
         "supersedes",
         "source_hash",
@@ -283,9 +290,12 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "handoff_id",
         "path",
         "status",
-        "producing_agentjob_id",
+        "execution_profile",
+        "producing_execution_transaction_id",
+        "next_execution_transaction_id",
+        "producing_legacy_execution_id",
+        "next_legacy_execution_id",
         "next_recommended_role",
-        "next_agentjob_id",
         "source_ids",
         "supersedes",
         "source_hash",
@@ -295,7 +305,9 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
     "completion_receipt_registry.csv": [
         "completion_receipt_id",
         "path",
-        "agentjob_id",
+        "execution_profile",
+        "execution_transaction_id",
+        "legacy_execution_id",
         "result",
         "validation_status",
         "changed_artifacts_count",
@@ -307,7 +319,9 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
     "memory_preflight_receipt_registry.csv": [
         "memory_preflight_receipt_id",
         "path",
-        "agentjob_id",
+        "execution_profile",
+        "execution_transaction_id",
+        "legacy_execution_id",
         "created_at",
         "status",
         "queries_count",
@@ -339,7 +353,9 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "subject_system_id",
         "subject_layer",
         "status",
-        "producer_agentjob_id",
+        "execution_profile",
+        "producer_execution_transaction_id",
+        "producer_legacy_execution_id",
         "source_authority_status",
         "candidate_requirement_count",
         "open_question_count",
@@ -360,7 +376,7 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "forbidden_skills",
         "primary_outputs",
         "allowed_artifact_classes",
-        "may_create_agentjobs",
+        "may_create_execution_transactions",
         "requires_director_decision",
         "authority_status",
         "owner",
@@ -386,7 +402,7 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
     "role_execution_binding_registry.csv": [
         "binding_id",
         "role_id",
-        "allowed_agentjob_types",
+        "allowed_transaction_types",
         "allowed_reads",
         "allowed_writes",
         "forbidden_actions",
@@ -408,6 +424,7 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "consumer_role_ids",
         "system_layer_scope",
         "authority_default",
+        "lifecycle_status",
         "required_sections",
         "validation_contract_id",
         "registry_required",
@@ -1035,7 +1052,7 @@ def validate_control_records(path: str | Path) -> ValidationResult:
 
 
 def validate_program_state(path: str | Path = "control_records/program_state.yaml") -> ValidationResult:
-    """Validate legacy tracked program state."""
+    """Validate the current portable tracked program state."""
 
     target = Path(path)
     messages: list[str] = []
@@ -1055,10 +1072,11 @@ def validate_program_state(path: str | Path = "control_records/program_state.yam
 
     blocked_actions = set(data.get("blocked_actions", []))
     required_blocks = {
-        "execute_multiple_agentjobs",
+        "execute_multiple_transactions_without_concurrency_authorization",
         "use_chat_memory_as_authority",
         "treat_generated_derivative_as_canonical",
         "mutate_activated_control_record_without_supersession",
+        "treat_historical_execution_evidence_as_current_capability",
     }
     missing_blocks = sorted(required_blocks - blocked_actions)
     if missing_blocks:
@@ -1074,27 +1092,52 @@ def validate_director_decisions(root: str | Path = "control_records/director_dec
 
 
 def validate_handoffs(root: str | Path = "control_records/handoffs") -> ValidationResult:
-    """Validate operational handoff v0.2 YAML files under *root*."""
+    """Validate portable handoffs and read-only historical handoffs."""
 
-    return _validate_yaml_records_in_root(root, "handoff_v0_2.schema.json", "handoff_id")
+    return _validate_versioned_yaml_records(
+        root,
+        "handoff_id",
+        {
+            "0.2.0": "handoff_v0_2.schema.json",
+            "1.0.0": "handoff_v1_0.schema.json",
+        },
+    )
 
 
 def validate_completion_receipts(root: str | Path = "control_records/completions") -> ValidationResult:
-    """Validate operational completion receipt v0.2 YAML files under *root*."""
+    """Validate portable receipts and read-only historical receipts."""
 
-    result = _validate_yaml_records_in_root(root, "completion_receipt_v0_2.schema.json", "completion_receipt_id")
+    result = _validate_versioned_yaml_records(
+        root,
+        "completion_receipt_id",
+        {
+            "0.2.0": "completion_receipt_v0_2.schema.json",
+            "1.0.0": "completion_receipt_v1_0.schema.json",
+        },
+    )
     if not result.ok:
         return result
 
     messages = list(result.messages)
     base = _registry_base_from_control_path(root)
-    agentjob_ids = _known_agentjob_ids(base)
+    legacy_execution_ids = _known_agentjob_ids(base)
+    execution_transaction_ids = _known_execution_transaction_ids(base)
     handoff_ids = _known_handoff_ids(base)
     for path in _yaml_paths(root):
         data = load_yaml(path)
-        agentjob_id = data.get("agentjob_id")
-        if agentjob_id not in agentjob_ids:
-            messages.append(f"{path}: unknown agentjob_id {agentjob_id!r}")
+        if data.get("schema_version") == "1.0.0":
+            transaction_id = data.get("execution_transaction_id")
+            if transaction_id not in execution_transaction_ids:
+                messages.append(
+                    f"{path}: unknown execution_transaction_id {transaction_id!r}"
+                )
+        else:
+            legacy_execution_id = data.get("agentjob_id")
+            if legacy_execution_id not in legacy_execution_ids:
+                messages.append(
+                    f"{path}: unknown historical execution identifier "
+                    f"{legacy_execution_id!r}"
+                )
         handoff_id = data.get("next_handoff_id")
         if isinstance(handoff_id, str) and handoff_id and handoff_id not in handoff_ids:
             fallback = base / "control_records/handoffs" / f"{handoff_id}.yaml"
@@ -1112,7 +1155,7 @@ def validate_completion_receipts(root: str | Path = "control_records/completions
 
 
 def validate_state_snapshots(root: str | Path = "control_records/state_snapshots") -> ValidationResult:
-    """Validate bounded state snapshot YAML files under *root*."""
+    """Validate read-only historical bounded state snapshots."""
 
     result = _validate_yaml_records_in_root(root, "state_snapshot.schema.json", "state_snapshot_id")
     if not result.ok:
@@ -1120,32 +1163,57 @@ def validate_state_snapshots(root: str | Path = "control_records/state_snapshots
 
     messages = list(result.messages)
     base = _registry_base_from_control_path(root)
-    agentjob_ids = _known_agentjob_ids(base)
+    legacy_execution_ids = _known_agentjob_ids(base)
     for path in _yaml_paths(root):
         data = load_yaml(path)
-        agentjob_id = data.get("current_agentjob_id")
-        if agentjob_id not in agentjob_ids:
-            messages.append(f"{path}: unknown current_agentjob_id {agentjob_id!r}")
+        legacy_execution_id = data.get("current_agentjob_id")
+        if legacy_execution_id not in legacy_execution_ids:
+            messages.append(
+                f"{path}: unknown historical execution identifier "
+                f"{legacy_execution_id!r}"
+            )
     failures = [msg for msg in messages if "validation passed" not in msg and "no operational" not in msg]
     return ValidationResult(not failures, messages)
 
 
 def validate_memory_preflight_receipts(root: str | Path = "control_records/memory_preflights") -> ValidationResult:
-    """Validate memory preflight receipt YAML files under *root*."""
+    """Validate portable memory receipts and historical compatibility receipts."""
 
-    result = _validate_yaml_records_in_root(root, "memory_preflight_receipt.schema.json", "memory_preflight_receipt_id")
+    result = _validate_versioned_yaml_records(
+        root,
+        "memory_preflight_receipt_id",
+        {
+            "0.1.0": "memory_preflight_receipt_v0_1.schema.json",
+            "1.0.0": "memory_preflight_receipt.schema.json",
+        },
+    )
     if not result.ok:
         return result
 
     messages = list(result.messages)
     paths = _yaml_paths(root)
-    agentjob_ids = _known_agentjob_ids()
+    legacy_execution_ids = _known_agentjob_ids()
+    execution_transaction_ids = _known_execution_transaction_ids()
     source_rows = rows_by_id(read_registry_rows("registries/source_registry.csv"), "source_id")
     for path in paths:
         data = load_yaml(path)
-        agentjob_id = data.get("agentjob_id")
-        if agentjob_id not in agentjob_ids:
-            messages.append(f"{path}: unknown agentjob_id {agentjob_id!r}")
+        if data.get("schema_version") == "1.0.0":
+            transaction_id = data.get("execution_transaction_id")
+            if transaction_id not in execution_transaction_ids:
+                messages.append(
+                    f"{path}: unknown execution_transaction_id {transaction_id!r}"
+                )
+        else:
+            legacy_execution_id = data.get("agentjob_id")
+            if legacy_execution_id not in legacy_execution_ids:
+                messages.append(
+                    f"{path}: unknown historical execution identifier "
+                    f"{legacy_execution_id!r}"
+                )
+            # Historical preflight receipts retain the registry state that
+            # existed when they were activated. Removed runtime sources are
+            # not required to reappear in the current catalog.
+            continue
         if data.get("usable_for_routing") is True:
             if not data.get("queries"):
                 messages.append(f"{path}: usable_for_routing=true requires queries")
@@ -1576,6 +1644,49 @@ def _yaml_paths(root: str | Path) -> list[Path]:
     return sorted(target.glob("*.yaml"))
 
 
+def _validate_versioned_yaml_records(
+    root: str | Path,
+    id_field: str,
+    schemas_by_version: dict[str, str],
+) -> ValidationResult:
+    """Validate mixed current and historical records without legacy emission."""
+
+    paths = _yaml_paths(root)
+    messages: list[str] = []
+    for path in paths:
+        data = load_yaml(path)
+        messages.extend(_require_mapping(data, path))
+        if not isinstance(data, dict):
+            continue
+        if not data.get(id_field):
+            messages.append(f"{path}: missing {id_field}")
+            continue
+        version = str(data.get("schema_version", ""))
+        schema_name = schemas_by_version.get(version)
+        if schema_name is None:
+            messages.append(f"{path}: unsupported schema_version {version!r}")
+            continue
+        messages.extend(
+            _validate_instance_with_schema(
+                data,
+                f"schemas/contracts/{schema_name}",
+                str(path),
+            )
+        )
+        secret_findings = find_secret_like_values(data)
+        messages.extend(f"{path}: {finding}" for finding in secret_findings)
+
+    if not paths:
+        return ValidationResult(
+            True,
+            [f"{Path(root)}: no operational YAML records to validate yet"],
+        )
+    return ValidationResult(
+        not messages,
+        messages or [f"{Path(root)}: versioned YAML validation passed"],
+    )
+
+
 def _registry_base_from_control_path(path: str | Path) -> Path:
     target = Path(path)
     parts = target.parts
@@ -1596,8 +1707,20 @@ def _known_agentjob_ids(root: str | Path = ".") -> set[str]:
         ids.update(row.get("agentjob_id", "") for row in read_registry_rows(agentjob_registry))
     if control_registry.exists():
         rows = read_registry_rows(control_registry)
-        ids.update(row.get("related_agentjob_id", "") for row in rows)
+        ids.update(row.get("related_legacy_execution_id", "") for row in rows)
     return {item for item in ids if item}
+
+
+def _known_execution_transaction_ids(root: str | Path = ".") -> set[str]:
+    base = Path(root)
+    control_registry = base / "registries/control_record_registry.csv"
+    if not control_registry.exists():
+        return set()
+    return {
+        row.get("related_execution_transaction_id", "")
+        for row in read_registry_rows(control_registry)
+        if row.get("related_execution_transaction_id")
+    }
 
 
 def _known_handoff_ids(root: str | Path = ".") -> set[str]:

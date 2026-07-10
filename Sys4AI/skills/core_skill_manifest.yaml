@@ -50,7 +50,7 @@ skills:
       - README.md
       - AGENTS.md
       - examples/portable-example.md
-    description: "Reversible front door for Sys4AI system definition and brownfield adoption before PRD, requirements, implementation-plan, AgentJob, or scaffold generation."
+    description: "Reversible front door for Sys4AI system definition and brownfield adoption before PRD, requirements, implementation-plan, ExecutionTransaction, or scaffold generation."
     required_skills:
       - system-layer-classifier
       - source-first-memory
@@ -323,7 +323,7 @@ skills:
       - README.md
       - AGENTS.md
       - examples/portable-example.md
-    description: "Govern Director Decision Records for routing, authority expansion, AgentJob creation, and supersession."
+    description: "Govern Director Decision Records for routing, authority expansion, ExecutionTransaction creation, and supersession."
   - id: source-authority-auditor
     name: Source Authority Auditor
     family: source_authority

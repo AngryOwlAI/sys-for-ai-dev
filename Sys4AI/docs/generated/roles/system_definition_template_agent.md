@@ -10,7 +10,7 @@
 - Primary mission: Maintain system definition template compatibility
 - Primary outputs: `template-update`
 - Allowed artifact classes: `templates;discovery`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

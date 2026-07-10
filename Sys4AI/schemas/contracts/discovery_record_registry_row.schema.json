@@ -4,35 +4,19 @@
   "title": "Discovery record registry row",
   "type": "object",
   "required": [
-    "discovery_record_id",
-    "path",
-    "subject_system_id",
-    "subject_layer",
-    "status",
-    "producer_agentjob_id",
-    "source_authority_status",
-    "candidate_requirement_count",
-    "open_question_count",
-    "downstream_usrd_path",
-    "validation_status",
-    "source_hash",
-    "last_validated_at",
-    "notes"
+    "discovery_record_id", "path", "subject_system_id", "subject_layer", "status",
+    "execution_profile", "producer_execution_transaction_id",
+    "producer_legacy_execution_id", "source_authority_status",
+    "candidate_requirement_count", "open_question_count", "downstream_usrd_path",
+    "validation_status", "source_hash", "last_validated_at", "notes"
   ],
   "properties": {
     "discovery_record_id": { "type": "string", "pattern": "^rdr_[a-z0-9_]+$" },
     "path": { "type": "string", "minLength": 1, "pattern": "^(?!/).*$" },
     "subject_system_id": { "type": "string", "minLength": 1 },
-    "subject_layer": {
-      "enum": [
-        "development_system",
-        "framework_product",
-        "target_system_template",
-        "target_system_instance",
-        "derivative_surface"
-      ]
-    },
+    "subject_layer": { "enum": ["development_system", "framework_product", "target_system_template", "target_system_instance", "derivative_surface"] },
     "status": { "enum": ["draft", "candidate", "validated", "superseded", "blocked"] },
+    "execution_profile": { "enum": ["portable_execution_transaction_v1", "legacy_execution_v0_2", "not_applicable"] },
     "source_authority_status": { "enum": ["candidate", "controlled", "canonical_draft", "canonical", "waived"] },
     "candidate_requirement_count": { "type": "string", "pattern": "^[0-9]+$" },
     "open_question_count": { "type": "string", "pattern": "^[0-9]+$" },

@@ -1,0 +1,200 @@
+execution_transaction_id: TX-10-ACTIVE-SURFACE-MIGRATION
+contract_version: 1.0.0
+objective: Migrate the G-05-classified current state role policy registry schema memory test and canonical execution surfaces to the portable execution contract as one rollback-coherent packet.
+source_requirement_ids:
+- SFA-P1-INIT-EXEC-001
+- SFA-P1-INIT-EXEC-002
+- SFA-P1-INIT-EXEC-003
+- SFA-P1-INIT-STATE-001
+- SFA-P1-INIT-STATE-002
+- SFA-P1-INIT-ROLEBIND-001
+- SFA-P1-INIT-ROLEBIND-002
+source_decision_ids:
+- DDR-SFADEV-STRATEGIC-BASELINE-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+subject_system:
+  system_id: sys4ai_dev
+  system_name: Sys4AI development system and framework product
+subject_layer: development_system
+runtime_actor:
+  actor_id: codex_meta_agent_runtime
+  actor_type: meta_agent_runtime
+  role_ids:
+  - bounded_execution_planner
+  - software_engineer
+  - verification_engineer
+  authority_source_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  - HUMAN-TASK-2026-07-10-TX10
+approval_principal:
+  principal_id: alex_omegapy
+  principal_type: accountable_human
+  approval_scope: Execute TX-10-ACTIVE-SURFACE-MIGRATION atomically across the 88 G-05-classified active files switch the manifest to post_tx10 and pass the boundary scanner without beginning TX-11.
+  authorization_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX10
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  model_self_approval: false
+execution_authorization:
+  status: authorized
+  authorized_at: '2026-07-10T13:54:40Z'
+  expires_at: '2026-07-11T13:54:40Z'
+  authority_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX10
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  self_authorized: false
+permission_envelope:
+  envelope_id: PERMISSION-ENVELOPE-TX-10-ACTIVE-SURFACE-MIGRATION
+  status: current
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-10-TX10
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  data_classes:
+  - repository_controlled_artifacts
+  - local_validation_evidence
+  resource_limits:
+  - One bounded TX-10 packet; do not begin TX-11.
+  - Preserve activated historical records without substantive mutation.
+  valid_from: '2026-07-10T13:54:40Z'
+  expires_at: '2026-07-11T13:54:40Z'
+  sensitive_data_allowed: false
+  secrets_allowed: false
+  data_egress_allowed: true
+  external_side_effects_allowed: true
+  delegation_allowed: false
+  delegation_expires_at: not_applicable
+  permission_expansion_allowed: false
+allowed_reads:
+- .agents/**
+- .codex/**
+- PRDs/**
+- Sys4AI/**
+- implementation_plans/**
+allowed_writes:
+- .agents/**
+- .codex/**
+- PRDs/Sys4AI_phase-0_product_system_design_prd.md
+- PRDs/Sys4AI_phase-1_implementation_initialization_prd.md
+- Sys4AI/**
+- implementation_plans/completion_receipts/**
+allowed_tools:
+- repository file inspection
+- apply_patch
+- deterministic bulk text and CSV migration
+- repository-native validation commands
+- git status diff add commit and push
+allowed_external_actions:
+- Push the validated TX-10 commit to origin main.
+forbidden_actions:
+- Begin TX-11 or any later transaction.
+- Rewrite activated historical control records plans receipts handoffs snapshots or decisions.
+- Restore removed runtime surfaces.
+- Treat historical compatibility data or generated derivatives as current capability authority.
+- Claim G-07 G-08 or TX-13 completion.
+- Expand the permission envelope or self-approve new authority.
+inputs:
+- implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md
+- Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G05-001.yaml
+- Sys4AI/configs/capability_migration.toml
+- Sys4AI/schemas/contracts/execution_transaction.schema.json
+expected_outputs:
+- Portable current program state roles bindings policies memory writers schemas registries and tests.
+- Explicit read-only classification for historical compatibility evidence.
+- A post_tx10 capability manifest with zero active_surface_tx10 references.
+- Registered completion handoff and validation evidence.
+validators:
+- validator_id: capability_migration
+  command_or_method: make validate-capability-migration
+  blocking: true
+  expected_evidence: post_tx10 mode passes with active_surface_tx10 files and references both zero.
+- validator_id: focused_product_tests
+  command_or_method: .venv/bin/python -m unittest discover -s tests -v
+  blocking: true
+  expected_evidence: All product tests pass including current portable and historical compatibility cases.
+- validator_id: aggregate_validation
+  command_or_method: make validate at repository root
+  blocking: true
+  expected_evidence: Root aggregate validation passes.
+- validator_id: diff_integrity
+  command_or_method: git diff --check
+  blocking: true
+  expected_evidence: No whitespace or patch-integrity errors.
+stop_conditions:
+- A classified current reference cannot be migrated or explicitly bounded as historical compatibility.
+- A historical activated record would require mutation.
+- Any blocking validator fails after TX-10-scoped repair is exhausted.
+- The required work expands into TX-11 trace-schema migration or later gates.
+host_capability_requirements:
+  execution_profile_id: codex_local_observed_subset
+  overall_status: verified_available
+  required_capability_ids:
+  - workspace_filesystem
+  - terminal_and_tests
+  - git_local_and_push
+  evidence_ids:
+  - HOST-CODEX-LOCAL-OBSERVATION-2026-07-10
+  checked_at: '2026-07-10T13:54:40Z'
+  values_or_goals_may_override: false
+state:
+  status: completed
+  current_state_evidence_ids:
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001
+  continuation_state: consumed
+  continuation_evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  state_transition_evidence_ids:
+  - HUMAN-TASK-2026-07-10-TX10
+  - TX10-VALIDATION-SUMMARY-001
+cancellation:
+  state: not_requested
+  requested_by: not_applicable
+  behavior: Stop at the nearest safe boundary retain the complete atomic diff and do not begin a dependent transaction.
+  evidence_ids: []
+  uncertain_operations: []
+escalation:
+  state: not_required
+  conditions:
+  - Authority permission source or validation evidence becomes absent ambiguous expired denied or stale.
+  - The migration requires mutation of activated historical evidence or expansion into a later transaction.
+  responsible_principal_id: alex_omegapy
+  required_decision: Narrow reroute cancel or explicitly authorize a superseding bounded transaction.
+  evidence_ids: []
+resume_evidence:
+  required: true
+  status: consumed
+  last_known_state: TX-10 completed with post-migration boundary and aggregate validation evidence retained.
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  - MEMPREFLIGHT-TX-10-ACTIVE-SURFACE-MIGRATION-20260710T135843Z
+closeout_evidence:
+  status: complete
+  evidence_ids:
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001
+  - CR-SFADEV-STRATEGIC-BASELINE-TX10-001
+  changed_artifacts:
+  - canonical Phase 0 and Phase 1 execution requirements
+  - portable current state roles policies registries schemas memory and tests
+  - regenerated noncanonical readers
+  validation_evidence_ids:
+  - TX10-CAPABILITY-MIGRATION-POST-PASS
+  - TX10-UNIT-119-PASS
+  - TX10-PRODUCT-VALIDATE-PASS
+  - TX10-ROOT-VALIDATE-PASS
+  - TX10-DIFF-CHECK-PASS
+  acceptance_evidence_ids: []
+rollback:
+  status: available
+  strategy: Revert the entire TX-10 source schema header row code test manifest registry and generated-derivative packet together while leaving historical records unchanged.
+  triggers:
+  - A blocking validator fails or retained evidence contradicts the claimed post-migration state.
+  - A current writer emits legacy execution semantics or a removed runtime surface reappears.
+  actions:
+  - Stop new work and preserve the complete diff and validation evidence.
+  - Revert or supersede the entire TX-10 commit as one rollback-coherent unit.
+  evidence_ids: []
+supersession:
+  status: current
+  supersedes_transaction_ids: []
+  superseded_by: not_applicable
+  evidence_ids: []

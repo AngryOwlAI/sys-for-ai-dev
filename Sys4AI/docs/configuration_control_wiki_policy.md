@@ -10,7 +10,7 @@ Phase 1 covers YAML and TOML.
 
 ## Covered Artifact Types
 
-Covered YAML artifacts include AgentJobs, handoffs, completion receipts, task packets, skill manifests, state snapshots, and initialization manifests. Covered TOML artifacts include project, package, framework, tool, runtime, and target-project configuration.
+Covered YAML artifacts include ExecutionTransactions, handoffs, completion receipts, task packets, skill manifests, state snapshots, and initialization manifests. Covered TOML artifacts include project, package, framework, tool, runtime, and target-project configuration.
 
 ## Required Source Trace
 

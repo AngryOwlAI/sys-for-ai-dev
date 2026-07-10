@@ -120,7 +120,7 @@ def expected_role_doc_text(
         f"- Primary mission: {role.get('primary_mission', '')}",
         f"- Primary outputs: `{role.get('primary_outputs', '')}`",
         f"- Allowed artifact classes: `{role.get('allowed_artifact_classes', '')}`",
-        f"- Legacy AgentJob creation enabled: `{role.get('may_create_agentjobs', '')}`",
+        f"- Execution transaction creation enabled: `{role.get('may_create_execution_transactions', '')}`",
         f"- Requires Director decision: `{role.get('requires_director_decision', '')}`",
         "",
         "## Registry Skills",
@@ -169,7 +169,7 @@ def expected_role_doc_text(
                 + " | ".join(
                     [
                         _cell(row.get("binding_id", "")),
-                        _cell(row.get("allowed_agentjob_types", "")),
+                        _cell(row.get("allowed_transaction_types", "")),
                         _cell(row.get("required_validators", "")),
                         _cell(row.get("expiry_policy", "")),
                     ]

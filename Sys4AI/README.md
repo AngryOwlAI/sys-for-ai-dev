@@ -20,8 +20,6 @@ make validate
 
 ```bash
 make doctor
-make validate-agentjob
-make validate-agentjobs
 make validate-skills
 make validate-metrics
 make validate-discovery-template
@@ -33,6 +31,7 @@ make validate-validation-contract-registry
 make validate-toml-config
 make validate-jsonschema-contracts
 make validate-registry-graph
+make validate-capability-migration
 make validate-requirement-trace
 make validate-generated-derivatives
 make validate
@@ -45,7 +44,7 @@ make validate
 configs/            TOML configuration examples and future config sources
 sys_for_ai/          Python reference implementation scaffold
 schemas/             YAML specs and executable JSON Schema contracts
-control_records/     Example AgentJobs and manifests
+control_records/     Portable execution records plus read-only historical compatibility evidence
 registries/          Source-first memory starter registries
 skills/              Core skill manifest and adapter shells
 docs/                Authority policies and generated derivative stubs

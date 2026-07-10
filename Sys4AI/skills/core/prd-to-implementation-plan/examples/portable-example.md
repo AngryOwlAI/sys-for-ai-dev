@@ -2,11 +2,11 @@
 
 ## Scenario
 
-A `Sys4AI` implementation agent receives an AgentJob requiring `implementation_planning` support.
+A `Sys4AI` implementation agent receives an ExecutionTransaction requiring `implementation_planning` support.
 
 ## Minimal use
 
-1. Read the AgentJob objective and allowed files.
+1. Read the ExecutionTransaction objective and allowed files.
 2. Read canonical sources before generated notes.
 3. Apply the `prd-to-implementation-plan` adapter procedure.
 4. Produce bounded output with provenance notes.

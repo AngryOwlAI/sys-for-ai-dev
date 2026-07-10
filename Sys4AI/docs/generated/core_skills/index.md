@@ -80,7 +80,7 @@ This generated page summarizes product scaffold skills and proposed core organiz
 | proposal_director_decision_governor | director-decision-governor | 5 | scaffolded | system_director | .agents/skills/director-decision-governor | validate-director-decisions |
 | proposal_verification_validation_planner | verification-validation-planner | 6 | scaffolded | technical_requirements_engineer;requirements_verifier;verification_engineer | .agents/skills/verification-validation-planner | make validate |
 | proposal_source_authority_auditor | source-authority-auditor | 7 | scaffolded | documentation_librarian;context_memory_knowledge_architect | .agents/skills/source-authority-auditor | validate-registry-graph |
-| proposal_context_window_and_handoff_manager | context-window-and-handoff-manager | 8 | scaffolded | control_loop_agentjob_planner | .agents/skills/context-window-and-handoff-manager | validate-handoffs |
+| proposal_context_window_and_handoff_manager | context-window-and-handoff-manager | 8 | scaffolded | bounded_execution_planner | .agents/skills/context-window-and-handoff-manager | validate-handoffs |
 | proposal_threat_model_permission_scope | threat-model-and-permission-scope | 9 | scaffolded | security_safety_privacy_compliance_reviewer | .agents/skills/threat-model-and-permission-scope | make validate |
 | proposal_evaluation_harness_designer | evaluation-harness-designer | 10 | scaffolded | runtime_maintenance_planner;verification_engineer | .agents/skills/evaluation-harness-designer | make validate |
 | proposal_baseline_change_manager | baseline-change-manager | 11 | scaffolded | svc_documentation_surface_architect | .agents/skills/baseline-change-manager | validate-registry-graph |

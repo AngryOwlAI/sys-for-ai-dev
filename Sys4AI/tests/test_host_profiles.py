@@ -279,10 +279,12 @@ class HostCapabilityProfileTests(unittest.TestCase):
             registry_path.parent.mkdir(parents=True)
             decision_path.parent.mkdir(parents=True)
             registry_path.write_text(
-                "director_decision_id,path,status,task_id,selected_route,selected_agentjob_id,"
-                "authority_status,supersedes,source_hash,last_validated_at,notes\n"
+                "director_decision_id,path,status,task_id,selected_route,execution_profile,"
+                "selected_execution_transaction_id,selected_legacy_execution_id,authority_status,"
+                "supersedes,source_hash,last_validated_at,notes\n"
                 f"{decision_id},control_records/director_decisions/{decision_id}.yaml,completed,"
-                "TASK-TEST-G07,accept_G_07,,controlled,,pending,pending,temporary test fixture\n",
+                "TASK-TEST-G07,accept_G_07,not_applicable,,,controlled,,pending,pending,"
+                "temporary test fixture\n",
                 encoding="utf-8",
             )
             dump_yaml(

@@ -24,7 +24,7 @@ skills:
       - system_engineer
       - software_engineer
       - documentation_librarian
-      - control_loop_planner
+      - bounded_execution_planner
     required_skills: []
     optional_skills: []
     python_requirements: null
@@ -124,7 +124,7 @@ skills:
       - system_analyst
       - system_engineer
       - software_engineer
-      - control_loop_planner
+      - bounded_execution_planner
     required_skills:
       - codex-usage-metrics
     optional_skills:
@@ -164,7 +164,7 @@ skills:
       - system_engineer
       - software_engineer
       - documentation_librarian
-      - control_loop_planner
+      - bounded_execution_planner
     required_skills:
       - codex-usage-metrics
     optional_skills:
@@ -262,7 +262,7 @@ skills:
       - system_engineer
       - software_engineer
       - requirements_verifier
-      - control_loop_planner
+      - bounded_execution_planner
     required_skills:
       - codex-usage-metrics
     optional_skills:
@@ -415,7 +415,7 @@ skills:
     lifecycle_status: adapted_runtime_active
     manifest_path: .agents/skills/context-window-and-handoff-manager/skill.yaml
     required_by_roles:
-      - control_loop_agentjob_planner
+      - bounded_execution_planner
     required_skills: []
     optional_skills:
       - source-first-memory

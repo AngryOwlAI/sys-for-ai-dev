@@ -9,6 +9,7 @@ This directory is generated from controlled role registries. It is navigation on
 | Role ID | Role Name | Role Class | System Layer Scope |
 |---|---|---|---|
 | acceptance_engineer | Acceptance Engineer | temporary_legacy_role | development_system;framework_product |
+| bounded_execution_planner | Bounded Execution Planner | runtime_control | development_system;framework_product;target_system_template;target_system_instance |
 | context_memory_knowledge_architect | Context Memory and Knowledge Architect | system_design_support | development_system;framework_product;target_system_template;target_system_instance |
 | control_loop_agentjob_planner | Control Loop Planner | runtime_control | development_system;framework_product;target_system_template;target_system_instance |
 | control_loop_engineer | Control Loop Engineer | temporary_legacy_role | development_system;framework_product |

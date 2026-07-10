@@ -11,6 +11,7 @@
     "consumer_role_ids",
     "system_layer_scope",
     "authority_default",
+    "lifecycle_status",
     "required_sections",
     "validation_contract_id",
     "registry_required",
@@ -28,8 +29,9 @@
     "consumer_role_ids": { "type": "string", "minLength": 1 },
     "system_layer_scope": { "type": "string", "minLength": 1 },
     "authority_default": {
-      "enum": ["candidate", "controlled_candidate", "controlled", "canonical_draft", "canonical", "derivative"]
+      "enum": ["candidate", "controlled_candidate", "controlled", "canonical_draft", "canonical", "derivative", "historical"]
     },
+    "lifecycle_status": { "enum": ["current", "historical", "deprecated", "superseded"] },
     "registry_required": { "enum": ["true", "false"] }
   },
   "additionalProperties": { "type": "string" }

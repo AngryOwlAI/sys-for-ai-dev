@@ -19,7 +19,7 @@ The hierarchy is designed to prevent authority inversion. A helpful summary may 
 
 ## Promotion rule
 
-A derivative becomes canonical only when a source-import or promotion AgentJob:
+A derivative becomes canonical only when a source-import or promotion ExecutionTransaction:
 
 1. Identifies the derivative path.
 2. Identifies the source authority gap it fills.

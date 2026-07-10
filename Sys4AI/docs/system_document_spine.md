@@ -24,7 +24,7 @@ For brownfield repositories, `/init` may produce a chat-visible Current-State
 Baseline summary during its first pass, but the first pass remains read-only.
 A controlled Current-State Baseline file, Requirements Discovery Record,
 Product Requirements Document, system requirements document, implementation
-plan, AgentJob, or scaffold requires explicit approval.
+plan, ExecutionTransaction, or scaffold requires explicit approval.
 
 The normal chain is:
 
@@ -56,7 +56,7 @@ Phase 1 creates the scaffolding needed to govern later system work:
 - discovery templates,
 - validators,
 - registries,
-- AgentJobs,
+- ExecutionTransactions,
 - source-first authority rules.
 
 Phase 1 does not create every formal system document. It creates enough validated structure for future agents to produce those documents under explicit authorization.

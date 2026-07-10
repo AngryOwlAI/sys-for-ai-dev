@@ -100,7 +100,7 @@ def _write_fixture(
         encoding="utf-8",
     )
     (registries / "role_registry.csv").write_text(
-        "role_id,role_name,role_class,system_layer_scope,primary_mission,required_skills,optional_skills,forbidden_skills,primary_outputs,allowed_artifact_classes,may_create_agentjobs,requires_director_decision,authority_status,owner,supersedes,source_hash,last_validated_at,notes\n"
+        "role_id,role_name,role_class,system_layer_scope,primary_mission,required_skills,optional_skills,forbidden_skills,primary_outputs,allowed_artifact_classes,may_create_execution_transactions,requires_director_decision,authority_status,owner,supersedes,source_hash,last_validated_at,notes\n"
         "requirements_manager,Requirements Manager,governance,framework_product,fixture,,,,,prd,true,false,controlled,test,,pending,pending,fixture\n",
         encoding="utf-8",
     )

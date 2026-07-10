@@ -152,15 +152,20 @@ def validate_role_graph(
     for skill_id in sorted(active_skills - bound_skills):
         messages.append(f"{crosswalk}: active runtime skill {skill_id!r} has no role binding")
 
-    for path, role_id in _agentjob_role_references():
+    # Historical records remain readable so their role IDs stay graph-valid.
+    # They do not grant current execution authority.
+    for path, role_id in _legacy_execution_role_references():
         if role_id and role_id not in role_ids:
             messages.append(f"{path}: legacy control role {role_id!r} is not in role registry")
 
     binding_role_ids = {row.get("role_id", "") for row in load_execution_binding_rows(execution_bindings)}
     for role in roles:
         role_id = role.get("role_id", "")
-        if role.get("may_create_agentjobs") == "true" and role_id not in binding_role_ids:
-            messages.append(f"{execution_bindings}: {role_id}: legacy AgentJob creation is enabled but no execution binding exists")
+        if role.get("may_create_execution_transactions") == "true" and role_id not in binding_role_ids:
+            messages.append(
+                f"{execution_bindings}: {role_id}: execution transaction creation is enabled "
+                "but no execution binding exists"
+            )
 
     return ValidationResult(not messages, messages or ["role graph validation passed"])
 
@@ -227,7 +232,9 @@ def _active_runtime_skill_ids(path: str | Path = "../.agents/skill_registry/SKIL
     return skill_ids
 
 
-def _agentjob_role_references(root: str | Path = "control_records/agentjobs") -> list[tuple[Path, str]]:
+def _legacy_execution_role_references(
+    root: str | Path = "control_records/agentjobs",
+) -> list[tuple[Path, str]]:
     target = Path(root)
     references: list[tuple[Path, str]] = []
     if not target.exists():
@@ -236,12 +243,12 @@ def _agentjob_role_references(root: str | Path = "control_records/agentjobs") ->
         data = load_yaml(path)
         if not isinstance(data, dict):
             continue
-        role_id = _agentjob_role_id(data)
+        role_id = _legacy_execution_role_id(data)
         references.append((path, role_id))
     return references
 
 
-def _agentjob_role_id(data: dict[str, Any]) -> str:
+def _legacy_execution_role_id(data: dict[str, Any]) -> str:
     role_binding = data.get("role_binding")
     if isinstance(role_binding, dict) and role_binding.get("role_id"):
         return str(role_binding["role_id"])

@@ -17,11 +17,15 @@ page_metadata:
     - contract_capability_migration_manifest
     - contract_completion_receipt
     - contract_completion_receipt_v0_2
+    - contract_completion_receipt_v1_0
     - contract_director_decision
+    - contract_execution_transaction
     - contract_handoff
     - contract_handoff_v0_2
+    - contract_handoff_v1_0
     - contract_host_capability_profile
     - contract_memory_preflight_receipt
+    - contract_memory_preflight_receipt_v0_1
     - contract_program_state
     - contract_self_hosting_mode
     - contract_state_snapshot
@@ -62,7 +66,7 @@ This generated page indexes registered configuration and control surfaces. It is
 | --- | --- | --- |
 | format profiles | 5 | registries/format_profile_registry.csv |
 | configuration sources | 6 | registries/config_source_registry.csv |
-| control records | 157 | registries/control_record_registry.csv |
+| control records | 161 | registries/control_record_registry.csv |
 
 ## Allowed Promotion Path
 

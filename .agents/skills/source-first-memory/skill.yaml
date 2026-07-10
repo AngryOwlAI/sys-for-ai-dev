@@ -24,7 +24,7 @@ required_role_posture:
 optional_role_posture:
   - requirements_verifier
   - verification_engineer
-  - control_loop_planner
+  - bounded_execution_planner
 activation:
   triggers:
     - Search source-first memory.

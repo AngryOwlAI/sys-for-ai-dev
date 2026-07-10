@@ -10,7 +10,7 @@
 - Primary mission: Run discovery gate and capture user intent
 - Primary outputs: `RDR;USRD`
 - Allowed artifact classes: `requirements;discovery`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

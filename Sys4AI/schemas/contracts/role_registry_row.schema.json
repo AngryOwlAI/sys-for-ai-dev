@@ -14,7 +14,7 @@
     "forbidden_skills",
     "primary_outputs",
     "allowed_artifact_classes",
-    "may_create_agentjobs",
+    "may_create_execution_transactions",
     "requires_director_decision",
     "authority_status",
     "owner",
@@ -41,7 +41,7 @@
     },
     "system_layer_scope": { "type": "string", "minLength": 1 },
     "primary_mission": { "type": "string", "minLength": 1 },
-    "may_create_agentjobs": { "enum": ["true", "false"] },
+    "may_create_execution_transactions": { "enum": ["true", "false"] },
     "requires_director_decision": { "enum": ["true", "false"] },
     "authority_status": { "enum": ["controlled", "draft", "superseded", "deprecated"] }
   },

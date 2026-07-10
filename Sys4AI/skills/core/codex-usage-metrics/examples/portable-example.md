@@ -2,11 +2,11 @@
 
 ## Scenario
 
-A `Sys4AI` implementation agent receives an AgentJob requiring `runtime_session_accounting` support.
+A `Sys4AI` implementation agent receives an ExecutionTransaction requiring `runtime_session_accounting` support.
 
 ## Minimal use
 
-1. Read the AgentJob objective and allowed files.
+1. Read the ExecutionTransaction objective and allowed files.
 2. Confirm the task needs Codex app session metrics, not API billing or generic telemetry.
 3. Run `make validate-metrics`.
 4. Run the metrics script with an authorized output path.

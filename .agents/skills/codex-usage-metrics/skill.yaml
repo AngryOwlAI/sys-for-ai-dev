@@ -24,7 +24,7 @@ optional_role_posture:
   - documentation_librarian
   - requirements_verifier
   - verification_engineer
-  - control_loop_planner
+  - bounded_execution_planner
 activation:
   triggers:
     - Report current Codex usage metrics for the active Sys4AI-dev session.

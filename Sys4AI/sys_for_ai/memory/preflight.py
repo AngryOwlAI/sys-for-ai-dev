@@ -10,20 +10,20 @@ from .receipts import build_memory_preflight_receipt, write_memory_preflight_rec
 from .search import search_memory
 
 
-DEFAULT_PREFLIGHT_QUERY = "source-first memory continue handoff AgentJob"
+DEFAULT_PREFLIGHT_QUERY = "source-first memory execution transaction handoff"
 
 
 def run_memory_preflight(
     *,
     root: str | Path = ".",
-    agentjob_id: str | None = None,
+    execution_transaction_id: str | None = None,
     handoff_id: str | None = None,
     queries: list[str] | None = None,
     write_receipt: bool = False,
 ) -> dict[str, object]:
     """Run a deterministic memory preflight and optionally write a receipt."""
 
-    selected_agentjob_id = agentjob_id or "ADHOC-MEMORY-PREFLIGHT"
+    selected_transaction_id = execution_transaction_id or "TX-ADHOC-MEMORY-PREFLIGHT"
     selected_queries = queries or [DEFAULT_PREFLIGHT_QUERY]
     status_payload = memory_status(root)
     commands_run: list[dict[str, str]] = [
@@ -32,11 +32,18 @@ def run_memory_preflight(
             "result": "pass" if status_payload.get("ok") else "fail",
         }
     ]
-    if agentjob_id:
+    if execution_transaction_id:
         commands_run.append(
             {
-                "command": f"python -m sys_for_ai.cli memory lookup {agentjob_id} --json",
-                "result": "pass" if lookup_memory(agentjob_id, root).get("ok") else "warn",
+                "command": (
+                    "python -m sys_for_ai.cli memory lookup "
+                    f"{execution_transaction_id} --json"
+                ),
+                "result": (
+                    "pass"
+                    if lookup_memory(execution_transaction_id, root).get("ok")
+                    else "warn"
+                ),
             }
         )
     if handoff_id:
@@ -95,7 +102,7 @@ def run_memory_preflight(
 
     usable = bool(status_payload.get("ok")) and bool(canonical_sources or registry_rows)
     receipt = build_memory_preflight_receipt(
-        agentjob_id=selected_agentjob_id,
+        execution_transaction_id=selected_transaction_id,
         queries=query_receipts,
         canonical_sources_inspected=canonical_sources,
         registry_rows_inspected=registry_rows,

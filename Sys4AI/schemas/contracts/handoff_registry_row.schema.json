@@ -4,24 +4,17 @@
   "title": "Handoff registry row",
   "type": "object",
   "required": [
-    "handoff_id",
-    "path",
-    "status",
-    "producing_agentjob_id",
-    "next_recommended_role",
-    "next_agentjob_id",
-    "source_ids",
-    "supersedes",
-    "source_hash",
-    "last_validated_at",
-    "notes"
+    "handoff_id", "path", "status", "execution_profile",
+    "producing_execution_transaction_id", "next_execution_transaction_id",
+    "producing_legacy_execution_id", "next_legacy_execution_id",
+    "next_recommended_role", "source_ids", "supersedes", "source_hash",
+    "last_validated_at", "notes"
   ],
   "properties": {
     "handoff_id": { "type": "string", "minLength": 1 },
     "path": { "type": "string", "minLength": 1 },
-    "status": {
-      "enum": ["draft", "pending", "active", "completed", "blocked", "human_gated", "superseded", "cancelled"]
-    }
+    "status": { "enum": ["draft", "pending", "active", "ready", "completed", "complete", "blocked", "human_gated", "superseded", "cancelled"] },
+    "execution_profile": { "enum": ["portable_execution_transaction_v1", "legacy_execution_v0_2"] }
   },
   "additionalProperties": { "type": "string" }
 }

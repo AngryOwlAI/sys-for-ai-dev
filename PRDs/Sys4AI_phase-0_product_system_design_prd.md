@@ -37,7 +37,7 @@ This Phase 0 PRD defines what `Sys4AI` must be. It does not initialize the imple
 
 ## 2. Canonical source relation
 
-This file consolidates the July 4 core-requirement baseline with the richer July 3 Phase 0 role pipeline, artifact structures, CLRA/CKMSRA/SVCDA annex detail, risks, open issues, and acceptance criteria.
+This file consolidates the July 4 core-requirement baseline with the richer July 3 Phase 0 role pipeline, artifact structures, BERA/CKMSRA/SVCDA annex detail, risks, open issues, and acceptance criteria.
 
 `PRDs/Sys4AI_phase-0_prd.md` is retained as a historical reference only. When the two documents differ, this file controls Phase 0.
 
@@ -57,8 +57,8 @@ Phase 0 owns:
 - Sys4AI product vision and core values, with content approval kept independent from source authority, validation, requirement lifecycle, capability, and evidence state.
 - Role model and lifecycle model.
 - Artifact contracts.
-- AgentJob semantics.
-- `/continue` semantics.
+- ExecutionTransaction semantics.
+- `resume operation` semantics.
 - Source-first memory and knowledge requirements.
 - Core file-format memory profile requirements for canonical sources, registries, control records, configuration sources, validation contracts, and generated derivative surfaces.
 - System-layer classification and self-hosting authority boundaries.
@@ -71,7 +71,7 @@ Phase 0 owns:
 - Improvement-loop requirements.
 - Acceptance criteria for moving into implementation initialization.
 
-This transaction does not migrate the later AgentJob and `/continue` requirement families. Where those retained migration targets conflict with the accepted post-retraction decision, `DDR-SFADEV-STRATEGIC-BASELINE-001` controls: their current active-framework status is retired until later portable execution-contract transactions revise the canonical requirement families.
+`TX-10-ACTIVE-SURFACE-MIGRATION` moves the current bounded-execution and resume requirement families to the portable `ExecutionTransaction` contract selected by `DDR-SFADEV-STRATEGIC-BASELINE-001`. Historical execution records remain available only through explicitly classified read-only compatibility surfaces and do not establish current capability.
 
 ### 3.2 Phase 1 owns initialization requirements
 
@@ -127,23 +127,23 @@ Phase 1 does not re-litigate Phase 0 product identity, lifecycle, role ownership
 | Target system template | A reusable scaffold or package emitted by `Sys4AI` for future target agentic systems. |
 | Target system instance | A concrete agentic system created, operated, improved, or maintained for a particular user, organization, or use case. |
 | Agentic AI software harness | A software system wrapping one or more LLMs, tools, state stores, files, skills, policies, and user-facing interfaces for a defined job. |
-| AgentJob | A bounded execution contract for one controlled unit of agent work. |
-| `/continue` | A controlled continuation procedure that resumes from tracked state and advances at most one authorized AgentJob per invocation. Domain-specific aliases are allowed only as project-specific names. |
+| ExecutionTransaction | A bounded execution contract for one controlled unit of agent work. |
+| `resume operation` | A controlled continuation procedure that resumes from tracked state and advances at most one authorized ExecutionTransaction per invocation. Domain-specific aliases are allowed only as project-specific names. |
 | Source-first memory | A memory and knowledge model where canonical sources, registries, and control records outrank generated summaries, semantic caches, wikis, local vaults, and other derivatives. |
 | Core File-Format Memory Profile | A governed classification for a source or derivative file format that defines intended system role, authority class, canonical roots, registry requirements, validator requirements, derivative surfaces, promotion workflow, drift/orphan behavior, and security constraints. |
 | Configuration Source | A machine-readable file that defines standing project, package, tool, runtime, or framework behavior. Configuration sources are canonical only when registered and validated. |
-| Control Record | A machine-readable artifact that constrains or reports bounded agent action, including AgentJobs, handoffs, completion receipts, task packets, role-routing records, state snapshots, skill/control manifests, and initialization manifests. |
+| Control Record | A machine-readable artifact that constrains or reports bounded agent action, including ExecutionTransactions, handoffs, completion receipts, task packets, role-routing records, state snapshots, skill/control manifests, and initialization manifests. |
 | Validation Contract | A machine-readable schema or equivalent constraint document that defines admissible structure and type constraints for another artifact class. Validation contracts are governance artifacts, not ordinary generated documentation. |
 | Configuration and Control Wiki | A generated derivative reader surface for registered YAML control/state artifacts and TOML configuration artifacts. It summarizes and links to canonical source files, registry rows, validators, consumers, and authority status. |
 | Validation Contracts Catalog | A generated derivative catalog for validation contracts, including JSON Schema contracts. It summarizes contract IDs, dialects, target formats, target artifact classes, target globs, supersession, validation commands, and usage relationships. |
 | Format Profile Registry | A CSV registry that records core and project-specific file-format memory profiles. |
 | Configuration Source Registry | A CSV registry that records registered configuration sources, including TOML files and any later configuration formats. |
-| Control Record Registry | A CSV registry that records registered control/state artifacts, including YAML AgentJobs, handoffs, receipts, task packets, state snapshots, skill manifests, and routing manifests. |
+| Control Record Registry | A CSV registry that records registered control/state artifacts, including YAML ExecutionTransactions, handoffs, receipts, task packets, state snapshots, skill manifests, and routing manifests. |
 | Validation Contract Registry | A CSV registry that records registered validation contracts, including JSON Schema files. |
 | SVC system | Source/version-control governance for controlled artifacts, state, histories, supersession records, and generated derivative boundaries. |
 | Skill | A governed capability package with metadata, invocation conditions, required inputs, outputs, procedure, validators, known failure modes, and adaptation rules. |
 | Derivative surface | A generated or synchronized reader surface, such as wiki notes, Obsidian notes, HTML explainers, PDFs, TeX renderings, diagrams, indexes, notebooks, or semantic caches. |
-| CLRA | Control Loop Requirements Annex. |
+| BERA | Bounded Execution Requirements Annex. |
 | CKMSRA | Context and Knowledge Management System Requirements Annex. |
 | SVCDA | Source/Version Control and Derivative Artifact Annex. |
 
@@ -185,7 +185,7 @@ The framework product and Meta-Agent Runtime, working with an authorized user, s
 9. How will the target agentic system be governed after it exists?
 10. What source-first memory and knowledge system does the target agentic system need?
 11. What continuation loop resumes work from tracked state without unbounded wandering?
-12. What AgentJob contract constrains each unit of agent work?
+12. What ExecutionTransaction contract constrains each unit of agent work?
 13. What markdown-like, SVC, wiki, PDF, TeX, HTML, notebook, or other derivative surfaces are required, and which sources remain authoritative?
 14. Which lifecycle stage is current, which transitions are allowed, and what evidence and approval does the next transition require?
 15. Which coordination pattern fits the target problem, and what operational maturity is supported independently by current evidence?
@@ -672,19 +672,19 @@ The pattern decision must be reviewed at initial architecture selection and when
 
 `SFA-CORE-ROLE-003`: The controlled role catalog shall include a role-to-skill crosswalk that maps every core and support role to required, optional, and forbidden skills.
 
-`SFA-CORE-ROLE-004`: Any temporary role created for one AgentJob shall declare expiry, authority scope, required skills, allowed artifacts, validation obligations, and supersession behavior.
+`SFA-CORE-ROLE-004`: Any temporary role created for one ExecutionTransaction shall declare expiry, authority scope, required skills, allowed artifacts, validation obligations, and supersession behavior.
 
-`SFA-CORE-ROLE-005`: Runtime role execution shall validate role binding before an AgentJob may be selected or executed.
+`SFA-CORE-ROLE-005`: Runtime role execution shall validate role binding before an ExecutionTransaction may be selected or executed.
 
 ### 6.3.1 System layer and self-hosting boundary
 
-`SFA-CORE-LAYER-001`: Every controlled artifact, AgentJob, handoff, role invocation, skill invocation, validation receipt, and generated derivative shall declare its subject layer: `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, or `derivative_surface`.
+`SFA-CORE-LAYER-001`: Every controlled artifact, ExecutionTransaction, handoff, role invocation, skill invocation, validation receipt, and generated derivative shall declare its subject layer: `development_system`, `framework_product`, `target_system_template`, `target_system_instance`, or `derivative_surface`.
 
 `SFA-CORE-LAYER-002`: Work on `Sys4AI-dev` shall be treated as self-hosting development-system work. It may use `Sys4AI` patterns, but it shall not treat product-scaffold artifacts as active runtime authority unless they are explicitly promoted.
 
 `SFA-CORE-LAYER-003`: Work on `Sys4AI` shall distinguish framework-product requirements from future target-system requirements.
 
-`SFA-CORE-LAYER-004`: Work on a future generated target system shall not mutate core `Sys4AI` framework authority unless routed through a framework-improvement AgentJob and Director decision.
+`SFA-CORE-LAYER-004`: Work on a future generated target system shall not mutate core `Sys4AI` framework authority unless routed through a framework-improvement ExecutionTransaction and Director decision.
 
 `SFA-CORE-LAYER-005`: Generated derivatives shall never authorize changes to canonical sources, registries, control records, validation contracts, role catalogs, or skill manifests without a promotion workflow.
 
@@ -694,7 +694,7 @@ The controlled layer model and the runtime-actor model are independent dimension
 
 `SFA-CORE-SELFHOST-002`: Self-hosting mode shall require explicit system-layer classification before any artifact, registry, validator, skill, or role rule is changed.
 
-`SFA-CORE-SELFHOST-003`: Self-hosting improvements shall be routed through AgentJobs, Director decisions where needed, validation receipts, handoffs, and source-first memory preflight.
+`SFA-CORE-SELFHOST-003`: Self-hosting improvements shall be routed through ExecutionTransactions, Director decisions where needed, validation receipts, handoffs, and source-first memory preflight.
 
 `SFA-CORE-SELFHOST-004`: Self-hosting mode shall prohibit generated derivative surfaces from authorizing changes to PRDs, role catalogs, skill manifests, control records, validators, validation contracts, or registries.
 
@@ -728,7 +728,7 @@ For the `TX-05` candidate discovery contract, pattern and maturity are separate 
 
 `SFA-CORE-INIT-005`: `/init brownfield` shall perform its first pass as read-only inspection and classification. It shall not write files, install governance surfaces, create scaffolds, or mutate source code during that first pass.
 
-`SFA-CORE-INIT-006`: `/init` shall ask for explicit user or Director approval before writing a Requirements Discovery Record, Current-State Baseline, Product Requirements Document, system requirements document, implementation plan, AgentJob, scaffold, or governance-adoption surface.
+`SFA-CORE-INIT-006`: `/init` shall ask for explicit user or Director approval before writing a Requirements Discovery Record, Current-State Baseline, Product Requirements Document, system requirements document, implementation plan, ExecutionTransaction, scaffold, or governance-adoption surface.
 
 `SFA-CORE-INIT-007`: `/init` shall preserve discovered requirements as `REQ-CAND-*` or `NFR-CAND-*` until promoted by a source-authority workflow.
 
@@ -736,17 +736,17 @@ For the `TX-05` candidate discovery contract, pattern and maturity are separate 
 
 `SFA-CORE-INIT-009`: `/init` shall treat Current-State Baselines, Requirements Discovery Records, generated Product Requirements Documents, implementation plans, and handoffs as derivative evidence until accepted by the relevant project authority.
 
-### 6.4 AgentJob and continuation model
+### 6.4 ExecutionTransaction and continuation model
 
-`SFA-CORE-AJ-001`: Every executable unit of agent work shall be representable as a bounded AgentJob.
+`SFA-CORE-AJ-001`: Every executable unit of agent work shall be representable as a bounded ExecutionTransaction.
 
-`SFA-CORE-AJ-002`: Each AgentJob shall include objective, role binding, allowed reads, allowed writes, forbidden actions, required inputs, expected outputs, validators, completion evidence, and stop conditions.
+`SFA-CORE-AJ-002`: Each ExecutionTransaction shall include objective, role binding, allowed reads, allowed writes, forbidden actions, required inputs, expected outputs, validators, completion evidence, and stop conditions.
 
-`SFA-CORE-AJ-003`: AgentJob execution shall not rely on informal chat memory as authority when source or registry authority exists.
+`SFA-CORE-AJ-003`: ExecutionTransaction execution shall not rely on informal chat memory as authority when source or registry authority exists.
 
-`SFA-CORE-CONT-001`: `/continue` shall resume from tracked state and advance at most one authorized AgentJob per invocation unless a project-specific transaction model is explicitly approved.
+`SFA-CORE-CONT-001`: `resume operation` shall resume from tracked state and advance at most one authorized ExecutionTransaction per invocation unless a project-specific transaction model is explicitly approved.
 
-`SFA-CORE-CONT-002`: `/continue` shall perform memory preflight, state verification, job selection, bounded execution, validation, receipt generation, and handoff creation.
+`SFA-CORE-CONT-002`: `resume operation` shall perform memory preflight, state verification, job selection, bounded execution, validation, receipt generation, and handoff creation.
 
 ### 6.5 Python reference implementation
 
@@ -760,7 +760,7 @@ For the `TX-05` candidate discovery contract, pattern and maturity are separate 
 
 `SFA-CORE-YAML-001`: `Sys4AI` shall use YAML for human-readable, machine-parseable control records where appropriate.
 
-`SFA-CORE-YAML-002`: YAML control records shall include AgentJobs, handoffs, completion receipts, registries or registry manifests, task packets, skill manifests, and initialization manifests.
+`SFA-CORE-YAML-002`: YAML control records shall include ExecutionTransactions, handoffs, completion receipts, registries or registry manifests, task packets, skill manifests, and initialization manifests.
 
 `SFA-CORE-YAML-003`: The Python reference implementation shall include `PyYAML` as a required dependency.
 
@@ -796,11 +796,11 @@ For the `TX-05` candidate discovery contract, pattern and maturity are separate 
 
 `SFA-CORE-YAML-005`: YAML shall be the preferred core format for human-readable and machine-parseable agent control/state artifacts.
 
-`SFA-CORE-YAML-006`: YAML control/state artifacts shall include AgentJobs, handoffs, completion receipts, task packets, skill manifests, role-routing manifests, initialization manifests, and bounded state snapshots when such artifacts are required.
+`SFA-CORE-YAML-006`: YAML control/state artifacts shall include ExecutionTransactions, handoffs, completion receipts, task packets, skill manifests, role-routing manifests, initialization manifests, and bounded state snapshots when such artifacts are required.
 
 `SFA-CORE-YAML-007`: Registered YAML control/state artifacts shall have registry rows identifying record type, owner, authority status, allowed writers, validation contract, supersession relation, and source path.
 
-`SFA-CORE-YAML-008`: YAML control/state artifacts that affect routing, permissions, AgentJob boundaries, continuation state, role execution, or completion evidence shall be validated before use.
+`SFA-CORE-YAML-008`: YAML control/state artifacts that affect routing, permissions, ExecutionTransaction boundaries, continuation state, role execution, or completion evidence shall be validated before use.
 
 `SFA-CORE-YAML-009`: YAML parsing shall use safe loading only. Unsafe object construction shall be prohibited unless a trusted-loader exception is explicitly documented, reviewed, and isolated from untrusted inputs.
 
@@ -892,7 +892,7 @@ For the `TX-05` candidate discovery contract, pattern and maturity are separate 
 
 `SFA-CORE-MEM-008`: Memory retrieval shall not return a structured artifact as actionable authority unless the retrieval result includes source path, authority status, registry evidence, and validation status where such evidence exists.
 
-`SFA-CORE-MEM-009`: Memory preflight shall verify YAML control records, TOML configuration sources, JSON Schema contracts, and CSV registry rows against canonical source files or registry rows before they affect requirements, routing, claims, AgentJob boundaries, handoffs, permissions, or continuation state.
+`SFA-CORE-MEM-009`: Memory preflight shall verify YAML control records, TOML configuration sources, JSON Schema contracts, and CSV registry rows against canonical source files or registry rows before they affect requirements, routing, claims, ExecutionTransaction boundaries, handoffs, permissions, or continuation state.
 
 ### 6.9 Obsidian and local reader surfaces
 
@@ -962,23 +962,23 @@ The following detailed requirements are binding refinements of the core requirem
 | SFA-P0-FR-014 | `Sys4AI` shall define the Phase 0 to Phase 1 boundary. | Must | Inspection | Phase boundary reserves implementation initialization for Phase 1. |
 | SFA-P0-FR-015 | `Sys4AI` shall produce an SRP that implementation agents can consume without re-deriving system intent. | Must | Review | SRP includes source baseline, requirements, allocation, verification, risks, and Phase 1 handoff block. |
 | SFA-P0-FR-016 | `Sys4AI` shall require each target agentic system to declare whether it is an agentic AI software harness and, if so, define its LLM, tool, state, memory, policy, and user-interface boundaries. | Must | Inspection | USRD, SRD, ARD, and SRP identify the harness boundary or mark it not applicable. |
-| SFA-P0-FR-017 | `Sys4AI` shall require an AgentJob-style bounded execution unit for target systems that perform resumable or tool-using agent work. | Must | Inspection | SRP includes an AgentJob contract or a justified not-applicable decision. |
-| SFA-P0-FR-018 | `Sys4AI` shall define `/continue` as the generic continuation skill or command name for resuming from tracked state. | Must | Inspection | The PRD uses `/continue` generically and allows domain-specific aliases only as project-specific names. |
-| SFA-P0-FR-019 | `Sys4AI` shall require the continuation loop to resolve current state, inspect the latest handoff, perform memory/context preflight, select or reuse at most one bounded AgentJob, validate results, record completion, and update next state when state changes. | Must | Scenario review | CLRA covers state, handoff, preflight, AgentJob, validation, completion, and next-state update. |
-| SFA-P0-FR-020 | `Sys4AI` shall require a Director decision record when routing, role selection, authority expansion, task creation, or job creation is not already determined by tracked state. | Must | Inspection | CLRA and handoff contract include Director decision conditions and supersession rules. |
+| SFA-P0-FR-017 | `Sys4AI` shall require an ExecutionTransaction-style bounded execution unit for target systems that perform resumable or tool-using agent work. | Must | Inspection | SRP includes an ExecutionTransaction contract or a justified not-applicable decision. |
+| SFA-P0-FR-018 | `Sys4AI` shall define `resume operation` as the generic continuation skill or command name for resuming from tracked state. | Must | Inspection | The PRD uses `resume operation` generically and allows domain-specific aliases only as project-specific names. |
+| SFA-P0-FR-019 | `Sys4AI` shall require the continuation loop to resolve current state, inspect the latest handoff, perform memory/context preflight, select or reuse at most one bounded ExecutionTransaction, validate results, record completion, and update next state when state changes. | Must | Scenario review | BERA covers state, handoff, preflight, ExecutionTransaction, validation, completion, and next-state update. |
+| SFA-P0-FR-020 | `Sys4AI` shall require a Director decision record when routing, role selection, authority expansion, task creation, or job creation is not already determined by tracked state. | Must | Inspection | BERA and handoff contract include Director decision conditions and supersession rules. |
 | SFA-P0-FR-021 | `Sys4AI` shall require completion receipts for bounded agent work. | Must | Inspection | SRP requires completion records with outputs, changed artifacts, command or tool evidence, validation status, unresolved issues, and next recommendation. |
 | SFA-P0-FR-022 | `Sys4AI` shall require a source-first context and knowledge management system for target systems that rely on persistent project knowledge. | Must | Inspection | CKMSRA defines canonical sources, registries, generated derivatives, retrieval surfaces, source verification, and stale-context controls. |
 | SFA-P0-FR-023 | `Sys4AI` shall require generated memory, wiki, semantic extracts, local vaults, PDFs, HTML, and other derivatives to be classified as source, evidence, human-readable derivative, retrieval aid, or non-authoritative cache. | Must | Inspection | CKMSRA and SVCDA include authority class for each source or derivative surface. |
-| SFA-P0-FR-024 | `Sys4AI` shall require any memory hit that affects requirements, routing, claims, AgentJob boundaries, or handoffs to be verified against canonical sources, controlled artifacts, or registry rows. | Must | Trace review | Handoff and completion templates include memory preflight and source-inspection evidence. |
+| SFA-P0-FR-024 | `Sys4AI` shall require any memory hit that affects requirements, routing, claims, ExecutionTransaction boundaries, or handoffs to be verified against canonical sources, controlled artifacts, or registry rows. | Must | Trace review | Handoff and completion templates include memory preflight and source-inspection evidence. |
 | SFA-P0-FR-025 | `Sys4AI` shall require a markdown-like source and generated-wiki strategy when the target system has controlled documentation or knowledge surfaces. | Should | Inspection | SVCDA defines markdown-like authoring, generated indexes, wiki notes, cross-links, and source authority. |
 | SFA-P0-FR-026 | `Sys4AI` shall require Phase 0 roles to determine whether PDF, TeX, HTML, notebook, data, or other file-type wikis and derivatives are needed for the target system. | Should | Review | SRP specifies required file-type wikis and derivative policies or records them as not applicable. |
 | SFA-P0-FR-027 | `Sys4AI` shall require a source/version-control system baseline for controlled artifacts, activated control records, generated derivatives, and release bundles. | Must | Inspection | SVCDA includes versioning, hash/provenance, supersession, checkpoint, and audit-evidence requirements. |
-| SFA-P0-FR-028 | `Sys4AI` shall require process validators and evidence hooks for control-loop, memory, wiki, derivative, and SVC operations without treating validator success as domain truth. | Must | Inspection | CLRA, CKMSRA, and SVCDA distinguish process conformance from domain validation or acceptance. |
+| SFA-P0-FR-028 | `Sys4AI` shall require process validators and evidence hooks for bounded-execution, memory, wiki, derivative, and SVC operations without treating validator success as domain truth. | Must | Inspection | BERA, CKMSRA, and SVCDA distinguish process conformance from domain validation or acceptance. |
 | SFA-P0-FR-029 | `Sys4AI` shall separate target-domain claims, workflow claims, tooling claims, documentation claims, and user-facing explanation claims where the distinction affects authority or acceptance. | Must | Inspection | SRP includes claim or authority classes for target systems where claims can have different evidence standards. |
-| SFA-P0-FR-030 | `Sys4AI` shall carry CLRA, CKMSRA, and SVCDA content into the final SRP when the target system is expected to run, continue, improve, or maintain state over time. | Must | Review | SRP includes these annexes or an explicit rationale for omission. |
+| SFA-P0-FR-030 | `Sys4AI` shall carry BERA, CKMSRA, and SVCDA content into the final SRP when the target system is expected to run, continue, improve, or maintain state over time. | Must | Review | SRP includes these annexes or an explicit rationale for omission. |
 | SFA-P0-FR-031 | `Sys4AI` shall define core file-format memory profiles for Markdown, CSV, YAML, TOML, and JSON Schema. | Must | Inspection | Phase 0 includes profile definitions and role/authority assignments for all five formats. |
 | SFA-P0-FR-032 | `Sys4AI` shall classify each governed file format by authority class, mutability, registry requirement, validator requirement, derivative policy, promotion workflow, drift behavior, and security policy. | Must | Inspection | CKMSRA or SVCDA includes a classification matrix covering each axis. |
-| SFA-P0-FR-033 | YAML shall be assigned to agent control/state artifacts. | Must | Inspection | AgentJobs, handoffs, receipts, task packets, skill manifests, routing manifests, initialization manifests, and state snapshots are named as YAML-eligible artifacts. |
+| SFA-P0-FR-033 | YAML shall be assigned to agent control/state artifacts. | Must | Inspection | ExecutionTransactions, handoffs, receipts, task packets, skill manifests, routing manifests, initialization manifests, and state snapshots are named as YAML-eligible artifacts. |
 | SFA-P0-FR-034 | TOML shall be assigned to project, package, tool, runtime, framework, and target-system configuration sources. | Must | Inspection | Phase 0 defines TOML configuration source semantics and authority constraints. |
 | SFA-P0-FR-035 | JSON Schema shall be assigned to validation contracts. | Must | Inspection | Phase 0 defines JSON Schema contract semantics, target artifact mapping, dialect/version expectations, and validator evidence. |
 | SFA-P0-FR-036 | CSV shall be assigned to registries, ledgers, relationship maps, and provenance rows. | Must | Inspection | Phase 0 explicitly names CSV as a core registry/ledger format. |
@@ -987,7 +987,7 @@ The following detailed requirements are binding refinements of the core requirem
 | SFA-P0-FR-039 | `Sys4AI` shall not define a standalone JSON wiki by default for JSON Schema files. | Must | Inspection | Phase 0 includes an explicit decision that JSON Schema uses a Validation Contracts Catalog, and a JSON wiki requires future general JSON source/memory artifacts. |
 | SFA-P0-FR-040 | CKMSRA shall require memory retrieval to expose file-format profile, registry row, authority status, validation status, and derivative freshness for governed artifacts where available. | Must | Scenario review | Retrieval examples include structured source evidence and prohibit silent promotion of derivative summaries. |
 | SFA-P0-FR-041 | SVCDA shall define versioning, supersession, hash/provenance, migration, and rollback expectations for configuration sources, control records, and validation contracts. | Must | Inspection | SVCDA includes dedicated entries for configuration, control, and validation-contract artifacts. |
-| SFA-P0-FR-042 | `Sys4AI` shall treat schema validation as process/structure evidence, not domain truth or user acceptance. | Must | Inspection | CLRA/CKMSRA/SVCDA and validator sections state this distinction. |
+| SFA-P0-FR-042 | `Sys4AI` shall treat schema validation as process/structure evidence, not domain truth or user acceptance. | Must | Inspection | BERA/CKMSRA/SVCDA and validator sections state this distinction. |
 | SFA-P0-FR-043 | YAML and TOML examples shall not contain secrets by default. | Must | Security review | Security requirements classify secrets as out of Phase 1 scope unless later PRD controls exist. |
 | SFA-P0-FR-044 | Generated Configuration and Control Wiki pages and Validation Contracts Catalog pages shall include authority banners and source trace. | Must | Inspection | Derivative-page templates include authority notice, source path, registry ID, generator metadata, and stale/orphan status. |
 | SFA-P0-FR-045 | Project-specific format profiles may be added later only through controlled registry, validation, and authority-boundary workflows. | Should | Review | CKMSRA defines project-specific extension workflow and does not allow weakening core authority rules. |
@@ -1005,8 +1005,8 @@ The following detailed requirements are binding refinements of the core requirem
 | SFA-P0-NFR-009 | The framework shall preserve source-first authority by preventing generated retrieval surfaces from silently becoming normative. | Must | Review | Universal rules and CKMSRA require retrieval surfaces to trace back to canonical sources or registries. |
 | SFA-P0-NFR-010 | The framework shall support resumability through tracked state, handoffs, bounded work units, and completion evidence. | Must | Simulation | An authorized runtime actor can determine the lawful next action from registered state and evidence without inferring authority from model identity. |
 | SFA-P0-NFR-011 | The framework shall make stale context detectable and recoverable. | Must | Inspection | Memory preflight, source verification, and derivative regeneration requirements are defined. |
-| SFA-P0-NFR-012 | The framework shall avoid coupling Phase 0 to a specific memory database, wiki engine, SVC provider, orchestration engine, or LLM vendor. | Must | Inspection | CLRA, CKMSRA, and SVCDA define requirements while deferring concrete tooling to Phase 1. |
-| SFA-P0-NFR-013 | The framework shall be auditable after long interruptions or multiple agent handoffs. | Must | Scenario review | Artifact registry, trace ledger, handoff contract, AgentJob contract, and completion receipts preserve source and decision history. |
+| SFA-P0-NFR-012 | The framework shall avoid coupling Phase 0 to a specific memory database, wiki engine, SVC provider, orchestration engine, or LLM vendor. | Must | Inspection | BERA, CKMSRA, and SVCDA define requirements while deferring concrete tooling to Phase 1. |
+| SFA-P0-NFR-013 | The framework shall be auditable after long interruptions or multiple agent handoffs. | Must | Scenario review | Artifact registry, trace ledger, handoff contract, ExecutionTransaction contract, and completion receipts preserve source and decision history. |
 | SFA-P0-NFR-014 | The framework shall make structured artifact authority inspectable by agents and humans. | Must | Simulation | An authorized runtime actor can determine whether a YAML, TOML, CSV, Markdown, or JSON Schema artifact is canonical, controlled, derivative, stale, or invalid. |
 | SFA-P0-NFR-015 | The framework shall minimize parser and schema dependencies while preserving deterministic validation. | Should | Architecture review | Phase 1 dependency policy separates lightweight parser/validator dependencies from heavy runtime services. |
 | SFA-P0-NFR-016 | The framework shall prevent configuration/control/security drift caused by unregistered structured files. | Must | Validation review | Validators detect unregistered governed YAML/TOML/JSON Schema files in controlled roots. |
@@ -1072,9 +1072,9 @@ flowchart TD
     TAS[Target agentic system] --> UI[User interface and interaction surface]
     TAS --> LLM[LLM and model layer]
     TAS --> TOOLS[Tool and external action layer]
-    TAS --> LOOP[Control loop: /continue]
+    TAS --> LOOP[Bounded execution: resume operation]
     LOOP --> STATE[Tracked state and latest handoff]
-    LOOP --> AJ[AgentJob contract]
+    LOOP --> AJ[ExecutionTransaction contract]
     LOOP --> COMP[Completion receipts and validators]
     TAS --> MEM[Source-first memory and knowledge system]
     MEM --> SRC[Canonical sources and registries]
@@ -1169,13 +1169,13 @@ flowchart TD
 | 3 | System Architect | SRD, optional ESAR | ARD | Architecture responds to SRD. |
 | 3a | Requirements Verifier | SRD, ARD | ARD review report | ASRs, views, ADRs, and evidence checked. |
 | 3b | Context, Memory, and Knowledge Architect, optional but recommended | SRD, ARD, ESAR if available | CKMSRA | Source-first memory and knowledge requirements known. |
-| 3c | Control Loop and AgentJob Planner, optional but recommended | SRD, ARD, ESAR if available | CLRA | Continuation and bounded-work requirements known. |
+| 3c | Bounded Execution and ExecutionTransaction Planner, optional but recommended | SRD, ARD, ESAR if available | BERA | Continuation and bounded-work requirements known. |
 | 3d | SVC and Documentation Surface Architect, optional | SRD, ARD, ESAR if available | SVCDA | Source/version-control and derivative-surface requirements known. |
-| 4 | System Engineer | SRD, ARD, optional CLRA, CKMSRA, SVCDA | TRP | Technical requirements are buildable and verifiable. |
-| 4a | Requirements Verifier | SRD, ARD, TRP, optional CLRA, CKMSRA, SVCDA | TRP review report | Traceability and verification checked. |
+| 4 | System Engineer | SRD, ARD, optional BERA, CKMSRA, SVCDA | TRP | Technical requirements are buildable and verifiable. |
+| 4a | Requirements Verifier | SRD, ARD, TRP, optional BERA, CKMSRA, SVCDA | TRP review report | Traceability and verification checked. |
 | 5 | System Analyst / Reconciliation Analyst | USRD, TRP | RSRD | User wants and technical obligations reconciled. |
 | 6 | System Architect / Reconciled Architecture Architect | RSRD, ARD | RARD | Architecture updated to match reconciled requirements. |
-| 7 | System Engineer / Final System Requirements Packager | RSRD, RARD, optional CLRA, CKMSRA, SVCDA | SRP | Implementation-ready package complete. |
+| 7 | System Engineer / Final System Requirements Packager | RSRD, RARD, optional BERA, CKMSRA, SVCDA | SRP | Implementation-ready package complete. |
 | 8 | System Director | All artifacts | Design readiness report | Phase 0 closed and ready for separate Phase 1 artifact. |
 
 ---
@@ -1207,7 +1207,7 @@ The role model shall be represented as controlled role data first and reader-fac
 | Security, Safety, Privacy, and Compliance Reviewer | Sensitive, regulated, production, autonomous, or high-impact target agentic systems. | Maps threat, hazard, privacy, compliance, data-handling, and AI/ML risk controls to evidence obligations and reviews production-promotion and retirement evidence. |
 | Documentation Librarian / Configuration Controller | Any project with multiple artifacts, versions, or agent handoffs. | Maintains artifact index, ID registry, template consistency, change log, and release bundles. |
 | Runtime and Maintenance Planner | When a target system must run, be maintained, improve, or retire over time. | Defines Run, Maintain, Improve, and Retire stage obligations; monitoring, evaluation, incident, recovery, maintenance, promotion, data-disposition, authority-withdrawal, and retirement evidence. |
-| Control Loop and AgentJob Planner | When the target system must resume work, dispatch sub-agents, or constrain tool-using actions. | Defines `/continue`, tracked state, AgentJob schema needs, completion evidence, validator gates, stop conditions, and handoff semantics. |
+| Bounded Execution and ExecutionTransaction Planner | When the target system must resume work, dispatch sub-agents, or constrain tool-using actions. | Defines `resume operation`, tracked state, ExecutionTransaction schema needs, completion evidence, validator gates, stop conditions, and handoff semantics. |
 | Context, Memory, and Knowledge Architect | When the target system needs durable knowledge, project memory, generated documentation, or retrieval. | Defines source authority, registries, context preflight, generated wikis, file-type derivative surfaces, retrieval limits, and source-verification rules. |
 | SVC and Documentation Surface Architect | When the target system has controlled sources, generated docs, or multi-file artifacts. | Defines markdown-like authoring, source/version control, supersession, derivative regeneration, PDF/TeX/HTML/wiki authority boundaries, and release evidence. |
 
@@ -1224,14 +1224,14 @@ Every role shall obey these rules unless the System Director explicitly override
 | Prefer measurable acceptance | Every requirement should have a verification method and acceptance criterion before baseline. |
 | Keep artifact boundaries clean | USRD captures user wants. SRD captures system obligations. ARD captures architectural response. TRP and SRP capture implementable technical requirements. |
 | Clarify framework versus target | Every artifact must make clear whether it describes `Sys4AI` or the target agentic system. |
-| Classify system layer first | Work that changes controlled artifacts, AgentJobs, roles, skills, validators, registries, or generated derivatives must declare whether it concerns the development system, framework product, target-system template, target-system instance, or derivative surface. |
+| Classify system layer first | Work that changes controlled artifacts, ExecutionTransactions, roles, skills, validators, registries, or generated derivatives must declare whether it concerns the development system, framework product, target-system template, target-system instance, or derivative surface. |
 | Discover before baselining requirements | New or substantially changed system definitions must pass through RDR discovery, or carry a Director decision that waives or substitutes discovery, before USRD baseline. |
 | Treat autonomy as a risk dimension | Agent autonomy, tool permissions, memory, data access, and external actions must be explicit where relevant. |
 | Preserve phase boundaries | Phase 0 produces implementation readiness, not implementation initialization. |
 | Source beats retrieval | Generated memory, wiki notes, local vaults, semantic extracts, summaries, PDFs, HTML, notebooks, and other derivatives are navigation aids unless explicitly baselined as source artifacts. |
-| Verify memory hits | Any retrieved context that influences a requirement, routing decision, claim, AgentJob boundary, or handoff must be checked against a canonical source, registry row, or controlled artifact. |
-| Bound continuation | A continuation invocation should advance at most one authorized AgentJob unless the SRP explicitly defines a safer project-specific transaction model. |
-| Supersede, do not rewrite | Activated Director decisions, AgentJobs, completion records, handoffs, and baseline artifacts should be corrected through supersession rather than silent historical mutation. |
+| Verify memory hits | Any retrieved context that influences a requirement, routing decision, claim, ExecutionTransaction boundary, or handoff must be checked against a canonical source, registry row, or controlled artifact. |
+| Bound continuation | A continuation invocation should advance at most one authorized ExecutionTransaction unless the SRP explicitly defines a safer project-specific transaction model. |
+| Supersede, do not rewrite | Activated Director decisions, ExecutionTransactions, completion records, handoffs, and baseline artifacts should be corrected through supersession rather than silent historical mutation. |
 | Validator success is scoped | A passing validator proves only the defined process or artifact check, not domain truth, scientific validity, business correctness, or safety in production. |
 | Separate pattern from maturity | Coordination topology and operational readiness must use independent fields, evidence, decisions, and review triggers. |
 | Fail closed on promotion | Prototype evidence, architecture choice, or framework capability never implies production approval or operation. |
@@ -1273,7 +1273,7 @@ For a serious reusable target agentic system, include the support roles triggere
 | `design-phase-readiness-report.md` | Phase 0 closure report with readiness, risks, unresolved items, and Phase 1 handoff notes. | System Director | Human sponsor, Meta-Agent Runtime, Phase 1 |
 | Agentic System Pattern Decision | Candidate typed Director Decision recording coordination pattern, operational maturity, alternatives, autonomy, roles, integrations, communication, state, reliability, monitoring, security, failure behavior, recovery, and promotion criteria. Concrete contract activation waits for `G-04`. | System Architect with target sponsor, operations, security, and data owners | Implementers, operators, evaluators, release authority |
 | Lifecycle transition evidence | Candidate evidence packet for entry, output, gate, failure, rollback, approval, and next-state claims at material lifecycle transitions. Concrete artifact contract activation waits for `G-04`. | Stage owner and verifier | Next-stage owner, approver, trace owner |
-| CLRA | Defines `/continue`, tracked state, handoffs, AgentJob boundaries, role binding, completion receipts, validators, checkpoint expectations, and stop conditions. | System Architect, System Engineer, Control Loop and AgentJob Planner | Final Packager, Phase 1 |
+| BERA | Defines `resume operation`, tracked state, handoffs, ExecutionTransaction boundaries, role binding, completion receipts, validators, checkpoint expectations, and stop conditions. | System Architect, System Engineer, Bounded Execution and ExecutionTransaction Planner | Final Packager, Phase 1 |
 | CKMSRA | Defines source-first memory, canonical sources, registries, context preflight, retrieval surfaces, generated wikis, derivative artifacts, and stale-context rules. | Context, Memory, and Knowledge Architect | Architect, Engineer, Phase 1 |
 | SVCDA | Defines markdown-like sources, SVC expectations, supersession, generated derivative governance, PDF/TeX/HTML/wiki policies, and release evidence. | Documentation Librarian, SVC and Documentation Surface Architect | Final Packager, Phase 1 |
 
@@ -1291,11 +1291,11 @@ SRD shall include document control, purpose and scope, stakeholders and roles, s
 
 ### 12.3 ARD
 
-ARD shall include purpose and scope, stakeholders and concerns, source SRD baseline, assumptions and constraints, architecture drivers, quality scenarios, agent architecture overview, selected coordination pattern, operational-maturity starting point, Agentic System Pattern Decision, logical architecture, interfaces and integrations, task/state and communication model, data architecture, context/memory/knowledge architecture, control-loop architecture, monitoring, degraded modes, reliability and recovery, SVC and derivative-surface architecture, deployment architecture, security and privacy architecture, promotion criteria, rejected alternatives, ADR index, traceability matrix, risks and mitigations, and acceptance and verification.
+ARD shall include purpose and scope, stakeholders and concerns, source SRD baseline, assumptions and constraints, architecture drivers, quality scenarios, agent architecture overview, selected coordination pattern, operational-maturity starting point, Agentic System Pattern Decision, logical architecture, interfaces and integrations, task/state and communication model, data architecture, context/memory/knowledge architecture, bounded-execution architecture, monitoring, degraded modes, reliability and recovery, SVC and derivative-surface architecture, deployment architecture, security and privacy architecture, promotion criteria, rejected alternatives, ADR index, traceability matrix, risks and mitigations, and acceptance and verification.
 
 ### 12.4 TRP
 
-TRP shall include purpose and scope, applicable documents and precedence, technical context, derivation rules, technical requirements, agent/prompt/skill requirements, control-loop requirements, lifecycle-stage and transition requirements, pattern and maturity implementation requirements, context/memory/knowledge requirements, SVC and derivative-surface requirements, interface and data requirements, deployment and operations requirements, security and compliance requirements, separately labeled test/verification/validation/evaluation obligations, verification matrix, traceability matrix, open issues and assumptions, and sign-off record.
+TRP shall include purpose and scope, applicable documents and precedence, technical context, derivation rules, technical requirements, agent/prompt/skill requirements, bounded-execution requirements, lifecycle-stage and transition requirements, pattern and maturity implementation requirements, context/memory/knowledge requirements, SVC and derivative-surface requirements, interface and data requirements, deployment and operations requirements, security and compliance requirements, separately labeled test/verification/validation/evaluation obligations, verification matrix, traceability matrix, open issues and assumptions, and sign-off record.
 
 ### 12.5 RSRD
 
@@ -1307,19 +1307,19 @@ RARD shall include reconciliation summary, updated architecture drivers, updated
 
 ### 12.7 SRP
 
-SRP shall include purpose and scope, source baseline, final technical requirements, allocation matrix, verification matrix, risk and issue register, implementation readiness matrix, selected coordination pattern, operational maturity, Agentic System Pattern Decision, lifecycle and allowed-transition baseline, production-promotion evidence obligations, retirement obligations, control-loop and AgentJob baseline, context/memory/knowledge baseline, SVC and derivative-surface baseline, Phase 1 handoff block, change-control notes, and sign-off record.
+SRP shall include purpose and scope, source baseline, final technical requirements, allocation matrix, verification matrix, risk and issue register, implementation readiness matrix, selected coordination pattern, operational maturity, Agentic System Pattern Decision, lifecycle and allowed-transition baseline, production-promotion evidence obligations, retirement obligations, bounded-execution and ExecutionTransaction baseline, context/memory/knowledge baseline, SVC and derivative-surface baseline, Phase 1 handoff block, change-control notes, and sign-off record.
 
-### 12.8 CLRA, Control Loop Requirements Annex
+### 12.8 BERA, Bounded Execution Requirements Annex
 
-CLRA may be standalone or embedded in ARD, TRP, RARD, and SRP depending on project size. It shall make the target system run/resume loop explicit before Phase 1 implementation.
+BERA may be standalone or embedded in ARD, TRP, RARD, and SRP depending on project size. It shall make the target system run/resume loop explicit before Phase 1 implementation.
 
 | Section | Contents |
 |---|---|
-| Purpose and scope | Lifecycle stages governed by the control loop and actions outside it. |
-| Continuation command or skill | Generic `/continue` name, allowed aliases, entry conditions, operator expectations, and domain-specific routing names if needed. |
-| State model | Program state, active task, latest handoff, current AgentJob, blocking state, and lifecycle status. |
+| Purpose and scope | Lifecycle stages governed by the bounded execution and actions outside it. |
+| Continuation command or skill | Generic `resume operation` name, allowed aliases, entry conditions, operator expectations, and domain-specific routing names if needed. |
+| State model | Program state, active task, latest handoff, current ExecutionTransaction, blocking state, and lifecycle status. |
 | Director decision model | When a Director decision is required, alternatives recorded, and how supersession works. |
-| AgentJob contract | Objective, role binding, allowed reads, allowed writes, forbidden paths/actions, expected outputs, validators, evidence, and stop conditions. |
+| ExecutionTransaction contract | Objective, role binding, allowed reads, allowed writes, forbidden paths/actions, expected outputs, validators, evidence, and stop conditions. |
 | Role execution model | Registered roles, task overlays, one-job provisional roles, authority boundaries, and expiry. |
 | Memory preflight | Context refresh, retrieval query, source verification, stale-context detection, and receipt evidence. |
 | Completion receipt | Output manifest, changed artifacts, command evidence, validation status, uncertainty, next recommendation, and unresolved issues. |
@@ -1362,7 +1362,7 @@ SVCDA defines how target systems preserve controlled history without letting gen
 | Source and derivative classes | Canonical source, controlled Markdown-like source, control record, generated derivative, local cache, published reader surface, and external source. |
 | Format profile versioning | How core and project-specific format profiles are registered, changed, superseded, and validated. |
 | Versioning model | IDs, versions, baselines, hash strategy, source registry rows, derivative registry rows, and release bundles. |
-| Supersession model | How activated decisions, AgentJobs, completions, handoffs, requirements, and baselined artifacts are corrected without silent mutation. |
+| Supersession model | How activated decisions, ExecutionTransactions, completions, handoffs, requirements, and baselined artifacts are corrected without silent mutation. |
 | Configuration/control/contract governance | Source hashing where practical, registry trace, validation evidence, rollback and migration evidence, and authority limits for TOML, YAML, and JSON Schema artifacts. |
 | Markdown-like authoring model | Required structure for project docs, control sections, explanatory sections, specs, templates, cross-links, and authority markers. |
 | Generated catalog model | Configuration and Control Wiki pages and Validation Contracts Catalog pages, including authority banners, source trace, generator metadata, and stale/orphan handling. |
@@ -1388,10 +1388,10 @@ SVCDA defines how target systems preserve controlled history without letting gen
 | RSRD | `RSRD-FR-001`, `RSRD-NFR-001`, `RSRD-DEC-001` |
 | RARD | `RARD-ASR-001`, `RARD-VIEW-001`, `RADR-001` |
 | SRP | `SRP-FUN-001`, `SRP-INT-001`, `SRP-DEP-001`, `SRP-VER-001` |
-| CLRA | `CLRA-STATE-001`, `CLRA-CONT-001`, `CLRA-AJ-001`, `CLRA-COMP-001`, `CLRA-STOP-001` |
+| BERA | `BERA-STATE-001`, `BERA-CONT-001`, `BERA-TX-001`, `BERA-COMP-001`, `BERA-STOP-001` |
 | CKMSRA | `CKMSRA-SRC-001`, `CKMSRA-REG-001`, `CKMSRA-WIKI-001`, `CKMSRA-RET-001`, `CKMSRA-VER-001` |
 | SVCDA | `SVCDA-SRC-001`, `SVCDA-VER-001`, `SVCDA-DER-001`, `SVCDA-SUP-001`, `SVCDA-CHK-001` |
-| AgentJob/control records | `TASK-001`, `DDR-001`, `AJ-001`, `ROLE-EXEC-001`, `AJC-001`, `HANDOFF-001` |
+| ExecutionTransaction/control records | `TASK-001`, `DDR-001`, `TX-001`, `ROLE-EXEC-001`, `TXC-001`, `HANDOFF-001` |
 | Cross-cutting | `ASSUMP-001`, `RISK-001`, `ISSUE-001`, `TBD-001`, `TBR-001`, `CTRL-001`, `EVAL-001`, `MEM-001`, `DERIV-001`, `SRC-001` |
 | Sys4AI Phase 0 | `SFA-P0-FR-001`, `SFA-P0-NFR-001`, `SFA-P0-RISK-001`, `SFA-P0-ISSUE-001` |
 
@@ -1438,11 +1438,11 @@ handoff:
     - requirement_id:
       method:
       acceptance_evidence:
-  control_loop_notes:
-    continuation_skill: /continue
+  execution_transaction_notes:
+    continuation_skill: resume operation
     program_state_reference:
     latest_handoff_reference:
-    agentjob_id:
+    execution_transaction_id:
     director_decision_id:
     completion_receipt_id:
   memory_preflight:
@@ -1577,7 +1577,7 @@ Rules:
 - Respect the current phase boundary.
 - Treat generated memory, wiki notes, local caches, PDFs, HTML, TeX, notebooks, semantic extracts, and other derivatives as navigation unless the SRP defines them as controlled sources.
 - When retrieved memory affects a decision, verify it against a canonical source, registry row, or controlled artifact.
-- For continuation or tool-using work, define or consume only the bounded AgentJob authorized for this invocation.
+- For continuation or tool-using work, define or consume only the bounded ExecutionTransaction authorized for this invocation.
 
 Exit criteria:
 - <clear checklist>
@@ -1587,7 +1587,7 @@ Return:
 2. A traceability summary.
 3. An assumptions and open-issues register.
 4. A handoff block naming the next recommended role.
-5. Any control-loop, memory, SVC, or derivative-surface implications discovered while doing the role's assigned work.
+5. Any bounded-execution, memory, SVC, or derivative-surface implications discovered while doing the role's assigned work.
 ```
 
 ---
@@ -1601,7 +1601,7 @@ Return:
 | Greenfield target agentic system | Guide the authorized user and Meta-Agent Runtime from user intent through requirements, pattern and maturity selection, architecture, technical packaging, implementation readiness, lifecycle gates, and retirement planning. |
 | Brownfield target agentic system improvement | Analyze current state, preserve what works, identify current pattern and maturity, expose lifecycle and promotion gaps, reconcile requirements, and route an evidence-backed improvement plan. |
 | Agentic-system operation, maintenance, and retirement | Capture requirements for monitoring, evaluation, issue handling, safety controls, prompt/tool updates, regression checks, change control, data disposition, authority withdrawal, dependency shutdown, retained evidence, and notification. |
-| Agentic AI software harness | Require SRP to define LLM, tool, state, memory, policy, user-interface, and control-loop boundaries. |
+| Agentic AI software harness | Require SRP to define LLM, tool, state, memory, policy, user-interface, and bounded-execution boundaries. |
 | Domain-specialized agentic system | Add domain-specific constraints, artifacts, verification, risks, memory sources, file-type surfaces, and continuation policy. |
 
 ### 14.2 Lifecycle coverage
@@ -1663,11 +1663,11 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIF
 | SFA-P0-AC-006 | The PRD includes traceability, issue handling, verification, and handoff rules. | Universal rules, ID scheme, handoff contract. |
 | SFA-P0-AC-007 | The PRD supports cross-domain target agentic systems. | Use cases and domain adapter expectations. |
 | SFA-P0-AC-008 | The PRD explicitly reserves Phase 1 Implementation Initialization for a separate artifact. | Phase boundary and non-scope sections. |
-| SFA-P0-AC-009 | The PRD defines the generic `/continue` control-loop requirement and does not hardcode a research-specific name. | Core requirements and CLRA. |
-| SFA-P0-AC-010 | The PRD requires AgentJob-style bounded execution for resumable or tool-using target systems. | Core requirements, CLRA, ID scheme, and handoff contract. |
+| SFA-P0-AC-009 | The PRD defines the generic `resume operation` bounded-execution requirement and does not hardcode a research-specific name. | Core requirements and BERA. |
+| SFA-P0-AC-010 | The PRD requires ExecutionTransaction-style bounded execution for resumable or tool-using target systems. | Core requirements, BERA, ID scheme, and handoff contract. |
 | SFA-P0-AC-011 | The PRD defines source-first memory and knowledge requirements, including generated wiki and retrieval-surface authority limits. | CKMSRA, universal rules, and requirements. |
 | SFA-P0-AC-012 | The PRD requires Phase 0 roles to determine markdown-like, SVC, PDF, TeX, HTML, notebook, data, and other derivative/file-type wiki needs before Phase 1 implementation. | SVCDA, domain adapter expectations, and Phase 1 handoff expectations. |
-| SFA-P0-AC-013 | The PRD separates process validation from domain truth or claim acceptance. | Universal rules, CLRA, CKMSRA, SVCDA, and detailed requirements. |
+| SFA-P0-AC-013 | The PRD separates process validation from domain truth or claim acceptance. | Universal rules, BERA, CKMSRA, SVCDA, and detailed requirements. |
 | SFA-P0-AC-014 | Python, PyYAML, memory, skill, Obsidian, and improvement-loop requirements are represented as durable core requirements where appropriate. | Core requirement sections 6.5 through 6.12. |
 | SFA-P0-AC-015 | Docker is represented as an environment decision in Phase 1, not an implicit Phase 0 default. | Phase boundary and non-scope sections. |
 | SFA-P0-AC-016 | Target-system runtime containers are distinguished from the development project environment. | Phase boundary and Phase 1 dependency relation. |
@@ -1703,9 +1703,9 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIF
 | SFA-P0-RISK-005 | Phase boundaries may blur. | Phase 0 could become implementation planning prematurely. | Keep Phase 1 implementation initialization in a separate artifact. |
 | SFA-P0-RISK-006 | Run, Maintain, Improve, and Retire concerns may be under-specified or deferred until after build. | Target systems may become unsafe, unmaintainable, irreversible, or impossible to retire cleanly. | Require complete lifecycle contracts and Runtime and Maintenance Planner involvement from Design. |
 | SFA-P0-RISK-007 | Generated memory, wiki notes, semantic caches, local vaults, or PDFs may be treated as authoritative. | Agents may route, claim, or implement from stale summaries. | Require source-first memory, memory-hit verification, derivative classification, and source registries. |
-| SFA-P0-RISK-008 | Continuation may become unbounded or driven by stale chat context. | Agents may perform unauthorized work or lose auditability. | Require `/continue`, tracked state, latest handoff, one bounded AgentJob, completion receipts, and stop conditions. |
-| SFA-P0-RISK-009 | Activated control records may be rewritten to fit later work. | Audit trail and accountability may collapse. | Require supersession rather than silent mutation for activated decisions, AgentJobs, completions, and handoffs. |
-| SFA-P0-RISK-010 | Phase 0 may over-prescribe AEther-specific mechanisms. | Target systems in other domains may inherit physics-specific workflow assumptions. | Generalize to CLRA, CKMSRA, and SVCDA requirements and defer concrete scripts, schemas, and file layouts to Phase 1. |
+| SFA-P0-RISK-008 | Continuation may become unbounded or driven by stale chat context. | Agents may perform unauthorized work or lose auditability. | Require `resume operation`, tracked state, latest handoff, one bounded ExecutionTransaction, completion receipts, and stop conditions. |
+| SFA-P0-RISK-009 | Activated control records may be rewritten to fit later work. | Audit trail and accountability may collapse. | Require supersession rather than silent mutation for activated decisions, ExecutionTransactions, completions, and handoffs. |
+| SFA-P0-RISK-010 | Phase 0 may over-prescribe AEther-specific mechanisms. | Target systems in other domains may inherit physics-specific workflow assumptions. | Generalize to BERA, CKMSRA, and SVCDA requirements and defer concrete scripts, schemas, and file layouts to Phase 1. |
 | SFA-P0-RISK-011 | SVC, markdown-like, PDF, TeX, HTML, notebook, or other derivative requirements may be under-specified. | Phase 1 may build incomplete knowledge/documentation infrastructure. | Require Phase 0 roles to classify needed source and derivative surfaces in SRP. |
 | SFA-P0-RISK-012 | Skill imports may become opaque copies without local authority boundaries. | The framework may inherit stale or mismatched skill behavior. | Require provenance, local adaptation status, validation rules, failure modes, and explicit synchronization tasks. |
 | SFA-P0-RISK-013 | Improvement signals may mutate core authority without governance. | The framework may drift after initial implementation. | Require bounded, routed, validated, and recorded improvement actions. |
@@ -1734,7 +1734,7 @@ The strategic additions introduced by `TX-04-P0-VISION-VALUES` and `TX-05-P0-LIF
 | SFA-P0-ISSUE-003 | What format should domain adapters use? | Domain framework owner | No for Phase 0 | Define a domain-pack template later. |
 | SFA-P0-ISSUE-004 | What evaluation harness should target agentic systems use? | Verification owner | No for Phase 0 | Define initial evaluation scaffolding in Phase 1 or a testing PRD. |
 | SFA-P0-ISSUE-005 | What autonomy and tool-permission levels should be standardized? | Safety and architecture owners | No for Phase 0 | Define policy taxonomy before production use. |
-| SFA-P0-ISSUE-006 | What concrete AgentJob schema, state format, completion format, and handoff format should Phase 1 implement first? | Control-loop owner | No for Phase 0 | Define in Phase 1 Implementation Initialization using CLRA. |
+| SFA-P0-ISSUE-006 | What concrete ExecutionTransaction schema, state format, completion format, and handoff format should Phase 1 implement first? | Control-loop owner | No for Phase 0 | Define in Phase 1 Implementation Initialization using BERA. |
 | SFA-P0-ISSUE-007 | What memory backend, index, wiki generator, local vault, or query tooling should be used first? | Context and knowledge owner | No for Phase 0 | Define in Phase 1 using CKMSRA. |
 | SFA-P0-ISSUE-008 | Which file-type wikis and derivatives are required first: Markdown, TeX, PDF, HTML, notebooks, datasets, diagrams, or others? | Documentation and domain owners | No for Phase 0 | Let Phase 0 roles classify needs per target system and defer tooling to Phase 1. |
 | SFA-P0-ISSUE-009 | Should `SVC` be standardized as source/version control across all `Sys4AI` artifacts? | System Director | No for Phase 0 | Treat as source/version control in Phase 0 and confirm terminology in Phase 1. |
@@ -1762,8 +1762,8 @@ Expected Phase 1 starting concerns include:
 - Prompt and skill packaging.
 - Runtime orchestration assumptions.
 - Agent invocation model.
-- `/continue` command or skill implementation, including tracked state and handoff loading.
-- AgentJob, Director decision, execution-role, completion, validator, and handoff schemas.
+- `resume operation` command or skill implementation, including tracked state and handoff loading.
+- ExecutionTransaction, Director decision, execution-role, completion, validator, and handoff schemas.
 - Source-first memory and knowledge implementation, including registries, source hashes, query/preflight tooling, and stale-context handling.
 - System-layer registry and self-hosting policy initialization for development-system and framework-product work.
 - Discovery-gate initialization, including RDR templates, discovery-record registration, validation, and RDR-to-USRD trace policy.
@@ -1790,7 +1790,7 @@ Expected Phase 1 starting concerns include:
 | Date | Change | Rationale |
 |---|---|---|
 | 2026-07-04 | Created compact draft replacement baseline. | Separated durable core requirements from implementation-initialization requirements. |
-| 2026-07-05 | Promoted this file to canonical Phase 0 baseline and merged July 3 detail. | Eliminates competing Phase 0 authorities while preserving role pipeline, artifact structures, CLRA/CKMSRA/SVCDA detail, risks, and acceptance criteria. |
+| 2026-07-05 | Promoted this file to canonical Phase 0 baseline and merged July 3 detail. | Eliminates competing Phase 0 authorities while preserving role pipeline, artifact structures, BERA/CKMSRA/SVCDA detail, risks, and acceptance criteria. |
 | 2026-07-06 | Added core file-format memory profile requirements for Markdown, CSV, YAML, TOML, and JSON Schema. Added Configuration and Control Wiki and Validation Contracts Catalog requirements. Clarified that JSON Schema uses a validation catalog rather than a standalone JSON wiki by default. | Extends source-first memory architecture with governed configuration, control, registry, and validation-contract profiles. |
 | 2026-07-07 | Added system-layer classification, discovery-gate, RDR, self-hosting, role-governance, and skill-lifecycle requirements. | Establishes requirement authority before registry/schema expansion and runtime-skill implementation. |
 | 2026-07-09 | Migrated the approved four-object identity and canonical product statement; added `SFA-CORE-ID-004` through `007`, the independent runtime-actor distinction, execution-claim guardrail, and updated identity acceptance evidence. | Implements `TX-03-P0-IDENTITY` under `DDR-SFADEV-STRATEGIC-BASELINE-001` without approving candidate vision or core values or claiming runtime implementation. |

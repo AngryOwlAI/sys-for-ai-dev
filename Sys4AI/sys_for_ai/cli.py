@@ -181,7 +181,7 @@ def build_parser() -> argparse.ArgumentParser:
     memory_search_parser.add_argument("--json", action="store_true")
 
     memory_preflight_parser = memory_sub.add_parser("preflight", help="Run memory preflight and optionally write a receipt")
-    memory_preflight_parser.add_argument("--agentjob")
+    memory_preflight_parser.add_argument("--execution-transaction")
     memory_preflight_parser.add_argument("--handoff")
     memory_preflight_parser.add_argument("--query", action="append")
     memory_preflight_parser.add_argument("--write-receipt", action="store_true")
@@ -559,7 +559,7 @@ def _handle_memory_command(args: argparse.Namespace) -> int:
         return _emit_memory_payload(payload, args.json)
     if args.memory_command == "preflight":
         payload = run_memory_preflight(
-            agentjob_id=args.agentjob,
+            execution_transaction_id=args.execution_transaction,
             handoff_id=args.handoff,
             queries=args.query,
             write_receipt=args.write_receipt,

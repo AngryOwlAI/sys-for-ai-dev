@@ -211,7 +211,7 @@ The AgentJob requirements in this subsection preserve implemented historical-com
 
 `SFA-P1-INIT-VAL-001`: Add `make doctor` to check Python, PyYAML, package import, and expected folders.
 
-`SFA-P1-INIT-VAL-002`: Add `make validate-agentjob`, `make validate-skills`, `make bootstrap-memory`, and `make validate`.
+`SFA-P1-INIT-VAL-002`: Provide `make validate-skills`, `make bootstrap-memory`, `make validate-capability-migration`, portable execution-contract tests, and aggregate `make validate`; historical compatibility validation shall not be advertised as a current authoring or runtime command.
 
 `SFA-P1-INIT-VAL-003`: Validation shall be deterministic and runnable offline after dependencies are installed.
 
@@ -453,7 +453,7 @@ Phase 1 initialization is acceptable when:
 
 ### 6.1 Illustrative portable successor
 
-The following requirements-level example replaces AgentJob as the recommended active semantic route. It is not an implemented contract or execution authorization. `TX-09-EXECUTION-CONTRACT` owns the concrete schema, template, compatibility rules, and tests; a later Director Decision or equivalent authorized transaction must bind actual reads, writes, tools, permissions, validators, and acceptance.
+The following requirements-level example describes the recommended active portable route. `TX-09-EXECUTION-CONTRACT` supplies the implemented structural schema, template, and tests; each actual execution still requires a separately authorized transaction that binds reads, writes, tools, permissions, validators, and acceptance evidence.
 
 ```yaml
 execution_transaction_id: TX-P1-STRATEGIC-BASELINE-IMPLEMENTATION-001

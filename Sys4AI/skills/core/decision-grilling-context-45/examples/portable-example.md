@@ -2,11 +2,11 @@
 
 ## Scenario
 
-A `Sys4AI` implementation agent receives an AgentJob requiring `decision_clarification` support.
+A `Sys4AI` implementation agent receives an ExecutionTransaction requiring `decision_clarification` support.
 
 ## Minimal use
 
-1. Read the AgentJob objective and allowed files.
+1. Read the ExecutionTransaction objective and allowed files.
 2. Read canonical sources before generated notes.
 3. On normal invocation without `temp_prd`, run `archive_temp_prd.py --check`; if a prior checkpoint exists, ask before archiving it.
 4. When invoked with `temp_prd`, skip the archive preflight and resume from the checkpoint.

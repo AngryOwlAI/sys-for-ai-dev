@@ -10,7 +10,7 @@ from ..yaml_io import dump_yaml
 
 def build_memory_preflight_receipt(
     *,
-    agentjob_id: str,
+    execution_transaction_id: str,
     queries: list[dict[str, object]],
     canonical_sources_inspected: list[dict[str, object]],
     registry_rows_inspected: list[dict[str, object]],
@@ -22,11 +22,15 @@ def build_memory_preflight_receipt(
     """Build a memory preflight receipt object."""
 
     created_at = _utc_now()
-    receipt_id = f"MEMPREFLIGHT-{_slug(agentjob_id)}-{created_at.replace(':', '').replace('-', '')}"
+    receipt_id = (
+        f"MEMPREFLIGHT-{_slug(execution_transaction_id)}-"
+        f"{created_at.replace(':', '').replace('-', '')}"
+    )
     return {
         "memory_preflight_receipt_id": receipt_id,
-        "schema_version": "0.1.0",
-        "agentjob_id": agentjob_id,
+        "schema_version": "1.0.0",
+        "execution_profile_id": "portable_execution_transaction_v1",
+        "execution_transaction_id": execution_transaction_id,
         "created_at": created_at,
         "status": status,
         "commands_run": commands_run,

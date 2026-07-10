@@ -10,7 +10,7 @@ The current policy is simple:
 2. The `.codex/skills/skill-import-generalizer` workflow is also a core skill-management requirement.
 3. Phase 1 includes product scaffold adapter shells and provenance records.
 4. Root `.agents/skills` is the canonical runtime surface for `Sys4AI-dev`.
-5. Exact upstream synchronization and local adaptation happen through a later explicit AgentJob unless root project authority supersedes this scaffold.
+5. Exact upstream synchronization and local adaptation happen through a later explicit ExecutionTransaction unless root project authority supersedes this scaffold.
 
 Run:
 

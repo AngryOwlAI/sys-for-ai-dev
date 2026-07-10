@@ -10,7 +10,7 @@
 - Primary mission: Maintain skill integration compatibility
 - Primary outputs: `skill-manifest-update`
 - Allowed artifact classes: `skills;registries`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

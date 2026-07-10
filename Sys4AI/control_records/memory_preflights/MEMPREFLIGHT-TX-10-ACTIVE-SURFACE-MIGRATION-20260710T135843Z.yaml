@@ -1,0 +1,76 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-10-ACTIVE-SURFACE-MIGRATION-20260710T135843Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-10-ACTIVE-SURFACE-MIGRATION
+created_at: '2026-07-10T13:58:43Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-10-ACTIVE-SURFACE-MIGRATION --json
+  result: warn
+- command: python -m sys_for_ai.cli memory search 'strategic baseline TX-10 active
+    surface migration' --limit 10 --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search 'portable execution transaction
+    program state roles policies memory' --limit 10 --json
+  result: pass
+queries:
+- query: strategic baseline TX-10 active surface migration
+  returned_object_ids:
+  - SRC-DEV-SKILL-REGISTRY
+  - DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  - SRC-DDR-STRATEGIC-BASELINE-G05-001
+  - ctrl_strategic_baseline_g05_director_decision
+  - SRC-REG-REQ-TRACE
+  - SRC-STRATEGIC-BASELINE-WS00-RECEIPT
+  - SRC-STRATEGIC-BASELINE-MIGRATION-PLAN
+  - DDR-SFADEV-STRATEGIC-BASELINE-001
+  - SRC-DDR-STRATEGIC-BASELINE-001
+  - ctrl_strategic_baseline_director_decision
+- query: portable execution transaction program state roles policies memory
+  returned_object_ids:
+  - SRC-REG-CONTROL-RECORDS
+  - SRC-REG-DERIVATIVES
+  - SRC-REG-SOURCES
+  - SRC-SELFHOST-MEMORY-CONTINUE-PLAN
+  - SRC-STRATEGIC-BASELINE-TX09-RECEIPT
+  - SRC-REG-MEMORY-PREFLIGHT-RECEIPTS
+  - der_configuration_control_yaml
+  - DDR-SFADEV-STRATEGIC-BASELINE-001
+  - SRC-DDR-STRATEGIC-BASELINE-001
+  - ctrl_strategic_baseline_director_decision
+canonical_sources_inspected:
+- path: .agents/skill_registry/SKILL_REGISTRY.yaml
+  registry: source_registry.csv
+  row_id: SRC-DEV-SKILL-REGISTRY
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G05-001.yaml
+  registry: source_registry.csv
+  row_id: SRC-DDR-STRATEGIC-BASELINE-G05-001
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/registries/requirement_trace_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-REQ-TRACE
+  inspected_sections:
+  - registered source metadata
+registry_rows_inspected:
+- path: control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G05-001.yaml
+  registry: director_decision_registry.csv
+  row_id: DDR-SFADEV-STRATEGIC-BASELINE-G05-001
+  purpose: Confirm memory hit registry evidence.
+- path: control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G05-001.yaml
+  registry: control_record_registry.csv
+  row_id: ctrl_strategic_baseline_g05_director_decision
+  purpose: Confirm memory hit registry evidence.
+- path: implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-WS00-001.md
+  registry: source_registry.csv
+  row_id: SRC-STRATEGIC-BASELINE-WS00-RECEIPT
+  purpose: Confirm memory hit registry evidence.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: observed
+  notes: Derivative hit der_configuration_control_yaml requires source inspection.
+usable_for_routing: true

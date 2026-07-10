@@ -4,7 +4,7 @@
 **Status:** draft_discovery_evidence
 **System name:** <system name>
 **Prepared by role:** <role or agent>
-**Authorized by AgentJob:** <AgentJob ID or Director decision ID>
+**Authorized by ExecutionTransaction:** <ExecutionTransaction ID or Director decision ID>
 **Subject system ID:** <system ID>
 **Subject layer:** development_system / framework_product / target_system_template / target_system_instance / derivative_surface
 **Source authority status:** derivative_draft
@@ -88,7 +88,7 @@ Candidate requirements must remain labeled as `REQ-CAND-*` or `NFR-CAND-*` until
 |---|---|---|---|
 | Requirements Discovery Record | Intent or requirements need controlled discovery. | yes / no / later | OPEN-* |
 | Product Requirements Document | Product-facing intent is ready and approved. | yes / no / later | OPEN-* |
-| Implementation plan or AgentJob | Governance adoption is approved. | yes / no / later | OPEN-* |
+| Implementation plan or ExecutionTransaction | Governance adoption is approved. | yes / no / later | OPEN-* |
 | Operations and maintenance planning | Sustainment goals are explicit. | yes / no / later | OPEN-* |
 
 ## 11. Open Questions

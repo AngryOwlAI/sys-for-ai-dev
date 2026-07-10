@@ -10,7 +10,7 @@
 - Primary mission: Reconcile user intent and technical obligations
 - Primary outputs: `RSRD`
 - Allowed artifact classes: `requirements`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

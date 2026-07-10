@@ -1,43 +1,55 @@
 program_state_id: SYS4AI-PROGRAM-STATE-001
-schema_version: 0.1.0
+schema_version: 1.0.0
 system_context:
   framework_system: Sys4AI
   development_system: Sys4AI-dev
   target_system: Sys4AI
   self_hosting_mode: true
   reflection_depth: 1
-current_phase: next_scope_acceptance_closed
+current_phase: strategic_baseline_migration_after_TX_10
 lifecycle_stage: develop
-active_task_id: TASK-SFADEV-NEXT-SCOPE-ACCEPTANCE-001
+active_task_id: null
 active_director_decision_id: null
-active_agentjob_id: null
-latest_completion_receipt_id: RECEIPT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
-latest_handoff_id: HANDOFF-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
-latest_memory_preflight_receipt_id: MEMPREFLIGHT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001
-state_status: complete
+active_execution_transaction_id: null
+execution_profile_id: portable_execution_transaction_v1
+current_state_evidence:
+- TX-10-ACTIVE-SURFACE-MIGRATION
+- RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001
+- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001
+continuation_state: ready
+cancellation_state: not_requested
+escalation_state: not_required
+latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001
+latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001
+latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-10-ACTIVE-SURFACE-MIGRATION-20260710T135843Z
+capability_status_summary:
+  portable_execution_contract: implemented
+  current_state_model: implemented
+  historical_compatibility: implemented
+  removed_runtime_surfaces: absent
+  broader_semantic_validation: deferred
+state_status: active
 blocked_reason: null
 human_gate_required: false
 allowed_next_actions:
 - run_memory_preflight
 - inspect_latest_handoff
-- open_new_director_decision_for_future_work
-- select_phase3_target_system_template_generation_scope
-- select_source_hash_enforcement_hardening_scope
+- execute_TX_11_TRACE_SCHEMA_after_TX_10_shared_baseline
 blocked_actions:
-- execute_multiple_agentjobs
+- execute_multiple_transactions_without_concurrency_authorization
 - use_chat_memory_as_authority
 - treat_generated_derivative_as_canonical
 - mutate_activated_control_record_without_supersession
-- promote_subprd_without_director_decision
-- begin_phase3_without_director_decision
-- mark_deferred_future_scope_complete_without_agentjob
+- treat_historical_execution_evidence_as_current_capability
+- begin_TX_12_before_TX_11_closes
+- claim_TX_13_semantic_validation_complete
 validation_status:
-  last_validated_at: '2026-07-08T23:34:30Z'
+  last_validated_at: '2026-07-10T14:07:34Z'
   validators:
-  - make validate-prd-modules
-  - make validate-requirement-trace
+  - make validate-program-state
+  - make validate-capability-migration
+  - make validate-roles
+  - make validate-control-records
   - make validate-registry-graph
   - make validate-generated-derivatives
-  - make validate-control-records
   - make validate
-  - validate-check-diff

@@ -28,7 +28,7 @@ optional_role_posture:
   - requirements_manager
   - system_director
   - documentation_librarian
-  - control_loop_planner
+  - bounded_execution_planner
 activation:
   triggers:
     - User invokes /init.

@@ -1,12 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/Sys4AI/schemas/contracts/memory_preflight_receipt.schema.json",
-  "title": "Sys4AI memory preflight receipt",
+  "title": "Sys4AI portable memory preflight receipt",
   "type": "object",
   "required": [
     "memory_preflight_receipt_id",
     "schema_version",
-    "agentjob_id",
+    "execution_profile_id",
+    "execution_transaction_id",
     "created_at",
     "status",
     "commands_run",
@@ -18,16 +19,17 @@
   ],
   "properties": {
     "memory_preflight_receipt_id": { "type": "string", "minLength": 1 },
-    "schema_version": { "type": "string", "minLength": 1 },
-    "agentjob_id": { "type": "string", "minLength": 1 },
-    "created_at": { "type": "string", "minLength": 1 },
+    "schema_version": { "const": "1.0.0" },
+    "execution_profile_id": { "const": "portable_execution_transaction_v1" },
+    "execution_transaction_id": { "type": "string", "pattern": "^TX-[A-Z0-9]+(?:-[A-Z0-9]+)*$" },
+    "created_at": { "type": "string", "format": "date-time" },
     "status": { "enum": ["PASS", "PASS_WITH_WARNINGS", "FAIL", "BLOCKED"] },
     "commands_run": { "type": "array", "items": { "type": "object" } },
-    "queries": { "type": "array", "items": { "type": "object" } },
+    "queries": { "type": "array", "minItems": 1, "items": { "type": "object" } },
     "canonical_sources_inspected": { "type": "array", "items": { "type": "object" } },
     "registry_rows_inspected": { "type": "array", "items": { "type": "object" } },
     "stale_context_risks": { "type": "array", "items": { "type": "object" } },
     "usable_for_routing": { "type": "boolean" }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

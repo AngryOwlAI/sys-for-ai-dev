@@ -10,7 +10,7 @@
 - Primary mission: Maintain artifact index IDs derivative policy and source authority
 - Primary outputs: `artifact-index;configuration-control`
 - Allowed artifact classes: `documentation;registries;generated_derivatives`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

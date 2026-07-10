@@ -2,15 +2,15 @@
 
 ## Scenario
 
-A continuation task needs to inspect source-first memory before selecting an AgentJob.
+A continuation task needs to inspect source-first memory before selecting an ExecutionTransaction.
 
 ## Commands
 
 ```bash
 cd Sys4AI
 .venv/bin/python -m sys_for_ai.cli memory status --json
-.venv/bin/python -m sys_for_ai.cli memory search "source-first memory continue handoff AgentJob" --json
-.venv/bin/python -m sys_for_ai.cli memory preflight --agentjob AJ-P1-CONTINUE-SKILLS-001 --query "Phase 9 continue source-first-memory skills" --json
+.venv/bin/python -m sys_for_ai.cli memory search "source-first memory execution transaction handoff" --json
+.venv/bin/python -m sys_for_ai.cli memory preflight --execution-transaction TX-EXAMPLE-MEMORY-PREFLIGHT-001 --query "portable source-first memory routing" --json
 ```
 
 ## Acceptable Evidence

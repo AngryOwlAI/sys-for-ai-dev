@@ -10,7 +10,7 @@
 - Primary mission: Maintain validation evidence compatibility
 - Primary outputs: `validator-update;diff-check`
 - Allowed artifact classes: `validators;tests`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills

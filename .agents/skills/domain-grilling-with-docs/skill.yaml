@@ -25,7 +25,7 @@ optional_role_posture:
   - documentation_librarian
   - requirements_verifier
   - verification_engineer
-  - control_loop_planner
+  - bounded_execution_planner
 activation:
   triggers:
     - Stress-test a decision against project documentation.

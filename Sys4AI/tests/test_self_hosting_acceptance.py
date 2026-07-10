@@ -14,20 +14,23 @@ WORKSPACE_ROOT = PRODUCT_ROOT.parent
 
 
 class SelfHostingAcceptanceTests(unittest.TestCase):
-    def test_program_state_preserves_acceptance_history_after_follow_on_work(self) -> None:
+    def test_program_state_uses_portable_current_execution_fields(self) -> None:
         state = load_yaml(PRODUCT_ROOT / "control_records/program_state.yaml")
 
-        self.assertEqual("complete", state["state_status"])
-        self.assertIsNone(state["active_agentjob_id"])
+        self.assertEqual("active", state["state_status"])
+        self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001",
-            state["latest_completion_receipt_id"],
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX10-001",
+            state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001",
-            state["latest_handoff_id"],
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX10-001",
+            state["latest_handoff_evidence_id"],
         )
+        self.assertEqual("ready", state["continuation_state"])
+        self.assertEqual("not_requested", state["cancellation_state"])
+        self.assertEqual("not_required", state["escalation_state"])
 
         handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")
         completion_rows = _rows(PRODUCT_ROOT / "registries/completion_receipt_registry.csv", "completion_receipt_id")

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/completion_receipt_v1_0.schema.json",
+  "title": "Sys4AI portable completion receipt v1.0",
+  "type": "object",
+  "required": [
+    "completion_receipt_id",
+    "schema_version",
+    "execution_profile_id",
+    "execution_transaction_id",
+    "role",
+    "result",
+    "summary",
+    "changed_artifacts",
+    "validation_evidence",
+    "memory_preflight_receipt_id",
+    "authority_changes",
+    "unresolved_issues",
+    "next_recommendation"
+  ],
+  "properties": {
+    "completion_receipt_id": { "type": "string", "minLength": 1 },
+    "schema_version": { "const": "1.0.0" },
+    "execution_profile_id": { "const": "portable_execution_transaction_v1" },
+    "execution_transaction_id": { "type": "string", "pattern": "^TX-[A-Z0-9]+(?:-[A-Z0-9]+)*$" },
+    "role": { "type": "string", "minLength": 1 },
+    "result": { "enum": ["PASS", "PASS_WITH_WARNINGS", "FAIL", "BLOCKED", "HUMAN_GATED", "SUPERSEDED"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "changed_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "change_summary"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "change_summary": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "validation_evidence": { "type": "object", "minProperties": 1 },
+    "memory_preflight_receipt_id": { "type": "string", "minLength": 1 },
+    "authority_changes": { "type": "object" },
+    "unresolved_issues": { "type": "array", "items": { "type": "string" } },
+    "next_recommendation": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

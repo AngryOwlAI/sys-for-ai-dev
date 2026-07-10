@@ -4,24 +4,16 @@
   "title": "Completion receipt registry row",
   "type": "object",
   "required": [
-    "completion_receipt_id",
-    "path",
-    "agentjob_id",
-    "result",
-    "validation_status",
-    "changed_artifacts_count",
-    "next_handoff_id",
-    "source_hash",
-    "last_validated_at",
-    "notes"
+    "completion_receipt_id", "path", "execution_profile",
+    "execution_transaction_id", "legacy_execution_id", "result",
+    "validation_status", "changed_artifacts_count", "next_handoff_id",
+    "source_hash", "last_validated_at", "notes"
   ],
   "properties": {
     "completion_receipt_id": { "type": "string", "minLength": 1 },
     "path": { "type": "string", "minLength": 1 },
-    "agentjob_id": { "type": "string", "minLength": 1 },
-    "result": {
-      "enum": ["PASS", "PASS_WITH_WARNINGS", "FAIL", "BLOCKED", "HUMAN_GATED", "SUPERSEDED"]
-    }
+    "execution_profile": { "enum": ["portable_execution_transaction_v1", "legacy_execution_v0_2"] },
+    "result": { "enum": ["PASS", "PASS_WITH_WARNINGS", "FAIL", "BLOCKED", "HUMAN_GATED", "SUPERSEDED"] }
   },
   "additionalProperties": { "type": "string" }
 }

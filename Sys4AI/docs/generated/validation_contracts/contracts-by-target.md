@@ -49,6 +49,9 @@ page_metadata:
     - contract_host_capability_profile
     - contract_execution_transaction
     - contract_capability_migration_manifest
+    - contract_memory_preflight_receipt_v0_1
+    - contract_completion_receipt_v1_0
+    - contract_handoff_v1_0
   generated_at: 2026-07-06T00:00:00Z
   generator: sys_for_ai.derivatives.validation_contracts_catalog:0.1.0
   stale_or_orphan_status: current
@@ -68,7 +71,7 @@ Validation contracts prove structural conformance only. They do not prove semant
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_agentjob_registry_row | schemas/contracts/agentjob_registry_row.schema.json | 2020-12 | csv | agentjob_registry_row | registries/agentjob_registry.csv | archived-no-active-cli | control_loop | controlled | pending | pending |
+| contract_agentjob_registry_row | schemas/contracts/agentjob_registry_row.schema.json | 2020-12 | csv | agentjob_registry_row | registries/agentjob_registry.csv | archived-no-active-cli | control_loop | historical | pending | pending |
 
 ## csv / artifact_contract_registry_row
 
@@ -236,25 +239,26 @@ Validation contracts prove structural conformance only. They do not prove semant
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_agentjob | schemas/contracts/agentjob.schema.json | 2020-12 | yaml | agentjob | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | controlled | pending | pending |
+| contract_agentjob | schemas/contracts/agentjob.schema.json | 2020-12 | yaml | agentjob | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | historical | pending | pending |
 
 ## yaml / agentjob_v0_2
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_agentjob_v0_2 | schemas/contracts/agentjob_v0_2.schema.json | 2020-12 | yaml | agentjob_v0_2 | control_records/agentjobs/*.yaml | archived-no-active-cli | control_loop | controlled | pending | pending |
+| contract_agentjob_v0_2 | schemas/contracts/agentjob_v0_2.schema.json | 2020-12 | yaml | agentjob_v0_2 | control_records/agentjobs/*.yaml | archived-no-active-cli | control_loop | historical | pending | pending |
 
 ## yaml / completion_receipt
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_completion_receipt | schemas/contracts/completion_receipt.schema.json | 2020-12 | yaml | completion_receipt | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | controlled | pending | pending |
+| contract_completion_receipt | schemas/contracts/completion_receipt.schema.json | 2020-12 | yaml | completion_receipt | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | historical | pending | pending |
+| contract_completion_receipt_v1_0 | schemas/contracts/completion_receipt_v1_0.schema.json | 2020-12 | yaml | completion_receipt | control_records/completions/*.yaml | Sys4AI validate-completion-receipts | verification_engineer | controlled | pending | pending |
 
 ## yaml / completion_receipt_v0_2
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_completion_receipt_v0_2 | schemas/contracts/completion_receipt_v0_2.schema.json | 2020-12 | yaml | completion_receipt_v0_2 | control_records/completions/*.yaml | Sys4AI validate-completion-receipts | control_loop | controlled | pending | pending |
+| contract_completion_receipt_v0_2 | schemas/contracts/completion_receipt_v0_2.schema.json | 2020-12 | yaml | completion_receipt_v0_2 | control_records/completions/*.yaml | Sys4AI validate-completion-receipts | control_loop | historical | pending | pending |
 
 ## yaml / director_decision
 
@@ -272,13 +276,20 @@ Validation contracts prove structural conformance only. They do not prove semant
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_handoff | schemas/contracts/handoff.schema.json | 2020-12 | yaml | handoff | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | controlled | pending | pending |
+| contract_handoff | schemas/contracts/handoff.schema.json | 2020-12 | yaml | handoff | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | historical | pending | pending |
+| contract_handoff_v1_0 | schemas/contracts/handoff_v1_0.schema.json | 2020-12 | yaml | handoff | control_records/handoffs/*.yaml | Sys4AI validate-handoffs | bounded_execution_planner | controlled | pending | pending |
 
 ## yaml / handoff_v0_2
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_handoff_v0_2 | schemas/contracts/handoff_v0_2.schema.json | 2020-12 | yaml | handoff_v0_2 | control_records/handoffs/*.yaml | Sys4AI validate-handoffs | control_loop | controlled | pending | pending |
+| contract_handoff_v0_2 | schemas/contracts/handoff_v0_2.schema.json | 2020-12 | yaml | handoff_v0_2 | control_records/handoffs/*.yaml | Sys4AI validate-handoffs | control_loop | historical | pending | pending |
+
+## yaml / historical_memory_preflight_receipt
+
+| contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contract_memory_preflight_receipt_v0_1 | schemas/contracts/memory_preflight_receipt_v0_1.schema.json | 2020-12 | yaml | historical_memory_preflight_receipt | control_records/memory_preflights/*.yaml | Sys4AI validate-memory-preflight | source_first_memory | historical | pending | pending |
 
 ## yaml / memory_preflight_receipt
 
@@ -296,7 +307,7 @@ Validation contracts prove structural conformance only. They do not prove semant
 
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| contract_state_snapshot | schemas/contracts/state_snapshot.schema.json | 2020-12 | yaml | state_snapshot | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | controlled | pending | pending |
+| contract_state_snapshot | schemas/contracts/state_snapshot.schema.json | 2020-12 | yaml | state_snapshot | control_records/**/*.yaml | Sys4AI validate-jsonschema-contracts | implementation_initialization | historical | pending | pending |
 
 ## Known Limitations
 

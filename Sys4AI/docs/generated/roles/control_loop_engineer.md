@@ -7,10 +7,10 @@
 - Role ID: `control_loop_engineer`
 - Role class: `temporary_legacy_role`
 - System layer scope: `development_system;framework_product`
-- Primary mission: Maintain legacy self hosting control evidence compatibility
+- Primary mission: Maintain read-only historical self-hosting control evidence compatibility
 - Primary outputs: `legacy-control-record-review`
 - Allowed artifact classes: `control_records;validators`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `true`
 
 ## Registry Skills
@@ -27,6 +27,6 @@ No role-skill crosswalk bindings are registered for this role.
 
 | Binding ID | Binding Scope | Required Validators | Expiry Policy |
 |---|---|---|---|
-| bind_control_loop_engineer | legacy_selfhost_control_loop | make validate | expires with self hosting legacy control records |
+| bind_control_loop_engineer | legacy_selfhost_control_loop | make validate | read-only until historical validators are retired |
 
 Canonical inputs remain the three role registries listed in the notice.

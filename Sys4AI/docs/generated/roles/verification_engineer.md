@@ -10,7 +10,7 @@
 - Primary mission: Create and run validation evidence
 - Primary outputs: `validation-report`
 - Allowed artifact classes: `validation;tests`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

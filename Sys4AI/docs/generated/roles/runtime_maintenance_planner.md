@@ -10,7 +10,7 @@
 - Primary mission: Define operations monitoring updates and maintenance
 - Primary outputs: `maintenance-plan`
 - Allowed artifact classes: `operations;maintenance`
-- Legacy AgentJob creation enabled: `false`
+- Execution transaction creation enabled: `false`
 - Requires Director decision: `false`
 
 ## Registry Skills

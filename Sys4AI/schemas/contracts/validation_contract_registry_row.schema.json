@@ -11,6 +11,7 @@
     "target_artifact_type",
     "target_glob",
     "authority_status",
+    "lifecycle_status",
     "owner",
     "validator_command",
     "supersedes",
@@ -23,7 +24,8 @@
     "path": { "type": "string", "minLength": 1 },
     "dialect": { "enum": ["2020-12"] },
     "target_format": { "enum": ["yaml", "toml", "csv", "json", "markdown"] },
-    "authority_status": { "enum": ["controlled", "canonical", "canonical_draft", "draft"] }
+    "authority_status": { "enum": ["controlled", "canonical", "canonical_draft", "draft", "historical"] },
+    "lifecycle_status": { "enum": ["current", "historical", "deprecated", "superseded"] }
   },
   "additionalProperties": { "type": "string" }
 }

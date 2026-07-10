@@ -52,6 +52,7 @@ This generated page summarizes role governance registries and execution binding 
 | documentation_librarian | framework_governance | source-authority-auditor;skill-import-generalizer | technical-writing-quality-gate | false | false |
 | runtime_maintenance_planner | maintenance | operations-and-maintenance-planner | evaluation-harness-designer | false | false |
 | control_loop_agentjob_planner | runtime_control | context-window-and-handoff-manager | director-decision-governor | false | true |
+| bounded_execution_planner | runtime_control | context-window-and-handoff-manager;baseline-change-manager | director-decision-governor | true | true |
 | context_memory_knowledge_architect | system_design_support | source-first-memory;source-authority-auditor | artifact-contract-governance | false | false |
 | svc_documentation_surface_architect | system_design_support | source-authority-auditor;baseline-change-manager | technical-writing-quality-gate | false | false |
 | implementation_initialization_agent | implementation | prd-to-implementation-plan | source-first-memory | false | true |
@@ -87,6 +88,7 @@ This generated page summarizes role governance registries and execution binding 
 | documentation_librarian | 3 | 0 | 0 | 0 | 0 |
 | runtime_maintenance_planner | 1 | 1 | 0 | 0 | 0 |
 | control_loop_agentjob_planner | 2 | 0 | 0 | 0 | 0 |
+| bounded_execution_planner | 2 | 0 | 0 | 0 | 0 |
 | context_memory_knowledge_architect | 2 | 0 | 0 | 0 | 0 |
 | svc_documentation_surface_architect | 1 | 0 | 0 | 0 | 0 |
 | implementation_initialization_agent | 0 | 0 | 0 | 0 | 0 |
@@ -121,7 +123,8 @@ This generated page summarizes role governance registries and execution binding 
 | security_safety_privacy_compliance_reviewer | pending | pending | pending | pending |
 | documentation_librarian | bind_documentation_librarian | configuration_control;runtime_skill_reconciliation | validate-generated-derivatives;validate-registry-graph | registry rows;generated derivative check |
 | runtime_maintenance_planner | pending | pending | pending | pending |
-| control_loop_agentjob_planner | bind_control_loop_agentjob_planner | legacy_control_review;handoff_planning | validate-handoffs;validate-registry-graph | authorization rationale;handoff |
+| control_loop_agentjob_planner | bind_control_loop_agentjob_planner | legacy_control_review;handoff_planning | validate-handoffs;validate-registry-graph | historical review evidence |
+| bounded_execution_planner | bind_bounded_execution_planner | baseline_migration;implementation;validation;handoff_planning | make validate;validate-capability-migration | execution transaction;completion evidence;handoff |
 | context_memory_knowledge_architect | pending | pending | pending | pending |
 | svc_documentation_surface_architect | pending | pending | pending | pending |
 | implementation_initialization_agent | bind_implementation_initialization_agent | implementation_initialization | make validate | completion receipt;handoff |
@@ -129,7 +132,7 @@ This generated page summarizes role governance registries and execution binding 
 | software_engineer | bind_software_engineer | implementation | make validate | code change;test evidence |
 | system_engineer | bind_system_engineer | prd_integration;requirements_trace | validate-requirement-trace | trace rows;completion receipt |
 | system_analyst | pending | pending | pending | pending |
-| control_loop_engineer | bind_control_loop_engineer | legacy_selfhost_control_loop | make validate | completion receipt;handoff |
+| control_loop_engineer | bind_control_loop_engineer | legacy_selfhost_control_loop | make validate | historical validation evidence |
 | validator_engineer | bind_validator_engineer | legacy_validation | make validate | validation evidence;handoff |
 | derivative_generator_engineer | bind_derivative_generator_engineer | legacy_derivative_generation | validate-generated-derivatives;validate-registry-graph | generated docs;registry rows |
 | skill_surface_engineer | bind_skill_surface_engineer | legacy_skill_surface | validate-dev-skills;validate-skills | skill manifests;registry rows |

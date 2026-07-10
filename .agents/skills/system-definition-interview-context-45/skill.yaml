@@ -22,12 +22,12 @@ required_role_posture:
   - system_engineer
   - software_engineer
   - requirements_verifier
-  - control_loop_planner
+  - bounded_execution_planner
 optional_role_posture:
   - documentation_librarian
   - requirements_verifier
   - verification_engineer
-  - control_loop_planner
+  - bounded_execution_planner
 activation:
   triggers:
     - Start the default discovery gate for a new or substantially changed system definition.

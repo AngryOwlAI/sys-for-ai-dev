@@ -21,12 +21,12 @@ required_role_posture:
   - system_engineer
   - software_engineer
   - documentation_librarian
-  - control_loop_planner
+  - bounded_execution_planner
 optional_role_posture:
   - documentation_librarian
   - requirements_verifier
   - verification_engineer
-  - control_loop_planner
+  - bounded_execution_planner
 activation:
   triggers:
     - Run documentation-aware grilling where context limits may matter.

@@ -405,7 +405,7 @@ def _role_governance_summary_page(
                         row.get("role_class", ""),
                         row.get("required_skills", ""),
                         row.get("optional_skills", ""),
-                        row.get("may_create_agentjobs", ""),
+                        row.get("may_create_execution_transactions", ""),
                         row.get("requires_director_decision", ""),
                     ]
                     for row in role_rows
@@ -433,7 +433,7 @@ def _role_governance_summary_page(
                     [
                         row.get("role_id", ""),
                         bindings_by_role.get(row.get("role_id", ""), {}).get("binding_id", "pending"),
-                        bindings_by_role.get(row.get("role_id", ""), {}).get("allowed_agentjob_types", "pending"),
+                        bindings_by_role.get(row.get("role_id", ""), {}).get("allowed_transaction_types", "pending"),
                         bindings_by_role.get(row.get("role_id", ""), {}).get("required_validators", "pending"),
                         bindings_by_role.get(row.get("role_id", ""), {}).get("completion_evidence", "pending"),
                     ]

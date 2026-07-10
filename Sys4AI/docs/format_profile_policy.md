@@ -26,7 +26,7 @@ YAML and TOML artifacts are surfaced through the generated Configuration and Con
 
 ## Promotion Workflow
 
-Generated derivatives, local vault notes, semantic caches, and summaries do not become canonical unless a future AgentJob explicitly promotes them through a source-authority workflow.
+Generated derivatives, local vault notes, semantic caches, and summaries do not become canonical unless a future ExecutionTransaction explicitly promotes them through a source-authority workflow.
 
 ## Security And Secrets Rules
 
