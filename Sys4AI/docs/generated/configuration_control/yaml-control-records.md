@@ -25,6 +25,7 @@ page_metadata:
     - contract_memory_preflight_receipt
     - contract_memory_preflight_receipt_v0_1
     - contract_program_state
+    - contract_skill_import_manifest
     - contract_state_snapshot
   generated_at: 2026-07-11T14:12:24Z
   generator: sys_for_ai.derivatives.config_control_wiki:0.1.0
@@ -45,7 +46,7 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_skill_sync_agentjob | control_records/agentjobs/AJ-P1-SKILL-SYNC-001.yaml | agentjob | historical | skill_governance | contract_agentjob | pending |
 | ctrl_codex_metrics_agentjob | control_records/agentjobs/AJ-P1-CODEX-METRICS-ADAPT-001.yaml | agentjob | historical | runtime_session_accounting | contract_agentjob | pending |
 | ctrl_system_definition_template_agentjob | control_records/agentjobs/AJ-P1-SYSTEM-DEFINITION-TEMPLATE-001.yaml | agentjob | historical | system_definition | contract_agentjob | pending |
-| ctrl_skill_import_manifest | control_records/examples/skill_import_manifest.yaml | skill_import_manifest | controlled | skill_governance | pending | pending |
+| ctrl_skill_import_manifest | control_records/examples/skill_import_manifest.yaml | skill_import_manifest | controlled | skill_governance | contract_skill_import_manifest | pending |
 | ctrl_handoff_example | control_records/examples/handoff.example.yaml | handoff | historical | implementation_initialization | contract_handoff | pending |
 | ctrl_completion_receipt_example | control_records/examples/completion_receipt.example.yaml | completion_receipt | historical | implementation_initialization | contract_completion_receipt | pending |
 | ctrl_state_snapshot_example | control_records/examples/state_snapshot.example.yaml | state_snapshot | historical | implementation_initialization | contract_state_snapshot | pending |
@@ -272,6 +273,11 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx26_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-26-LOCAL-EVIDENCE-PYTHON-PACKAGE-20260711T171757Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx26_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX26-001.yaml | completion_receipt | controlled | verification_engineer | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx26_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001.yaml | handoff | controlled | verification_engineer | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_g11_yaml_control_decision | control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G11-004.yaml | director_decision | controlled | system_director | contract_director_decision | pending |
+| ctrl_strategic_baseline_tx27_execution_transaction | control_records/execution_transactions/TX-27-LOCAL-EVIDENCE-YAML-CONTROL.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx27_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-27-LOCAL-EVIDENCE-YAML-CONTROL-20260711T174814Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx27_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX27-001.yaml | completion_receipt | controlled | verification_engineer | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx27_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX27-001.yaml | handoff | controlled | verification_engineer | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 
@@ -290,6 +296,7 @@ Registered YAML control records are listed below. Their source files and registr
 | contract_memory_preflight_receipt | schemas/contracts/memory_preflight_receipt.schema.json | yaml | memory_preflight_receipt | Sys4AI validate-memory-preflight |
 | contract_memory_preflight_receipt_v0_1 | schemas/contracts/memory_preflight_receipt_v0_1.schema.json | yaml | historical_memory_preflight_receipt | Sys4AI validate-memory-preflight |
 | contract_program_state | schemas/contracts/program_state.schema.json | yaml | program_state | Sys4AI validate-program-state |
+| contract_skill_import_manifest | schemas/contracts/skill_import_manifest.schema.json | yaml | skill_import_manifest | Sys4AI validate-yaml-control-surface |
 | contract_state_snapshot | schemas/contracts/state_snapshot.schema.json | yaml | state_snapshot | Sys4AI validate-jsonschema-contracts |
 
 ## Allowed Promotion Path

@@ -21,11 +21,11 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX26-001",
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX27-001",
             state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001",
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX27-001",
             state["latest_handoff_evidence_id"],
         )
         self.assertEqual("blocked", state["continuation_state"])
@@ -46,6 +46,10 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertEqual(
             "accepted_TX_26_4_of_4",
             state["capability_status_summary"]["python_package_verification"],
+        )
+        self.assertEqual(
+            "accepted_TX_27_11_of_11",
+            state["capability_status_summary"]["yaml_control_verification"],
         )
 
         handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")
@@ -72,6 +76,8 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX25-001", handoff_rows)
         self.assertIn("RECEIPT-SFADEV-STRATEGIC-BASELINE-TX26-001", completion_rows)
         self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001", handoff_rows)
+        self.assertIn("RECEIPT-SFADEV-STRATEGIC-BASELINE-TX27-001", completion_rows)
+        self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX27-001", handoff_rows)
         self.assertIn("RECEIPT-P1-SELFHOST-ACCEPTANCE-001", completion_rows)
         self.assertIn("RECEIPT-SYS4AI-DEV-NAME-MIGRATION-001", completion_rows)
         self.assertIn("RECEIPT-SFADEV-20-WALKING-SKELETON-FLOW-001", completion_rows)

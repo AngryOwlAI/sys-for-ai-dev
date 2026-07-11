@@ -40,6 +40,7 @@ from .prd_semantics import validate_prd_semantics
 from .python_package_surface import validate_python_package_surface
 from .safety_evaluation import validate_safety_evaluation
 from .strategic_intent import validate_strategic_intent
+from .yaml_control_surface import validate_yaml_control_surface
 from .walking_skeleton import (
     validate_walking_skeleton_flow,
     walking_skeleton_status,
@@ -417,6 +418,16 @@ def build_parser() -> argparse.ArgumentParser:
     validate_python_package.add_argument("--pyproject", default="pyproject.toml")
     validate_python_package.add_argument("--requirements", default="requirements.txt")
 
+    validate_yaml_control = sub.add_parser(
+        "validate-yaml-control-surface",
+        help="Verify the bounded YAML control/state and safe-parsing family",
+    )
+    validate_yaml_control.add_argument("--pyproject", default="pyproject.toml")
+    validate_yaml_control.add_argument("--format-profiles", default="registries/format_profile_registry.csv")
+    validate_yaml_control.add_argument("--control-records", default="registries/control_record_registry.csv")
+    validate_yaml_control.add_argument("--policy", default="docs/configuration_control_wiki_policy.md")
+    validate_yaml_control.add_argument("--python-root", default="sys_for_ai")
+
     validate_plan_scope = sub.add_parser(
         "validate-plan-interpretation",
         help="Validate the controlled 410-row G-11 future-work disposition",
@@ -648,6 +659,17 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "validate-python-package-surface":
         return print_result(validate_python_package_surface(args.pyproject, args.requirements))
 
+    if args.command == "validate-yaml-control-surface":
+        return print_result(
+            validate_yaml_control_surface(
+                args.pyproject,
+                args.format_profiles,
+                args.control_records,
+                args.policy,
+                args.python_root,
+            )
+        )
+
     if args.command == "validate-plan-interpretation":
         return print_result(validate_plan_interpretation(args.trace, args.ledger, args.registry))
 
@@ -719,6 +741,7 @@ def main(argv: list[str] | None = None) -> int:
         result.extend(validate_requirement_trace(args.requirement_trace))
         result.extend(validate_requirement_trace_migration(args.requirement_trace))
         result.extend(validate_python_package_surface())
+        result.extend(validate_yaml_control_surface())
         result.extend(validate_prd_modules(args.prd_modules))
         result.extend(check_governance_generated_docs())
         result.extend(validate_generated_derivatives(args.generated_docs, "registries/derivative_registry.csv"))

@@ -1,0 +1,94 @@
+director_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-004
+schema_version: 0.1.0
+decision_status: completed
+created_at: '2026-07-11T17:49:49Z'
+completed_at: '2026-07-11T17:49:49Z'
+director_role: system_director
+human_authorization:
+  principal_name: Alex Omegapy
+  principal_role: repository_maintainer_and_product_owner
+  authority_basis: The accountable human explicitly authorized one bounded family among the 63 remaining local verification obligations after TX-26.
+  approval_evidence: 'Human-issued Codex task instruction dated 2026-07-11: I authorize one bounded family among the remaining 63 local verifications.'
+  approval_scope:
+  - execute exactly the eleven-row YAML control/state and safe-parsing verification family
+  - advance verification state only where exact current local evidence passes
+  - repair only a directly blocking contract gap inside the selected YAML family
+  - preserve the frozen TX-23 ledger and all 410 TX-25 future-work dispositions
+  - preserve waiver G-10 production operational stakeholder domain target-runtime and permission gates
+  model_self_approval: false
+decision_context:
+  trigger: accountable_local_evidence_family_selection
+  transaction_id: TX-27-LOCAL-EVIDENCE-YAML-CONTROL
+  gate_id: G-11-EVIDENCE-SCOPE
+  program_state_id: SYS4AI-PROGRAM-STATE-001
+  latest_handoff_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001
+  plan_source_id: SRC-EVIDENCE-CLOSURE-PLAN-TX23
+  governing_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+  prior_gate_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-003
+  reviewed_head_commit: 53eaa198be20a878fb0ca52f6d5975ffe702e931
+  memory_preflight_receipt_id: MEMPREFLIGHT-TX-27-LOCAL-EVIDENCE-YAML-CONTROL-20260711T174814Z
+  observed_evidence:
+  - TX-26 is complete and leaves exactly 63 locally executable verification obligations.
+  - SFA-CORE-YAML-001 through 010 and SFA-P0-FR-033 are implemented covered planned and bind to one YAML control/state surface.
+  - The focused pre-acceptance check exposed one registered skill-import manifest without an executable validation contract.
+  - The repaired surface passes safe parser registry contract policy generated-index and negative-test checks.
+selected_route:
+  route_id: authorize_bounded_TX_27_yaml_control_verification
+  route_name: Execute the eleven-row YAML control/state and safe-parsing verification family
+  rationale: This is the first dependency-ready family in live trace order. The eleven rows share one control registry one format policy one parser boundary one rollback surface and one reviewer class.
+  immediate_effect: TX-27 may record exactly eleven planned-to-pass verification transitions with executed evidence. No other trace state waiver plan interpretation or authority changes.
+rejected_routes:
+- route_id: execute_all_63_local_verifications
+  reason: A bulk packet would cross unrelated format catalog and generated-control evidence families and obscure review and rollback.
+- route_id: add_cross_version_python_CI
+  reason: Cross-version Python CI strengthens TX-26 but is a separate package-family change outside the selected YAML family.
+- route_id: execute_external_evidence
+  reason: External metrics stakeholder independent domain and operational evidence remain separately gated.
+- route_id: accept_G10_or_promote_to_production
+  reason: Eleven local YAML checks do not satisfy retained external operational or final reacceptance gates.
+authority_boundary:
+  human_authority_recorded: true
+  accepts_gate_G_11_local_family_route: true
+  authorizes_TX_27_yaml_control_verification: true
+  authorized_local_obligations: 11
+  authorizes_remaining_local_verification_obligations: false
+  changes_410_plan_interpretations: false
+  accepts_any_waiver: false
+  accepts_gate_G_10: false
+  may_claim_production_readiness: false
+  may_grant_operational_authority: false
+  may_claim_broad_stakeholder_consensus: false
+  may_claim_domain_truth_or_domain_acceptance: false
+  may_expand_permissions: false
+  may_rewrite_activated_control_history: false
+supersession:
+  supersedes_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-003
+  scope: Supersedes only the prior prohibition on beginning another local evidence family without separate authorization; preserves completed TX-26 evidence all 410 TX-25 dispositions and every other boundary.
+  preserves:
+  - completed TX-24 semantic evidence
+  - completed TX-26 Python/package evidence
+  - frozen TX-23 ledger
+  - all 410 TX-25 future-work dispositions
+  - G-10 defer production operational stakeholder domain target-runtime and permission boundaries
+rollback_and_review:
+  rollback_class: activating_bounded_verification_scope_decision
+  rollback_scope: Before publication revert the atomic G-11-004 and TX-27 packet. After publication preserve this decision and supersede it only through a new accountable decision.
+  supersession_rule: Any later local family external evidence waiver lifecycle change or G-10 reconsideration requires separate accountable authority.
+  review_triggers:
+  - a twelfth local verification obligation is proposed
+  - YAML parser dependency control registry contract or generated wiki behavior changes
+  - a waiver lifecycle capability coverage or operational claim is proposed
+  expiry: remains current for this completed packet and grants no continuing authority
+evidence_references:
+- implementation_plans/STRATEGIC-BASELINE-MIGRATION-EVIDENCE-CLOSURE-PLAN-SFADEV-TX23.md
+- implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-LOCAL-EVIDENCE-YAML-CONTROL-SFADEV-TX27.md
+- Sys4AI/registries/evidence_closure_plan_registry.csv
+- Sys4AI/registries/requirement_trace_registry.csv
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001.yaml
+- Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-27-LOCAL-EVIDENCE-YAML-CONTROL-20260711T174814Z.yaml
+validators:
+- cd Sys4AI && make validate-yaml-control-surface
+- cd Sys4AI && make validate-local-evidence-execution
+- cd Sys4AI && make validate-requirement-trace-migration
+- make validate
+- git diff --check

@@ -58,6 +58,7 @@ page_metadata:
     - contract_evidence_closure_plan_registry_row
     - contract_local_evidence_execution_registry_row
     - contract_plan_scope_interpretation_registry_row
+    - contract_skill_import_manifest
   generated_at: 2026-07-11T14:12:24Z
   generator: sys_for_ai.derivatives.validation_contracts_catalog:0.1.0
   stale_or_orphan_status: current
@@ -338,6 +339,12 @@ Validation contracts prove structural conformance only. They do not prove semant
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | contract_self_change_safety_evaluation | schemas/contracts/self_change_safety_evaluation.schema.json | 2020-12 | yaml | self_change_safety_evaluation | assurance/meta_agent_self_change_safety_evaluation.yaml | Sys4AI validate-safety-evaluation | verification_engineer | controlled | pending | pending |
+
+## yaml / skill_import_manifest
+
+| contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contract_skill_import_manifest | schemas/contracts/skill_import_manifest.schema.json | 2020-12 | yaml | skill_import_manifest | control_records/examples/skill_import_manifest.yaml | Sys4AI validate-yaml-control-surface | skill_governance | controlled | pending | pending |
 
 ## yaml / state_snapshot
 

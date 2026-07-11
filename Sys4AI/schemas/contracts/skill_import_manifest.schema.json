@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/skill_import_manifest.schema.json",
+  "title": "Sys4AI skill import manifest",
+  "type": "object",
+  "required": [
+    "manifest_id",
+    "status",
+    "source_repo",
+    "local_manifest",
+    "purpose",
+    "import_policy",
+    "validation"
+  ],
+  "properties": {
+    "manifest_id": { "type": "string", "pattern": "^SFA-SKILL-IMPORT-MANIFEST-[0-9]{3}$" },
+    "status": { "enum": ["draft", "controlled", "superseded"] },
+    "source_repo": { "type": "string", "minLength": 1 },
+    "local_manifest": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string", "minLength": 1 },
+    "import_policy": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "additionalProperties": false
+}

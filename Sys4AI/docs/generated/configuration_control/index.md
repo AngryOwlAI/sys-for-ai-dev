@@ -28,6 +28,7 @@ page_metadata:
     - contract_memory_preflight_receipt_v0_1
     - contract_program_state
     - contract_self_hosting_mode
+    - contract_skill_import_manifest
     - contract_state_snapshot
     - contract_sys4ai_config
     - contract_target_project_config
@@ -66,7 +67,7 @@ This generated page indexes registered configuration and control surfaces. It is
 | --- | --- | --- |
 | format profiles | 5 | registries/format_profile_registry.csv |
 | configuration sources | 6 | registries/config_source_registry.csv |
-| control records | 231 | registries/control_record_registry.csv |
+| control records | 236 | registries/control_record_registry.csv |
 
 ## Allowed Promotion Path
 

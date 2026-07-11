@@ -1,0 +1,73 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-27-LOCAL-EVIDENCE-YAML-CONTROL-20260711T174814Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-27-LOCAL-EVIDENCE-YAML-CONTROL
+created_at: '2026-07-11T17:48:14Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-27-LOCAL-EVIDENCE-YAML-CONTROL --json
+  result: warn
+- command: python -m sys_for_ai.cli memory lookup HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001 --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search SRC-REG-CONTROL-RECORDS --limit 10 --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search SRC-REG-FORMAT-PROFILES --limit 10 --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search SRC-REG-REQ-TRACE --limit 10 --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search SRC-EVIDENCE-CLOSURE-PLAN-TX23 --limit 10 --json
+  result: pass
+queries:
+- query: SRC-REG-CONTROL-RECORDS
+  returned_object_ids:
+  - SRC-REG-DERIVATIVES
+  - SRC-MEMORY-PREFLIGHT-REGISTRY-SCHEMA-EXPANSION-001
+- query: SRC-REG-FORMAT-PROFILES
+  returned_object_ids:
+  - SRC-REG-FORMAT-PROFILES
+  - SRC-REG-DERIVATIVES
+- query: SRC-REG-REQ-TRACE
+  returned_object_ids:
+  - SRC-REG-HANDOFFS
+  - SRC-MEMPREFLIGHT-STRATEGIC-BASELINE-TX26
+- query: SRC-EVIDENCE-CLOSURE-PLAN-TX23
+  returned_object_ids:
+  - SRC-EVIDENCE-CLOSURE-PLAN-TX23
+  - SRC-DDR-STRATEGIC-BASELINE-G11-003
+canonical_sources_inspected:
+- path: Sys4AI/registries/control_record_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-CONTROL-RECORDS
+  inspected_sections:
+  - YAML control record metadata and contract bindings
+- path: Sys4AI/registries/format_profile_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-FORMAT-PROFILES
+  inspected_sections:
+  - fmt_yaml_control authority and validation policy
+- path: Sys4AI/registries/requirement_trace_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-REQ-TRACE
+  inspected_sections:
+  - eleven implemented covered planned YAML rows
+- path: implementation_plans/STRATEGIC-BASELINE-MIGRATION-EVIDENCE-CLOSURE-PLAN-SFADEV-TX23.md
+  registry: source_registry.csv
+  row_id: SRC-EVIDENCE-CLOSURE-PLAN-TX23
+  inspected_sections:
+  - locally executable evidence route and frozen-ledger boundary
+registry_rows_inspected:
+- path: control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001.yaml
+  registry: handoff_registry.csv
+  row_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX26-001
+  purpose: Confirm exactly 63 remaining local obligations and the separate human gate.
+- path: registries/evidence_closure_plan_registry.csv
+  registry: evidence_closure_plan_registry.csv
+  row_id: CLOSE-SFA-CORE-YAML-001-VERIFICATION
+  purpose: Confirm the selected family is locally executable and still planned.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: observed_and_mitigated
+  notes: Generated derivative hits were navigation only; canonical registries and PRDs were inspected directly.
+usable_for_routing: true

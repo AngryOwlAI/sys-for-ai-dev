@@ -53,6 +53,19 @@
           "execution_transaction_id": { "const": "TX-26-LOCAL-EVIDENCE-PYTHON-PACKAGE" }
         }
       }
+    },
+    {
+      "if": { "properties": { "evidence_family": { "const": "yaml_control_state_and_safe_parsing_verification" } }, "required": ["evidence_family"] },
+      "then": {
+        "properties": {
+          "execution_evidence_id": { "pattern": "^EVID-TX27-SFA-[A-Z0-9-]+$" },
+          "closure_id": { "pattern": "^CLOSE-SFA-[A-Z0-9-]+-VERIFICATION$" },
+          "prior_state": { "const": "planned" },
+          "resulting_state": { "const": "pass" },
+          "reviewer_role": { "const": "verification_engineer" },
+          "execution_transaction_id": { "const": "TX-27-LOCAL-EVIDENCE-YAML-CONTROL" }
+        }
+      }
     }
   ],
   "additionalProperties": false

@@ -472,10 +472,15 @@ def _validate_protected_baseline(label: str, packet: dict[str, Any]) -> list[str
             if closure_result.ok and expected - value == 7:
                 continue
         if field == "planned_verification" and isinstance(expected, int) and value < expected:
-            from .evidence_closure import TX26_PYTHON_PACKAGE_CLOSURES, validate_local_evidence_execution
+            from .evidence_closure import (
+                TX26_PYTHON_PACKAGE_CLOSURES,
+                TX27_YAML_CONTROL_CLOSURES,
+                validate_local_evidence_execution,
+            )
 
             closure_result = validate_local_evidence_execution()
-            if closure_result.ok and expected - value == len(TX26_PYTHON_PACKAGE_CLOSURES):
+            accepted_verifications = TX26_PYTHON_PACKAGE_CLOSURES | TX27_YAML_CONTROL_CLOSURES
+            if closure_result.ok and expected - value == len(accepted_verifications):
                 continue
         if expected != value:
             messages.append(
