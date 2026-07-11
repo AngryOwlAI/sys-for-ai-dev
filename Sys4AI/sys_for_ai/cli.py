@@ -30,6 +30,7 @@ from .evidence_closure import (
     write_evidence_closure_ledger,
     write_plan_interpretation_registry,
 )
+from .csv_registry_surface import validate_csv_registry_surface
 from .format_governance_surface import validate_format_governance_surface
 from .host_profiles import validate_host_capability_profiles
 from .lifecycle_patterns import validate_lifecycle_and_patterns
@@ -437,6 +438,16 @@ def build_parser() -> argparse.ArgumentParser:
     validate_format_governance.add_argument("--policy", default="docs/format_profile_policy.md")
     validate_format_governance.add_argument("--memory-root", default=".")
 
+    validate_csv_registry = sub.add_parser(
+        "validate-csv-registry-surface",
+        help="Verify the bounded CSV registry governance and graph-check family",
+    )
+    validate_csv_registry.add_argument("--registry-dir", default="registries")
+    validate_csv_registry.add_argument(
+        "--definitions",
+        default="registries/registry_definition_registry.csv",
+    )
+
     validate_plan_scope = sub.add_parser(
         "validate-plan-interpretation",
         help="Validate the controlled 410-row G-11 future-work disposition",
@@ -683,6 +694,9 @@ def main(argv: list[str] | None = None) -> int:
         return print_result(
             validate_format_governance_surface(args.format_profiles, args.policy, args.memory_root)
         )
+
+    if args.command == "validate-csv-registry-surface":
+        return print_result(validate_csv_registry_surface(args.registry_dir, args.definitions))
 
     if args.command == "validate-plan-interpretation":
         return print_result(validate_plan_interpretation(args.trace, args.ledger, args.registry))

@@ -61,7 +61,7 @@ source_registry_path = "Sys4AI/registries/source_registry.csv"
 derivative_registry_path = "Sys4AI/registries/derivative_registry.csv"
 max_current_evidence_age_days = 30
 expected_needs_evidence = 0
-expected_planned_verification = 175
+expected_planned_verification = 170
 expected_operational_capability = 0
 
 [[classifications]]
@@ -132,6 +132,7 @@ paths = [
   "Sys4AI/registries/handoff_registry.csv",
   "Sys4AI/registries/memory_preflight_receipt_registry.csv",
   "Sys4AI/registries/object_relationship_registry.csv",
+  "Sys4AI/registries/registry_definition_registry.csv",
   "Sys4AI/registries/role_execution_binding_registry.csv",
   "Sys4AI/registries/role_registry.csv",
   "Sys4AI/registries/role_skill_crosswalk.csv",
@@ -144,9 +145,9 @@ owner = "baseline_change_manager"
 replacement_capability = "ExecutionTransaction"
 blocking_transaction = "TX-13-VALIDATORS"
 allowed_modes = ["post_tx10"]
-expected_files = 14
-expected_references = 558
-expected_inventory_sha256 = "a56c1c3ffa56bfa2bbb592d649990d7a25519c3ddfc39dcd9f31c387130d3b75"
+expected_files = 15
+expected_references = 562
+expected_inventory_sha256 = "24db35129377b6d4dd7371bec2ad003d84b21f95e10263e7762224eb5c48b84c"
 
 [[classifications]]
 classification_id = "legacy_schema_compatibility"

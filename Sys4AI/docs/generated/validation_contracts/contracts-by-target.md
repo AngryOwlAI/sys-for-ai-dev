@@ -59,6 +59,7 @@ page_metadata:
     - contract_local_evidence_execution_registry_row
     - contract_plan_scope_interpretation_registry_row
     - contract_skill_import_manifest
+    - contract_registry_definition_registry_row
   generated_at: 2026-07-11T14:12:24Z
   generator: sys_for_ai.derivatives.validation_contracts_catalog:0.1.0
   stale_or_orphan_status: current
@@ -163,6 +164,12 @@ Validation contracts prove structural conformance only. They do not prove semant
 | contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | contract_prd_module_registry_row | schemas/contracts/prd_module_registry_row.schema.json | 2020-12 | csv | prd_module_registry_row | registries/prd_module_registry.csv | Sys4AI validate-prd-modules | requirements_manager | controlled | pending | pending |
+
+## csv / registry_definition_registry_row
+
+| contract_id | path | dialect | target_format | target_artifact_type | target_glob | validator_command | owner | authority_status | supersedes | source_hash |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| contract_registry_definition_registry_row | schemas/contracts/registry_definition_registry_row.schema.json | 2020-12 | csv | registry_definition_registry_row | registries/registry_definition_registry.csv | Sys4AI validate-csv-registry-surface | registry_governance | controlled | pending | pending |
 
 ## csv / registry_header
 

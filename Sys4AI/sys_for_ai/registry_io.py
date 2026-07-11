@@ -11,15 +11,33 @@ class RegistryLoadError(RuntimeError):
 
 
 def read_registry(path: str | Path) -> tuple[list[str], list[dict[str, str]]]:
-    """Read a CSV registry and return its header plus row dictionaries."""
+    """Read a CSV registry strictly and return its header plus row dictionaries."""
 
     target = Path(path)
     try:
         with target.open("r", newline="", encoding="utf-8") as handle:
-            reader = csv.DictReader(handle)
+            reader = csv.DictReader(handle, strict=True)
             header = list(reader.fieldnames or [])
-            rows = [{key: value or "" for key, value in row.items()} for row in reader]
-    except OSError as exc:
+            if not header:
+                raise RegistryLoadError(f"Registry {target} has no header")
+            if any(not field for field in header):
+                raise RegistryLoadError(f"Registry {target} has a blank header field")
+            if len(header) != len(set(header)):
+                raise RegistryLoadError(f"Registry {target} has duplicate header fields")
+
+            rows: list[dict[str, str]] = []
+            for line_number, row in enumerate(reader, start=2):
+                if None in row:
+                    raise RegistryLoadError(
+                        f"Registry {target}:{line_number} has more fields than its header"
+                    )
+                missing = [key for key, value in row.items() if value is None]
+                if missing:
+                    raise RegistryLoadError(
+                        f"Registry {target}:{line_number} has fewer fields than its header"
+                    )
+                rows.append({key: value or "" for key, value in row.items()})
+    except (OSError, csv.Error) as exc:
         raise RegistryLoadError(f"Cannot read registry {target}: {exc}") from exc
     return header, rows
 

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/Sys4AI/schemas/contracts/registry_definition_registry_row.schema.json",
+  "title": "CSV registry definition row",
+  "description": "Governed metadata for core and project-specific CSV registries. Conformance does not promote generated derivatives or grant mutation authority.",
+  "type": "object",
+  "required": [
+    "registry_id", "path", "registry_scope", "purpose", "owner", "authority_status",
+    "expected_header", "row_id_field", "validation_method", "promotion_rule",
+    "source_hash", "last_validated_at", "notes"
+  ],
+  "properties": {
+    "registry_id": { "type": "string", "pattern": "^registry_[a-z0-9_]+$" },
+    "path": { "type": "string", "pattern": "^registries/[a-z0-9_]+\\.csv$" },
+    "registry_scope": { "enum": ["core", "project_specific"] },
+    "purpose": { "type": "string", "minLength": 1 },
+    "owner": { "type": "string", "minLength": 1 },
+    "authority_status": { "enum": ["registry_authority", "generated_derivative"] },
+    "expected_header": { "type": "string", "pattern": "^[a-z0-9_]+(?:;[a-z0-9_]+)+$" },
+    "row_id_field": { "type": "string", "pattern": "^[a-z][a-z0-9_]*_id$" },
+    "validation_method": { "type": "string", "minLength": 1 },
+    "promotion_rule": { "enum": ["registry_change_transaction", "generated_derivative_no_promotion"] },
+    "source_hash": { "type": "string" },
+    "last_validated_at": { "type": "string" },
+    "notes": { "type": "string", "minLength": 1 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "authority_status": { "const": "registry_authority" } }, "required": ["authority_status"] },
+      "then": { "properties": { "promotion_rule": { "const": "registry_change_transaction" } } }
+    },
+    {
+      "if": { "properties": { "authority_status": { "const": "generated_derivative" } }, "required": ["authority_status"] },
+      "then": { "properties": { "promotion_rule": { "const": "generated_derivative_no_promotion" } } }
+    }
+  ],
+  "additionalProperties": false
+}

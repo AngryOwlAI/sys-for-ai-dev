@@ -108,6 +108,9 @@ TX28_FORMAT_GOVERNANCE_CLOSURES = {
     "CLOSE-SFA-P0-FR-045-VERIFICATION",
     "CLOSE-SFA-P0-NFR-014-VERIFICATION",
 }
+TX29_CSV_REGISTRY_CLOSURES = {
+    *{f"CLOSE-SFA-CORE-CSV-{index:03d}-VERIFICATION" for index in range(1, 6)},
+}
 
 
 def expected_evidence_closure_rows(trace_rows: list[dict[str, str]]) -> list[dict[str, str]]:
@@ -232,7 +235,7 @@ def validate_evidence_closure_plan(
         [
             _summary(actual),
             *execution_result.messages,
-            "TX-23 planning history is frozen; TX-24, TX-26, TX-27, and TX-28 evidence is additive and grants no waiver, G-10, production, or operational authority.",
+            "TX-23 planning history is frozen; TX-24, TX-26, TX-27, TX-28, and TX-29 evidence is additive and grants no waiver, G-10, production, or operational authority.",
         ],
     )
 
@@ -266,10 +269,11 @@ def validate_local_evidence_execution(
         | TX26_PYTHON_PACKAGE_CLOSURES
         | TX27_YAML_CONTROL_CLOSURES
         | TX28_FORMAT_GOVERNANCE_CLOSURES
+        | TX29_CSV_REGISTRY_CLOSURES
     )
     actual_closures = {row.get("closure_id", "") for row in execution_rows}
     if actual_closures != expected_closures or len(execution_rows) != len(expected_closures):
-        messages.append(f"{execution_path}: must contain exactly the 32 activated TX-24, TX-26, TX-27, and TX-28 closures")
+        messages.append(f"{execution_path}: must contain exactly the 37 activated TX-24, TX-26, TX-27, TX-28, and TX-29 closures")
 
     for index, row in enumerate(execution_rows, start=2):
         label = f"{execution_path}:{index}"
@@ -290,6 +294,7 @@ def validate_local_evidence_execution(
         python_family = row.get("closure_id") in TX26_PYTHON_PACKAGE_CLOSURES
         yaml_family = row.get("closure_id") in TX27_YAML_CONTROL_CLOSURES
         format_family = row.get("closure_id") in TX28_FORMAT_GOVERNANCE_CLOSURES
+        csv_family = row.get("closure_id") in TX29_CSV_REGISTRY_CLOSURES
         if semantic_family:
             if row.get("prior_state") != "needs_evidence" or row.get("resulting_state") != "sufficient":
                 messages.append(f"{label}: semantic state transition must be needs_evidence to sufficient")
@@ -326,6 +331,15 @@ def validate_local_evidence_execution(
                 messages.append(f"{label}: TX-28 transaction binding is invalid")
             if row.get("reviewer_role") != "verification_engineer":
                 messages.append(f"{label}: TX-28 reviewer role is invalid")
+        elif csv_family:
+            if row.get("prior_state") != "planned" or row.get("resulting_state") != "pass":
+                messages.append(f"{label}: verification state transition must be planned to pass")
+            if row.get("evidence_family") != "csv_registry_and_graph_governance_verification":
+                messages.append(f"{label}: TX-29 evidence family binding is invalid")
+            if row.get("execution_transaction_id") != "TX-29-LOCAL-EVIDENCE-CSV-REGISTRY":
+                messages.append(f"{label}: TX-29 transaction binding is invalid")
+            if row.get("reviewer_role") != "verification_engineer":
+                messages.append(f"{label}: TX-29 reviewer role is invalid")
         else:
             messages.append(f"{label}: closure is outside the activated local families")
         if row.get("status") != "accepted" or row.get("review_date") != "2026-07-11":
@@ -370,7 +384,7 @@ def validate_local_evidence_execution(
     return ValidationResult(
         True,
         [
-            "Local evidence: 7 TX-24 semantic reviews, 4 TX-26 Python/package verifications, 11 TX-27 YAML/control verifications, and 10 TX-28 format-governance verifications accepted; 42 local verification obligations remain. The 410 frozen plan-scope candidates retain their TX-25 interpretation.",
+            "Local evidence: 7 TX-24 semantic reviews, 4 TX-26 Python/package verifications, 11 TX-27 YAML/control verifications, 10 TX-28 format-governance verifications, and 5 TX-29 CSV-registry verifications accepted; 37 local verification obligations remain. The 410 frozen plan-scope candidates retain their TX-25 interpretation.",
         ],
     )
 

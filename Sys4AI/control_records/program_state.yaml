@@ -6,7 +6,7 @@ system_context:
   target_system: Sys4AI
   self_hosting_mode: true
   reflection_depth: 1
-current_phase: strategic_baseline_migration_TX_28_format_governance_verification_complete
+current_phase: strategic_baseline_migration_TX_29_csv_registry_verification_complete
 lifecycle_stage: test
 active_task_id: null
 active_director_decision_id: null
@@ -54,12 +54,16 @@ current_state_evidence:
 - TX-28-LOCAL-EVIDENCE-FORMAT-GOVERNANCE
 - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX28-001
 - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX28-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G11-006
+- TX-29-LOCAL-EVIDENCE-CSV-REGISTRY
+- RECEIPT-SFADEV-STRATEGIC-BASELINE-TX29-001
+- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX29-001
 continuation_state: blocked
 cancellation_state: not_requested
 escalation_state: pending
-latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX28-001
-latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX28-001
-latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-28-LOCAL-EVIDENCE-FORMAT-GOVERNANCE-20260711T181109Z
+latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX29-001
+latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX29-001
+latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-29-LOCAL-EVIDENCE-CSV-REGISTRY-20260711T195006Z
 capability_status_summary:
   portable_execution_contract: implemented
   current_state_model: implemented
@@ -75,13 +79,14 @@ capability_status_summary:
   python_package_verification: accepted_TX_26_4_of_4
   yaml_control_verification: accepted_TX_27_11_of_11
   format_governance_verification: accepted_TX_28_10_of_10
+  csv_registry_verification: accepted_TX_29_5_of_5
 state_status: human_gated
-blocked_reason: TX-28 verified the ten-row core format-governance family; any of the remaining 42 local external operational cross-version-CI or G-10 actions requires separate accountable authorization.
+blocked_reason: TX-29 verified the five-row CSV registry family; any of the remaining 37 local external operational cross-version-CI or G-10 actions requires separate accountable authorization.
 human_gate_required: true
 allowed_next_actions:
 - run_memory_preflight
 - inspect_latest_handoff
-- seek_separate_authorization_for_remaining_42_local_verification_obligations
+- seek_separate_authorization_for_remaining_37_local_verification_obligations
 - seek_accountable_external_evidence_scope
 - seek_accountable_G_10_reacceptance_only_after_retained_evidence_closure
 - reverify_G_07_if_profile_evidence_becomes_stale_or_changes
@@ -113,13 +118,14 @@ blocked_actions:
 - claim_G_10_after_TX_26_without_retained_evidence_closure
 - claim_G_10_after_TX_27_without_retained_evidence_closure
 - claim_G_10_after_TX_28_without_retained_evidence_closure
+- claim_G_10_after_TX_29_without_retained_evidence_closure
 - treat_TX_19_module_validation_as_G_07_G_09_G_10_or_production_acceptance
 - treat_TX_17_structural_or_holdout_validation_as_G_07_or_domain_acceptance
 - use_G_08_approval_to_expand_permissions
 - claim_broad_stakeholder_consensus_or_domain_truth_from_G_08
 - claim_production_readiness_or_operational_authority
 validation_status:
-  last_validated_at: '2026-07-11T18:11:09Z'
+  last_validated_at: '2026-07-11T19:50:06Z'
   validators:
   - make validate-program-state
   - make validate-capability-migration
@@ -139,6 +145,7 @@ validation_status:
   - make validate-python-package-surface
   - make validate-yaml-control-surface
   - make validate-format-governance-surface
+  - make validate-csv-registry-surface
   - make validate-plan-interpretation
   - make validate-generated-derivatives
   - make validate

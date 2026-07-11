@@ -283,6 +283,11 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx28_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-28-LOCAL-EVIDENCE-FORMAT-GOVERNANCE-20260711T181109Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx28_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX28-001.yaml | completion_receipt | controlled | verification_engineer | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx28_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX28-001.yaml | handoff | controlled | verification_engineer | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_g11_csv_registry_decision | control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G11-006.yaml | director_decision | controlled | system_director | contract_director_decision | pending |
+| ctrl_strategic_baseline_tx29_execution_transaction | control_records/execution_transactions/TX-29-LOCAL-EVIDENCE-CSV-REGISTRY.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx29_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-29-LOCAL-EVIDENCE-CSV-REGISTRY-20260711T195006Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx29_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX29-001.yaml | completion_receipt | controlled | verification_engineer | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx29_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX29-001.yaml | handoff | controlled | verification_engineer | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 

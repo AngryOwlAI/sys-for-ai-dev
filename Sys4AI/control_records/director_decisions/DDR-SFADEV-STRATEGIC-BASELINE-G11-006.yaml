@@ -1,0 +1,87 @@
+director_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-006
+schema_version: 0.1.0
+decision_status: completed
+created_at: '2026-07-11T19:50:06Z'
+completed_at: '2026-07-11T19:50:06Z'
+director_role: system_director
+human_authorization:
+  principal_name: Alex Omegapy
+  principal_role: repository_maintainer_and_product_owner
+  authority_basis: The accountable human explicitly authorized the earliest remaining five-row CSV-registry family after TX-28.
+  approval_evidence: 'Human-issued Codex task instruction dated 2026-07-11 authorizing: The earliest remaining local family is the five-row CSV-registry family; external-evidence scoping remains an alternative. Cross-version Python 3.10-3.13 CI remains separate. G-10 production readiness and operational authority remain ungranted.'
+  approval_scope:
+  - execute exactly SFA-CORE-CSV-001 through SFA-CORE-CSV-005
+  - add only directly required strict CSV registry metadata graph validation tests and evidence
+  - advance verification state only where exact current local evidence passes
+  - preserve canonical PRDs frozen TX-23 and TX-25 bytes and completed TX-24 through TX-28 history
+  - preserve external evidence cross-version CI G-10 production and operational gates
+  model_self_approval: false
+decision_context:
+  trigger: accountable_local_evidence_family_selection
+  transaction_id: TX-29-LOCAL-EVIDENCE-CSV-REGISTRY
+  gate_id: G-11-EVIDENCE-SCOPE
+  program_state_id: SYS4AI-PROGRAM-STATE-001
+  latest_handoff_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX28-001
+  plan_source_id: SRC-EVIDENCE-CLOSURE-PLAN-TX23
+  governing_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+  prior_gate_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-005
+  reviewed_head_commit: 2de9d847ba4763cc876141b301d0babcb2a7ab5a
+  memory_preflight_receipt_id: MEMPREFLIGHT-TX-29-LOCAL-EVIDENCE-CSV-REGISTRY-20260711T195006Z
+  observed_evidence:
+  - TX-28 is complete and leaves exactly 42 separately gated local verification obligations.
+  - The five selected rows are the earliest remaining family in frozen trace order.
+  - Existing CSV support had hard-coded headers and partial graph checks but lacked complete registry metadata strict malformed-row rejection and project-specific registration enforcement.
+selected_route:
+  route_id: authorize_bounded_TX_29_csv_registry_verification
+  route_name: Execute the five-row CSV registry governance family
+  rationale: The selected obligations share one registry-definition contract one strict reader one graph validator and one rollback surface.
+  immediate_effect: TX-29 may record exactly five planned-to-pass verification transitions after all blocking evidence passes.
+rejected_routes:
+- route_id: execute_all_42_local_verifications
+  reason: A bulk packet would cross Markdown TOML JSON Schema and generated-reader families.
+- route_id: scope_external_evidence_now
+  reason: External evidence remains an alternative requiring a separate scope decision.
+- route_id: add_cross_version_python_CI
+  reason: The human explicitly kept Python 3.10 through 3.13 CI separate.
+- route_id: accept_G10_or_promote_to_production
+  reason: Local CSV registry evidence cannot satisfy retained external operational or final-acceptance gates.
+authority_boundary:
+  human_authority_recorded: true
+  accepts_gate_G_11_local_family_route: true
+  authorizes_TX_29_csv_registry_verification: true
+  authorized_local_obligations: 5
+  authorizes_remaining_local_verification_obligations: false
+  changes_410_plan_interpretations: false
+  accepts_any_waiver: false
+  accepts_gate_G_10: false
+  may_claim_production_readiness: false
+  may_grant_operational_authority: false
+  may_expand_permissions: false
+  may_rewrite_activated_control_history: false
+supersession:
+  supersedes_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-005
+  scope: Supersedes only the prior prohibition on starting another local evidence family without separate authorization.
+  preserves:
+  - completed TX-24 through TX-28 evidence
+  - frozen TX-23 ledger and TX-25 interpretation
+  - cross-version CI external evidence G-10 production operational target-runtime and permission boundaries
+rollback_and_review:
+  rollback_class: activating_bounded_verification_scope_decision
+  rollback_scope: Before publication revert the atomic G-11-006 and TX-29 packet; after publication supersede it only through a new accountable decision.
+  supersession_rule: Any later local family external evidence waiver lifecycle change or G-10 reconsideration requires separate accountable authority.
+  review_triggers:
+  - a sixth local verification obligation is proposed
+  - a registry is added without governed metadata or a derivative is promoted
+  - cross-version CI external operational waiver or G-10 action is proposed
+  expiry: remains current for this completed packet and grants no continuing authority
+evidence_references:
+- Sys4AI/registries/evidence_closure_plan_registry.csv
+- Sys4AI/registries/requirement_trace_registry.csv
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX28-001.yaml
+- Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-29-LOCAL-EVIDENCE-CSV-REGISTRY-20260711T195006Z.yaml
+validators:
+- cd Sys4AI && make validate-csv-registry-surface
+- cd Sys4AI && make validate-local-evidence-execution
+- cd Sys4AI && make validate-requirement-trace-migration
+- make validate
+- git diff --check

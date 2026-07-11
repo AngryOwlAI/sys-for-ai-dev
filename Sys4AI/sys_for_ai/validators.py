@@ -480,6 +480,71 @@ REGISTRY_HEADERS: dict[str, list[str]] = {
         "allowed_roots",
         "notes",
     ],
+    "evidence_closure_plan_registry.csv": [
+        "closure_id",
+        "trace_id",
+        "requirement_id",
+        "gap_dimension",
+        "current_state",
+        "closure_route",
+        "accountable_role",
+        "prerequisite",
+        "planned_evidence",
+        "status",
+        "notes",
+    ],
+    "local_evidence_execution_registry.csv": [
+        "execution_evidence_id",
+        "closure_id",
+        "trace_id",
+        "requirement_id",
+        "evidence_family",
+        "prior_state",
+        "resulting_state",
+        "evidence_report_path",
+        "implementation_artifacts",
+        "validation_evidence",
+        "reviewer_role",
+        "review_date",
+        "status",
+        "execution_transaction_id",
+        "notes",
+    ],
+    "plan_scope_interpretation_registry.csv": [
+        "disposition_id",
+        "closure_id",
+        "trace_id",
+        "requirement_id",
+        "gap_dimension",
+        "retained_trace_state",
+        "plan_interpretation",
+        "g10_migration_effect",
+        "requirement_lifecycle_effect",
+        "trace_mutation",
+        "waiver_id",
+        "decision_id",
+        "execution_transaction_id",
+        "evidence_report_path",
+        "reviewer_role",
+        "review_date",
+        "status",
+        "notes",
+    ],
+    "registry_definition_registry.csv": [
+        "registry_id",
+        "path",
+        "registry_scope",
+        "purpose",
+        "owner",
+        "authority_status",
+        "expected_header",
+        "row_id_field",
+        "validation_method",
+        "promotion_rule",
+        "source_hash",
+        "last_validated_at",
+        "notes",
+    ],
 }
 
 EXPECTED_FORMAT_PROFILE_IDS = {
@@ -510,6 +575,7 @@ ROW_CONTRACTS = {
     "artifact_contract_registry.csv": "schemas/contracts/artifact_contract_registry_row.schema.json",
     "core_skill_proposal_registry.csv": "schemas/contracts/core_skill_proposal_registry_row.schema.json",
     "skill_lifecycle_status_registry.csv": "schemas/contracts/skill_lifecycle_status_registry_row.schema.json",
+    "registry_definition_registry.csv": "schemas/contracts/registry_definition_registry_row.schema.json",
 }
 
 
@@ -628,9 +694,11 @@ def validate_registry_headers(registry_dir: str | Path) -> ValidationResult:
         if not path.exists():
             messages.append(f"{path}: missing registry file")
             continue
-        lines = path.read_text(encoding="utf-8").splitlines()
-        first_line = lines[0] if lines else ""
-        actual = [part.strip() for part in first_line.split(",")]
+        try:
+            actual, _ = read_registry(path)
+        except RuntimeError as exc:
+            messages.append(str(exc))
+            continue
         if actual != expected_header:
             messages.append(
                 f"{path}: header mismatch. Expected {expected_header!r}, found {actual!r}"
@@ -1068,6 +1136,16 @@ def validate_format_profiles(path: str | Path) -> ValidationResult:
             result.ok = False
             result.messages.append(f"{path}: missing expected format profile IDs: {', '.join(missing)}")
     return result
+
+
+def validate_registry_definitions(path: str | Path) -> ValidationResult:
+    """Validate registry-definition rows against their explicit contract."""
+
+    return _validate_rows_against_contract(
+        path,
+        ROW_CONTRACTS["registry_definition_registry.csv"],
+        "registry_id",
+    )
 
 
 def validate_config_sources(path: str | Path) -> ValidationResult:
@@ -1895,6 +1973,11 @@ def validate_registry_graph(registry_dir: str | Path) -> ValidationResult:
         if path and not resolve_registered_path(path).exists():
             messages.append(f"{root / 'source_registry.csv'}: {row.get('source_id')}: missing source {path}")
 
+    source_ids = {
+        row.get("source_id", "")
+        for row in read_registry_rows(root / "source_registry.csv")
+        if row.get("source_id")
+    }
     for row in read_registry_rows(root / "derivative_registry.csv"):
         derivative_id = row.get("derivative_id", "")
         path = row.get("path", "")
@@ -1903,6 +1986,11 @@ def validate_registry_graph(registry_dir: str | Path) -> ValidationResult:
             messages.append(f"{root / 'derivative_registry.csv'}: {derivative_id}: generated derivative cannot be {status}")
         if not row.get("source_ids", "").strip():
             messages.append(f"{root / 'derivative_registry.csv'}: {derivative_id}: missing source_ids")
+        for source_id in _split_selectors(row.get("source_ids", "")):
+            if source_id not in source_ids:
+                messages.append(
+                    f"{root / 'derivative_registry.csv'}: {derivative_id}: orphan derivative references unknown source_id {source_id!r}"
+                )
         if path and not resolve_registered_path(path).exists():
             messages.append(f"{root / 'derivative_registry.csv'}: {derivative_id}: missing derivative {path}")
 
