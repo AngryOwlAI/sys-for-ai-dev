@@ -1,0 +1,64 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-22-G07-HOST-VERIFICATION-20260711T151753Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-22-G07-HOST-VERIFICATION
+created_at: '2026-07-11T15:17:53Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-22-G07-HOST-VERIFICATION --json
+  result: warn
+- command: python -m sys_for_ai.cli memory lookup HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001
+    --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search 'G-07 observable host verification
+    evidence closure' --limit 10 --json
+  result: pass
+queries:
+- query: G-07 observable host verification evidence closure
+  returned_object_ids:
+  - SRC-HOST-PROFILE-CODEX-APP-REFERENCE
+  - cfg_codex_app_reference
+  - SRC-VALIDATOR-HOST-PROFILES
+  - SRC-SAFETY-EVALUATION-PACKET-TX17
+  - SRC-DOC-CODEX-HOST-INTEGRATION-PROFILE
+  - SRC-STRATEGIC-BASELINE-TX09-RECEIPT
+  - SRC-REG-REQ-TRACE
+  - SRC-TEST-HOST-PROFILES
+  - der_walking_skeleton_flow
+  - DDR-SFADEV-STRATEGIC-BASELINE-001
+canonical_sources_inspected:
+- path: Sys4AI/configs/host_profiles/codex_app_reference.toml
+  registry: source_registry.csv
+  row_id: SRC-HOST-PROFILE-CODEX-APP-REFERENCE
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/sys_for_ai/host_profiles.py
+  registry: source_registry.csv
+  row_id: SRC-VALIDATOR-HOST-PROFILES
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/assurance/meta_agent_self_change_safety_evaluation.yaml
+  registry: source_registry.csv
+  row_id: SRC-SAFETY-EVALUATION-PACKET-TX17
+  inspected_sections:
+  - registered source metadata
+registry_rows_inspected:
+- path: configs/host_profiles/codex_app_reference.toml
+  registry: config_source_registry.csv
+  row_id: cfg_codex_app_reference
+  purpose: Confirm memory hit registry evidence.
+- path: Sys4AI/docs/codex_host_integration_profile.md
+  registry: source_registry.csv
+  row_id: SRC-DOC-CODEX-HOST-INTEGRATION-PROFILE
+  purpose: Confirm memory hit registry evidence.
+- path: implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX09-001.md
+  registry: source_registry.csv
+  row_id: SRC-STRATEGIC-BASELINE-TX09-RECEIPT
+  purpose: Confirm memory hit registry evidence.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: observed
+  notes: Derivative hit der_walking_skeleton_flow requires source inspection.
+usable_for_routing: true

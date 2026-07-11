@@ -1,22 +1,25 @@
 # Codex App Reference-Host Integration Profile
 
-- Status: Controlled structural draft pending `G-07`
+- Status: Controlled observable development-host profile accepted at `G-07`
 - Profile ID: `codex_app_reference`
-- Profile version: `0.2.0`
-- Verification scope: Structural contract only
-- Portable execution binding: `1.0.0`, non-executable pending `G-07`
-- Authority source: `DDR-SFADEV-STRATEGIC-BASELINE-G04-001`
+- Profile version: `1.0.0`
+- Verification scope: Observable development-host conformance
+- Portable execution binding: `1.0.0`, executable only for current `verified_available` interfaces inside a separately authorized transaction
+- Contract authority: `DDR-SFADEV-STRATEGIC-BASELINE-G04-001`
+- Verification authority: `DDR-SFADEV-STRATEGIC-BASELINE-G07-001`
 
 ## 1. Purpose And Authority Boundary
 
 This document defines the Codex App reference-host interface contract for
-`Sys4AI`. It explains how a future verified host profile may map portable
+`Sys4AI`. It explains how the verified host profile maps portable
 framework needs to host mechanisms without placing Codex mechanics in portable
 field names, requirement identities, target purpose, or target authority.
 
-This document and its TOML profile are not evidence that a Codex capability is
-available. `G-07` remains open. Every required interface is currently recorded
-as `unknown`, non-executable, and blocked, degraded, or rerouted.
+The TOML profile and the TX-22 probe report jointly record current evidence.
+`G-07` is accepted for the exact observed mixed state: four interfaces are
+`verified_available`, three are conditional and non-executable, and target
+runtime is `verified_unavailable`. The profile becomes stale after
+`2026-07-18T15:19:10Z` unless reverified.
 
 The host profile has no authority to define or approve:
 
@@ -43,7 +46,7 @@ explicit human authority remain binding independently of profile content.
 | External boundary | Codex App reference host |
 | Source authority | Controlled configuration, schema, document, and registry rows |
 | Structural verification | `validate-host-capability-profiles` |
-| Observable verification | Separate `G-07` decision and evidence |
+| Observable verification | `STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md` and `DDR-SFADEV-STRATEGIC-BASELINE-G07-001` |
 
 No separate artifact-contract registry row is required. The existing
 configuration-source, validation-contract, source, and object-relationship
@@ -66,28 +69,23 @@ capability cannot authorize execution. Conditional capabilities default to
 non-executable until their permission and environment conditions are evaluated
 within a later authorized execution transaction.
 
-The checked-in profile uses these controlled fail-closed representations:
+The checked-in profile uses these controlled evidence-backed representations:
 
 | Field | Controlled value | Meaning |
 |---|---|---|
-| `verification_state` | `draft_pending_G_07` | Contract exists; observable host conformance is not accepted |
-| `verification_decision` | `pending_G_07` | No accepted G-07 Director Decision is claimed |
-| `verified_at` | `pending_G_07` | No host-verification timestamp is claimed |
-| `verified_by` | `pending_G_07` | No verifier identity is fabricated |
-| `evidence_status` | `pending_G_07` | Plan and decision evidence define the obligation but do not prove behavior |
-| Safe probes | `pending_G_07` | Positive and denial-or-absence probes have not been accepted |
+| `verification_state` | `verified_G_07` | Observable development-host conformance is accepted for the exact recorded state |
+| `verification_decision` | `DDR-SFADEV-STRATEGIC-BASELINE-G07-001` | Registered completed accountable decision |
+| `verified_at` | `2026-07-11T15:19:10Z` | Probe-evidence timestamp |
+| `verified_by` | `verification_engineer` | Controlled verifier role |
+| `evidence_status` | `current` | Each interface resolves to the TX-22 report and probe identifiers |
+| Safe probes | `HOST-G07-*` | Positive and denial-or-absence probes retained for all eight interfaces |
 | `portable_execution_contract_version` | `1.0.0` | The profile binds the TX-09 portable structural contract |
-| `portable_execution_contract_executable` | `false` | The binding cannot be used for host execution before G-07 capability evidence is accepted |
+| `portable_execution_contract_executable` | `true` | Only current `verified_available` interfaces may be used, and never without transaction authority and permission |
 
-Structural validation may accept these pending values because they fail closed.
-It must reject any attempt to combine them with an available or executable
-claim.
-
-A later `verified_G_07` profile must cite an accepted `DDR-*` verification
-decision, resolve evidence and safe-probe fields for every interface, reject
-future-dated checks, and retain a current freshness horizon. No interface may
-be executable while its portable execution-contract binding remains pending or
-non-executable.
+Structural validation resolves the accepted decision, current evidence fields,
+timestamps, capability states, and execution binding. Conditional, unavailable,
+unknown, stale, and deprecated interfaces remain non-executable. Capability
+availability still does not grant project or transaction permission.
 
 ## 4. Permission Precedence
 
@@ -106,20 +104,20 @@ authorization decision.
 
 ## 5. Interface And Integration Map
 
-The table records proposed mappings and required evidence fields. The
-`Current state` column is authoritative for this draft: no mechanism listed in
-the table is asserted to exist merely because it is named.
+The table records observed mappings and required evidence fields. The
+`Current state` column is authoritative only for profile version `1.0.0` and
+its freshness horizon.
 
 | Interface | Data and direction | Representation and cadence | Owner and trust boundary | Primary controls | Current state and missing-capability behavior |
 |---|---|---|---|---|---|
-| User interaction | Human request, clarification, approval, rejection, timeout, and cancellation flow between an authorized user and host | Conversation events; per consequential decision | `system_engineer`; human identity and host interaction boundary | Silence is not consent; principal and evidence capture; explicit approval and rejection | `unknown`, non-executable, `blocked`; stop approval-dependent work |
-| Workspace filesystem | Source content, patches, file metadata, and diffs between host tools and authorized roots | Files and diffs; per bounded transaction | `system_engineer`; host filesystem and repository authority boundary | Allowed roots; read/write class; ownership; least privilege; diff visibility | `unknown`, non-executable, `blocked`; block required reads or produce a proposed patch when writes are absent |
-| Terminal and tests | Commands, arguments, working directory, process output, exit state, tests, and cancellation between host and local process boundary | Command invocation and retained evidence; per check | `verification_engineer`; shell, sandbox, process, and untrusted-input boundary | Injection resistance; reversible commands; stop conditions; exact result capture | `unknown`, non-executable, `degraded`; mark commands and tests not run and never claim pass |
-| Tools, connectors, and network | Tool requests, retrieved data, consent, credential-mechanism references, and external side effects | Typed tool calls or connector operations; per invocation | `system_engineer`; platform, network, credential, external-system, and data-class boundaries | Tool identity; redaction; least privilege; irreversible-effect confirmation; untrusted output checks | `unknown`, non-executable, `rerouted`; use registered local evidence or request authority and never simulate success |
-| Sub-agents | Role, task scope, context, tool bounds, returned result, verification, and interruption between parent and child work | Bounded subtask packet and result; per delegation | `system_engineer`; context, concurrency, shared-workspace, and delegated-tool boundary | No implied authority delegation; disjoint write scopes; result verification; interruption evidence | `unknown`, non-executable, `rerouted`; work sequentially only when scope and assurance remain acceptable |
-| Task and thread state | Task identity, fresh state, handoff, cancellation, and archival between host state and repository evidence | Host task state plus controlled handoff evidence; per transition | `system_engineer`; host state and repository source-authority boundary | Fresh source-backed state; resumable handoff; explicit cancellation and archival | `unknown`, non-executable, `blocked`; do not route from narration or stale state |
-| Memory and retrieval | Query, result, source path, registry row, freshness, authority class, and stale risk between retrieval and canonical sources | Search result plus verified source inspection; per lookup | `requirements_verifier`; retrieval, privacy, retention, and authority boundary | Navigation only until source verification; freshness; data class; no generated authority inversion | `unknown`, non-executable, `rerouted`; inspect registered sources directly or block |
-| Target runtime | Environment, release gate, telemetry, rollback, incident owner, kill control, and target approval between host and separately authorized target | Deployment and operational evidence; per release or incident | `system_architect`; host, deployment, production, operator, and target-authority boundaries | Separate promotion gate; telemetry; rollback; incident ownership; kill control; no prototype drift | `unknown`, non-executable, `blocked`; retain non-production status and prohibit runtime or deployment claims |
+| User interaction | Human request, clarification, approval, rejection, timeout, and cancellation flow between an authorized user and host | Conversation events; per consequential decision | `system_engineer`; human identity and host interaction boundary | Silence is not consent; principal and evidence capture; explicit approval and rejection | `verified_available`, executable only in an authorized transaction; ambiguity remains blocked |
+| Workspace filesystem | Source content, patches, file metadata, and diffs between host tools and authorized roots | Files and diffs; per bounded transaction | `system_engineer`; host filesystem and repository authority boundary | Allowed roots; read/write class; ownership; least privilege; diff visibility | `verified_available`; current host access does not imply authority over every readable path |
+| Terminal and tests | Commands, arguments, working directory, process output, exit state, tests, and cancellation between host and local process boundary | Command invocation and retained evidence; per check | `verification_engineer`; shell, sandbox, process, and untrusted-input boundary | Injection resistance; reversible commands; stop conditions; exact result capture | `verified_available`; local exit and `Ctrl-C` behavior observed, external cancellation unproved |
+| Tools, connectors, and network | Tool requests, retrieved data, consent, credential-mechanism references, and external side effects | Typed tool calls or connector operations; per invocation | `system_engineer`; platform, network, credential, external-system, and data-class boundaries | Tool identity; redaction; least privilege; irreversible-effect confirmation; untrusted output checks | `environment_dependent`, non-executable by default; evaluate each tool and permission separately |
+| Sub-agents | Role, task scope, context, tool bounds, returned result, verification, and interruption between parent and child work | Bounded subtask packet and result; per delegation | `system_engineer`; context, concurrency, shared-workspace, and delegated-tool boundary | No implied authority delegation; disjoint write scopes; result verification; interruption evidence | `permission_dependent`, non-executable in TX-22; current policy prohibited spawning |
+| Task and thread state | Task identity, fresh state, handoff, cancellation, and archival between host state and repository evidence | Host task state plus controlled handoff evidence; per transition | `system_engineer`; host state and repository source-authority boundary | Fresh source-backed state; resumable handoff; explicit cancellation and archival | `environment_dependent`, non-executable by default; read-only state observed, mutation not probed |
+| Memory and retrieval | Query, result, source path, registry row, freshness, authority class, and stale risk between retrieval and canonical sources | Search result plus verified source inspection; per lookup | `requirements_verifier`; retrieval, privacy, retention, and authority boundary | Navigation only until source verification; freshness; data class; no generated authority inversion | `verified_available`; absent-object lookup fails closed and sources remain authoritative |
+| Target runtime | Environment, release gate, telemetry, rollback, incident owner, kill control, and target approval between host and separately authorized target | Deployment and operational evidence; per release or incident | `system_architect`; host, deployment, production, operator, and target-authority boundaries | Separate promotion gate; telemetry; rollback; incident ownership; kill control; no prototype drift | `verified_unavailable`, non-executable; no hosting configuration or target authority exists |
 
 ## 6. Required Interface Fields
 
@@ -189,24 +187,25 @@ The focused validator checks:
 - registered JSON Schema conformance;
 - the exact unique eight-interface set;
 - fixed permission precedence;
-- pending `G-07` and portable execution-binding truthfulness;
+- pending or accepted `G-07` and portable execution-binding truthfulness;
 - registry and YAML resolution of a completed human-authorized G-07 Director
   Decision before any `verified_G_07` profile can pass;
 - non-executable unknown, unavailable, conditional, stale, and deprecated
   states;
 - required permission, degraded, cancellation, limitation, evidence, and
   review fields;
-- RFC 3339 and freshness consistency for later verified evidence; and
+- RFC 3339 and freshness consistency for verified evidence; and
 - absence of secret-like structured values.
 
-A pass means the profile is structurally admissible and fails closed. It does
-not mean that Codex is verified, that an interface works, that a permission is
-granted, or that execution is safe.
+A pass means the profile is structurally admissible, its accepted decision is
+registered, and its stated evidence is current. Observable behavior is proved
+by the retained TX-22 report, not by schema validation alone. A pass never
+grants permission or production/operational authority.
 
 ## 10. G-07 Observable Verification
 
-`G-07` may be considered only after the profile is drafted. For each interface,
-the verifier must:
+`G-07` was accepted for version `1.0.0` after the verifier completed these
+steps for each interface:
 
 1. identify the applicable requirement and proposed host mechanism;
 2. cite current observable or official evidence;
@@ -222,10 +221,10 @@ Director Decision whose YAML binds `gate_id: G-07`, records
 `accepts_gate_G_07: true`, and includes non-self-approved human authorization
 evidence. A merely DDR-shaped string cannot satisfy the gate.
 
-Marketing language, undocumented assumptions, this structural profile, or a
-model's experience in one task cannot substitute for that evidence. Any
-accepted G-07 disposition must remain separately reviewable and must not expand
-project or platform permissions.
+The retained TX-22 report maps all probe identifiers to methods and observed
+results. Marketing language, undocumented assumptions, or a model's experience
+cannot substitute for that evidence. The accepted disposition remains
+separately reviewable and does not expand project or platform permissions.
 
 ## 11. Review, Supersession, And Rollback
 
@@ -238,13 +237,14 @@ retain prior evidence, link supersession, assess affected requirements and
 permissions, and re-run safe conformance probes. A stale profile downgrades
 affected capabilities and execution remains fail-closed.
 
-The TX-08 draft is additive and may be rolled back by removing the registered
-profile, schema, document, focused validator integration, registry rows, and
-regenerated derivatives. G-04 and prior evidence are superseded only through a
-new accepted decision, never by editing historical records.
+Before TX-22 publication, revert the complete TX-22 profile, evidence, decision,
+state, tests, registries, receipt, handoff, and generated-reader packet together.
+After publication, preserve the accepted decision and supersede it explicitly.
 
 ## References
 
 Sys4AI-dev. (2026). *Sys4AI-dev strategic baseline migration full implementation plan* [Unpublished implementation plan].
 
 Sys4AI-dev. (2026, July 10). *DDR-SFADEV-STRATEGIC-BASELINE-G04-001* [Director decision record].
+
+Sys4AI-dev. (2026, July 11). *G-07 observable host verification report* [Verification report].

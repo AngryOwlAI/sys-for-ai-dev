@@ -80,7 +80,7 @@ Historical packet-era artifacts remain available as activated evidence. They are
 
 ## Warnings And Open Gates
 
-- G-07 host verification remains open.
+- Framework G-07 is accepted for the current mixed reference-host profile; this derivative target package remains permission-dependent and has no target runtime.
 - G-08 framework strategic approval is accepted; target-system approval and domain acceptance remain independent.
 - Production readiness, operational authority, stakeholder consensus, and domain acceptance remain open.
 - Target package evidence is structural and derivative-only.
@@ -97,4 +97,4 @@ Historical packet-era artifacts remain available as activated evidence. They are
 
 Structural validation does not prove strategic quality, ethical correctness, stakeholder consensus, behavioral alignment, production readiness, or domain truth. Those claims require accountable review and additional evidence.
 
-The example remains a derivative smoke package at validated_prototype maturity. Its fictional demonstration approval does not establish target-system validation, G-07, production readiness, operational authority, stakeholder consensus, or domain acceptance; framework G-08 is independently accepted.
+The example remains a derivative smoke package at validated_prototype maturity. Its fictional demonstration approval does not inherit framework G-07 as target-runtime permission and does not establish target-system validation, production readiness, operational authority, stakeholder consensus, or domain acceptance; framework G-08 and the mixed reference-host G-07 profile are independently accepted.

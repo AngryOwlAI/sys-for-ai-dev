@@ -19,8 +19,11 @@ records the gap. No value, goal, or model output may expand permission.
 Cancellation preserves the last accepted source evidence and stops at the nearest
 safe transaction boundary.
 
-This is a smoke example and derivative draft. It is not a production target system
-and does not satisfy the still-open `G-07` host-verification gate.
+This is a smoke example and derivative draft. Framework `G-07` is accepted only
+for the current mixed `codex_app_reference` development-host profile. This target
+package does not inherit that acceptance as repository permission or target-runtime
+authority; its declared host requirements remain transaction-specific and
+permission-dependent.
 
 ## Limitation
 

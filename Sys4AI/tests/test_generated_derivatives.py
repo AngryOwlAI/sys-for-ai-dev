@@ -47,7 +47,8 @@ class GeneratedDerivativeTests(unittest.TestCase):
         pages = expected_governance_generated_docs()
         combined = "\n".join(text for path, text in pages.items() if path.parent.name == "governance")
         self.assertIn("G-08 approves only the exact framework vision and values", combined)
-        self.assertIn("G-07 remains open", combined)
+        self.assertIn("G-07 is accepted only for the exact current mixed interface states", combined)
+        self.assertIn("grants no permission, production readiness, operational authority", combined)
         self.assertIn("Values do not grant permission", combined)
         self.assertNotIn("G-08 strategic approval remains open", combined)
 

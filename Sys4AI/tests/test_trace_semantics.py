@@ -79,7 +79,7 @@ class TraceSemanticTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("derivative_regeneration complete_G_09" in item for item in result.messages))
 
-    def test_post_tx21_deferred_state_blocks_unsupported_g10(self) -> None:
+    def test_post_g07_state_blocks_unsupported_g10(self) -> None:
         def mutate_state(state):
             state["blocked_actions"] = [
                 item
@@ -90,6 +90,30 @@ class TraceSemanticTests(unittest.TestCase):
         result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
         self.assertFalse(result.ok)
         self.assertTrue(any("block unsupported G-10 acceptance" in item for item in result.messages))
+
+    def test_post_g07_state_requires_exact_tx23_planning_route(self) -> None:
+        def mutate_state(state):
+            state["allowed_next_actions"] = [
+                item
+                for item in state["allowed_next_actions"]
+                if item != "execute_TX_23_EVIDENCE_CLOSURE_PLAN_only"
+            ]
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("bounded TX-23 evidence-closure planning route" in item for item in result.messages))
+
+    def test_post_g07_state_blocks_host_authority_expansion(self) -> None:
+        def mutate_state(state):
+            state["blocked_actions"] = [
+                item
+                for item in state["blocked_actions"]
+                if item != "treat_G_07_as_production_operational_target_runtime_or_permission_authority"
+            ]
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("block host-verification authority expansion" in item for item in result.messages))
 
     def test_current_evidence_freshness_fails_against_controlled_state_date(self) -> None:
         def mutate_state(state):

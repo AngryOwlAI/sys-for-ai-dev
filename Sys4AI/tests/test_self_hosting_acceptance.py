@@ -17,25 +17,27 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
     def test_program_state_uses_portable_current_execution_fields(self) -> None:
         state = load_yaml(PRODUCT_ROOT / "control_records/program_state.yaml")
 
-        self.assertEqual("blocked", state["state_status"])
+        self.assertEqual("active", state["state_status"])
         self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001",
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX22-001",
             state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001",
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX22-001",
             state["latest_handoff_evidence_id"],
         )
-        self.assertEqual("blocked", state["continuation_state"])
+        self.assertEqual("ready", state["continuation_state"])
         self.assertEqual("not_requested", state["cancellation_state"])
-        self.assertEqual("pending", state["escalation_state"])
-        self.assertTrue(state["human_gate_required"])
+        self.assertEqual("not_required", state["escalation_state"])
+        self.assertFalse(state["human_gate_required"])
+        self.assertIn("DDR-SFADEV-STRATEGIC-BASELINE-G07-001", state["current_state_evidence"])
         self.assertIn("DDR-SFADEV-STRATEGIC-BASELINE-G10-001", state["current_state_evidence"])
         self.assertEqual("implemented", state["capability_status_summary"]["safety_evaluation_controls"])
         self.assertEqual("accepted_G_08", state["capability_status_summary"]["strategic_approval"])
         self.assertEqual("complete_G_09", state["capability_status_summary"]["derivative_regeneration"])
+        self.assertEqual("accepted_G_07_mixed_profile", state["capability_status_summary"]["host_verification"])
 
         handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")
         completion_rows = _rows(PRODUCT_ROOT / "registries/completion_receipt_registry.csv", "completion_receipt_id")
@@ -51,6 +53,8 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001", handoff_rows)
         self.assertIn("RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001", completion_rows)
         self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001", handoff_rows)
+        self.assertIn("RECEIPT-SFADEV-STRATEGIC-BASELINE-TX22-001", completion_rows)
+        self.assertIn("HANDOFF-SFADEV-STRATEGIC-BASELINE-TX22-001", handoff_rows)
         self.assertIn("RECEIPT-P1-SELFHOST-ACCEPTANCE-001", completion_rows)
         self.assertIn("RECEIPT-SYS4AI-DEV-NAME-MIGRATION-001", completion_rows)
         self.assertIn("RECEIPT-SFADEV-20-WALKING-SKELETON-FLOW-001", completion_rows)

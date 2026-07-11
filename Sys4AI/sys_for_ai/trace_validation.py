@@ -321,6 +321,29 @@ def _validate_program_state_alignment(path: Path, state: dict[str, Any]) -> list
             messages.append(f"{path}: post-TX-21 deferred state must remain blocked with escalation pending")
         if state.get("state_status") != "blocked" or state.get("human_gate_required") is not True:
             messages.append(f"{path}: post-TX-21 deferred state must remain blocked and human gated")
+    elif phase == "strategic_baseline_migration_G_07_accepted_evidence_closure_ready":
+        if summary.get("strategic_approval") != "accepted_G_08":
+            messages.append(f"{path}: post-G-07 state must retain strategic_approval accepted_G_08")
+        if summary.get("derivative_regeneration") != "complete_G_09":
+            messages.append(f"{path}: post-G-07 state must retain derivative_regeneration complete_G_09")
+        if summary.get("host_verification") != "accepted_G_07_mixed_profile":
+            messages.append(f"{path}: post-G-07 state must record the accepted mixed host profile")
+        if "execute_TX_23_EVIDENCE_CLOSURE_PLAN_only" not in allowed:
+            messages.append(f"{path}: post-G-07 state must expose only the bounded TX-23 evidence-closure planning route")
+        if "claim_G_10_after_TX_21_audit_without_G_07_and_evidence_closure" not in blocked:
+            messages.append(f"{path}: post-G-07 state must block unsupported G-10 acceptance")
+        if "treat_G_07_as_production_operational_target_runtime_or_permission_authority" not in blocked:
+            messages.append(f"{path}: post-G-07 state must block host-verification authority expansion")
+        if state.get("latest_closeout_evidence_id") != "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX22-001":
+            messages.append(f"{path}: post-G-07 state is not aligned to the TX-22 completion")
+        if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX22-001":
+            messages.append(f"{path}: post-G-07 state is not aligned to the TX-22 handoff")
+        if "DDR-SFADEV-STRATEGIC-BASELINE-G07-001" not in set(state.get("current_state_evidence", [])):
+            messages.append(f"{path}: post-G-07 state omits the accepted G-07 decision evidence")
+        if state.get("continuation_state") != "ready" or state.get("escalation_state") != "not_required":
+            messages.append(f"{path}: post-G-07 state must be ready without a new authorization escalation")
+        if state.get("state_status") != "active" or state.get("human_gate_required") is not False:
+            messages.append(f"{path}: post-G-07 state must be active without a new human gate")
     else:
         messages.append(f"{path}: unsupported strategic-baseline program phase {phase!r}")
     return messages

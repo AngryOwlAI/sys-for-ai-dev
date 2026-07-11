@@ -23,14 +23,34 @@ class HostCapabilityProfileTests(unittest.TestCase):
         result = validate_host_capability_profiles(PROFILE_PATH, SCHEMA_PATH)
 
         self.assertTrue(result.ok, result.messages)
-        self.assertTrue(any("G-07 remains open" in message for message in result.messages))
+        self.assertTrue(any("verified G-07" in message for message in result.messages))
 
-    def test_current_profile_binds_tx09_contract_without_enabling_execution(self) -> None:
+    def test_current_profile_binds_tx09_contract_with_mixed_fail_closed_states(self) -> None:
         data = load_toml(PROFILE_PATH)
 
         self.assertEqual("1.0.0", data["profile"]["portable_execution_contract_version"])
-        self.assertFalse(data["profile"]["portable_execution_contract_executable"])
-        self.assertTrue(all(interface["execution_allowed"] is False for interface in data["interfaces"]))
+        self.assertTrue(data["profile"]["portable_execution_contract_executable"])
+        self.assertEqual("verified_G_07", data["profile"]["verification_state"])
+        states = {item["interface_id"]: item["capability_status"] for item in data["interfaces"]}
+        self.assertEqual(
+            {
+                "user_interaction": "verified_available",
+                "workspace_filesystem": "verified_available",
+                "terminal_and_tests": "verified_available",
+                "tools_connectors_and_network": "environment_dependent",
+                "sub_agents": "permission_dependent",
+                "task_and_thread_state": "environment_dependent",
+                "memory_and_retrieval": "verified_available",
+                "target_runtime": "verified_unavailable",
+            },
+            states,
+        )
+        self.assertTrue(
+            all(
+                item["execution_allowed"] is (item["capability_status"] == "verified_available")
+                for item in data["interfaces"]
+            )
+        )
 
     def test_missing_interface_fails(self) -> None:
         def mutate(data: dict[str, Any]) -> None:
@@ -65,12 +85,14 @@ class HostCapabilityProfileTests(unittest.TestCase):
 
     def test_pending_g07_with_verified_state_fails(self) -> None:
         def mutate(data: dict[str, Any]) -> None:
+            _make_pending_profile(data)
             data["interfaces"][0]["capability_status"] = "verified_available"
 
         self._assert_mutation_fails(mutate, "requires capability_status 'unknown'")
 
     def test_pending_profile_requires_pending_verification_decision(self) -> None:
         def mutate(data: dict[str, Any]) -> None:
+            _make_pending_profile(data)
             data["profile"]["verification_decision"] = "DDR-SFADEV-HOST-G07-001"
 
         self._assert_mutation_fails(
@@ -80,7 +102,9 @@ class HostCapabilityProfileTests(unittest.TestCase):
 
     def test_unknown_capability_cannot_execute(self) -> None:
         def mutate(data: dict[str, Any]) -> None:
-            data["interfaces"][0]["execution_allowed"] = True
+            interface = data["interfaces"][0]
+            interface["capability_status"] = "unknown"
+            interface["execution_allowed"] = True
 
         self._assert_mutation_fails(mutate, "must not allow execution")
 
@@ -186,6 +210,7 @@ class HostCapabilityProfileTests(unittest.TestCase):
     def test_verified_profile_rejects_pending_interfaces(self) -> None:
         def mutate(data: dict[str, Any]) -> None:
             _set_verified_profile_metadata(data)
+            _make_pending_interfaces(data)
 
         self._assert_mutation_fails(
             mutate,
@@ -394,6 +419,29 @@ def _make_verified_profile(
         interface["positive_probe"] = f"EVIDENCE-G07-POSITIVE-{index:03d}"
         interface["denial_or_absence_probe"] = f"EVIDENCE-G07-DENIAL-{index:03d}"
         interface["evidence_capture"] = f"EVIDENCE-G07-CAPTURE-{index:03d}"
+
+
+def _make_pending_profile(data: dict[str, Any]) -> None:
+    profile = data["profile"]
+    profile["verification_state"] = "draft_pending_G_07"
+    profile["verification_scope"] = "structural_contract_only"
+    profile["verification_decision"] = "pending_G_07"
+    profile["verified_at"] = "pending_G_07"
+    profile["verified_by"] = "pending_G_07"
+    profile["portable_execution_contract_executable"] = False
+    _make_pending_interfaces(data)
+
+
+def _make_pending_interfaces(data: dict[str, Any]) -> None:
+    for interface in data["interfaces"]:
+        interface["capability_status"] = "unknown"
+        interface["execution_allowed"] = False
+        interface["source_evidence"] = ["observable_host_evidence_pending_G_07"]
+        interface["evidence_status"] = "pending_G_07"
+        interface["evidence_checked_at"] = "pending_G_07"
+        interface["evidence_fresh_until"] = "pending_G_07"
+        interface["positive_probe"] = "pending_G_07"
+        interface["denial_or_absence_probe"] = "pending_G_07"
 
 
 def _rfc3339(value: datetime) -> str:

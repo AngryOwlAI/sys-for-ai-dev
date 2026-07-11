@@ -281,7 +281,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     validate_host_profiles = sub.add_parser(
         "validate-host-capability-profiles",
-        help="Validate reference-host profiles structurally without satisfying G-07",
+        help="Validate reference-host profile structure and registered G-07 evidence bindings",
     )
     validate_host_profiles.add_argument("root", default="configs/host_profiles", nargs="?")
     validate_host_profiles.add_argument(

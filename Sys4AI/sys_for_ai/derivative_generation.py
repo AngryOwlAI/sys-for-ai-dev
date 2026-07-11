@@ -617,9 +617,26 @@ def _host_capability_profile_page(root: Path, source_rows: list[dict[str, str]])
     profile = load_toml(profile_path)
     metadata = profile.get("profile", {})
     interfaces = profile.get("interfaces", [])
+    verified = metadata.get("verification_state") == "verified_G_07"
+    status_notice = (
+        "This page summarizes an accepted G-07 reference-host profile. The retained "
+        "probe report proves the observed behavior; structural validation checks the "
+        "profile and registered decision bindings."
+        if verified
+        else "This page summarizes the controlled reference-host profile. Structural "
+        "validation does not satisfy G-07 or prove observable host behavior."
+    )
+    boundary_notice = (
+        "G-07 is accepted only for the exact current mixed interface states. This reader "
+        "grants no permission, production readiness, operational authority, target-runtime "
+        "authority, stakeholder consensus, or domain truth."
+        if verified
+        else "G-07 remains open. This reader grants no host, tool, filesystem, network, "
+        "sub-agent, thread-state, cancellation, permission, production, or operational authority."
+    )
     body = "\n\n".join(
         [
-            "This page summarizes the controlled reference-host profile. Structural validation does not satisfy G-07 or prove observable host behavior.",
+            status_notice,
             "## Registry Trace",
             registry_trace_table(root, ["der_host_capability_profile"]),
             "## Profile Status",
@@ -646,7 +663,7 @@ def _host_capability_profile_page(root: Path, source_rows: list[dict[str, str]])
                 ] for item in interfaces],
             ),
             "## Boundary",
-            "G-07 remains open. This reader grants no host, tool, filesystem, network, sub-agent, thread-state, cancellation, permission, production, or operational authority.",
+            boundary_notice,
             "## Allowed Promotion Path",
             PROMOTION_PATH,
         ]

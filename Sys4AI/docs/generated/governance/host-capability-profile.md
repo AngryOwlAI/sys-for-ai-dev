@@ -22,7 +22,7 @@ page_metadata:
 
 # Host Capability Profile
 
-This page summarizes the controlled reference-host profile. Structural validation does not satisfy G-07 or prove observable host behavior.
+This page summarizes an accepted G-07 reference-host profile. The retained probe report proves the observed behavior; structural validation checks the profile and registered decision bindings.
 
 ## Registry Trace
 
@@ -34,24 +34,24 @@ This page summarizes the controlled reference-host profile. Structural validatio
 
 | profile_id | version | verification_state | gate | scope | executable |
 | --- | --- | --- | --- | --- | --- |
-| codex_app_reference | 0.2.0 | draft_pending_G_07 | G-07 | structural_contract_only | false |
+| codex_app_reference | 1.0.0 | verified_G_07 | G-07 | observable_host_conformance | true |
 
 ## Interface States
 
 | interface_id | capability_status | execution_allowed | fallback_mode | evidence_status |
 | --- | --- | --- | --- | --- |
-| user_interaction | unknown | false | blocked | pending_G_07 |
-| workspace_filesystem | unknown | false | blocked | pending_G_07 |
-| terminal_and_tests | unknown | false | degraded | pending_G_07 |
-| tools_connectors_and_network | unknown | false | rerouted | pending_G_07 |
-| sub_agents | unknown | false | rerouted | pending_G_07 |
-| task_and_thread_state | unknown | false | blocked | pending_G_07 |
-| memory_and_retrieval | unknown | false | rerouted | pending_G_07 |
-| target_runtime | unknown | false | blocked | pending_G_07 |
+| user_interaction | verified_available | true | blocked | current |
+| workspace_filesystem | verified_available | true | blocked | current |
+| terminal_and_tests | verified_available | true | degraded | current |
+| tools_connectors_and_network | environment_dependent | false | rerouted | current |
+| sub_agents | permission_dependent | false | rerouted | current |
+| task_and_thread_state | environment_dependent | false | blocked | current |
+| memory_and_retrieval | verified_available | true | rerouted | current |
+| target_runtime | verified_unavailable | false | blocked | current |
 
 ## Boundary
 
-G-07 remains open. This reader grants no host, tool, filesystem, network, sub-agent, thread-state, cancellation, permission, production, or operational authority.
+G-07 is accepted only for the exact current mixed interface states. This reader grants no permission, production readiness, operational authority, target-runtime authority, stakeholder consensus, or domain truth.
 
 ## Allowed Promotion Path
 

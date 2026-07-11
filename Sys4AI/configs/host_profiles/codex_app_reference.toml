@@ -1,36 +1,40 @@
 [profile]
 profile_id = "codex_app_reference"
-profile_version = "0.2.0"
+profile_version = "1.0.0"
 host_name = "Codex App"
 host_variant = "desktop_reference"
 portable_execution_contract_version = "1.0.0"
-portable_execution_contract_executable = false
-verification_state = "draft_pending_G_07"
+portable_execution_contract_executable = true
+verification_state = "verified_G_07"
 verification_gate = "G-07"
-verification_scope = "structural_contract_only"
-verification_decision = "pending_G_07"
-verified_at = "pending_G_07"
-verified_by = "pending_G_07"
+verification_scope = "observable_host_conformance"
+verification_decision = "DDR-SFADEV-STRATEGIC-BASELINE-G07-001"
+verified_at = "2026-07-11T15:19:10Z"
+verified_by = "verification_engineer"
 source_evidence = [
   "implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md#WS-06",
   "Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G04-001.yaml#host_interface_contract_disposition",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md",
+  "Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G07-001.yaml",
 ]
 environment_scope = [
-  "Codex desktop reference-host profile",
-  "Sys4AI-dev development workspace",
+  "Codex desktop local host observed on 2026-07-11",
+  "Sys4AI-dev saved local development workspace at /Volumes/P-SSD/AngryOwl/Sys4AI-dev",
+  "Current bounded TX-22-G07-HOST-VERIFICATION permission envelope",
 ]
 permission_source = "Platform and system constraints, host permissions, project authorization, and bounded transaction authorization."
 degraded_behavior = "Fail closed or use the declared blocked, degraded, or rerouted interface fallback."
-cancellation_behavior = "Treat cancellation as unavailable until the applicable interface is verified at G-07."
-evidence_capture = "Retain structural validation and transaction evidence; observable host probes require separate G-07 evidence."
+cancellation_behavior = "Terminal process interruption is verified for the observed local shell; untested external, delegated, task-level, and target-runtime cancellation remains fail-closed per interface."
+evidence_capture = "Retain the TX-22 probe report, exact interface state, permission source, timestamps, decision, validation, receipt, and handoff without secrets."
 known_limitations = [
-  "No Codex capability has been verified by this profile.",
   "Host permissions and available mechanisms can vary by environment and task.",
-  "The portable execution contract exists structurally, but this profile cannot execute it until G-07 capabilities and permissions are verified.",
+  "G-07 verifies only the observed development-host profile and does not grant permission for any future transaction.",
+  "Tools, connectors, network, sub-agents, and task/thread mutation remain conditional on current tool inventory and explicit policy.",
+  "No target runtime, deployment, monitoring, incident, rollback, kill, production, or operational capability is available through this profile.",
   "Structural validation cannot prove host behavior, safety, or operational completeness.",
 ]
 review_trigger = [
-  "G-07 observable verification begins or is superseded.",
+  "Evidence reaches its freshness horizon on 2026-07-18T15:19:10Z.",
   "Codex host behavior, permissions, tools, task state, or cancellation changes.",
   "The portable execution contract version or required capability set changes.",
   "A required interface obtains new, stale, denied, or conflicting evidence.",
@@ -55,21 +59,21 @@ values_or_goals_may_override = false
 
 [[interfaces]]
 interface_id = "user_interaction"
-capability_status = "unknown"
-execution_allowed = false
+capability_status = "verified_available"
+execution_allowed = true
 fallback_mode = "blocked"
-host_mechanism = "Proposed Codex conversation and approval interaction; observable behavior is pending G-07."
+host_mechanism = "Codex conversation plus exact task/thread readback of the accountable user's current instruction."
 permission_source = "Platform and system constraints, host interaction controls, project authorization, and the accountable user's explicit instruction."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-user-interaction",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#user-interaction",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-USER-INTERACTION-POS-001"
+denial_or_absence_probe = "HOST-G07-USER-INTERACTION-NEG-001"
 degraded_behavior = "Block approval-dependent work; silence, timeout, or ambiguous identity is not consent."
 cancellation_behavior = "Stop at the current safe boundary and treat user-level cancellation as unavailable until verified."
 evidence_capture = "Record the request, clarification, approval or rejection, principal identity, timestamp, and retained source path after G-07 verification."
@@ -84,21 +88,21 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "workspace_filesystem"
-capability_status = "unknown"
-execution_allowed = false
+capability_status = "verified_available"
+execution_allowed = true
 fallback_mode = "blocked"
-host_mechanism = "Proposed Codex workspace filesystem access; allowed roots and mutation behavior are pending G-07."
+host_mechanism = "Governed local filesystem tools scoped by the current host and bounded transaction; repository reads and the controlled memory-preflight write were observed."
 permission_source = "Host filesystem permissions, workspace roots, project authorization, and the bounded transaction write set."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-workspace-filesystem",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#workspace-filesystem",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-WORKSPACE-FILESYSTEM-POS-001"
+denial_or_absence_probe = "HOST-G07-WORKSPACE-FILESYSTEM-NEG-001"
 degraded_behavior = "Block source-dependent work when reads are unavailable; produce a proposed patch only when writes are unavailable."
 cancellation_behavior = "Stop new writes, preserve the current diff, and report any operation whose completion state is uncertain."
 evidence_capture = "Retain allowed roots, read/write class, diff, validator output, and ownership evidence after G-07 verification."
@@ -113,26 +117,26 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "terminal_and_tests"
-capability_status = "unknown"
-execution_allowed = false
+capability_status = "verified_available"
+execution_allowed = true
 fallback_mode = "degraded"
-host_mechanism = "Proposed Codex terminal command and test execution; command, cancellation, and result semantics are pending G-07."
+host_mechanism = "Governed local shell command execution with working-directory, output, exit-status, session, and interrupt evidence."
 permission_source = "Host process permissions, sandbox policy, command approval rules, project authorization, and transaction stop conditions."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-terminal-and-tests",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#terminal-and-tests",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-TERMINAL-TESTS-POS-001"
+denial_or_absence_probe = "HOST-G07-TERMINAL-TESTS-NEG-001"
 degraded_behavior = "Mark commands and tests not run; do not claim a pass and provide a reproducible command when safe."
 cancellation_behavior = "Do not start high-risk or long-running work without a verified stop mechanism; report indeterminate process state."
 evidence_capture = "Retain exact command class, arguments, working directory, exit status, relevant output, and cancellation result after G-07 verification."
 known_limitations = [
-  "Shell availability, sandbox boundaries, command approval, duration, and cancellation are unverified.",
+  "The local shell and Ctrl-C interruption were observed; sandbox boundaries, approval behavior, other durations, and non-shell cancellation remain unverified.",
   "A zero exit status does not establish semantic correctness beyond the invoked check.",
 ]
 review_trigger = [
@@ -142,21 +146,21 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "tools_connectors_and_network"
-capability_status = "unknown"
+capability_status = "environment_dependent"
 execution_allowed = false
 fallback_mode = "rerouted"
-host_mechanism = "Proposed Codex tools, connectors, and network access; identities, credentials, and side effects are pending G-07."
+host_mechanism = "Per-task typed tool inventory with separately authorized connector or network calls; an official-domain web search succeeded while a separate manual-fetch mechanism failed closed."
 permission_source = "Platform tool availability, connector and network permissions, credential mechanism, user consent, and bounded transaction authority."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-tools-connectors-network",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#tools-connectors-and-network",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-TOOLS-NETWORK-POS-001"
+denial_or_absence_probe = "HOST-G07-TOOLS-NETWORK-NEG-001"
 degraded_behavior = "Use registered local evidence or request authority; do not simulate connector, network, or external-write success."
 cancellation_behavior = "Avoid irreversible external effects without verified confirmation and cancellation boundaries; report uncertain side effects."
 evidence_capture = "Retain tool identity, data class, consent, credential mechanism reference, request scope, response evidence, and side-effect result after G-07 verification."
@@ -171,21 +175,21 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "sub_agents"
-capability_status = "unknown"
+capability_status = "permission_dependent"
 execution_allowed = false
 fallback_mode = "rerouted"
-host_mechanism = "Proposed Codex sub-agent collaboration; concurrency, context, tools, and interruption behavior are pending G-07."
+host_mechanism = "Codex collaboration surface is present, but the current governing task policy forbids spawning sub-agents without explicit user or skill authorization."
 permission_source = "Host collaboration limits, parent task authority, explicit role binding, scoped tools, and bounded subtask instructions."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-sub-agents",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#sub-agents",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-SUBAGENTS-POS-001"
+denial_or_absence_probe = "HOST-G07-SUBAGENTS-NEG-001"
 degraded_behavior = "Execute sequentially only when scope and assurance remain acceptable; otherwise block and request a narrower route."
 cancellation_behavior = "Treat child interruption, completion, and orphan prevention as unavailable until verified; avoid unsafe parallel mutation."
 evidence_capture = "Retain role binding, subtask scope, supplied context, allowed tools, returned evidence, verification, and interruption result after G-07 verification."
@@ -200,26 +204,26 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "task_and_thread_state"
-capability_status = "unknown"
+capability_status = "environment_dependent"
 execution_allowed = false
 fallback_mode = "blocked"
-host_mechanism = "Proposed Codex task and thread state access; freshness, handoff, cancellation, and archival behavior are pending G-07."
+host_mechanism = "Read-only Codex project, task-list, and task-read tools were observed; task mutation, handoff, archive, and cancellation were not authorized or exercised."
 permission_source = "Host task-state controls, current user authority, project state sources, and bounded transaction state rules."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-task-thread-state",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#task-and-thread-state",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-TASK-STATE-POS-001"
+denial_or_absence_probe = "HOST-G07-TASK-STATE-NEG-001"
 degraded_behavior = "Block state-dependent routing until fresh repository or host evidence is available; do not use narration as current state."
 cancellation_behavior = "Stop routing new work and preserve an explicit resumable handoff when task cancellation or archival is uncertain."
 evidence_capture = "Retain the current-state source, task identifier, state transition, handoff fields, cancellation, and archival result after G-07 verification."
 known_limitations = [
-  "Task identity, freshness, archival, cancellation, and cross-thread state behavior are unverified.",
+  "Current task identity and read freshness were observed; mutation, archival, cancellation, handoff, and broader cross-thread behavior remain unverified.",
   "Host task state does not supersede repository authority sources.",
 ]
 review_trigger = [
@@ -229,21 +233,21 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "memory_and_retrieval"
-capability_status = "unknown"
-execution_allowed = false
+capability_status = "verified_available"
+execution_allowed = true
 fallback_mode = "rerouted"
-host_mechanism = "Proposed Codex memory and retrieval support; source linkage, freshness, and retention behavior are pending G-07."
+host_mechanism = "Repository source-first memory status, lookup, search, and preflight tools with mandatory canonical-source inspection."
 permission_source = "Host retrieval permissions, registered source access, data-class controls, project authority, and source-first policy."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-memory-retrieval",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#memory-and-retrieval",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-MEMORY-RETRIEVAL-POS-001"
+denial_or_absence_probe = "HOST-G07-MEMORY-RETRIEVAL-NEG-001"
 degraded_behavior = "Inspect registered canonical or controlled sources directly; treat memory hits as navigation and block when required sources are unavailable."
 cancellation_behavior = "Stop retrieval and discard unverified partial conclusions when source verification cannot complete safely."
 evidence_capture = "Retain query, source path, registry row, freshness, authority class, inspected evidence, and stale-risk result after G-07 verification."
@@ -258,21 +262,21 @@ review_trigger = [
 
 [[interfaces]]
 interface_id = "target_runtime"
-capability_status = "unknown"
+capability_status = "verified_unavailable"
 execution_allowed = false
 fallback_mode = "blocked"
-host_mechanism = "Proposed target runtime, deployment, telemetry, rollback, incident, and kill controls; all are pending G-07 and separate target authorization."
+host_mechanism = "No target runtime is configured or authorized in the observed repository and task; only a non-production smoke-example package exists."
 permission_source = "Platform and host runtime permissions, target-system authority, deployment and promotion gates, operator approval, and incident policy."
 source_evidence = [
   "SFADEV-IMPL-PLAN-STRATEGIC-BASELINE-001#12.4-target-runtime",
   "DDR-SFADEV-STRATEGIC-BASELINE-G04-001#required_interfaces",
-  "observable_host_evidence_pending_G_07",
+  "implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-G07-HOST-VERIFICATION-SFADEV-TX22.md#target-runtime",
 ]
-evidence_status = "pending_G_07"
-evidence_checked_at = "pending_G_07"
-evidence_fresh_until = "pending_G_07"
-positive_probe = "pending_G_07"
-denial_or_absence_probe = "pending_G_07"
+evidence_status = "current"
+evidence_checked_at = "2026-07-11T15:19:10Z"
+evidence_fresh_until = "2026-07-18T15:19:10Z"
+positive_probe = "HOST-G07-TARGET-RUNTIME-POS-001"
+denial_or_absence_probe = "HOST-G07-TARGET-RUNTIME-NEG-001"
 degraded_behavior = "Block deployment and operation; preserve non-production status and produce design or test evidence only within separate authority."
 cancellation_behavior = "Do not start runtime or deployment activity without verified kill, rollback, and incident controls."
 evidence_capture = "Retain environment, release gate, telemetry, rollback, incident owner, kill result, and target approval evidence after G-07 verification."

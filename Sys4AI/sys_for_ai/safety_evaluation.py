@@ -163,7 +163,9 @@ def validate_safety_evaluation(
             f"negative={counts['negative']} conflict={counts['conflict']})",
             "TX-17 snapshot: self-change acceptance was blocked pending TX-18 accountable human review; "
             "current G-08 status is governed by program state and DDR-SFADEV-STRATEGIC-BASELINE-G08-001. "
-            "G-07, operational authority, and production readiness remain open.",
+            "At the TX-17 snapshot G-07, operational authority, and production readiness were open; "
+            "current G-07 status is governed by program state and DDR-SFADEV-STRATEGIC-BASELINE-G07-001, "
+            "while operational authority and production readiness remain open.",
             STRUCTURAL_LIMITATION,
         ],
     )

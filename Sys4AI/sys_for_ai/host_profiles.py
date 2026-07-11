@@ -85,7 +85,7 @@ def validate_host_capability_profiles(
     schema_path: str | Path = DEFAULT_SCHEMA_PATH,
     director_decision_registry_path: str | Path = DEFAULT_DIRECTOR_DECISION_REGISTRY,
 ) -> ValidationResult:
-    """Validate host profiles structurally without satisfying host gate G-07."""
+    """Validate host-profile structure and registered G-07 evidence bindings."""
 
     profile_root = resolve_registered_path(str(root))
     contract_path = resolve_registered_path(str(schema_path))
@@ -110,6 +110,7 @@ def validate_host_capability_profiles(
     if not profile_paths:
         return ValidationResult(False, [f"{profile_root}: no host capability profile TOML files found"])
 
+    verification_states: list[str] = []
     for profile_path in profile_paths:
         try:
             data = load_toml(profile_path)
@@ -132,18 +133,26 @@ def validate_host_capability_profiles(
                 director_decision_registry_path,
             )
         )
+        profile = data.get("profile")
+        if isinstance(profile, dict):
+            verification_states.append(str(profile.get("verification_state", "")))
 
     if messages:
         return ValidationResult(False, messages)
 
-    return ValidationResult(
-        True,
-        [
+    if verification_states and all(
+        state == VERIFIED_VERIFICATION_STATE for state in verification_states
+    ):
+        status_message = (
+            f"{profile_root}: verified G-07 host capability profile structural contract "
+            "and registered decision bindings passed"
+        )
+    else:
+        status_message = (
             f"{profile_root}: host capability profile structural contract passed; "
-            "G-07 remains open and this result does not verify host capability",
-            STRUCTURAL_LIMITATION,
-        ],
-    )
+            "one or more profiles remain pending G-07"
+        )
+    return ValidationResult(True, [status_message, STRUCTURAL_LIMITATION])
 
 
 def _profile_paths(root: Path) -> list[Path]:

@@ -100,7 +100,7 @@ hashes:
 - path: validation/strategic-intent-summary.md
   sha256: 81979550ce16d5d62b03eabb8a6708262f8a200e89b47587a5e10418b59bc7ea
 - path: validation/host-capability-summary.md
-  sha256: f2a802a980630328e4f091e10395d47f7a368d289bb9c6d538e2ecd5ba510363
+  sha256: 346dc563e4993bca3bc333f4f3f8aa4f0eee4840b8b2e6683c3c4e047c49c35b
 - path: validation/test-and-evaluation-summary.md
   sha256: 14ee45b48dd7240617fcd143f118768dd2d435da10af95b9b25de00e189ec972
 validation:

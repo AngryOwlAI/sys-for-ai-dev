@@ -149,9 +149,11 @@ class WalkingSkeletonTests(unittest.TestCase):
         self.assertIn("## Active Revised Artifact Flow", active_section)
         self.assertNotIn("agentjob", active_section.lower())
         self.assertIn("agentjob", historical_section.lower())
-        self.assertIn("G-07 host verification remains open", report)
+        self.assertIn("Framework G-07 is accepted for the current mixed reference-host profile", report)
+        self.assertIn("this derivative target package remains permission-dependent", report)
         self.assertIn("G-08 framework strategic approval is accepted", report)
         self.assertNotIn("G-08 strategic approval remains open", report)
+        self.assertNotIn("G-07 host verification remains open", report)
         self.assertIn("Production readiness, operational authority, stakeholder consensus, and domain acceptance remain open", report)
 
     def test_every_addendum_requirement_is_in_the_framework_trace(self) -> None:

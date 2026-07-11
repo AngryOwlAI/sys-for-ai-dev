@@ -37,6 +37,7 @@ class SafetyEvaluationTests(unittest.TestCase):
                 and "TX-18" in item
                 and "current G-08 status" in item
                 and "G-07" in item
+                and "current G-07 status" in item
                 for item in result.messages
             )
         )

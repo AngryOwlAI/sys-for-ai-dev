@@ -6,7 +6,7 @@ system_context:
   target_system: Sys4AI
   self_hosting_mode: true
   reflection_depth: 1
-current_phase: strategic_baseline_migration_TX_21_audit_complete_G_10_deferred
+current_phase: strategic_baseline_migration_G_07_accepted_evidence_closure_ready
 lifecycle_stage: test
 active_task_id: null
 active_director_decision_id: null
@@ -27,12 +27,16 @@ current_state_evidence:
 - DDR-SFADEV-STRATEGIC-BASELINE-G10-001
 - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001
 - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001
-continuation_state: blocked
+- TX-22-G07-HOST-VERIFICATION
+- DDR-SFADEV-STRATEGIC-BASELINE-G07-001
+- RECEIPT-SFADEV-STRATEGIC-BASELINE-TX22-001
+- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX22-001
+continuation_state: ready
 cancellation_state: not_requested
-escalation_state: pending
-latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001
-latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001
-latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-21-FINAL-ACCEPTANCE-20260711T143842Z
+escalation_state: not_required
+latest_closeout_evidence_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX22-001
+latest_handoff_evidence_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX22-001
+latest_memory_preflight_receipt_id: MEMPREFLIGHT-TX-22-G07-HOST-VERIFICATION-20260711T151753Z
 capability_status_summary:
   portable_execution_contract: implemented
   current_state_model: implemented
@@ -42,14 +46,15 @@ capability_status_summary:
   safety_evaluation_controls: implemented
   strategic_approval: accepted_G_08
   derivative_regeneration: complete_G_09
-state_status: blocked
-blocked_reason: G-10 final acceptance is deferred because G-07 observable host verification and material plan-defined verification semantic independent-evaluation and operational evidence remain open.
-human_gate_required: true
+  host_verification: accepted_G_07_mixed_profile
+state_status: active
+blocked_reason: G-10 remains deferred while the separately authorized evidence-closure program is active; G-07 itself is accepted for the exact current mixed profile.
+human_gate_required: false
 allowed_next_actions:
 - run_memory_preflight
 - inspect_latest_handoff
-- propose_separately_authorized_G_07_observable_host_verification
-- propose_separately_authorized_evidence_closure
+- execute_TX_23_EVIDENCE_CLOSURE_PLAN_only
+- reverify_G_07_if_profile_evidence_becomes_stale_or_changes
 - supersede_G_10_defer_only_with_accountable_evidence
 blocked_actions:
 - execute_multiple_transactions_without_concurrency_authorization
@@ -60,13 +65,16 @@ blocked_actions:
 - begin_TX_21_before_TX_20_shared_baseline
 - claim_G_10_before_TX_21_acceptance
 - claim_G_10_after_TX_21_audit_without_G_07_and_evidence_closure
+- treat_G_07_as_production_operational_target_runtime_or_permission_authority
+- mark_conditional_or_unavailable_host_interfaces_executable
+- begin_bulk_evidence_status_mutation_before_TX_23_classification
 - treat_TX_19_module_validation_as_G_07_G_09_G_10_or_production_acceptance
 - treat_TX_17_structural_or_holdout_validation_as_G_07_or_domain_acceptance
 - use_G_08_approval_to_expand_permissions
 - claim_broad_stakeholder_consensus_or_domain_truth_from_G_08
 - claim_production_readiness_or_operational_authority
 validation_status:
-  last_validated_at: '2026-07-11T14:45:44Z'
+  last_validated_at: '2026-07-11T15:19:10Z'
   validators:
   - make validate-program-state
   - make validate-capability-migration
