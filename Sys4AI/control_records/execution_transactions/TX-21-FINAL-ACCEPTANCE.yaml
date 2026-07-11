@@ -1,0 +1,203 @@
+execution_transaction_id: TX-21-FINAL-ACCEPTANCE
+contract_version: 1.0.0
+objective: Execute the full strategic-baseline regression semantic review rollback rehearsal and closeout audit, then record a truthful accountable G-10 disposition without promoting G-07 production operational stakeholder domain or permission authority.
+source_requirement_ids:
+- SFA-CORE-VALUES-003
+- SFA-CORE-VALUES-007
+- SFA-CORE-VALUES-008
+source_decision_ids:
+- DDR-SFADEV-STRATEGIC-BASELINE-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G08-001
+subject_system:
+  system_id: sys4ai
+  system_name: Sys4AI framework product
+subject_layer: framework_product
+runtime_actor:
+  actor_id: codex_meta_agent_runtime
+  actor_type: meta_agent_runtime
+  role_ids:
+  - requirements_verifier
+  - verification_engineer
+  - source_authority_auditor
+  - system_director
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-11-TX21-FINAL-ACCEPTANCE
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+approval_principal:
+  principal_id: alex_omegapy
+  principal_type: accountable_human
+  approval_scope: Execute TX-21 full regression semantic review rollback verification final closeout evidence and accountable G-10 disposition while G-07 production readiness and operational authority remain open.
+  authorization_evidence_ids:
+  - HUMAN-TASK-2026-07-11-TX21-FINAL-ACCEPTANCE
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+  model_self_approval: false
+execution_authorization:
+  status: authorized
+  authorized_at: '2026-07-11T14:38:42Z'
+  expires_at: '2026-07-12T14:38:42Z'
+  authority_evidence_ids:
+  - HUMAN-TASK-2026-07-11-TX21-FINAL-ACCEPTANCE
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+  self_authorized: false
+permission_envelope:
+  envelope_id: PERMISSION-ENVELOPE-TX-21-FINAL-ACCEPTANCE
+  status: current
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-11-TX21-FINAL-ACCEPTANCE
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+  data_classes:
+  - repository_controlled_artifacts
+  - local_validation_evidence
+  - disposable_rollback_worktree
+  resource_limits:
+  - One bounded TX-21 audit decision closeout and blocked-handoff packet.
+  - Preserve canonical PRDs G-08 Phase 2 TX-17 holdouts thresholds and the 227-row trace unchanged.
+  - Treat structural validation rollback success and generated readers as bounded evidence only.
+  - Defer rather than infer G-10 if any plan-defined prerequisite remains open.
+  valid_from: '2026-07-11T14:38:42Z'
+  expires_at: '2026-07-12T14:38:42Z'
+  sensitive_data_allowed: false
+  secrets_allowed: false
+  data_egress_allowed: true
+  external_side_effects_allowed: true
+  delegation_allowed: false
+  delegation_expires_at: not_applicable
+  permission_expansion_allowed: false
+allowed_reads:
+- Repository canonical controlled historical and generated artifacts needed for TX-21 evidence resolution.
+- Local git history validation output and disposable rollback worktree state.
+allowed_writes:
+- TX-21 execution preflight final report G-10 decision receipt handoff program state and required registry/generated-reader reconciliation.
+allowed_tools:
+- Repository search and file inspection.
+- Git read operations disposable worktree operations commit and push.
+- Repository-provided validators generators and unit tests.
+allowed_external_actions:
+- Fetch origin for shared-baseline verification.
+- Push the atomic TX-21 evidence packet after final validation.
+forbidden_actions:
+- Claim G-10 acceptance while G-07 or plan-defined blocking evidence remains open.
+- Promote production readiness operational authority broad stakeholder consensus domain truth autonomous capability or permissions.
+- Mutate protected canonical G-08 Phase 2 TX-17 holdout threshold trace or activated historical evidence.
+- Treat generated pages memory hits structural validation or the runtime actor as acceptance authority.
+inputs:
+- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+- implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md
+- Sys4AI/control_records/program_state.yaml
+- Sys4AI/configs/host_profiles/codex_app_reference.toml
+- Sys4AI/registries/requirement_trace_registry.csv
+- Sys4AI/assurance/meta_agent_self_change_safety_evaluation.yaml
+expected_outputs:
+- A full regression and semantic acceptance report.
+- A rollback rehearsal at the last pre-TX-20 validated boundary.
+- An accountable G-10 accept reject revise or defer decision.
+- Machine and human-readable closeout evidence and an exact next-state handoff.
+validators:
+- validator_id: tx21_root_aggregate
+  command_or_method: make validate
+  blocking: true
+  expected_evidence: Root and product aggregate validation pass on the final tree.
+- validator_id: tx21_product_unit
+  command_or_method: cd Sys4AI and run .venv/bin/python -m unittest discover -s tests
+  blocking: true
+  expected_evidence: Full product unit suite passes.
+- validator_id: tx21_semantic_audit
+  command_or_method: Inspect WS-16 questions host profile trace state protected evidence and validator limitations.
+  blocking: true
+  expected_evidence: Every acceptance claim maps to current evidence or an explicit blocking gap.
+- validator_id: tx21_rollback_rehearsal
+  command_or_method: Validate detached dc400c3 pre-TX-20 worktree and run its product unit suite.
+  blocking: true
+  expected_evidence: Rollback boundary is coherent clean and independently valid.
+- validator_id: tx21_diff_integrity
+  command_or_method: git diff --check
+  blocking: true
+  expected_evidence: No whitespace or patch-integrity errors.
+stop_conditions:
+- G-07 remains open or a required host capability lacks observable accepted evidence.
+- Planned verification needs-evidence or nontrivial unresolved risk violates the final definition of done.
+- Protected evidence changes or rollback cannot restore a coherent boundary.
+- Any G-10 route would imply production operational stakeholder domain or permission authority.
+host_capability_requirements:
+  execution_profile_id: codex_local_observed_subset
+  overall_status: verified_available
+  required_capability_ids:
+  - workspace_filesystem
+  - terminal_and_tests
+  - git_local_worktree_commit_and_push
+  evidence_ids:
+  - HOST-CODEX-LOCAL-OBSERVATION-2026-07-11-TX21
+  - SRC-HOST-PROFILE-CODEX-APP-REFERENCE
+  checked_at: '2026-07-11T14:38:42Z'
+  values_or_goals_may_override: false
+state:
+  status: completed
+  current_state_evidence_ids:
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001
+  - DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+  continuation_state: not_applicable
+  continuation_evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+  state_transition_evidence_ids:
+  - HUMAN-TASK-2026-07-11-TX21-FINAL-ACCEPTANCE
+cancellation:
+  state: not_requested
+  requested_by: not_applicable
+  behavior: Stop at the nearest safe boundary preserve accepted history retain diagnostic evidence and do not infer G-10.
+  evidence_ids: []
+  uncertain_operations: []
+escalation:
+  state: required
+  conditions:
+  - G-07 observable host verification is open.
+  - The trace retains planned verification scaffolded absent and needs-evidence states incompatible with unconditional final acceptance.
+  responsible_principal_id: alex_omegapy
+  required_decision: Authorize a separately bounded G-07 and evidence-closure program, accept an explicit scoped waiver where permitted, or revise the strategic migration definition of done through controlled supersession.
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+resume_evidence:
+  required: true
+  status: consumed
+  last_known_state: TX-20 was complete and shared at 9f084179bfbcaee10277ff62c02fcbbea1be637c with G-09 complete and TX-21 alone eligible.
+  evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX20-001
+  - MEMPREFLIGHT-TX-21-FINAL-ACCEPTANCE-20260711T143842Z
+closeout_evidence:
+  status: complete
+  evidence_ids:
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001
+  - DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+  - CR-SFADEV-STRATEGIC-BASELINE-TX21-001
+  changed_artifacts:
+  - TX-21 audit decision closeout state and registry evidence only.
+  validation_evidence_ids:
+  - TX21-ROOT-VALIDATE-PASS
+  - TX21-PRODUCT-UNIT-245-PASS
+  - TX21-ROLLBACK-DC400C3-VALIDATE-PASS
+  - TX21-ROLLBACK-DC400C3-UNIT-242-PASS
+  - TX21-SEMANTIC-GAPS-PRESERVED
+  acceptance_evidence_ids:
+  - HUMAN-TASK-2026-07-11-TX21-FINAL-ACCEPTANCE
+  - DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+rollback:
+  status: available
+  strategy: Before publication revert the complete TX-21 evidence packet; after publication supersede it. The pre-TX-20 rollback boundary dc400c3 has passed aggregate validation and 242 tests in a detached disposable worktree.
+  triggers:
+  - Any final validator or protected hash fails.
+  - The closeout language overstates G-10 G-07 production operational stakeholder domain or permission authority.
+  actions:
+  - Preserve the failure evidence and stop.
+  - Revert unshared TX-21 evidence or create an explicit superseding transaction after sharing.
+  - Retain the last validated pushed implementation baseline and all activated history.
+  evidence_ids:
+  - ROLLBACK-BOUNDARY-DC400C3
+  - TX21-ROLLBACK-ROOT-VALIDATE-PASS
+  - TX21-ROLLBACK-UNIT-242-PASS
+supersession:
+  status: current
+  supersedes_transaction_ids: []
+  superseded_by: not_applicable
+  evidence_ids: []

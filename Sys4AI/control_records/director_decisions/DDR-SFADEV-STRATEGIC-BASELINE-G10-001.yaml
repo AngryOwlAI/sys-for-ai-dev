@@ -1,0 +1,88 @@
+director_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+schema_version: 0.1.0
+decision_status: completed
+created_at: '2026-07-11T14:38:42Z'
+completed_at: '2026-07-11T14:38:42Z'
+director_role: system_director
+approval_principal:
+  principal_id: alex_omegapy
+  principal_type: accountable_human
+  authorization_basis: The principal directly authorized TX-21 full regression semantic review rollback verification closeout evidence and an accountable G-10 disposition while explicitly preserving G-07 production readiness and operational authority as open.
+  approval_evidence: Human-issued Codex task instruction dated 2026-07-11.
+  approval_scope:
+  - execute TX-21 evidence collection and closeout
+  - record a truthful G-10 disposition from live evidence
+  - preserve G-07 production readiness and operational authority as open
+  model_self_approval: false
+decision_context:
+  trigger: strategic_baseline_final_acceptance_gate
+  transaction_id: TX-21-FINAL-ACCEPTANCE
+  gate_id: G-10
+  program_state_id: SYS4AI-PROGRAM-STATE-001
+  latest_handoff_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001
+  plan_source_id: SRC-STRATEGIC-BASELINE-MIGRATION-PLAN
+  reviewed_head_commit: 9f084179bfbcaee10277ff62c02fcbbea1be637c
+  memory_preflight_receipt_id: MEMPREFLIGHT-TX-21-FINAL-ACCEPTANCE-20260711T143842Z
+  observed_evidence:
+  - Root aggregate validation passed on the TX-20 shared baseline.
+  - The full current product suite passed 245 of 245 tests on the final code and control tree.
+  - The detached pre-TX-20 rollback boundary dc400c3 passed aggregate validation and 242 of 242 tests.
+  - Protected Phase 0 Phase 1 Phase 2 G-08 TX-17 holdout and trace hashes match the prior recorded values.
+  - G-08 is accepted and G-09 is complete.
+  - G-07 observable host verification remains open and all eight reference-host interface states remain fail-closed rather than accepted host capability evidence.
+  - The trace contains 227 rows with 200 planned verifications 137 scaffolded capabilities 5 absent capabilities 135 partial coverage rows and 7 needs-evidence semantic verdicts.
+  - Production readiness operational authority broad stakeholder consensus autonomous capability domain truth and independent external evaluation remain unproved.
+selected_route:
+  route_id: defer_G_10_until_G_07_and_evidence_closure
+  route_name: Complete the TX-21 audit but do not accept final migration completion
+  rationale: The executed regression and rollback evidence proves repository coherence and reversibility, not the plan's full definition of done. G-10 requires all prior gates and the WS-16 acceptance evidence; open G-07 and material trace and operational gaps therefore require a fail-closed defer disposition.
+  immediate_effect: TX-21 evidence collection is complete; G-10 remains not accepted; the program stops at a controlled blocked boundary pending separately authorized host and evidence closure or an accountable plan supersession.
+rejected_routes:
+- route_id: accept_G_10_unconditionally
+  reason: Contradicts open G-07 the plan entry criteria and recorded evidence gaps.
+- route_id: treat_structural_validation_as_final_acceptance
+  reason: Validators explicitly disclaim strategic stakeholder behavioral production operational and domain proof.
+- route_id: convert_open_evidence_to_waivers
+  reason: No accountable scoped waiver with rationale expiry monitoring and authority exists for the blocking evidence.
+- route_id: promote_to_production_or_operations
+  reason: The user explicitly preserved production readiness and operational authority as open and the evidence does not support promotion.
+- route_id: rewrite_the_plan_definition_of_done
+  reason: TX-21 has no authority to mutate its own acceptance threshold or supersede the controlled roadmap silently.
+authority_boundary:
+  human_authority_recorded: true
+  completes_TX21_evidence_collection: true
+  accepts_gate_G_10: false
+  plan_completion_claimed: false
+  may_route_to_separately_authorized_G_07_and_evidence_closure: true
+  may_claim_G_07_host_verification: false
+  may_claim_production_readiness: false
+  may_grant_operational_authority: false
+  may_claim_broad_stakeholder_consensus: false
+  may_claim_domain_truth_or_domain_acceptance: false
+  may_expand_permissions: false
+  may_mutate_activated_control_history: false
+  may_restore_retired_runtime_surfaces: false
+rollback_and_review:
+  rollback_class: non_activating_final_acceptance_defer_decision
+  rollback_scope: Before publication revert this TX-21 evidence packet together. After publication preserve the decision and supersede it only with evidence-backed accountable authority.
+  supersession_rule: A later G-10 acceptance must identify resolved G-07 evidence trace verification and semantic gaps accepted waivers remaining residual risk and the exact baseline reviewed.
+  review_triggers:
+  - accepted G-07 observable host verification
+  - material closure of planned scaffolded absent partial or needs-evidence trace states
+  - approved waivers for any remaining plan-defined acceptance obligation
+  - controlled revision of the plan definition of done
+  expiry: remains current until explicitly superseded
+evidence_references:
+- implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-FINAL-ACCEPTANCE-SFADEV-TX21.md
+- implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001.yaml
+- Sys4AI/configs/host_profiles/codex_app_reference.toml
+- Sys4AI/registries/requirement_trace_registry.csv
+- Sys4AI/assurance/meta_agent_self_change_safety_evaluation.yaml
+validators:
+- cd Sys4AI && make validate-director-decisions
+- cd Sys4AI && make validate-director-decision-registry
+- cd Sys4AI && make validate-program-state
+- cd Sys4AI && make validate-registry-graph
+- make validate
+- git diff --check

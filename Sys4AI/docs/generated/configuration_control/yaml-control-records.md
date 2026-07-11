@@ -243,6 +243,11 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx20_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-20-GENERATED-DOCS-20260711T141224Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx20_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX20-001.yaml | completion_receipt | controlled | svc_documentation_surface_architect | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx20_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001.yaml | handoff | controlled | svc_documentation_surface_architect | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_tx21_execution_transaction | control_records/execution_transactions/TX-21-FINAL-ACCEPTANCE.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx21_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-21-FINAL-ACCEPTANCE-20260711T143842Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_g10_director_decision | control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G10-001.yaml | director_decision | controlled | framework_product | contract_director_decision | pending |
+| ctrl_strategic_baseline_tx21_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001.yaml | completion_receipt | controlled | requirements_verifier | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx21_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001.yaml | handoff | controlled | requirements_verifier | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 

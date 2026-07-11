@@ -298,6 +298,29 @@ def _validate_program_state_alignment(path: Path, state: dict[str, Any]) -> list
             messages.append(f"{path}: post-TX-20 state is not aligned to the TX-20 handoff")
         if state.get("state_status") != "active" or state.get("human_gate_required") is not False:
             messages.append(f"{path}: post-TX-20 state must remain active without claiming final acceptance")
+    elif phase == "strategic_baseline_migration_TX_21_audit_complete_G_10_deferred":
+        if summary.get("broader_semantic_validation") != "implemented":
+            messages.append(f"{path}: post-TX-21 deferred state must retain broader_semantic_validation implemented")
+        if summary.get("strategic_approval") != "accepted_G_08":
+            messages.append(f"{path}: post-TX-21 deferred state must retain strategic_approval accepted_G_08")
+        if summary.get("derivative_regeneration") != "complete_G_09":
+            messages.append(f"{path}: post-TX-21 deferred state must retain derivative_regeneration complete_G_09")
+        if "propose_separately_authorized_G_07_observable_host_verification" not in allowed:
+            messages.append(f"{path}: post-TX-21 deferred state must expose the separately authorized G-07 route")
+        if "propose_separately_authorized_evidence_closure" not in allowed:
+            messages.append(f"{path}: post-TX-21 deferred state must expose the evidence-closure route")
+        if "claim_G_10_after_TX_21_audit_without_G_07_and_evidence_closure" not in blocked:
+            messages.append(f"{path}: post-TX-21 deferred state must block unsupported G-10 acceptance")
+        if state.get("latest_closeout_evidence_id") != "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX21-001":
+            messages.append(f"{path}: post-TX-21 deferred state is not aligned to the TX-21 completion")
+        if state.get("latest_handoff_evidence_id") != "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX21-001":
+            messages.append(f"{path}: post-TX-21 deferred state is not aligned to the TX-21 handoff")
+        if "DDR-SFADEV-STRATEGIC-BASELINE-G10-001" not in set(state.get("current_state_evidence", [])):
+            messages.append(f"{path}: post-TX-21 deferred state omits the G-10 disposition evidence")
+        if state.get("continuation_state") != "blocked" or state.get("escalation_state") != "pending":
+            messages.append(f"{path}: post-TX-21 deferred state must remain blocked with escalation pending")
+        if state.get("state_status") != "blocked" or state.get("human_gate_required") is not True:
+            messages.append(f"{path}: post-TX-21 deferred state must remain blocked and human gated")
     else:
         messages.append(f"{path}: unsupported strategic-baseline program phase {phase!r}")
     return messages

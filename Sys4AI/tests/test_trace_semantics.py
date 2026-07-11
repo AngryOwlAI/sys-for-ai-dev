@@ -59,6 +59,7 @@ class TraceSemanticTests(unittest.TestCase):
 
     def test_post_tx20_state_requires_exact_tx21_route(self) -> None:
         def mutate_state(state):
+            self._as_post_tx20(state)
             state["allowed_next_actions"] = [
                 item
                 for item in state["allowed_next_actions"]
@@ -71,11 +72,24 @@ class TraceSemanticTests(unittest.TestCase):
 
     def test_post_tx20_state_requires_g09_completion(self) -> None:
         def mutate_state(state):
+            self._as_post_tx20(state)
             state["capability_status_summary"].pop("derivative_regeneration")
 
         result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
         self.assertFalse(result.ok)
         self.assertTrue(any("derivative_regeneration complete_G_09" in item for item in result.messages))
+
+    def test_post_tx21_deferred_state_blocks_unsupported_g10(self) -> None:
+        def mutate_state(state):
+            state["blocked_actions"] = [
+                item
+                for item in state["blocked_actions"]
+                if item != "claim_G_10_after_TX_21_audit_without_G_07_and_evidence_closure"
+            ]
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("block unsupported G-10 acceptance" in item for item in result.messages))
 
     def test_current_evidence_freshness_fails_against_controlled_state_date(self) -> None:
         def mutate_state(state):
@@ -111,6 +125,15 @@ class TraceSemanticTests(unittest.TestCase):
             any(row["coverage_status"] == "covered" and row["verification_status"] == "planned" for row in rows)
         )
         self.assertTrue(validate_generalized_trace_semantics(TRACE, policy_path=POLICY).ok)
+
+    @staticmethod
+    def _as_post_tx20(state):
+        state["current_phase"] = "strategic_baseline_migration_after_TX_20"
+        state["state_status"] = "active"
+        state["human_gate_required"] = False
+        state["latest_closeout_evidence_id"] = "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX20-001"
+        state["latest_handoff_evidence_id"] = "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX20-001"
+        state["allowed_next_actions"].append("execute_TX_21_FINAL_ACCEPTANCE_only_after_TX_20_shared_baseline")
 
     def test_derivative_requirement_source_fails(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
