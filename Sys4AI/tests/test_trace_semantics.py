@@ -221,7 +221,7 @@ class TraceSemanticTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("post-TX-35 state omits blocked action" in item for item in result.messages))
 
-    def test_post_tx37_state_requires_protocol_not_executed_boundary(self) -> None:
+    def test_post_tx38_state_preserves_protocol_not_executed_boundary(self) -> None:
         def mutate_state(state):
             state["blocked_actions"].remove(
                 "treat_TX_37_protocol_as_executed_independent_evidence"
@@ -229,7 +229,17 @@ class TraceSemanticTests(unittest.TestCase):
 
         result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
         self.assertFalse(result.ok)
-        self.assertTrue(any("post-TX-37 state omits blocked action" in item for item in result.messages))
+        self.assertTrue(any("post-TX-38 state omits blocked action" in item for item in result.messages))
+
+    def test_post_tx38_state_requires_future_work_not_waiver_boundary(self) -> None:
+        def mutate_state(state):
+            state["blocked_actions"].remove(
+                "treat_TX_38_future_work_disposition_as_independent_evaluation_evidence_waiver_or_deletion"
+            )
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("post-TX-38 state omits blocked action" in item for item in result.messages))
 
     @staticmethod
     def _as_post_tx20(state):

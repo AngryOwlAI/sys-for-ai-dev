@@ -1,0 +1,54 @@
+completion_receipt_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX38-001
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+role: system_director
+result: PASS_WITH_WARNINGS
+summary: TX-38 records the accountable future-work disposition for independent external evaluation while preserving completed TX-37 readiness and every unaddressed evidence-family gate.
+changed_artifacts:
+- path: Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G11-015.yaml;Sys4AI/control_records/execution_transactions/TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION.yaml
+  change_summary: Records the narrow route supersession and bounds the disposition transaction.
+- path: Sys4AI/control_records/program_state.yaml;Sys4AI/schemas/contracts/program_state.schema.json
+  change_summary: Advances only to retained-future-work disposition and the next accountable family gate.
+- path: Sys4AI/sys_for_ai/trace_validation.py;Sys4AI/sys_for_ai/prd_semantics.py;Sys4AI/tests/test_trace_semantics.py;Sys4AI/tests/test_self_hosting_acceptance.py
+  change_summary: Adds fail-closed current-state validation without changing evaluation behavior.
+- path: Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-20260712T193912Z.yaml
+  change_summary: Preserves source-first routing evidence and known pending-hash warnings.
+- path: Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX38-001.yaml;Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX38-001.yaml
+  change_summary: Closes only the disposition packet and stops at the next scope gate.
+- path: Sys4AI/registries
+  change_summary: Registers the decision transaction preflight receipt handoff and evidence relationships.
+- path: Sys4AI/docs/generated
+  change_summary: Refreshes deterministic noncanonical reader surfaces.
+- path: implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-SFADEV-TX38.md;implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX38-001.md
+  change_summary: Records the human-readable disposition boundaries and next gate.
+validation_evidence:
+  focused_control_validation: PASS
+  focused_semantic_tests: PASS_36_OF_36
+  independent_evaluation_protocol: PRESERVED_READY_NOT_EXECUTED
+  full_product_tests: PASS_353_OF_353
+  product_validation: PASS
+  repository_validation: PASS
+  generated_derivatives: CURRENT
+  memory_status: PASS_WITH_WARNINGS_1321_OBJECTS_601_WARNINGS_ZERO_AUTHORITY_INVERSIONS
+  trace_verification: PASS_94_PLANNED_133_UNCHANGED
+  frozen_G11_014_sha256: ec14cf8b093abbd0d05b6c6be3a71b718e9a86180f0d039096147d31eab99764
+  frozen_TX37_sha256: 768c43e3a1190a1712b9e6918bf98a3f3b2a2eab809c8f5f597e65782b631c43
+  frozen_TX37_protocol_sha256: a4434b43afe284cbfa5939ddb98dac29aad6fe8f8242caea478d06fbb744e782
+  frozen_requirement_trace_sha256: 9cf48068581f8c8764dc708f1c33d95039e1451df3567a2eff0f418b7dfcc5fa
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-20260712T193912Z
+authority_changes:
+  records_G_11_015_future_work_disposition: true
+  retains_independent_external_evaluation_as_active_future_work: true
+  removes_independent_evaluation_from_current_bounded_nonproduction_migration_completion_requirements: true
+  preserves_TX_37_protocol_readiness: true
+  executes_or_claims_independent_evaluation: false
+  waives_or_deletes_independent_evaluation: false
+  starts_or_dispositions_remaining_evidence_families: false
+  accepts_G_10_or_grants_production_operational_stakeholder_domain_or_permission_authority: false
+unresolved_issues:
+- Broad stakeholder and affected-party review lacks evidence or an accountable disposition.
+- Target-domain acceptance lacks evidence or an accountable disposition.
+- Production and operational evidence lacks evidence or an accountable disposition.
+- G-10 remains deferred until every other retained obligation has evidence or an accountable disposition.
+next_recommendation: Determine at a separate accountable gate whether each remaining evidence family is required for this bounded non-production migration baseline or retained as future work; do not start any family automatically.

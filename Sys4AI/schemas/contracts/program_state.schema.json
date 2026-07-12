@@ -95,7 +95,8 @@
         "markdown_source_verification": { "enum": ["pending", "accepted_TX_30_4_of_4"] },
         "toml_config_verification": { "enum": ["pending", "accepted_TX_31_9_of_9"] },
         "jsonschema_contract_verification": { "enum": ["pending", "accepted_TX_32_10_of_10"] },
-        "independent_evaluation_protocol": { "enum": ["pending", "ready_TX_37_external_execution_not_run"] }
+        "independent_evaluation_protocol": { "enum": ["pending", "ready_TX_37_external_execution_not_run"] },
+        "independent_evaluation_disposition": { "enum": ["pending", "retained_active_future_work_G_11_015"] }
       },
       "additionalProperties": false
     },

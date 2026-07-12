@@ -181,6 +181,7 @@ def _validate_strategic_approval_state(
         "strategic_baseline_migration_TX_35_quantitative_measurement_pending_human_acceptance",
         "strategic_baseline_migration_TX_36_quantitative_measurement_accepted",
         "strategic_baseline_migration_TX_37_independent_evaluation_protocol_ready",
+        "strategic_baseline_migration_TX_38_independent_evaluation_retained_future_work",
     }:
         return []
 

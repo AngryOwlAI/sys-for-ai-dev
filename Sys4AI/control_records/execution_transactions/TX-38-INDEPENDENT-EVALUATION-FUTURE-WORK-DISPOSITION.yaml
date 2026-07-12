@@ -1,0 +1,225 @@
+execution_transaction_id: TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+contract_version: 1.0.0
+objective: Record the accountable future-work disposition for independent external evaluation while preserving completed TX-37 protocol readiness and stopping before the remaining evidence-family scope gate.
+source_requirement_ids:
+- SFA-CORE-VISION-001
+- SFA-CORE-VALUES-005
+- SFA-P0-RISK-004
+source_decision_ids:
+- DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+- DDR-SFADEV-STRATEGIC-BASELINE-G11-014
+- DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+subject_system:
+  system_id: sys4ai
+  system_name: Sys4AI
+subject_layer: framework_product
+runtime_actor:
+  actor_id: codex_meta_agent_runtime
+  actor_type: meta_agent_runtime
+  role_ids:
+  - system_director
+  - baseline_change_manager
+  - source_authority_auditor
+  - trace_owner
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-12-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+approval_principal:
+  principal_id: alex_omegapy
+  principal_type: accountable_human
+  approval_scope: Record independent external evaluation as active future work outside the current bounded non-production migration-completion requirements preserve TX-37 and stop before disposition of the remaining evidence families.
+  authorization_evidence_ids:
+  - HUMAN-TASK-2026-07-12-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+  model_self_approval: false
+execution_authorization:
+  status: authorized
+  authorized_at: '2026-07-12T19:39:12Z'
+  expires_at: '2026-07-13T07:39:12Z'
+  authority_evidence_ids:
+  - HUMAN-TASK-2026-07-12-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+  self_authorized: false
+permission_envelope:
+  envelope_id: PERMISSION-ENVELOPE-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  status: current
+  authority_source_ids:
+  - HUMAN-TASK-2026-07-12-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+  data_classes:
+  - repository_controlled_artifacts
+  - accountable_human_disposition_evidence
+  resource_limits:
+  - One bounded decision transaction preflight receipt handoff registry derivative and validation packet.
+  - Preserve TX-37 protocol readiness and all activated history byte-for-byte.
+  - Record independent evaluation as active future work rather than a current bounded non-production migration-completion requirement.
+  - Stop before starting or deciding stakeholder affected-party domain production or operational evidence.
+  - Keep G-10 deferred until every other retained obligation has exact evidence or an accountable disposition.
+  valid_from: '2026-07-12T19:39:12Z'
+  expires_at: '2026-07-13T07:39:12Z'
+  sensitive_data_allowed: false
+  secrets_allowed: false
+  data_egress_allowed: false
+  external_side_effects_allowed: false
+  delegation_allowed: false
+  delegation_expires_at: not_applicable
+  permission_expansion_allowed: false
+allowed_reads:
+- implementation_plans/Sys4AI-dev_strategic_baseline_migration_full_implementation_plan.md
+- implementation_plans/STRATEGIC-BASELINE-MIGRATION-EVIDENCE-CLOSURE-PLAN-SFADEV-TX23.md
+- Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G11-014.yaml
+- Sys4AI/control_records/execution_transactions/TX-37-INDEPENDENT-ROTATED-EVALUATION-PROTOCOL.yaml
+- Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX37-001.yaml
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX37-001.yaml
+- Sys4AI/assurance/independent_evaluation_protocol_tx37.yaml
+- Sys4AI/registries/**
+allowed_writes:
+- Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G11-015.yaml
+- Sys4AI/control_records/execution_transactions/TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION.yaml
+- Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-20260712T193912Z.yaml
+- Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX38-001.yaml
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX38-001.yaml
+- Sys4AI/control_records/program_state.yaml
+- Sys4AI/schemas/contracts/program_state.schema.json
+- Sys4AI/sys_for_ai/trace_validation.py
+- Sys4AI/sys_for_ai/prd_semantics.py
+- Sys4AI/tests/test_trace_semantics.py
+- Sys4AI/tests/test_self_hosting_acceptance.py
+- Sys4AI/registries/*.csv
+- Sys4AI/docs/generated/**
+- implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-SFADEV-TX38.md
+- implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX38-001.md
+allowed_tools:
+- repository filesystem reads and bounded apply_patch writes
+- repository-native Python Make and Git validation
+- deterministic generated-document writers
+allowed_external_actions: []
+forbidden_actions:
+- Execute independent evaluation select an evaluator create confidential holdouts transmit artifacts or accept an external result.
+- Modify G11-014 TX-37 its protocol receipt handoff report or any earlier activated control history.
+- Modify canonical PRDs requirement trace states waivers frozen TX-23 or TX-25 evidence or accepted TX-35 measurement.
+- Delete waive or represent independent external evaluation as completed.
+- Start stakeholder affected-party domain production or operational evidence work.
+- Accept G-10 or claim production readiness operational authority stakeholder consensus domain truth or permission expansion.
+- Commit push deploy publish or modify external systems without separate explicit authorization.
+inputs:
+- Human task instruction dated 2026-07-12 selecting route 2.
+- HANDOFF-SFADEV-STRATEGIC-BASELINE-TX37-001
+- RECEIPT-SFADEV-STRATEGIC-BASELINE-TX37-001
+- MEMPREFLIGHT-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-20260712T193912Z
+expected_outputs:
+- An additive G11-015 Director Decision narrowly superseding only G11-014's current execution route.
+- A controlled TX-38 disposition recording independent external evaluation as active future work.
+- Program state and handoff stopped at the separate remaining-evidence-family scope gate.
+- Registered and regenerated noncanonical derivative surfaces with focused and aggregate validation evidence.
+validators:
+- validator_id: focused_disposition_control
+  command_or_method: cd Sys4AI && make validate-director-decisions validate-director-decision-registry validate-program-state validate-handoffs validate-handoff-registry
+  blocking: true
+  expected_evidence: G11-015 TX-38 state and handoff validate while TX-37 remains preserved.
+- validator_id: independent_evaluation_boundary
+  command_or_method: cd Sys4AI && make validate-independent-evaluation
+  blocking: true
+  expected_evidence: TX-37 protocol remains ready and no executed evaluation claim is introduced.
+- validator_id: focused_semantic_tests
+  command_or_method: cd Sys4AI && .venv/bin/python -m unittest tests.test_trace_semantics tests.test_independent_evaluation tests.test_self_hosting_acceptance
+  blocking: true
+  expected_evidence: Future-work disposition and protocol-not-executed boundaries fail closed.
+- validator_id: aggregate_validation
+  command_or_method: make validate at product and repository roots
+  blocking: true
+  expected_evidence: Product and development-system validation pass with generated readers current.
+- validator_id: frozen_boundaries
+  command_or_method: verify G11-014 TX-37 protocol receipt handoff TX-23 TX-25 and requirement trace hashes are unchanged
+  blocking: true
+  expected_evidence: Activated evidence and trace state remain byte-identical.
+- validator_id: diff_integrity
+  command_or_method: git diff --check
+  blocking: true
+  expected_evidence: No whitespace or patch-integrity errors.
+stop_conditions:
+- The human disposition is absent ambiguous or contradicted.
+- Any independent evaluation production operational stakeholder domain permission or G-10 claim appears.
+- Any prior activated record frozen baseline canonical PRD trace state or waiver changes.
+- A blocking validator fails after bounded repair.
+host_capability_requirements:
+  execution_profile_id: codex_app_reference
+  overall_status: verified_available
+  required_capability_ids:
+  - workspace_filesystem
+  - terminal_and_tests
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G07-001
+  - MEMPREFLIGHT-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-20260712T193912Z
+  checked_at: '2026-07-12T19:39:12Z'
+  values_or_goals_may_override: false
+state:
+  status: completed
+  current_state_evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+  - TX38-INDEPENDENT-EVALUATION-RETAINED-ACTIVE-FUTURE-WORK
+  - TX38-TX37-PROTOCOL-READINESS-PRESERVED
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX38-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX38-001
+  continuation_state: not_applicable
+  continuation_evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX38-001
+  state_transition_evidence_ids:
+  - HUMAN-TASK-2026-07-12-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+cancellation:
+  state: not_requested
+  requested_by: not_applicable
+  behavior: Stop before publication or remaining-family disposition while preserving completed TX-37 and the active future-work obligation.
+  evidence_ids: []
+  uncertain_operations: []
+escalation:
+  state: pending
+  conditions:
+  - Broad stakeholder and affected-party review target-domain acceptance and production and operational evidence still require accountable scope disposition.
+  responsible_principal_id: alex_omegapy
+  required_decision: Determine separately whether each remaining family is required for this bounded non-production migration baseline or retained as future work.
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+resume_evidence:
+  required: true
+  status: consumed
+  last_known_state: TX-37 completed protocol readiness and stopped before evaluator selection confidential suite transfer external execution or result acceptance.
+  evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX37-001
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX37-001
+  - MEMPREFLIGHT-TX-38-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION-20260712T193912Z
+closeout_evidence:
+  status: complete
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+  - TX38-INDEPENDENT-EVALUATION-RETAINED-ACTIVE-FUTURE-WORK
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX38-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX38-001
+  changed_artifacts:
+  - TX-38 adds only disposition state controls registries generated readers receipt report and handoff.
+  validation_evidence_ids:
+  - TX38-FOCUSED-CONTROL-VALIDATION-PASS
+  - TX38-FOCUSED-SEMANTIC-TESTS-PASS-36-OF-36
+  - TX38-FULL-PRODUCT-TESTS-PASS-353-OF-353
+  - TX38-PRODUCT-AND-ROOT-VALIDATION-PASS
+  acceptance_evidence_ids:
+  - HUMAN-TASK-2026-07-12-INDEPENDENT-EVALUATION-FUTURE-WORK-DISPOSITION
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
+rollback:
+  status: available
+  strategy: Before publication revert the complete TX-38 packet to the validated TX-37 readiness state; after publication preserve the disposition and supersede it additively.
+  triggers:
+  - A blocking validator or frozen-boundary check fails.
+  - The disposition is represented as a waiver deletion execution result or production claim.
+  actions:
+  - Stop later work and preserve diagnostics.
+  - Revert only the unshared TX-38 packet or create an accountable supersession after sharing.
+  evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX37-001
+supersession:
+  status: current
+  supersedes_transaction_ids: []
+  superseded_by: not_applicable
+  evidence_ids:
+  - DDR-SFADEV-STRATEGIC-BASELINE-G11-015
