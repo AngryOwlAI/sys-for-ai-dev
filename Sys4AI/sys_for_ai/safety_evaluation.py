@@ -479,6 +479,7 @@ def _validate_protected_baseline(label: str, packet: dict[str, Any]) -> list[str
                 TX29_CSV_REGISTRY_CLOSURES,
                 TX30_MARKDOWN_SOURCE_CLOSURES,
                 TX31_TOML_CONFIG_CLOSURES,
+                TX32_JSONSCHEMA_CONTRACT_CLOSURES,
                 validate_local_evidence_execution,
             )
 
@@ -490,6 +491,7 @@ def _validate_protected_baseline(label: str, packet: dict[str, Any]) -> list[str
                 | TX29_CSV_REGISTRY_CLOSURES
                 | TX30_MARKDOWN_SOURCE_CLOSURES
                 | TX31_TOML_CONFIG_CLOSURES
+                | TX32_JSONSCHEMA_CONTRACT_CLOSURES
             )
             if closure_result.ok and expected - value == len(accepted_verifications):
                 continue

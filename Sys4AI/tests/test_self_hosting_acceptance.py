@@ -21,11 +21,11 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX31-001",
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX32-001",
             state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX31-001",
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX32-001",
             state["latest_handoff_evidence_id"],
         )
         self.assertEqual("blocked", state["continuation_state"])
@@ -66,6 +66,10 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertEqual(
             "accepted_TX_31_9_of_9",
             state["capability_status_summary"]["toml_config_verification"],
+        )
+        self.assertEqual(
+            "accepted_TX_32_10_of_10",
+            state["capability_status_summary"]["jsonschema_contract_verification"],
         )
 
         handoff_rows = _rows(PRODUCT_ROOT / "registries/handoff_registry.csv", "handoff_id")

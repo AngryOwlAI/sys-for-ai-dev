@@ -32,6 +32,7 @@ from .evidence_closure import (
 )
 from .csv_registry_surface import validate_csv_registry_surface
 from .format_governance_surface import validate_format_governance_surface
+from .jsonschema_contract_surface import validate_jsonschema_contract_surface
 from .markdown_source_surface import validate_markdown_source_surface
 from .toml_config_surface import validate_toml_config_surface
 from .host_profiles import validate_host_capability_profiles
@@ -489,6 +490,31 @@ def build_parser() -> argparse.ArgumentParser:
     )
     validate_toml_surface.add_argument("--toml-io-source", default="sys_for_ai/toml_io.py")
 
+    validate_jsonschema_surface = sub.add_parser(
+        "validate-jsonschema-contract-surface",
+        help="Verify the bounded JSON Schema validation-contract family",
+    )
+    validate_jsonschema_surface.add_argument("--format-profiles", default="registries/format_profile_registry.csv")
+    validate_jsonschema_surface.add_argument(
+        "--validation-contracts",
+        default="registries/validation_contract_registry.csv",
+    )
+    validate_jsonschema_surface.add_argument("--derivatives", default="registries/derivative_registry.csv")
+    validate_jsonschema_surface.add_argument("--schemas-root", default="schemas/contracts")
+    validate_jsonschema_surface.add_argument("--format-policy", default="docs/format_profile_policy.md")
+    validate_jsonschema_surface.add_argument(
+        "--catalog-policy",
+        default="docs/validation_contracts_catalog_policy.md",
+    )
+    validate_jsonschema_surface.add_argument(
+        "--generated-index",
+        default="docs/generated/validation_contracts/index.md",
+    )
+    validate_jsonschema_surface.add_argument(
+        "--generated-by-target",
+        default="docs/generated/validation_contracts/contracts-by-target.md",
+    )
+
     validate_plan_scope = sub.add_parser(
         "validate-plan-interpretation",
         help="Validate the controlled 410-row G-11 future-work disposition",
@@ -765,6 +791,20 @@ def main(argv: list[str] | None = None) -> int:
                 args.wiki_policy,
                 args.generated_toml_page,
                 args.toml_io_source,
+            )
+        )
+
+    if args.command == "validate-jsonschema-contract-surface":
+        return print_result(
+            validate_jsonschema_contract_surface(
+                args.format_profiles,
+                args.validation_contracts,
+                args.derivatives,
+                args.schemas_root,
+                args.format_policy,
+                args.catalog_policy,
+                args.generated_index,
+                args.generated_by_target,
             )
         )
 

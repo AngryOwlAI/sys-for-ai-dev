@@ -1,0 +1,86 @@
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-32-LOCAL-EVIDENCE-JSON-SCHEMA-20260712T132623Z
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-32-LOCAL-EVIDENCE-JSON-SCHEMA
+created_at: '2026-07-12T13:26:23Z'
+status: PASS_WITH_WARNINGS
+commands_run:
+- command: python -m sys_for_ai.cli memory status --json
+  result: pass
+- command: python -m sys_for_ai.cli memory lookup TX-32-LOCAL-EVIDENCE-JSON-SCHEMA
+    --json
+  result: warn
+- command: python -m sys_for_ai.cli memory lookup HANDOFF-SFADEV-STRATEGIC-BASELINE-TX31-001
+    --json
+  result: pass
+- command: python -m sys_for_ai.cli memory search 'TX-31 JSON Schema SFA-CORE-JSONSCHEMA
+    validation contracts catalog' --limit 10 --json
+  result: pass
+queries:
+- query: TX-31 JSON Schema SFA-CORE-JSONSCHEMA validation contracts catalog
+  returned_object_ids:
+  - der_validation_contracts_index
+  - SRC-REG-VALIDATION-CONTRACTS
+  - SRC-REG-SOURCES
+  - der_validation_contracts_by_target
+  - SRC-SELFHOST-MEMORY-CONTINUE-PLAN
+  - SRC-VALIDATOR-CORE
+  - SRC-PRD-P1
+  - SRC-REG-REQ-TRACE
+  - SRC-CLI-PHASE1
+  - SRC-DERIVATIVES-VALIDATION-CONTRACTS
+canonical_sources_inspected:
+- path: PRDs/Sys4AI_phase-0_product_system_design_prd.md
+  registry: source_registry.csv
+  row_id: SRC-PRD-P0
+  inspected_sections:
+  - SFA-CORE-JSONSCHEMA-001 through SFA-CORE-JSONSCHEMA-007 SFA-P0-FR-035 SFA-P0-FR-039 and SFA-P0-FR-042
+- path: Sys4AI/registries/validation_contract_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-VALIDATION-CONTRACTS
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/registries/source_registry.csv
+  registry: source_registry.csv
+  row_id: SRC-REG-SOURCES
+  inspected_sections:
+  - registered source metadata
+- path: Sys4AI/sys_for_ai/jsonschema_io.py
+  registry: source_registry.csv
+  row_id: SRC-JSONSCHEMA-IO
+  inspected_sections:
+  - Draft 2020-12 schema loading checks and deterministic instance validation
+- path: implementation_plans/Sys4AI-dev_memory_continue_self_hosting_implementation_plan.md
+  registry: source_registry.csv
+  row_id: SRC-SELFHOST-MEMORY-CONTINUE-PLAN
+  inspected_sections:
+  - registered source metadata
+registry_rows_inspected:
+- path: control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX31-001.yaml
+  registry: handoff_registry.csv
+  row_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX31-001
+  purpose: Confirm 24 remaining local obligations and the separately gated next family.
+- path: registries/requirement_trace_registry.csv
+  registry: requirement_trace_registry.csv
+  row_id: TRACE-SFA-CORE-JSONSCHEMA-001
+  purpose: Confirm implemented covered planned sufficient and unwaived entry state before TX-32.
+- path: docs/generated/validation_contracts/index.md
+  registry: derivative_registry.csv
+  row_id: der_validation_contracts_index
+  purpose: Confirm memory hit registry evidence.
+- path: docs/generated/validation_contracts/contracts-by-target.md
+  registry: derivative_registry.csv
+  row_id: der_validation_contracts_by_target
+  purpose: Confirm memory hit registry evidence.
+- path: Sys4AI/sys_for_ai/validators.py
+  registry: source_registry.csv
+  row_id: SRC-VALIDATOR-CORE
+  purpose: Confirm memory hit registry evidence.
+stale_context_risks:
+- risk_id: MEMPREFLIGHT-RISK-001
+  status: observed_and_mitigated
+  notes: The generated index was checked against its canonical validation-contract registry and deterministic generator.
+- risk_id: MEMPREFLIGHT-RISK-002
+  status: observed_and_mitigated
+  notes: The grouped derivative was checked against its canonical validation-contract registry and deterministic generator.
+usable_for_routing: true

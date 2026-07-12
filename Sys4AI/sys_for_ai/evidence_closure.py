@@ -120,6 +120,12 @@ TX31_TOML_CONFIG_CLOSURES = {
     "CLOSE-SFA-P0-FR-034-VERIFICATION",
     "CLOSE-SFA-P0-FR-043-VERIFICATION",
 }
+TX32_JSONSCHEMA_CONTRACT_CLOSURES = {
+    *{f"CLOSE-SFA-CORE-JSONSCHEMA-{index:03d}-VERIFICATION" for index in range(1, 8)},
+    "CLOSE-SFA-P0-FR-035-VERIFICATION",
+    "CLOSE-SFA-P0-FR-039-VERIFICATION",
+    "CLOSE-SFA-P0-FR-042-VERIFICATION",
+}
 
 
 def expected_evidence_closure_rows(trace_rows: list[dict[str, str]]) -> list[dict[str, str]]:
@@ -244,7 +250,7 @@ def validate_evidence_closure_plan(
         [
             _summary(actual),
             *execution_result.messages,
-            "TX-23 planning history is frozen; TX-24 and TX-26 through TX-31 evidence is additive and grants no waiver, G-10, production, or operational authority.",
+            "TX-23 planning history is frozen; TX-24 and TX-26 through TX-32 evidence is additive and grants no waiver, G-10, production, or operational authority.",
         ],
     )
 
@@ -281,10 +287,11 @@ def validate_local_evidence_execution(
         | TX29_CSV_REGISTRY_CLOSURES
         | TX30_MARKDOWN_SOURCE_CLOSURES
         | TX31_TOML_CONFIG_CLOSURES
+        | TX32_JSONSCHEMA_CONTRACT_CLOSURES
     )
     actual_closures = {row.get("closure_id", "") for row in execution_rows}
     if actual_closures != expected_closures or len(execution_rows) != len(expected_closures):
-        messages.append(f"{execution_path}: must contain exactly the 50 activated TX-24 and TX-26 through TX-31 closures")
+        messages.append(f"{execution_path}: must contain exactly the 60 activated TX-24 and TX-26 through TX-32 closures")
 
     for index, row in enumerate(execution_rows, start=2):
         label = f"{execution_path}:{index}"
@@ -308,6 +315,7 @@ def validate_local_evidence_execution(
         csv_family = row.get("closure_id") in TX29_CSV_REGISTRY_CLOSURES
         markdown_family = row.get("closure_id") in TX30_MARKDOWN_SOURCE_CLOSURES
         toml_family = row.get("closure_id") in TX31_TOML_CONFIG_CLOSURES
+        jsonschema_family = row.get("closure_id") in TX32_JSONSCHEMA_CONTRACT_CLOSURES
         if semantic_family:
             if row.get("prior_state") != "needs_evidence" or row.get("resulting_state") != "sufficient":
                 messages.append(f"{label}: semantic state transition must be needs_evidence to sufficient")
@@ -371,9 +379,18 @@ def validate_local_evidence_execution(
                 messages.append(f"{label}: TX-31 transaction binding is invalid")
             if row.get("reviewer_role") != "verification_engineer":
                 messages.append(f"{label}: TX-31 reviewer role is invalid")
+        elif jsonschema_family:
+            if row.get("prior_state") != "planned" or row.get("resulting_state") != "pass":
+                messages.append(f"{label}: verification state transition must be planned to pass")
+            if row.get("evidence_family") != "jsonschema_validation_contract_verification":
+                messages.append(f"{label}: TX-32 evidence family binding is invalid")
+            if row.get("execution_transaction_id") != "TX-32-LOCAL-EVIDENCE-JSON-SCHEMA":
+                messages.append(f"{label}: TX-32 transaction binding is invalid")
+            if row.get("reviewer_role") != "verification_engineer":
+                messages.append(f"{label}: TX-32 reviewer role is invalid")
         else:
             messages.append(f"{label}: closure is outside the activated local families")
-        expected_review_date = "2026-07-12" if markdown_family or toml_family else "2026-07-11"
+        expected_review_date = "2026-07-12" if markdown_family or toml_family or jsonschema_family else "2026-07-11"
         if row.get("status") != "accepted" or row.get("review_date") != expected_review_date:
             messages.append(f"{label}: execution status or review date is invalid")
         for field in ("evidence_report_path", "implementation_artifacts", "validation_evidence"):
@@ -393,7 +410,7 @@ def validate_local_evidence_execution(
                 messages.append(f"{label}: trace review identity is not aligned")
             if trace.get("capability_status") != "scaffolded" or trace.get("verification_status") != "planned":
                 messages.append(f"{label}: TX-24 improperly promoted capability or verification state")
-        elif python_family or yaml_family or format_family or csv_family or markdown_family or toml_family:
+        elif python_family or yaml_family or format_family or csv_family or markdown_family or toml_family or jsonschema_family:
             if trace.get("verification_status") != "pass":
                 messages.append(f"{label}: trace verification_status is not pass")
             if trace.get("capability_status") != "implemented" or trace.get("coverage_status") != "covered":
@@ -416,7 +433,7 @@ def validate_local_evidence_execution(
     return ValidationResult(
         True,
         [
-            "Local evidence: 7 TX-24 semantic reviews and 50 verifications across TX-26 through TX-31 accepted; 24 local verification obligations remain. The 410 frozen plan-scope candidates retain their TX-25 interpretation.",
+            "Local evidence: 7 TX-24 semantic reviews and 60 verifications across TX-26 through TX-32 accepted; 14 local verification obligations remain. The 410 frozen plan-scope candidates retain their TX-25 interpretation.",
         ],
     )
 

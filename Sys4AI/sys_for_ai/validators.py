@@ -1889,7 +1889,7 @@ def _registry_row_exists(registry: str, row_id: str, root: str | Path = ".") -> 
     if not path.exists():
         return False
     header, rows = read_registry(path)
-    id_field = header[0] if header else ""
+    id_field = "trace_id" if registry == "requirement_trace_registry.csv" else (header[0] if header else "")
     return row_id in rows_by_id(rows, id_field)
 
 
