@@ -1,0 +1,78 @@
+director_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-007
+schema_version: 0.1.0
+decision_status: completed
+created_at: '2026-07-12T12:11:34Z'
+completed_at: '2026-07-12T12:11:34Z'
+director_role: system_director
+human_authorization:
+  principal_name: Alex Omegapy
+  principal_role: repository_maintainer_and_product_owner
+  authority_basis: The accountable human explicitly directed execution of the earliest remaining four-row Markdown family after TX-29.
+  approval_evidence: Human-issued Codex task instruction dated 2026-07-12 authorizing the logical next step SFA-CORE-MD-001 through 003 and SFA-P0-FR-036 while retaining all external cross-version G-10 production and operational gates.
+  model_self_approval: false
+decision_context:
+  trigger: accountable_local_evidence_family_selection
+  transaction_id: TX-30-LOCAL-EVIDENCE-MARKDOWN-SOURCE
+  gate_id: G-11-EVIDENCE-SCOPE
+  latest_handoff_id: HANDOFF-SFADEV-STRATEGIC-BASELINE-TX29-001
+  governing_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G10-001
+  prior_gate_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-006
+  reviewed_head_commit: 1fdeb4d16a7f70e6301e2b81980825761015ad91
+  memory_preflight_receipt_id: MEMPREFLIGHT-TX-30-LOCAL-EVIDENCE-MARKDOWN-SOURCE-20260712T121134Z
+  observed_evidence:
+  - TX-29 is complete and leaves exactly 37 separately gated local verification obligations.
+  - The four selected rows are the earliest remaining family in frozen trace order.
+  - SFA-P0-FR-036 is a CSV role-assignment requirement and can reuse the strict passing TX-29 surface without rewriting TX-29 history.
+selected_route:
+  route_id: authorize_bounded_TX_30_markdown_source_verification
+  route_name: Execute the four-row Markdown source-authority family
+  rationale: The selected obligations share one Markdown source and derivative authority audit; the CSV assignment row reuses the already-governed CSV validator.
+  immediate_effect: TX-30 may record exactly four planned-to-pass verification transitions after all blocking evidence passes.
+rejected_routes:
+- route_id: execute_all_37_local_verifications
+  reason: A bulk packet would cross TOML JSON Schema and generated-reader families.
+- route_id: scope_external_evidence_now
+  reason: External evidence remains an alternative requiring a separate scope decision.
+- route_id: add_cross_version_python_CI
+  reason: Python 3.10 through 3.13 CI remains separately gated.
+- route_id: accept_G10_or_promote_to_production
+  reason: Local Markdown authority evidence cannot satisfy retained external operational or final-acceptance gates.
+authority_boundary:
+  human_authority_recorded: true
+  accepts_gate_G_11_local_family_route: true
+  authorizes_TX_30_markdown_source_verification: true
+  authorized_local_obligations: 4
+  authorizes_remaining_local_verification_obligations: false
+  changes_410_plan_interpretations: false
+  accepts_any_waiver: false
+  accepts_gate_G_10: false
+  may_claim_production_readiness: false
+  may_grant_operational_authority: false
+  may_expand_permissions: false
+  may_rewrite_activated_control_history: false
+supersession:
+  supersedes_decision_id: DDR-SFADEV-STRATEGIC-BASELINE-G11-006
+  scope: Supersedes only the prior prohibition on starting another local evidence family without separate authorization.
+  preserves:
+  - completed TX-24 through TX-29 evidence
+  - frozen TX-23 ledger and TX-25 interpretation
+  - canonical PRDs and cross-version CI external evidence G-10 production operational target-runtime and permission boundaries
+rollback_and_review:
+  rollback_class: activating_bounded_verification_scope_decision
+  rollback_scope: Before publication revert the atomic G-11-007 and TX-30 packet; after publication supersede it only through a new accountable decision.
+  review_triggers:
+  - a fifth local verification obligation is proposed
+  - generated Markdown is promoted or source authority becomes ambiguous
+  - cross-version CI external operational waiver or G-10 action is proposed
+  expiry: remains current for this completed packet and grants no continuing authority
+evidence_references:
+- Sys4AI/registries/evidence_closure_plan_registry.csv
+- Sys4AI/registries/requirement_trace_registry.csv
+- Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX29-001.yaml
+- Sys4AI/control_records/memory_preflights/MEMPREFLIGHT-TX-30-LOCAL-EVIDENCE-MARKDOWN-SOURCE-20260712T121134Z.yaml
+validators:
+- cd Sys4AI && make validate-markdown-source-surface
+- cd Sys4AI && make validate-local-evidence-execution
+- cd Sys4AI && make validate-requirement-trace-migration
+- make validate
+- git diff --check

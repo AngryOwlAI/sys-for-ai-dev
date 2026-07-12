@@ -32,6 +32,7 @@ from .evidence_closure import (
 )
 from .csv_registry_surface import validate_csv_registry_surface
 from .format_governance_surface import validate_format_governance_surface
+from .markdown_source_surface import validate_markdown_source_surface
 from .host_profiles import validate_host_capability_profiles
 from .lifecycle_patterns import validate_lifecycle_and_patterns
 from .memory import bootstrap_registries
@@ -448,6 +449,21 @@ def build_parser() -> argparse.ArgumentParser:
         default="registries/registry_definition_registry.csv",
     )
 
+    validate_markdown_source = sub.add_parser(
+        "validate-markdown-source-surface",
+        help="Verify the bounded Markdown source-authority and CSV role-assignment family",
+    )
+    validate_markdown_source.add_argument("--format-profiles", default="registries/format_profile_registry.csv")
+    validate_markdown_source.add_argument("--sources", default="registries/source_registry.csv")
+    validate_markdown_source.add_argument("--derivatives", default="registries/derivative_registry.csv")
+    validate_markdown_source.add_argument("--policy", default="docs/format_profile_policy.md")
+    validate_markdown_source.add_argument("--generated-root", default="docs/generated")
+    validate_markdown_source.add_argument("--registry-dir", default="registries")
+    validate_markdown_source.add_argument(
+        "--registry-definitions",
+        default="registries/registry_definition_registry.csv",
+    )
+
     validate_plan_scope = sub.add_parser(
         "validate-plan-interpretation",
         help="Validate the controlled 410-row G-11 future-work disposition",
@@ -697,6 +713,19 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "validate-csv-registry-surface":
         return print_result(validate_csv_registry_surface(args.registry_dir, args.definitions))
+
+    if args.command == "validate-markdown-source-surface":
+        return print_result(
+            validate_markdown_source_surface(
+                args.format_profiles,
+                args.sources,
+                args.derivatives,
+                args.policy,
+                args.generated_root,
+                args.registry_dir,
+                args.registry_definitions,
+            )
+        )
 
     if args.command == "validate-plan-interpretation":
         return print_result(validate_plan_interpretation(args.trace, args.ledger, args.registry))
