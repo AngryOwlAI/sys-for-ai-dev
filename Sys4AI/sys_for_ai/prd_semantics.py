@@ -177,6 +177,7 @@ def _validate_strategic_approval_state(
         "strategic_baseline_migration_TX_31_toml_config_verification_complete",
         "strategic_baseline_migration_TX_32_jsonschema_contract_verification_complete",
         "strategic_baseline_migration_TX_33_generated_reader_verification_complete",
+        "strategic_baseline_migration_TX_34_cross_version_CI_complete",
     }:
         return []
 

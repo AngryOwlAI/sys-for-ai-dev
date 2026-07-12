@@ -147,15 +147,18 @@ host_capability_requirements:
   checked_at: '2026-07-12T14:52:55Z'
   values_or_goals_may_override: false
 state:
-  status: active
+  status: completed
   current_state_evidence_ids:
   - DDR-SFADEV-STRATEGIC-BASELINE-G11-011
   - MEMPREFLIGHT-TX-34-CROSS-VERSION-PYTHON-CI-20260712T145255Z
-  continuation_state: not_ready
-  continuation_evidence_ids: []
+  - GHA-RUN-29197460029-SUCCESS
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX34-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX34-001
+  continuation_state: not_applicable
+  continuation_evidence_ids:
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX34-001
   state_transition_evidence_ids:
-  - HUMAN-TASK-2026-07-12-TX34-EXTERNAL-EVIDENCE
-  - DDR-SFADEV-STRATEGIC-BASELINE-G11-011
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX34-001
 cancellation:
   state: not_requested
   requested_by: not_applicable
@@ -173,22 +176,30 @@ escalation:
   - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX33-001
 resume_evidence:
   required: true
-  status: current
+  status: consumed
   last_known_state: TX-33 completed all local verification and stopped at dependency-ready retained external evidence selection.
   evidence_ids:
   - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX33-001
   - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX33-001
   - MEMPREFLIGHT-TX-34-CROSS-VERSION-PYTHON-CI-20260712T145255Z
 closeout_evidence:
-  status: partial
+  status: complete
   evidence_ids:
   - DDR-SFADEV-STRATEGIC-BASELINE-G11-011
+  - GHA-RUN-29197460029-SUCCESS
+  - RECEIPT-SFADEV-STRATEGIC-BASELINE-TX34-001
+  - HANDOFF-SFADEV-STRATEGIC-BASELINE-TX34-001
   changed_artifacts:
-  - TX-34 candidate workflow validator tests and control packet.
+  - TX-34 workflow validator tests external run report receipt handoff state registries and generated readers.
   validation_evidence_ids:
   - TX34-STATIC-CONTRACT-5-OF-5-PASS
+  - TX34-FOCUSED-TESTS-5-OF-5-PASS
+  - TX34-CANDIDATE-PRODUCT-TESTS-334-OF-334-PASS
+  - TX34-FINAL-PRODUCT-TESTS-335-OF-335-PASS
+  - TX34-EXTERNAL-MATRIX-5-OF-5-PASS
   acceptance_evidence_ids:
   - HUMAN-TASK-2026-07-12-TX34-EXTERNAL-EVIDENCE
+  - GHA-RUN-29197460029-SUCCESS
 rollback:
   status: planned
   strategy: Before external publication revert the candidate packet; after publication preserve exact run evidence and use an additive supersession or repair transaction.

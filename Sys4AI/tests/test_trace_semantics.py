@@ -182,6 +182,16 @@ class TraceSemanticTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("controlled next route" in item for item in result.messages))
 
+    def test_post_tx34_state_requires_remaining_external_evidence_boundary(self) -> None:
+        def mutate_state(state):
+            state["blocked_actions"].remove(
+                "claim_G_10_after_TX_34_without_remaining_retained_external_evidence_closure"
+            )
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("post-TX-34 state omits blocked action" in item for item in result.messages))
+
     @staticmethod
     def _as_post_tx20(state):
         state["current_phase"] = "strategic_baseline_migration_after_TX_20"

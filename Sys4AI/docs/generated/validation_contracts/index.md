@@ -242,6 +242,7 @@ Validation contracts prove structural conformance only. They do not prove semant
 | contract_completion_receipt_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx31_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX31-001.yaml | completion_receipt |
 | contract_completion_receipt_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx32_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX32-001.yaml | completion_receipt |
 | contract_completion_receipt_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx33_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX33-001.yaml | completion_receipt |
+| contract_completion_receipt_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx34_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX34-001.yaml | completion_receipt |
 | contract_director_decision | registries/artifact_contract_registry.csv | artifact_director_decision | control_records/director_decisions/*.yaml | DirectorDecision |
 | contract_director_decision | registries/control_record_registry.csv | ctrl_core_skills_batch_1_director_decision | control_records/director_decisions/DDR-SFADEV-07-CORE-SKILLS-BATCH-1-001.yaml | director_decision |
 | contract_director_decision | registries/control_record_registry.csv | ctrl_core_skills_batch_2_director_decision | control_records/director_decisions/DDR-SFADEV-08-CORE-SKILLS-BATCH-2-001.yaml | director_decision |
@@ -365,6 +366,7 @@ Validation contracts prove structural conformance only. They do not prove semant
 | contract_handoff_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx31_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX31-001.yaml | handoff |
 | contract_handoff_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx32_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX32-001.yaml | handoff |
 | contract_handoff_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx33_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX33-001.yaml | handoff |
+| contract_handoff_v1_0 | registries/control_record_registry.csv | ctrl_strategic_baseline_tx34_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX34-001.yaml | handoff |
 | contract_host_capability_profile | registries/config_source_registry.csv | cfg_codex_app_reference | configs/host_profiles/codex_app_reference.toml | host_capability_profile |
 | contract_memory_preflight_receipt | registries/artifact_contract_registry.csv | artifact_memory_preflight | control_records/memory_preflights/*.yaml | MemoryPreflightReceipt |
 | contract_memory_preflight_receipt | registries/control_record_registry.csv | ctrl_strategic_baseline_tx10_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-10-ACTIVE-SURFACE-MIGRATION-20260710T135843Z.yaml | memory_preflight_receipt |

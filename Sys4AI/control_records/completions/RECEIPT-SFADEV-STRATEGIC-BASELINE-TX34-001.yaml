@@ -1,0 +1,54 @@
+completion_receipt_id: RECEIPT-SFADEV-STRATEGIC-BASELINE-TX34-001
+schema_version: 1.0.0
+execution_profile_id: portable_execution_transaction_v1
+execution_transaction_id: TX-34-CROSS-VERSION-PYTHON-CI
+role: verification_engineer
+result: PASS
+summary: TX-34 produced successful read-only clean-checkout full-validation evidence on Python 3.10 through 3.14 while preserving every non-CI authority boundary.
+changed_artifacts:
+- path: .github/workflows/cross-version-python.yml
+  change_summary: Adds the read-only five-minor full-validation matrix that produced run 29197460029.
+- path: Sys4AI/sys_for_ai/cross_version_ci.py;Sys4AI/tests/test_cross_version_ci.py
+  change_summary: Adds fail-closed workflow contract checks and positive-negative tests.
+- path: Sys4AI/sys_for_ai/cli.py;Sys4AI/Makefile
+  change_summary: Adds the focused and aggregate local workflow validation entry points.
+- path: Sys4AI/control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G11-011.yaml;Sys4AI/control_records/execution_transactions/TX-34-CROSS-VERSION-PYTHON-CI.yaml
+  change_summary: Records accountable selection and the exact external CI permission boundary.
+- path: implementation_plans/acceptance_reports/STRATEGIC-BASELINE-MIGRATION-CROSS-VERSION-CI-SFADEV-TX34.md
+  change_summary: Records run job commit timing method limitation and residual evidence details.
+- path: Sys4AI/control_records/program_state.yaml;Sys4AI/registries;Sys4AI/docs/generated
+  change_summary: Advances only to completed TX-34 cross-version evidence and reconciles controlled navigation plus noncanonical readers.
+- path: Sys4AI/control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX34-001.yaml;Sys4AI/control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX34-001.yaml;implementation_plans/completion_receipts/CR-SFADEV-STRATEGIC-BASELINE-TX34-001.md
+  change_summary: Closes the CI packet and stops before another external evidence family or G-10.
+validation_evidence:
+  candidate_commit: fe9b99fb89ebbc4550eae25cc2813fe4e4d65370
+  github_actions_run_id: 29197460029
+  github_actions_run_url: https://github.com/AngryOwlAI/Sys4AI-dev/actions/runs/29197460029
+  github_actions_run_result: PASS
+  python_matrix: PASS_5_OF_5_3_10_THROUGH_3_14
+  workflow_contract: PASS_5_OF_5
+  focused_tests: PASS_5_OF_5
+  candidate_product_tests: PASS_334_OF_334
+  final_closeout_product_tests: PASS_335_OF_335
+  trace_rows: 227
+  trace_verification: PASS_94_PLANNED_133
+  frozen_tx23_ledger_sha256: 1e9e2b2a0a7bc4f589addd65b8d34642899a3f812e7ce35be6e62a2c0fcc6138
+  frozen_tx25_interpretation_sha256: 9ed89d6ff5872ee2fb2b740791c268d9048e97f31eae8ff7d3b4d2d8929d5f38
+  repository_validation: PASS
+  memory_status: PASS_WITH_WARNINGS_1248_OBJECTS_563_WARNINGS_ZERO_AUTHORITY_INVERSIONS
+memory_preflight_receipt_id: MEMPREFLIGHT-TX-34-CROSS-VERSION-PYTHON-CI-20260712T145255Z
+authority_changes:
+  accepts_G_11_011_cross_version_CI_route: true
+  closes_cross_version_python_CI_evidence: true
+  tested_supported_python_minors: 5
+  changes_trace_state: false
+  changes_TX_23_or_TX_25_frozen_bytes: false
+  accepts_waiver: false
+  accepts_G_10_now: false
+  grants_production_or_operational_authority_now: false
+  grants_stakeholder_domain_target_runtime_or_permission_authority_now: false
+unresolved_issues:
+- Quantitative strategic independent confidential rotated stakeholder and domain evidence remain unexecuted.
+- Production target runtime monitoring incident maintenance ownership and operational authorization remain absent.
+- G-10 remains deferred pending retained evidence and accountable reacceptance.
+next_recommendation: Select the next dependency-ready retained external evidence family; do not combine unavailable stakeholder domain or operational claims with successful CI.
