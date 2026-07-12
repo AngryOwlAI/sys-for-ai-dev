@@ -265,6 +265,7 @@ class TraceSemanticTests(unittest.TestCase):
 
     def test_post_tx40_state_requires_explicit_g10_route_selection(self) -> None:
         def mutate_state(state):
+            state["current_phase"] = "strategic_baseline_migration_TX_40_G_10_reconsidered_deferred_no_inferred_acceptance"
             state["blocked_actions"].remove(
                 "accept_G_10_without_explicit_accountable_human_route_selection_for_exact_shared_baseline"
             )
@@ -275,11 +276,22 @@ class TraceSemanticTests(unittest.TestCase):
 
     def test_post_tx40_state_requires_retained_families_to_remain_unexecuted(self) -> None:
         def mutate_state(state):
+            state["current_phase"] = "strategic_baseline_migration_TX_40_G_10_reconsidered_deferred_no_inferred_acceptance"
             state["blocked_actions"].remove("execute_or_reactivate_any_retained_evidence_family_from_TX_40")
 
         result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
         self.assertFalse(result.ok)
         self.assertTrue(any("post-TX-40 state omits blocked action" in item for item in result.messages))
+
+    def test_post_tx41_acceptance_preserves_retained_family_boundary(self) -> None:
+        def mutate_state(state):
+            state["blocked_actions"].remove(
+                "reinterpret_TX_41_bounded_G_10_acceptance_as_retained_evidence_execution_waiver_or_deletion"
+            )
+
+        result = self._mutated_trace(lambda rows: None, state_mutation=mutate_state)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("post-TX-41 state omits blocked action" in item for item in result.messages))
 
     @staticmethod
     def _as_post_tx20(state):

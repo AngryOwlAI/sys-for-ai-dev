@@ -184,6 +184,7 @@ def _validate_strategic_approval_state(
         "strategic_baseline_migration_TX_38_independent_evaluation_retained_future_work",
         "strategic_baseline_migration_TX_39_remaining_evidence_families_retained_future_work",
         "strategic_baseline_migration_TX_40_G_10_reconsidered_deferred_no_inferred_acceptance",
+        "strategic_baseline_migration_TX_41_G_10_accepted_bounded_nonproduction",
     }:
         return []
 

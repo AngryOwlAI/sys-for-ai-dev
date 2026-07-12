@@ -17,24 +17,25 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
     def test_program_state_uses_portable_current_execution_fields(self) -> None:
         state = load_yaml(PRODUCT_ROOT / "control_records/program_state.yaml")
 
-        self.assertEqual("human_gated", state["state_status"])
+        self.assertEqual("complete", state["state_status"])
         self.assertIsNone(state["active_execution_transaction_id"])
         self.assertIsNone(state["active_director_decision_id"])
         self.assertEqual(
-            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX40-001",
+            "RECEIPT-SFADEV-STRATEGIC-BASELINE-TX41-001",
             state["latest_closeout_evidence_id"],
         )
         self.assertEqual(
-            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX40-001",
+            "HANDOFF-SFADEV-STRATEGIC-BASELINE-TX41-001",
             state["latest_handoff_evidence_id"],
         )
-        self.assertEqual("blocked", state["continuation_state"])
+        self.assertEqual("complete", state["continuation_state"])
         self.assertEqual("not_requested", state["cancellation_state"])
-        self.assertEqual("pending", state["escalation_state"])
-        self.assertTrue(state["human_gate_required"])
+        self.assertEqual("resolved", state["escalation_state"])
+        self.assertFalse(state["human_gate_required"])
         self.assertIn("DDR-SFADEV-STRATEGIC-BASELINE-G07-001", state["current_state_evidence"])
         self.assertIn("DDR-SFADEV-STRATEGIC-BASELINE-G10-001", state["current_state_evidence"])
         self.assertIn("DDR-SFADEV-STRATEGIC-BASELINE-G10-002", state["current_state_evidence"])
+        self.assertIn("DDR-SFADEV-STRATEGIC-BASELINE-G10-003", state["current_state_evidence"])
         self.assertEqual("implemented", state["capability_status_summary"]["safety_evaluation_controls"])
         self.assertEqual("accepted_G_08", state["capability_status_summary"]["strategic_approval"])
         self.assertEqual("complete_G_09", state["capability_status_summary"]["derivative_regeneration"])
@@ -56,7 +57,7 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
             state["capability_status_summary"]["production_operational_evidence_disposition"],
         )
         self.assertEqual(
-            "deferred_G_10_002_no_inferred_acceptance",
+            "accepted_G_10_003_bounded_nonproduction",
             state["capability_status_summary"]["g10_reconsideration"],
         )
         self.assertEqual("accepted_TX_24_7_of_7", state["capability_status_summary"]["semantic_review_evidence"])
@@ -149,6 +150,20 @@ class SelfHostingAcceptanceTests(unittest.TestCase):
         self.assertIn("HANDOFF-SFADEV-24-SUBPRD-DRAFTS-001", handoff_rows)
         self.assertIn("HANDOFF-SFADEV-25-SUBPRD-PROMOTION-001", handoff_rows)
         self.assertIn("HANDOFF-SFADEV-26-NEXT-SCOPE-ACCEPTANCE-001", handoff_rows)
+
+    def test_g10_acceptance_is_explicit_and_bounded(self) -> None:
+        decision = load_yaml(
+            PRODUCT_ROOT / "control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G10-003.yaml"
+        )
+
+        self.assertEqual(
+            "accept_G_10_for_bounded_nonproduction_baseline_9996771",
+            decision["selected_route"]["route_id"],
+        )
+        self.assertEqual("Human-issued Codex task response dated 2026-07-12: I accepted.", decision["human_authorization"]["approval_evidence"])
+        self.assertTrue(decision["authority_boundary"]["accepts_gate_G_10"])
+        self.assertFalse(decision["authority_boundary"]["executes_or_reactivates_any_retained_evidence_family"])
+        self.assertFalse(decision["authority_boundary"]["may_claim_production_readiness"])
 
     def test_acceptance_receipt_and_handoff_are_registered(self) -> None:
         receipt = load_yaml(PRODUCT_ROOT / "control_records/completions/RECEIPT-P1-SELFHOST-ACCEPTANCE-001.yaml")

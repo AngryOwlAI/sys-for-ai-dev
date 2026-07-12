@@ -346,6 +346,11 @@ Registered YAML control records are listed below. Their source files and registr
 | ctrl_strategic_baseline_tx40_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-40-G10-ACCOUNTABLE-RECONSIDERATION-20260712T203155Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
 | ctrl_strategic_baseline_tx40_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX40-001.yaml | completion_receipt | controlled | system_director | contract_completion_receipt_v1_0 | pending |
 | ctrl_strategic_baseline_tx40_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX40-001.yaml | handoff | controlled | system_director | contract_handoff_v1_0 | pending |
+| ctrl_strategic_baseline_g10_003_decision | control_records/director_decisions/DDR-SFADEV-STRATEGIC-BASELINE-G10-003.yaml | director_decision | controlled | system_director | contract_director_decision | pending |
+| ctrl_strategic_baseline_tx41_execution_transaction | control_records/execution_transactions/TX-41-G10-ACCOUNTABLE-ACCEPTANCE.yaml | execution_transaction | controlled | bounded_execution_planner | contract_execution_transaction | pending |
+| ctrl_strategic_baseline_tx41_memory_preflight | control_records/memory_preflights/MEMPREFLIGHT-TX-41-G10-ACCOUNTABLE-ACCEPTANCE-20260712T204730Z.yaml | memory_preflight_receipt | controlled | source_first_memory | contract_memory_preflight_receipt | pending |
+| ctrl_strategic_baseline_tx41_completion | control_records/completions/RECEIPT-SFADEV-STRATEGIC-BASELINE-TX41-001.yaml | completion_receipt | controlled | system_director | contract_completion_receipt_v1_0 | pending |
+| ctrl_strategic_baseline_tx41_handoff | control_records/handoffs/HANDOFF-SFADEV-STRATEGIC-BASELINE-TX41-001.yaml | handoff | controlled | system_director | contract_handoff_v1_0 | pending |
 
 ## Validation Contract Trace
 
