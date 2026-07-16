@@ -1,0 +1,74 @@
+[profile]
+profile_id = "codex-desktop-reference"
+profile_version = "2.0.0"
+host_name = "Codex desktop"
+status = "task_scoped_observation"
+observed_on = "2026-07-15"
+review_trigger = "Re-evaluate at every task boundary or host-policy change."
+permission_source = "Platform constraints, host permissions, user authority, repository authority, role scope, and the current bounded action."
+purpose_authority = false
+values_authority = false
+requirement_authority = false
+approval_authority = false
+permission_authority = false
+production_authority = false
+secrets_allowed = false
+
+[permission_precedence]
+order = [
+  "platform_and_system_constraints",
+  "host_permissions",
+  "user_and_repository_authority",
+  "role_scope",
+  "bounded_action_envelope",
+]
+values_or_goals_may_override = false
+
+[[interfaces]]
+interface_id = "user_interaction"
+capability_status = "observed_available"
+execution_allowed = true
+degraded_behavior = "Block approval-dependent work when the accountable principal or decision is unclear."
+limitations = ["Conversation content does not independently establish authority."]
+
+[[interfaces]]
+interface_id = "workspace_filesystem"
+capability_status = "observed_available"
+execution_allowed = true
+degraded_behavior = "Block source-dependent work when reads are unavailable and preserve the current diff when writes become uncertain."
+limitations = ["Readable content is not automatically authorized for mutation or disclosure."]
+
+[[interfaces]]
+interface_id = "terminal_and_tests"
+capability_status = "observed_available"
+execution_allowed = true
+degraded_behavior = "Report commands as not run when execution is unavailable; never infer a passing result."
+limitations = ["A zero exit status supports only the invoked check's contract."]
+
+[[interfaces]]
+interface_id = "tools_connectors_and_network"
+capability_status = "task_dependent"
+execution_allowed = false
+degraded_behavior = "Use registered local evidence or request authority; do not simulate external success."
+limitations = ["Inventory, credentials, consent, reachability, and side effects require fresh verification."]
+
+[[interfaces]]
+interface_id = "delegation"
+capability_status = "policy_dependent"
+execution_allowed = false
+degraded_behavior = "Work sequentially or block when safe scope cannot be preserved."
+limitations = ["Delegating work never delegates authority by implication."]
+
+[[interfaces]]
+interface_id = "memory_and_retrieval"
+capability_status = "observed_available"
+execution_allowed = true
+degraded_behavior = "Inspect canonical sources directly and treat memory results only as navigation."
+limitations = ["Coverage, freshness, retention, and isolation remain source-specific."]
+
+[[interfaces]]
+interface_id = "target_runtime"
+capability_status = "unavailable"
+execution_allowed = false
+degraded_behavior = "Permit design and local test evidence only; block deployment and operation."
+limitations = ["No production runtime, telemetry, incident, rollback, or kill capability is established."]

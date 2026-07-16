@@ -1,0 +1,21 @@
+artifact_id: SFA-EVIDENCE-MEMORY-PREFLIGHT-001
+artifact_type: evidence
+subject: development-system
+subject_layer: development
+authority: controlled
+status: completed
+owner: source_first_memory
+query: repository reboot development product self hosting boundary active plan
+memory_status: PASS_WITH_WARNINGS
+objects_count: 1389
+authority_inversions: 0
+material_warning: Legacy registries contain extensive pending hashes and historical control evidence.
+inspected_sources:
+  - PRDs/Sys4AI_phase-0_product_system_design_prd.md@pre-reboot-2026-07-15
+  - implementation_plans/self_hosting_boundary_decision_record.md@pre-reboot-2026-07-15
+  - Sys4AI/registries/system_layer_registry.csv@pre-reboot-2026-07-15
+  - Sys4AI/registries/source_registry.csv@pre-reboot-2026-07-15
+  - Sys4AI/control_records/program_state.yaml@pre-reboot-2026-07-15
+  - Sys4AI/control_records/handoffs/HANDOFF-SFADEV-DOCUMENTATION-SPINE-001.yaml@pre-reboot-2026-07-15
+routing_result: User goal authorizes a new reboot baseline; generated memory remains navigation only.
+recorded_at: 2026-07-15

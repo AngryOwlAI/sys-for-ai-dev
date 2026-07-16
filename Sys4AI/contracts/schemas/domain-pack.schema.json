@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/domain-pack.schema.json",
+  "title": "Domain pack manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["domain_pack_id", "version", "scope", "sources", "limitations"],
+  "properties": {
+    "domain_pack_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+    "version": {"type": "string"},
+    "scope": {"type": "string", "minLength": 1},
+    "sources": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

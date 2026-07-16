@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/skill.schema.json",
+  "title": "Product skill asset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["skill_id", "version", "path", "status", "host_neutral"],
+  "properties": {
+    "skill_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "path": {"type": "string", "pattern": "^assets/skills/"},
+    "status": {"enum": ["active", "proposed", "deprecated", "superseded"]},
+    "host_neutral": {"const": true}
+  }
+}

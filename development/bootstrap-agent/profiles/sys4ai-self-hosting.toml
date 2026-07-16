@@ -1,0 +1,39 @@
+[profile]
+profile_id = "sys4ai-controlled-self-hosting"
+status = "bootstrap_only"
+stage = 0
+
+[identities]
+bootstrap_runtime = "development/bootstrap-agent"
+trusted_product_release = "unreleased"
+candidate_product_release = "unavailable"
+
+[authority_roots]
+requirements = ["PRDs/active"]
+architecture = ["architecture", "decisions"]
+active_plan = ["implementation_plans/active/repository-reboot-implementation-plan.md"]
+development_runtime = ["development/bootstrap-agent/skills", "development/bootstrap-agent/skill-catalog"]
+development_state = ["development/state/current-work.yaml"]
+
+[candidate]
+execution_enabled = false
+workspace_pattern = "worktrees/sys4ai-next-candidate"
+must_be_separate_from_trusted_runtime = true
+may_mutate_trusted_runtime = false
+
+[verification]
+required_commands = [
+  "make validate-development",
+  "make validate-product",
+  "make validate-integration",
+  "make validate",
+]
+independent_context_required = true
+self_change_holdout_required = true
+
+[promotion]
+human_release_owner_required = true
+candidate_may_self_approve = false
+rollback_release_required = true
+candidate_may_lower_thresholds = false
+candidate_may_waive_safety_failures = false

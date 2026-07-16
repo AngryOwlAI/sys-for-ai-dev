@@ -1,0 +1,25 @@
+catalog_id: SYS4AI-ROLE-TYPES-001
+schema_version: 1.0.0
+authority: canonical
+status: active
+roles:
+  - {role_id: system_director, purpose: Govern intent and accountable decisions, authority: [], skills: [], status: active}
+  - {role_id: user_wants_elicitor, purpose: Elicit stakeholder intent and scenarios, authority: [], skills: [], status: active}
+  - {role_id: existing_system_analyst, purpose: Analyze brownfield systems and evidence, authority: [], skills: [], status: active}
+  - {role_id: requirements_manager, purpose: Govern requirement identity and change, authority: [], skills: [], status: active}
+  - {role_id: system_architect, purpose: Define system boundaries and architecture, authority: [], skills: [], status: active}
+  - {role_id: technical_requirements_engineer, purpose: Derive verifiable technical requirements, authority: [], skills: [], status: active}
+  - {role_id: reconciliation_analyst, purpose: Reconcile requirements and architecture conflicts, authority: [], skills: [], status: active}
+  - {role_id: reconciled_architecture_architect, purpose: Produce a reconciled architecture baseline, authority: [], skills: [], status: active}
+  - {role_id: final_system_requirements_packager, purpose: Package accepted system requirements, authority: [], skills: [], status: active}
+  - {role_id: requirements_verifier, purpose: Verify requirement quality and consistency, authority: [], skills: [], status: active}
+  - {role_id: domain_specialist, purpose: Supply bounded domain expertise and limitations, authority: [], skills: [], status: active}
+  - {role_id: security_safety_privacy_compliance_reviewer, purpose: Review protection and compliance obligations, authority: [], skills: [], status: active}
+  - {role_id: documentation_librarian, purpose: Govern controlled documents and configuration, authority: [], skills: [], status: active}
+  - {role_id: runtime_maintenance_planner, purpose: Plan operations maintenance improvement and retirement, authority: [], skills: [], status: active}
+  - {role_id: bounded_execution_planner, purpose: Define permission-bounded transactions, authority: [], skills: [], status: active}
+  - {role_id: context_memory_knowledge_architect, purpose: Govern source-first knowledge and context, authority: [], skills: [], status: active}
+  - {role_id: svc_documentation_surface_architect, purpose: Govern source and version-control documentation surfaces, authority: [], skills: [], status: active}
+  - {role_id: implementation_initialization_agent, purpose: Initialize approved implementation workspaces, authority: [], skills: [], status: active}
+  - {role_id: verification_engineer, purpose: Plan and execute verification with claim boundaries, authority: [], skills: [], status: active}
+  - {role_id: software_engineer, purpose: Implement approved changes within bounded authority, authority: [], skills: [], status: active}

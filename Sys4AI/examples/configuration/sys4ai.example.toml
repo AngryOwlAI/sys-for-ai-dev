@@ -1,0 +1,20 @@
+[product]
+id = "sys4ai"
+authority_policy = "source-first"
+contracts_root = "contracts"
+assets_root = "assets"
+
+[runtime]
+workspace_directory = ".sys4ai"
+record_events = true
+execute_without_host_adapter = false
+
+[governance]
+fail_closed = true
+generated_output_may_self_promote = false
+material_self_change_requires_independent_approval = true
+
+[security]
+secrets_in_runtime_state = false
+external_writes_default = false
+network_default = false

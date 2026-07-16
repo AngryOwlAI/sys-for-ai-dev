@@ -1,0 +1,598 @@
+version: 1
+status: active
+registry_scope: Sys4AI-dev development runtime
+canonical_skill_root: development/bootstrap-agent/skills
+runtime_skill_root: development/bootstrap-agent/skills
+host_binding_roots:
+  - .agents/skills
+  - .codex/skills
+schema_references:
+  skill_manifest: development/schemas/skills/skill_manifest.schema.json
+  skill_bundle: development/schemas/skills/skill_bundle.schema.json
+  domain_pack: development/schemas/skills/domain_pack.schema.json
+notes:
+  - Canonical bootstrap-development skills live under development/bootstrap-agent/skills.
+  - Hidden .agents and .codex surfaces are generated host-discovery bindings only.
+  - Sys4AI/assets/skills contains independently governed portable product assets.
+external_skills: []
+skills:
+  - skill_id: source-first-memory
+    canonical_path: development/bootstrap-agent/skills/source-first-memory
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/source-first-memory/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+      - bounded_execution_planner
+    required_skills: []
+    optional_skills: []
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/source-first-memory/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: codex-usage-metrics
+    canonical_path: development/bootstrap-agent/skills/codex-usage-metrics
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/codex-usage-metrics/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - verification_engineer
+    required_skills: []
+    optional_skills: []
+    python_requirements: null
+    scripts:
+      - development/bootstrap-agent/skills/codex-usage-metrics/scripts/collect_usage_metrics.py
+      - development/bootstrap-agent/skills/codex-usage-metrics/scripts/archive_temp_prd.py
+    compatibility_shims:
+      - .codex/skills/codex-usage-metrics/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: conversation-to-prd
+    canonical_path: development/bootstrap-agent/skills/conversation-to-prd
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/conversation-to-prd/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - decision-grilling
+      - system-definition-interview
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/conversation-to-prd/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: init
+    canonical_path: development/bootstrap-agent/skills/init
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/init/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - user_wants_elicitor
+      - system_director
+    required_skills:
+      - system-layer-classifier
+      - source-first-memory
+      - system-definition-interview-context-45
+      - requirements-discovery-governor
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+      - interface-and-integration-discovery
+      - operations-and-maintenance-planner
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/init/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: decision-grilling
+    canonical_path: development/bootstrap-agent/skills/decision-grilling
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/decision-grilling/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+    required_skills: []
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/decision-grilling/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: decision-grilling-context-45
+    canonical_path: development/bootstrap-agent/skills/decision-grilling-context-45
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/decision-grilling-context-45/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - bounded_execution_planner
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/decision-grilling-context-45/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: domain-grilling-with-docs
+    canonical_path: development/bootstrap-agent/skills/domain-grilling-with-docs
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/domain-grilling-with-docs/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - decision-grilling
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/domain-grilling-with-docs/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: domain-grilling-with-docs-context-45
+    canonical_path: development/bootstrap-agent/skills/domain-grilling-with-docs-context-45
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/domain-grilling-with-docs-context-45/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+      - bounded_execution_planner
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - domain-grilling-with-docs
+      - conversation-to-prd
+      - prd-to-implementation-plan
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/domain-grilling-with-docs-context-45/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: mermaid-diagrams
+    canonical_path: development/bootstrap-agent/skills/mermaid-diagrams
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/mermaid-diagrams/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/mermaid-diagrams/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: plantuml-diagrams
+    canonical_path: development/bootstrap-agent/skills/plantuml-diagrams
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/plantuml-diagrams/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/plantuml-diagrams/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: prd-to-implementation-plan
+    canonical_path: development/bootstrap-agent/skills/prd-to-implementation-plan
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/prd-to-implementation-plan/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - conversation-to-prd
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/prd-to-implementation-plan/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: system-definition-interview
+    canonical_path: development/bootstrap-agent/skills/system-definition-interview
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/system-definition-interview/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+      - decision-grilling-context-45
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/system-definition-interview/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: system-definition-interview-context-45
+    canonical_path: development/bootstrap-agent/skills/system-definition-interview-context-45
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/system-definition-interview-context-45/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - requirements_verifier
+      - bounded_execution_planner
+    required_skills:
+      - codex-usage-metrics
+    optional_skills:
+      - conversation-to-prd
+      - prd-to-implementation-plan
+      - decision-grilling-context-45
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/system-definition-interview-context-45/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: technical-writing-quality-gate
+    canonical_path: development/bootstrap-agent/skills/technical-writing-quality-gate
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/technical-writing-quality-gate/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - verification_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills: []
+    python_requirements: null
+    scripts:
+      - development/bootstrap-agent/skills/technical-writing-quality-gate/scripts/technical_writing_warning_gate.py
+    compatibility_shims:
+      - .codex/skills/technical-writing-quality-gate/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: skill-import-generalizer
+    canonical_path: development/bootstrap-agent/skills/skill-import-generalizer
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/skill-import-generalizer/skill.yaml
+    required_by_roles:
+      - system_analyst
+      - system_engineer
+      - software_engineer
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/skill-import-generalizer/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: role-catalog-governance
+    canonical_path: development/bootstrap-agent/skills/role-catalog-governance
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/role-catalog-governance/skill.yaml
+    required_by_roles:
+      - system_director
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/role-catalog-governance/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: system-layer-classifier
+    canonical_path: development/bootstrap-agent/skills/system-layer-classifier
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/system-layer-classifier/skill.yaml
+    required_by_roles:
+      - system_director
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/system-layer-classifier/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: artifact-contract-governance
+    canonical_path: development/bootstrap-agent/skills/artifact-contract-governance
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/artifact-contract-governance/skill.yaml
+    required_by_roles:
+      - system_architect
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/artifact-contract-governance/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: traceability-matrix-engine
+    canonical_path: development/bootstrap-agent/skills/traceability-matrix-engine
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/traceability-matrix-engine/skill.yaml
+    required_by_roles:
+      - requirements_manager
+      - requirements_verifier
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/traceability-matrix-engine/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: director-decision-governor
+    canonical_path: development/bootstrap-agent/skills/director-decision-governor
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/director-decision-governor/skill.yaml
+    required_by_roles:
+      - system_director
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+      - traceability-matrix-engine
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/director-decision-governor/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: source-authority-auditor
+    canonical_path: development/bootstrap-agent/skills/source-authority-auditor
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/source-authority-auditor/skill.yaml
+    required_by_roles:
+      - documentation_librarian
+      - context_memory_knowledge_architect
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/source-authority-auditor/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: context-window-and-handoff-manager
+    canonical_path: development/bootstrap-agent/skills/context-window-and-handoff-manager
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/context-window-and-handoff-manager/skill.yaml
+    required_by_roles:
+      - bounded_execution_planner
+    required_skills: []
+    optional_skills:
+      - source-first-memory
+      - codex-usage-metrics
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/context-window-and-handoff-manager/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: verification-validation-planner
+    canonical_path: development/bootstrap-agent/skills/verification-validation-planner
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/verification-validation-planner/skill.yaml
+    required_by_roles:
+      - technical_requirements_engineer
+      - requirements_verifier
+      - verification_engineer
+    required_skills: []
+    optional_skills:
+      - traceability-matrix-engine
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/verification-validation-planner/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: assurance-case-builder
+    canonical_path: development/bootstrap-agent/skills/assurance-case-builder
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/assurance-case-builder/skill.yaml
+    required_by_roles:
+      - security_safety_privacy_compliance_reviewer
+    required_skills: []
+    optional_skills:
+      - threat-model-and-permission-scope
+      - traceability-matrix-engine
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/assurance-case-builder/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: threat-model-and-permission-scope
+    canonical_path: development/bootstrap-agent/skills/threat-model-and-permission-scope
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/threat-model-and-permission-scope/skill.yaml
+    required_by_roles:
+      - security_safety_privacy_compliance_reviewer
+    required_skills: []
+    optional_skills:
+      - source-authority-auditor
+      - assurance-case-builder
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/threat-model-and-permission-scope/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: evaluation-harness-designer
+    canonical_path: development/bootstrap-agent/skills/evaluation-harness-designer
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/evaluation-harness-designer/skill.yaml
+    required_by_roles:
+      - runtime_maintenance_planner
+      - verification_engineer
+    required_skills: []
+    optional_skills:
+      - verification-validation-planner
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/evaluation-harness-designer/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: baseline-change-manager
+    canonical_path: development/bootstrap-agent/skills/baseline-change-manager
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/baseline-change-manager/skill.yaml
+    required_by_roles:
+      - svc_documentation_surface_architect
+    required_skills: []
+    optional_skills:
+      - source-authority-auditor
+      - traceability-matrix-engine
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/baseline-change-manager/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: operations-and-maintenance-planner
+    canonical_path: development/bootstrap-agent/skills/operations-and-maintenance-planner
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/operations-and-maintenance-planner/skill.yaml
+    required_by_roles:
+      - runtime_maintenance_planner
+    required_skills: []
+    optional_skills:
+      - evaluation-harness-designer
+      - threat-model-and-permission-scope
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/operations-and-maintenance-planner/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: project-ontology-and-glossary
+    canonical_path: development/bootstrap-agent/skills/project-ontology-and-glossary
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/project-ontology-and-glossary/skill.yaml
+    required_by_roles:
+      - documentation_librarian
+    required_skills: []
+    optional_skills:
+      - source-authority-auditor
+      - technical-writing-quality-gate
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/project-ontology-and-glossary/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: domain-pack-router
+    canonical_path: development/bootstrap-agent/skills/domain-pack-router
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/domain-pack-router/skill.yaml
+    required_by_roles:
+      - domain_specialist
+      - system_director
+    required_skills: []
+    optional_skills:
+      - project-ontology-and-glossary
+      - source-authority-auditor
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/domain-pack-router/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: interface-and-integration-discovery
+    canonical_path: development/bootstrap-agent/skills/interface-and-integration-discovery
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/interface-and-integration-discovery/skill.yaml
+    required_by_roles:
+      - system_architect
+    required_skills: []
+    optional_skills:
+      - artifact-contract-governance
+      - threat-model-and-permission-scope
+      - mermaid-diagrams
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/interface-and-integration-discovery/SKILL.md
+    migration_phase: adapted_runtime_active
+  - skill_id: requirements-discovery-governor
+    canonical_path: development/bootstrap-agent/skills/requirements-discovery-governor
+    status: active
+    lifecycle_status: adapted_runtime_active
+    manifest_path: development/bootstrap-agent/skills/requirements-discovery-governor/skill.yaml
+    required_by_roles:
+      - user_wants_elicitor
+      - requirements_manager
+    required_skills: []
+    optional_skills:
+      - system-definition-interview
+      - system-definition-interview-context-45
+      - conversation-to-prd
+      - traceability-matrix-engine
+    python_requirements: null
+    scripts: []
+    compatibility_shims:
+      - .codex/skills/requirements-discovery-governor/SKILL.md
+    migration_phase: adapted_runtime_active

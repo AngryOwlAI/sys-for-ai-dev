@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/runtime-state.schema.json",
+  "title": "Target workspace runtime state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "system_id", "name", "intent", "target_kind", "coordination_pattern", "operational_maturity", "authority", "approval", "validation"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "system_id": {"type": "string", "pattern": "^[^\\s/\\\\]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "intent": {"type": "string", "minLength": 1},
+    "target_kind": {"type": "string", "minLength": 1},
+    "coordination_pattern": {"type": "string", "minLength": 1},
+    "operational_maturity": {"type": "string", "minLength": 1},
+    "authority": {"const": "derivative"},
+    "approval": {"enum": ["unreviewed", "reviewed", "approved", "rejected"]},
+    "validation": {"enum": ["not-run", "pass", "warn", "fail"]}
+  }
+}

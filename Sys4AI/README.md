@@ -1,84 +1,68 @@
 # Sys4AI
 
-`Sys4AI` is a domain-agnostic system development and management framework for AI agents.
+Sys4AI is an extractable framework product and host-neutral runtime for
+designing, building, verifying, operating, improving, and retiring governed
+AI agents and agentic systems. It supplies domain rules, application services,
+contracts, reusable assets, target-package generation, source-first workspace
+navigation, and bounded execution checks.
 
-Its purpose is meta-agentic: a root AI agent uses `Sys4AI` to design, develop, run, improve, and maintain target agentic systems for specific use cases.
+The product is currently an alpha framework baseline. Its validators establish
+only the claims named by their contracts; they do not establish stakeholder
+acceptance, domain fitness, security, production readiness, or operational
+authority.
 
-> **Current boundary:** version `0.1.0`, lifecycle stage `test`, accepted only
-> as a bounded non-production baseline. The repository does not establish a
-> production target runtime, independent external evaluation, stakeholder or
-> target-domain acceptance, operational authority, production readiness, or
-> permission expansion. See
-> [`control_records/program_state.yaml`](control_records/program_state.yaml).
+## Boundary
 
-Phase 0 defines the product and system-design baseline. Phase 1 initializes the implementation: Python environment, YAML control records, TOML configuration examples, JSON Schema validation contracts, validators, skill adapters, memory registries, generated derivative stubs, and documentation policies.
+This directory is self-contained. It neither imports nor reads its parent
+development repository. Runtime state belongs in a target workspace under
+`.sys4ai/`, never in the installed source package. Generated target packages
+remain derivative until an accountable target authority reviews and promotes
+them.
 
-## Phase 1 setup
+The stable naming is:
+
+- distribution: `sys4ai`
+- Python package: `sys4ai`
+- command: `sys4ai`
+- source directory: `Sys4AI/`
+
+## Quick start
 
 ```bash
-python3 -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements.txt
-make doctor
-make validate
+python -m pip install -e '.[dev]'
+sys4ai doctor
+sys4ai generate /tmp/repo-steward \
+  --system-id repo-steward \
+  --name "Repository Steward" \
+  --intent "Propose bounded repository maintenance"
+sys4ai validate /tmp/repo-steward
 ```
 
-## Useful commands
+`sys4ai execute` validates and records an authorized transaction. The
+standalone CLI deliberately does not execute arbitrary tools; a declared host
+adapter must perform permitted actions.
+
+## Product surfaces
+
+- `src/sys4ai/` — host-neutral domain, services, runtime, ports, adapters,
+  generation, assurance, memory, governance, and CLI
+- `contracts/` — portable schemas, policies, catalogs, and profiles
+- `assets/` — generalized skills, templates, assurance assets, and domain-pack
+  contracts
+- `adapters/` — documentation for reference adapter boundaries
+- `examples/` — non-authoritative contract and profile examples
+- `docs/` — product concepts and usage guidance
+- `tests/` — product-local behavioral and boundary tests
+
+## Independent verification
+
+From this directory:
 
 ```bash
-make doctor
-make validate-skills
-make validate-metrics
-make validate-discovery-template
-make bootstrap-memory
-make validate-format-profiles
-make validate-config-sources
-make validate-control-records
-make validate-validation-contract-registry
-make validate-toml-config
-make validate-jsonschema-contracts
-make validate-registry-graph
-make validate-capability-migration
-make validate-requirement-trace
-make validate-requirement-trace-migration
-make validate-generated-derivatives
 make validate
-.venv/bin/python -m sys_for_ai.cli validate-discovery-record <path>
+python -m pytest
+python -m build
 ```
 
-## Repository areas
-
-```text
-configs/            TOML configuration examples and future config sources
-sys_for_ai/          Python reference implementation scaffold
-schemas/             YAML specs and executable JSON Schema contracts
-control_records/     Portable execution records plus read-only historical compatibility evidence
-registries/          Source-first memory starter registries
-skills/              Core skill manifest and adapter shells
-docs/                Authority policies and generated derivative stubs
-templates/           Project and target-runtime templates
-```
-
-## Authority rule
-
-Canonical sources and registries outrank generated derivatives. Obsidian, wiki, HTML, PDF, diagram, semantic-cache, and index surfaces are reader aids unless explicitly promoted through a source-authority workflow.
-
-## System-document spine
-
-`Sys4AI` does not treat Product Requirements Documents as the only systems-engineering source. See [`docs/system_document_spine.md`](docs/system_document_spine.md) for the practical chain from mission need and system definition through requirements, architecture, verification and validation, operations, and closeout.
-
-Skill routing for unclear target-system intent is defined in [`docs/skill_integration_policy.md`](docs/skill_integration_policy.md).
-
-PRD trace validation is backed by explicit per-requirement rows in [`registries/requirement_trace_registry.csv`](registries/requirement_trace_registry.csv). Each row records structural coverage status, semantic trace class, justification for partial, deferred, or out-of-phase mappings, and a semantic review verdict for non-implemented mappings.
-
-## Documentation
-
-- [Repository architecture](../ARCHITECTURE.md)
-- [Getting started](docs/getting_started.md)
-- [Concepts and invariants](docs/concepts_and_invariants.md)
-- [Documentation map](docs/documentation_map.md)
-- [Contributor guide](../CONTRIBUTING.md)
-- [Documentation policy index](docs/README.md)
-
-Generated pages under `docs/generated/` are navigation aids. They are not
-canonical requirements, policy, permission, or state authority.
+No parent path, root skill binding, root PRD, development ledger, or repository
+workflow is required by these commands.

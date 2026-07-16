@@ -1,27 +1,24 @@
 # Sys4AI documentation
 
-This directory contains controlled policy and guide sources plus deterministic
-generated readers.
+Sys4AI applies explicit requirements, authority, permissions, evidence, and
+lifecycle controls to the development and operation of agentic systems. The
+runtime is host-neutral; adapters provide mechanisms while accountable people
+and target sources retain authority.
 
 Start with:
 
-- [Getting Started](getting_started.md)
-- [Concepts and Invariants](concepts_and_invariants.md)
-- [Documentation Map](documentation_map.md)
-- [System Document Spine](system_document_spine.md)
-- [Skill Integration Policy](skill_integration_policy.md)
-- [Memory Retrieval Policy](memory_retrieval_policy.md)
-- [Self-Hosting Boundary Policy](self_hosting_boundary_policy.md)
-- [Format Profile Policy](format_profile_policy.md)
+1. [Getting started](getting-started.md)
+2. [Concepts and invariants](concepts-and-invariants.md)
+3. [Target packages](target-packages.md)
+4. [Host adapters](host-adapters.md)
+5. [Runtime state](runtime-state.md)
+6. [Self-hosting](self-hosting.md)
+7. [Roles and skills](roles-and-skills.md)
+8. [Detailed guides](guides/README.md)
 
-The root [architecture overview](../../ARCHITECTURE.md) and
-[contributor guide](../../CONTRIBUTING.md) explain the repository-wide model
-and change workflow.
+## Source authority
 
-Authority is determined by registered source status, canonical requirements,
-accepted decisions, contracts, and supersession evidence. This index and the
-documentation map are navigation surfaces, not replacements for
-`registries/source_registry.csv`.
-
-Files under [`generated/`](generated/) are deterministic noncanonical reader
-surfaces. Do not hand-edit them.
+The portable policies, schemas, and catalogs under `contracts/` are product
+authority. These narrative pages explain those sources and cannot supersede
+them. Generated target files remain derivative until accepted by target
+authority.

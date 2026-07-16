@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/role.schema.json",
+  "title": "Role definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["role_id", "purpose", "authority", "skills", "status"],
+  "properties": {
+    "role_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "purpose": {"type": "string", "minLength": 1},
+    "authority": {"type": "array", "items": {"type": "string"}},
+    "skills": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "status": {"enum": ["active", "proposed", "deprecated", "superseded"]}
+  }
+}

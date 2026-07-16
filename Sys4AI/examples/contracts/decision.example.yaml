@@ -1,0 +1,9 @@
+decision_id: EXAMPLE-DECISION-001
+title: Keep generated output derivative
+status: proposed
+owner: accountable-example-owner
+context: Generation alone supplies no approval authority.
+decision: The target package remains derivative until reviewed and promoted.
+consequences:
+  - Generated artifacts cannot identify themselves as accepted authority.
+supersedes: null

@@ -1,0 +1,13 @@
+artifact_id: SFA-CATALOG-SKILLS-INDEX-001
+artifact_type: catalog
+subject: development-system
+subject_layer: development
+authority: controlled_navigation
+status: active
+owner: documentation_librarian
+canonical_source: development/bootstrap-agent/skill-catalog/SKILL_REGISTRY.yaml
+generated_binding_roots:
+  - .agents/skills
+  - .codex/skills
+product_asset_catalog: Sys4AI/assets/skills/catalog.yaml
+note: This index points to one detailed authority source and does not duplicate skill rows.

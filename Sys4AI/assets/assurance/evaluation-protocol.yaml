@@ -1,0 +1,11 @@
+protocol_id: SYS4AI-GENERIC-EVALUATION-001
+schema_version: 1.0.0
+authority: controlled
+status: active
+claim_boundary: Results support only the named scenario and rubric.
+required_steps:
+  - identify intended use and accountable evaluator
+  - define representative scenarios and explicit failure probes
+  - preserve raw observations separately from conclusions
+  - map each conclusion to evidence and unresolved limitations
+  - require independent review for material self-change

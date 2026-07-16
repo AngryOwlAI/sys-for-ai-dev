@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/artifact.schema.json",
+  "title": "Controlled artifact metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_id", "artifact_type", "subject", "subject_layer", "authority", "status", "owner", "supersedes", "source_trace"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "artifact_type": {"type": "string", "minLength": 1},
+    "subject": {"type": "string", "minLength": 1},
+    "subject_layer": {"enum": ["development", "framework", "runtime", "target-template", "target-instance"]},
+    "authority": {"enum": ["canonical", "controlled", "reference", "generated", "historical"]},
+    "status": {"enum": ["draft", "proposed", "accepted", "active", "completed", "superseded"]},
+    "owner": {"type": "string", "minLength": 1},
+    "supersedes": {"type": ["string", "null"]},
+    "source_trace": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}

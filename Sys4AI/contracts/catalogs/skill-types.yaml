@@ -1,0 +1,12 @@
+catalog_id: SYS4AI-SKILL-TYPES-001
+schema_version: 1.0.0
+authority: canonical
+product_skill_catalog: assets/skills/catalog.yaml
+skill_types:
+  - {type_id: discovery, lifecycle_stages: [Design]}
+  - {type_id: governance, lifecycle_stages: [Design, Develop, Implement, Test, Run, Maintain, Improve, Retire]}
+  - {type_id: architecture, lifecycle_stages: [Design, Develop]}
+  - {type_id: implementation, lifecycle_stages: [Implement]}
+  - {type_id: verification, lifecycle_stages: [Test, Run]}
+  - {type_id: operations, lifecycle_stages: [Run, Maintain, Improve, Retire]}
+promotion_rule: A development skill becomes a product skill only after explicit host-neutral generalization and review.

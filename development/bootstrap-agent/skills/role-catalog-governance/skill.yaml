@@ -1,0 +1,76 @@
+skill_id: role-catalog-governance
+version: 0.1.0
+status: active
+lifecycle_status: adapted_runtime_active
+canonical_path: development/bootstrap-agent/skills/role-catalog-governance
+summary: Govern role registries, role-to-skill crosswalks, and role execution bindings.
+scope:
+  system_agnostic: true
+  target_system_types:
+    - agentic development systems
+    - generated target systems
+  intentional_specialization: Core governance skill for role catalogs and role bindings.
+  exemptions: []
+domain_emphasis:
+  - role_governance
+  - authority_boundary
+  - execution_binding
+required_role_posture:
+  - system_analyst
+  - system_engineer
+  - software_engineer
+  - system_director
+  - documentation_librarian
+activation:
+  triggers:
+    - Create or update role registry rows.
+    - Review role-to-skill crosswalks.
+    - Validate role execution bindings for explicit project authority.
+  when_not_to_use:
+    - Do not use to invent project-specific domain roles without a domain pack or Director decision.
+  preconditions:
+    - Role registries or role requirements are available as source evidence.
+inputs:
+  required:
+    - Role registry or role change request.
+    - Source authority for the role purpose.
+  optional:
+    - Current project authorization.
+    - Existing role-to-skill crosswalk rows.
+outputs:
+  primary:
+    - Controlled role governance update or explicit no-change finding.
+  evidence:
+    - Role validation command output.
+    - Source rows inspected.
+dependencies:
+  required_skills: []
+  optional_skills:
+    - source-first-memory
+    - technical-writing-quality-gate
+  validation_skills: []
+  python:
+    standard_library_only: true
+    notes: No skill-specific Python dependency.
+  external_tools:
+    - make
+authority:
+  may_read:
+    - Role registries, role crosswalks, execution bindings, legacy control records, handoffs, and source evidence.
+  may_write:
+    - Role registries and execution bindings only when explicit project authority permits those paths.
+  may_not:
+    - Add project-specific domain constraints as core role policy.
+    - Treat generated role docs as canonical role authority.
+validation:
+  commands:
+    - cd Sys4AI && make validate-roles
+  validator_classes:
+    - schema_validation
+    - trace_validation
+    - process_validation
+handoff:
+  requires_completion_receipt: true
+  evidence:
+    - Role rows changed or no-change rationale.
+    - Role validator result.

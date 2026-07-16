@@ -1,0 +1,20 @@
+[target]
+id = "example-target-agentic-system"
+name = "Example Target Agentic System"
+target_kind = "agentic-system"
+coordination_pattern = "linear_workflow"
+operational_maturity = "concept"
+
+[authority]
+status = "unreviewed"
+production_ready = false
+accountable_owner = "replace-with-target-owner"
+
+[host]
+required_capabilities = ["workspace_filesystem"]
+network_allowed = false
+external_writes_allowed = false
+
+[validation]
+require_trace = true
+require_claim_limitations = true

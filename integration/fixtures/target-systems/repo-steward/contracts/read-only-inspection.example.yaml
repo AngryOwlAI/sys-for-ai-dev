@@ -1,0 +1,21 @@
+transaction_id: fixture-read-001
+subject: repo-steward
+actor: reference-runtime
+authorized_by: fixture-target-owner
+material_self_change: false
+approval_actor: null
+actions:
+  - kind: read
+    target: requirements/product-requirements.md
+    payload: {}
+permissions:
+  allowed_reads:
+    - requirements
+  allowed_writes: []
+  allowed_tools: []
+  network_allowed: false
+  external_writes_allowed: false
+rollback: Read-only action; discard ephemeral run evidence if rejected.
+stop_conditions:
+  - Stop when the requested path is outside the read envelope.
+  - Stop when target authority or host capability is unavailable.

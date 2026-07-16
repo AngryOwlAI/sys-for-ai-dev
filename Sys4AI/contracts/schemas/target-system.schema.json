@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/target-system.schema.json",
+  "title": "Generated target-system manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "target_system_id", "name", "intent", "target_kind", "coordination_pattern", "operational_maturity", "authority", "approval", "package_status", "production_ready"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "target_system_id": {"type": "string", "pattern": "^[^\\s/\\\\]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "intent": {"type": "string", "minLength": 1},
+    "target_kind": {"type": "string", "minLength": 1},
+    "coordination_pattern": {"type": "string", "minLength": 1},
+    "operational_maturity": {"type": "string", "minLength": 1},
+    "authority": {"const": "derivative"},
+    "approval": {"enum": ["unreviewed", "reviewed", "approved", "rejected"]},
+    "package_status": {"enum": ["generated_candidate", "reviewed_candidate", "accepted_baseline"]},
+    "production_ready": {"const": false}
+  }
+}

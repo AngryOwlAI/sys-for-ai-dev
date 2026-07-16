@@ -1,0 +1,16 @@
+catalog_id: SYS4AI-ARTIFACT-TYPES-001
+schema_version: 1.0.0
+authority: canonical
+artifact_types:
+  - {type_id: strategic-intent, class: authority, default_authority: controlled}
+  - {type_id: discovery, class: requirements, default_authority: generated}
+  - {type_id: product-requirements, class: requirements, default_authority: controlled}
+  - {type_id: system-requirements, class: requirements, default_authority: controlled}
+  - {type_id: architecture, class: design, default_authority: controlled}
+  - {type_id: decision, class: governance, default_authority: controlled}
+  - {type_id: implementation-plan, class: planning, default_authority: controlled}
+  - {type_id: execution-transaction, class: runtime, default_authority: controlled}
+  - {type_id: handoff, class: runtime, default_authority: generated}
+  - {type_id: completion-evidence, class: evidence, default_authority: generated}
+  - {type_id: validation-result, class: evidence, default_authority: generated}
+  - {type_id: target-system-package, class: derivative, default_authority: generated}

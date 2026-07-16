@@ -1,0 +1,26 @@
+name: Validate development
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: Sys4AI/pyproject.toml
+      - name: Install validation dependencies
+        run: python -m pip install PyYAML jsonschema pytest
+      - name: Validate project control and bootstrap development
+        run: make validate-development PYTHON=python PRODUCT_PYTHON=python

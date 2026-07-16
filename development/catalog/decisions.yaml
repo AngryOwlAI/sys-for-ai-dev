@@ -1,0 +1,18 @@
+artifact_id: SFA-CATALOG-DECISIONS-001
+artifact_type: catalog
+subject: development-system
+subject_layer: development
+authority: controlled_navigation
+status: active
+owner: documentation_librarian
+decisions:
+  - id: ADR-0001
+    path: decisions/ADR-0001-repository-boundaries.md
+  - id: ADR-0002
+    path: decisions/ADR-0002-bootstrap-runtime.md
+  - id: ADR-0003
+    path: decisions/ADR-0003-self-hosting.md
+  - id: ADR-0004
+    path: decisions/ADR-0004-product-packaging.md
+  - id: ADR-0005
+    path: decisions/ADR-0005-development-environment.md

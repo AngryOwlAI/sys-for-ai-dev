@@ -1,0 +1,19 @@
+[profile]
+profile_id = "example-controlled-self-hosting"
+stage = 2
+bootstrap_runtime = "trusted-release-0.1.0"
+candidate_runtime = "candidate-0.2.0"
+
+[trusted_release]
+version = "0.1.0"
+immutable = true
+
+[candidate_workspace]
+path = "worktrees/candidate-0.2.0"
+separate_from_trusted_runtime = true
+
+[promotion]
+human_owner = "accountable-release-owner"
+independent_verification = true
+rollback_release = "0.1.0"
+candidate_may_self_approve = false

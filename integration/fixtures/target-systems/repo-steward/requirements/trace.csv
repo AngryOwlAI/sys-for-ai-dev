@@ -1,0 +1,4 @@
+requirement_id,artifact,verification,status
+RS-REQ-001,contracts/read-only-inspection.example.yaml,integration-test,candidate
+RS-REQ-002,implementation-plan.md,inspection,candidate
+RS-REQ-003,governance/authority.yaml,integration-test,candidate

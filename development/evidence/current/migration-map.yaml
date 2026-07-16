@@ -1,0 +1,43 @@
+artifact_id: SFA-EVIDENCE-MIGRATION-MAP-001
+artifact_type: evidence
+subject: development-system
+subject_layer: development
+authority: controlled
+status: active
+owner: baseline_change_manager
+change_class: migration_and_supersession
+baseline:
+  commit: 5a6aaf7652661e094cdfa40be55a380e9bc0cd8c
+  tag: pre-reboot-2026-07-15
+  aggregate_validation: pass
+  archival_repository: git@github-omegapy:AngryOwlAI/sys-for-ai-dev-old.git
+input_review:
+  sha256: cc4684b8db7c90be65fbb3fcab65adfbd3efe38f732652c528805720f1532139
+preserved_post_baseline_work:
+  - development/bootstrap-agent/reference/mixed-layer-guides/
+  - Sys4AI/docs/guides/
+dispositions:
+  - source: .agents/skills/
+    destination: development/bootstrap-agent/skills/
+    class: canonical_development
+  - source: .codex/skills/
+    destination: generated_host_bindings
+    class: derivative
+  - source: Sys4AI/skills/core/
+    destination: Sys4AI/assets/skills/
+    class: portable_product_asset
+  - source: Sys4AI/examples/target_systems/repo_steward_agent_package/
+    destination: integration/fixtures/target-systems/repo-steward/
+    class: derivative_target_fixture
+  - source: Sys4AI/control_records/ and historical registries
+    destination: pre_reboot_baseline_only
+    class: historical_development_evidence
+  - source: implementation_plans historical reports receipts and audits
+    destination: pre_reboot_baseline_only
+    class: historical_development_evidence
+  - source: Sys4AI/docs/generated/
+    destination: local_ci_or_release_artifacts
+    class: generated_derivative
+rollback:
+  method: restore or compare through the pre-reboot tag or a separate worktree
+  activated_history_policy: supersede_do_not_rewrite

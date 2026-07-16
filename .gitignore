@@ -1,25 +1,20 @@
 .DS_Store
-
-# Phase 1 local Python environment
 .venv/
-*.egg-info/
-
-# Python caches
-__pycache__/
-*.py[cod]
+.local/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-
-# Local generated reader surfaces and receipts
-.local/
-
-temp_handoff/
-
-# Generated context-45 checkpoints and metrics receipts
-.agents/skills/*-context-45/temp_prd.md
-.agents/skills/*-context-45/usage-metrics.txt
-.agents/skills/*-context-45/archived_temp_prd/
-Sys4AI/skills/core/*-context-45/temp_prd.md
-Sys4AI/skills/core/*-context-45/usage-metrics.txt
-Sys4AI/skills/core/*-context-45/archived_temp_prd/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.sys4ai/
+coverage.xml
+.coverage
+htmlcov/
+docs/generated/
+Sys4AI/docs/generated/
+development/bootstrap-agent/skills/*-context-45/temp_prd.md
+development/bootstrap-agent/skills/*-context-45/usage-metrics.txt
+development/bootstrap-agent/skills/*-context-45/archived_temp_prd/

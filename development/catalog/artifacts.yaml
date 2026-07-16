@@ -1,0 +1,35 @@
+artifact_id: SFA-CATALOG-ARTIFACTS-001
+artifact_type: catalog
+subject: development-system
+subject_layer: development
+authority: controlled_navigation
+status: active
+owner: documentation_librarian
+artifacts:
+  - id: SFA-PRD-PRODUCT-BASELINE-001
+    path: PRDs/active/Sys4AI_product_baseline_prd.md
+    class: canonical_source
+  - id: SFA-PRD-REPOSITORY-REBOOT-001
+    path: PRDs/active/Sys4AI_repository_reboot_prd.md
+    class: controlled_source
+  - id: SFA-PLAN-REPOSITORY-REBOOT-001
+    path: implementation_plans/active/repository-reboot-implementation-plan.md
+    class: controlled_source
+  - id: SFA-STATE-CURRENT-WORK-001
+    path: development/state/current-work.yaml
+    class: controlled_source
+  - id: SFA-ARCH-INDEX-001
+    path: architecture/README.md
+    class: controlled_source
+  - id: SFA-CATALOG-SKILLS-001
+    path: development/bootstrap-agent/skill-catalog/SKILL_REGISTRY.yaml
+    class: controlled_source
+  - id: SFA-TRACE-REBOOT-001
+    path: development/trace/requirements.csv
+    class: controlled_evidence_index
+  - id: SFA-EVIDENCE-MIGRATION-MAP-001
+    path: development/evidence/current/migration-map.yaml
+    class: current_evidence
+  - id: SFA-EVIDENCE-MEMORY-PREFLIGHT-001
+    path: development/evidence/current/memory-preflight.yaml
+    class: current_evidence

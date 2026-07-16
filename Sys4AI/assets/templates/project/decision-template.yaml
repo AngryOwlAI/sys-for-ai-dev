@@ -1,0 +1,9 @@
+decision_id: CANDIDATE-DECISION-ID
+title: Candidate decision title
+status: proposed
+owner: accountable-owner
+context: Describe the decision context.
+decision: Describe the proposed decision.
+consequences:
+  - Describe a consequence.
+supersedes: null

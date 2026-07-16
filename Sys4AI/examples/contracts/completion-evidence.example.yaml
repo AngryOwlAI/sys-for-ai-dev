@@ -1,0 +1,9 @@
+evidence_id: example-evidence-001
+subject: sample-target
+claim: The named target package has all required structural artifacts.
+checks:
+  - sys4ai validate sample-target
+result: pass
+limitations:
+  - Structural presence does not establish semantic correctness.
+  - No production readiness or operational authority is claimed.

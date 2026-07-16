@@ -1,0 +1,26 @@
+name: Validate integration
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: Sys4AI/pyproject.toml
+      - name: Install product and integration dependencies
+        run: python -m pip install -e './Sys4AI[dev]'
+      - name: Exercise target generation and bounded execution
+        run: make validate-integration PYTHON=python PRODUCT_PYTHON=python

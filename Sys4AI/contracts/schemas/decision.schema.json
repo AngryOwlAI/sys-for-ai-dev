@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/decision.schema.json",
+  "title": "Architecture or governance decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision_id", "title", "status", "owner", "context", "decision", "consequences"],
+  "properties": {
+    "decision_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]},
+    "owner": {"type": "string", "minLength": 1},
+    "context": {"type": "string", "minLength": 1},
+    "decision": {"type": "string", "minLength": 1},
+    "consequences": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "supersedes": {"type": ["string", "null"]}
+  }
+}

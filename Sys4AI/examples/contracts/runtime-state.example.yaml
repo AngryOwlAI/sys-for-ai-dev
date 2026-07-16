@@ -1,0 +1,10 @@
+schema_version: 1.0.0
+system_id: sample-target
+name: Sample Target
+intent: Demonstrate a derivative target workspace.
+target_kind: agentic-system
+coordination_pattern: linear_workflow
+operational_maturity: concept
+authority: derivative
+approval: unreviewed
+validation: not-run

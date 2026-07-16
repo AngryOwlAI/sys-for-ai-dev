@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/handoff.schema.json",
+  "title": "Resumable handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["handoff_id", "subject", "from_actor", "to_actor", "state", "authority_sources", "evidence_paths", "next_action", "limitations"],
+  "properties": {
+    "handoff_id": {"type": "string", "minLength": 1},
+    "subject": {"type": "string", "minLength": 1},
+    "from_actor": {"type": "string", "minLength": 1},
+    "to_actor": {"type": "string", "minLength": 1},
+    "state": {"enum": ["ready", "blocked", "complete"]},
+    "authority_sources": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "evidence_paths": {"type": "array", "items": {"type": "string"}},
+    "next_action": {"type": ["string", "null"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

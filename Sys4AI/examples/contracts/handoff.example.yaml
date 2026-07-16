@@ -1,0 +1,12 @@
+handoff_id: example-handoff-001
+subject: sample-target
+from_actor: discovery-runtime
+to_actor: accountable-reviewer
+state: ready
+authority_sources:
+  - requirements/product-requirements.md
+evidence_paths:
+  - evidence/discovery-review.md
+next_action: Review candidate requirements before promotion.
+limitations:
+  - No requirement is approved by this handoff.

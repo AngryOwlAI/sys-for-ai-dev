@@ -1,0 +1,12 @@
+schema_version: 1.0.0
+target_system_id: repo-steward
+name: Repository Steward
+intent: Propose bounded evidence-backed repository maintenance without autonomous
+  publication
+target_kind: agentic-system
+coordination_pattern: linear_workflow
+operational_maturity: concept
+authority: derivative
+approval: unreviewed
+package_status: generated_candidate
+production_ready: false

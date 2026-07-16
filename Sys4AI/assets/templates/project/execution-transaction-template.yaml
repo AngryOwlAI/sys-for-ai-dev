@@ -1,0 +1,23 @@
+# Copy this portable template and replace every placeholder.
+# Structural validity is not execution authorization.
+transaction_id: replace-with-path-safe-id
+subject: replace-with-governed-subject
+actor: replace-with-runtime-actor
+authorized_by: replace-with-accountable-authority
+material_self_change: false
+approval_actor: null
+actions:
+  - kind: read
+    target: requirements
+    payload: {}
+permissions:
+  allowed_reads:
+    - requirements
+  allowed_writes: []
+  allowed_tools: []
+  network_allowed: false
+  external_writes_allowed: false
+rollback: Describe reversal or why the transaction is read-only.
+stop_conditions:
+  - Stop when authority permission source or capability evidence is missing.
+  - Stop when an action exceeds the declared envelope.

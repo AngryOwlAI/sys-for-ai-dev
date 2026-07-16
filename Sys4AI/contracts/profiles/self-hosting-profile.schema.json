@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sys4ai.example/contracts/self-hosting-profile.schema.json",
+  "title": "Controlled self-hosting profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile", "trusted_release", "candidate_workspace", "promotion"],
+  "properties": {
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "stage", "bootstrap_runtime", "candidate_runtime"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "stage": {"enum": [0, 1, 2, 3, 4]},
+        "bootstrap_runtime": {"type": "string", "minLength": 1},
+        "candidate_runtime": {"type": "string", "minLength": 1}
+      }
+    },
+    "trusted_release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "immutable"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "immutable": {"const": true}
+      }
+    },
+    "candidate_workspace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "separate_from_trusted_runtime"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "separate_from_trusted_runtime": {"const": true}
+      }
+    },
+    "promotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_owner", "independent_verification", "rollback_release", "candidate_may_self_approve"],
+      "properties": {
+        "human_owner": {"type": "string", "minLength": 1},
+        "independent_verification": {"const": true},
+        "rollback_release": {"type": "string", "minLength": 1},
+        "candidate_may_self_approve": {"const": false}
+      }
+    }
+  }
+}
